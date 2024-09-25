@@ -87,7 +87,6 @@ const page = () => {
   return (
     <div className="p-5">
       <h1 className="text-xl pb-4">Registration For New user!</h1>
-
       <div className="mt-10 text-black">
         <div className="flex flex-col gap-10">
           {/* profile pic */}
@@ -470,6 +469,19 @@ const page = () => {
               />
             </div>
           </div>
+        </div>
+      </div>
+      {/* registration Button */}
+      <div className="my-10 flex">
+        <div
+          style={{
+            boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
+          }}
+          className="w-1/2 mx-auto bg-[#7ebc94] cursor-pointer rounded-full flex justify-center hover:scale-95  transition-all duration-300 ease-in"
+        >
+          <button className="text-red-600 font-bold px-12 py-3 ">
+            Complete Registration
+          </button>
         </div>
       </div>
     </div>
