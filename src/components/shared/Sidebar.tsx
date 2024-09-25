@@ -2,6 +2,7 @@
 
 import {
   AppstoreOutlined,
+  AuditOutlined,
   CloudUploadOutlined,
   CustomerServiceOutlined,
   GlobalOutlined,
@@ -96,6 +97,11 @@ const firstMenuItems: MenuItem[] = [
         label: <Link href="/fix-deposit-wallet">Fix Deposit Wallet</Link>,
       },
     ],
+  },
+  {
+    key: "joining",
+    label: <Link href="/dashboard/joining">Joining</Link>,
+    icon: <AuditOutlined />,
   },
   {
     key: "team-info",
