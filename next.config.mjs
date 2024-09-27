@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-module.exports = {
+export default {
   async redirects() {
     return [
       {
