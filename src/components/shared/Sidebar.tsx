@@ -19,6 +19,10 @@ import {
   UsergroupAddOutlined,
   WalletOutlined,
 } from "@ant-design/icons";
+import { TbUserStar } from "react-icons/tb";
+import { GrUserAdmin } from "react-icons/gr";
+import { RiUser2Fill } from "react-icons/ri";
+
 import { Avatar, ConfigProvider, Menu, type MenuProps } from "antd";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -28,7 +32,7 @@ type MenuItem = Required<MenuProps>["items"][number];
 const firstMenuItems: MenuItem[] = [
   {
     key: "dashboard",
-    label: <Link href="/">Dashboard</Link>,
+    label: <Link href="/dashboard">Dashboard</Link>,
     icon: <AppstoreOutlined />,
   },
   {
@@ -38,16 +42,17 @@ const firstMenuItems: MenuItem[] = [
     children: [
       {
         key: "my-profile",
-        icon: <Avatar />,
+        icon: <RiUser2Fill />,
         label: <Link href="/profile/my-profile">My Profile</Link>,
       },
       {
         key: "update-profile",
+        icon: <TbUserStar />,
         label: <Link href="/profile/update-profile">Profile Update</Link>,
       },
       {
         key: "change-password",
-        icon: <KeyOutlined />,
+        icon: <GrUserAdmin />,
         label: <Link href="/profile/change-password">Change Password</Link>,
       },
     ],
@@ -199,7 +204,7 @@ const Sidebar: React.FC = () => {
               Menu: {
                 itemColor: "green",
                 iconSize: 20,
-                itemSelectedBg: "#38c438ab",
+                itemSelectedBg: "#c9c3bd",
                 itemSelectedColor: "red",
                 itemHeight: 42,
                 subMenuItemBg: "transparent",

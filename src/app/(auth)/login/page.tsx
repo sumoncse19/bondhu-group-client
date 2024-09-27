@@ -64,7 +64,7 @@ const page = () => {
               </div>
               <div className="text-gray-600 text-sm">Forgot your password?</div>
             </div>
-            <div className="mt-6 bg-[#3B82F6] text-white flex justify-center py-4 rounded-full hover:shadow-2xl hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer">
+            <div className="mt-16 bg-[#3B82F6] text-white flex justify-center py-4 rounded-full hover:shadow-2xl hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer">
               <button type="submit" className="w-full text-xl">
                 Log in
               </button>
