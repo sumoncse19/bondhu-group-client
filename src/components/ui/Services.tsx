@@ -11,7 +11,7 @@ const Services = () => {
             healthcare, and more for your needs.
           </p>
         </div>
-        <div className="flex items-center gap-4 pt-16">
+        <div className="flex items-center justify-center gap-4 pt-16">
           {/* left side image */}
           <div className="relative">
             <img
