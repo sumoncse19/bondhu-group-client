@@ -43,17 +43,21 @@ const firstMenuItems: MenuItem[] = [
       {
         key: "my-profile",
         icon: <RiUser2Fill />,
-        label: <Link href="/profile/my-profile">My Profile</Link>,
+        label: <Link href="/dashboard/profile/my-profile">My Profile</Link>,
       },
       {
         key: "update-profile",
         icon: <TbUserStar />,
-        label: <Link href="/profile/update-profile">Profile Update</Link>,
+        label: (
+          <Link href="/dashboard/profile/update-profile">Profile Update</Link>
+        ),
       },
       {
         key: "change-password",
         icon: <GrUserAdmin />,
-        label: <Link href="/profile/change-password">Change Password</Link>,
+        label: (
+          <Link href="/dashboard/profile/change-password">Change Password</Link>
+        ),
       },
     ],
   },
@@ -65,7 +69,7 @@ const firstMenuItems: MenuItem[] = [
       {
         key: "add-now",
         icon: <PlusSquareOutlined />,
-        label: <Link href="/add-now">Add Now</Link>,
+        label: <Link href="/dashboard/add-money/add-now">Add Now</Link>,
       },
       {
         key: "history",
@@ -85,21 +89,23 @@ const firstMenuItems: MenuItem[] = [
     children: [
       {
         key: "income-wallet",
-        label: <Link href="/income-wallet">Income Wallet</Link>,
+        label: <Link href="/income-wallet">Income</Link>,
       },
       {
         key: "return-purchase-wallet",
-        label: (
-          <Link href="/return-purchase-wallet">Return Purchase Wallet</Link>
-        ),
+        label: <Link href="/return-purchase-wallet">Share Return</Link>,
       },
       {
         key: "share-holder-wallet",
-        label: <Link href="/share-holder-wallet">Share Holder Wallet</Link>,
+        label: <Link href="/share-holder-wallet">Share Holder</Link>,
       },
       {
         key: "fix-deposit-wallet",
-        label: <Link href="/fix-deposit-wallet">Fix Deposit Wallet</Link>,
+        label: <Link href="/fix-deposit-wallet">Fix Deposit</Link>,
+      },
+      {
+        key: "directorship-wallet",
+        label: <Link href="/directorship-wallet">Directorship</Link>,
       },
     ],
   },
