@@ -5,7 +5,7 @@ const Hero = () => {
     <div className="relative w-full ">
       <div
         style={{
-          background: "url('/images/HomeBanner.jpg')",
+          background: "url('/images/homeBanner.jpg')",
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
