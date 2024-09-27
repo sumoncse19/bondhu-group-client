@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="relative w-full ">
+    <div className="relative w-[100vw] ">
       <div
         style={{
           background: "url('/images/homeBanner.jpg')",
