@@ -38,3 +38,8 @@ body {
     background-image: url("/images/loginPageImg2.png");
   }
 }
+
+.gradient-border {
+  border: 8px solid;
+  border-image: linear-gradient(to right, yellow, orange, red) 1;
+}

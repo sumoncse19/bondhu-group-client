@@ -6,15 +6,16 @@ import { FaSearch } from "react-icons/fa";
 const Header = () => {
   return (
     <div
-      style={{
-        boxShadow:
-          " rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
-      }}
-      className="bg-[#9bdeb3]  flex justify-between px-12 py-3"
+      // style={{
+      //   boxShadow:
+      //     " rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
+      // }}
+      className="bg-[#f8eee2]  flex justify-between px-12 py-3 fixed top-0 w-full z-[1000]"
     >
       {/* left side */}
       <div className="flex items-center">
-        <div>
+        <div className="flex items-center gap-3">
+          <img className="w-20 h-20" src="/images/logo.png" alt="" />
           <p className="protest-guerrilla-regular text-3xl text-red-600">
             Bondhu Group
           </p>

@@ -99,7 +99,13 @@ const page = () => {
                 onClick={handleImageClick}
               />
               <span className="flex items-center gap-1">
-                <p>{imageUrl ? `Photo uploaded` : "Add Photo First"} </p>
+                <span>
+                  {imageUrl ? (
+                    `Photo uploaded`
+                  ) : (
+                    <p className="font-bold animate-bounce">Add Photo First</p>
+                  )}{" "}
+                </span>
                 {imageUrl && (
                   <IoCheckmarkDoneCircle className="text-black text-lg font-bold" />
                 )}
@@ -115,13 +121,13 @@ const page = () => {
           {/* name */}
           <div className="relative">
             <label
-              className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
               htmlFor="name"
             >
               Name <p className="inline text-red-500 text-lg font-bold">*</p>
             </label>
             <input
-              className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+              className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
               type="text"
               id="name"
             />
@@ -130,26 +136,26 @@ const page = () => {
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="father or husband name"
               >
                 Father/Husband Name
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="father or husband name"
               />
             </div>{" "}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="mother name"
               >
                 Mother Name
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="mother name"
               />
@@ -159,28 +165,28 @@ const page = () => {
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="nid"
               >
                 NID No.{" "}
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="nid"
               />
             </div>{" "}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="dob"
               >
                 DOB
               </label>
               <input
                 placeholder="ex: 12.09.1999"
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="dob"
               />
@@ -190,41 +196,41 @@ const page = () => {
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="email"
               >
                 Email <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="email"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="password"
               >
                 Password{" "}
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="password"
                 id="password"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="mobile_no"
               >
                 Mobile No{" "}
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="number"
                 id="mobile_no"
               />
@@ -233,7 +239,7 @@ const page = () => {
           {/* Present Address */}
           <div className="relative">
             <label
-              className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
               htmlFor="present-address"
             >
               Present Address
@@ -241,13 +247,13 @@ const page = () => {
             <textarea
               id="present-address"
               rows={3}
-              className="w-full bg-[#BBF7D0] px-12 py-1.5 text-black rounded-md border-2 border-black outline-none group resize-none"
+              className="w-full bg-[#EAE9E8] px-12 py-1.5 text-black rounded-md border-2 border-black outline-none group resize-none"
             />
           </div>
           {/* permanent Address */}
           <div className="relative">
             <label
-              className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
               htmlFor="permennt-address"
             >
               Permanent Address
@@ -255,61 +261,61 @@ const page = () => {
             <textarea
               id="permennt-address"
               rows={3}
-              className="w-full bg-[#BBF7D0] px-12 py-2 text-black rounded-md border-2 border-black outline-none group resize-none"
+              className="w-full bg-[#EAE9E8] px-12 py-2 text-black rounded-md border-2 border-black outline-none group resize-none"
             />
           </div>
           {/* Profession,refference id  and placement id nationality */}
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="profession"
               >
                 Profession
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="profession"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="refernce_id"
               >
                 Reference Id{" "}
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="refernce_id"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="placement_id"
               >
                 Placement Id{" "}
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="placement_id"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="nationality"
               >
                 Nationality
               </label>
               <input
-                className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="nationality"
               />
@@ -322,7 +328,7 @@ const page = () => {
                 Religion
               </label>
               <select
-                className="bg-[#BBF7D0] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
                 name=""
                 id="religion"
               >
@@ -338,7 +344,7 @@ const page = () => {
                 Maritual Status
               </label>
               <select
-                className="bg-[#BBF7D0] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
                 name=""
                 id="maritual_status"
               >
@@ -353,7 +359,7 @@ const page = () => {
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <select
-                className="bg-[#BBF7D0] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
                 name=""
                 id="team_side"
               >
@@ -367,7 +373,7 @@ const page = () => {
                 Blood Group
               </label>
               <select
-                className="bg-[#BBF7D0] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
                 name=""
                 id="blood_gp"
               >
@@ -414,41 +420,41 @@ const page = () => {
             <div className="flex items-center gap-10">
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                   htmlFor="nominee's_name"
                 >
                   Name{" "}
                   <p className="inline text-red-500 text-lg font-bold">*</p>
                 </label>
                 <input
-                  className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                   type="text"
                   id="nominee's_name"
                 />
               </div>
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                   htmlFor="nominee's_mobile"
                 >
                   Mobile No.{" "}
                   <p className="inline text-red-500 text-lg font-bold">*</p>
                 </label>
                 <input
-                  className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                   type="number"
                   id="nominee's_mobile"
                 />
               </div>
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                   htmlFor="relation_with_nominee"
                 >
                   Relation
                 </label>
                 <input
-                  className="w-full bg-[#BBF7D0] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                   type="text"
                   id="relation_with_nominee"
                 />
@@ -457,7 +463,7 @@ const page = () => {
             {/* nominee's address */}
             <div className="relative">
               <label
-                className="absolute -top-3 left-3 bg-[#BBF7D0] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
                 htmlFor="nominee's-address"
               >
                 Address
@@ -465,7 +471,7 @@ const page = () => {
               <textarea
                 id="nominee's-address"
                 rows={3}
-                className="w-full bg-[#BBF7D0] px-12 py-1.5 text-black rounded-md border-2 border-black outline-none group resize-none"
+                className="w-full bg-[#EAE9E8] px-12 py-1.5 text-black rounded-md border-2 border-black outline-none group resize-none"
               />
             </div>
           </div>
@@ -474,12 +480,12 @@ const page = () => {
       {/* registration Button */}
       <div className="my-10 flex">
         <div
-          style={{
-            boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-          }}
-          className="w-1/2 mx-auto bg-[#7ebc94] cursor-pointer rounded-full flex justify-center hover:scale-95  transition-all duration-300 ease-in"
+          // style={{
+          //   boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
+          // }}
+          className="w-1/2 mx-auto bg-[#cec8c3] shadow-lg cursor-pointer rounded-xl flex justify-center hover:scale-95  transition-all duration-300 ease-in"
         >
-          <button className="text-red-600 font-bold px-12 py-3 ">
+          <button className="text-black font-bold px-12 py-3 ">
             Complete Registration
           </button>
         </div>
