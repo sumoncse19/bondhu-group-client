@@ -1,10 +1,18 @@
-const nextConfig = {
-  output: "export",
-  eslint: {
-    dirs: ["."],
+/* eslint-disable prettier/prettier */
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: "/(.*)",
+        has: [
+          {
+            type: "host",
+            value: "www.bondhugroupbd.com",
+          },
+        ],
+        destination: "https://bondhugroupbd.com/:path*",
+        permanent: true,
+      },
+    ];
   },
-  poweredByHeader: false,
-  reactStrictMode: true,
 };
-
-export default nextConfig;
