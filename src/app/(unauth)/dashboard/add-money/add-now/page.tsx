@@ -200,7 +200,7 @@ const page = () => {
             <div className="flex flex-col items-center gap-y-2">
               <img
                 className={`w-20 h-20 ${!selectedPlans.includes("share-holder") && "filter grayscale"}`}
-                src="/images/shareHolderIcon.png"
+                src="/images/shareholderIcon.png"
                 alt=""
               />
               <p
