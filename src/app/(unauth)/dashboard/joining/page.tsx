@@ -1,12 +1,16 @@
 "use client";
-
 import { useMutation } from "@tanstack/react-query";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import baseUrl from "../../../../../config";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { ThreeCircles } from "react-loader-spinner";
 
 // Define your UserData interface
 interface UserData {
+  _id?: string;
   name: string;
   user_name: string;
   father_or_husband_name: string;
@@ -36,20 +40,6 @@ interface UserData {
   registration_date: string;
 }
 
-// API call to register a user
-const registerUser = async (userData: UserData): Promise<any> => {
-  const response = await fetch("/api/register", {
-    method: "POST",
-    body: JSON.stringify(userData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (!response.ok) {
-    throw new Error("Registration failed");
-  }
-  return response.json();
-};
 const page = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const fileInputRef2 = useRef<HTMLInputElement | null>(null);
@@ -64,6 +54,7 @@ const page = () => {
   const [dob, setDob] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConFrimPassword] = useState<string>("");
   const [mobileNo, setMobileNo] = useState<string>("");
   const [presentAddress, setPresentAddress] = useState<string>("");
   const [permanentAddress, setPermanentAddress] = useState<string>("");
@@ -79,8 +70,25 @@ const page = () => {
   const [nomineePhoneNo, setNomineePhoneNo] = useState<string>("");
   const [nomineeRelation, setNomineeRelation] = useState<string>("");
   const [nomineeAddress, setNomineeAddress] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<UserData>();
+  const [childUsers, setChildUsers] = useState<[]>([]);
+  const [currentOptions, setCurrentOptions] = useState<any>([
+    {
+      label: "A",
+      value: "a",
+    },
+    {
+      label: "B",
+      value: "b",
+    },
+  ]);
+
+  const router = useRouter();
+
+  const userCookie = Cookies.get("user");
+  const token = Cookies.get("token");
 
   const handleImageClick = () => {
     fileInputRef.current?.click(); // Trigger the hidden input
@@ -159,6 +167,11 @@ const page = () => {
 
   // Function to handle registration
   const handleRegistration = async () => {
+    if (password != confirmPassword) {
+      toast.error("Password doesnt match");
+      return;
+    }
+    setIsLoading(true);
     const userData: UserData = {
       name,
       user_name: userName,
@@ -179,7 +192,7 @@ const page = () => {
       choice_side: team,
       marital_status: maritualStatus,
       profession,
-      reference_id: referenceId,
+      reference_id: user?._id ?? "",
       parent_placement_id: parentPlacementId,
       nominee_name: nomineeName,
       relation_with_nominee: nomineeRelation,
@@ -188,8 +201,6 @@ const page = () => {
       nominee_picture: imageUrl2,
       registration_date: "30.09.2024",
     };
-
-    console.log(userData);
 
     try {
       const response = await fetch(`${baseUrl}/auth/register`, {
@@ -201,19 +212,64 @@ const page = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to register");
+        toast.error(
+          "Registration Failed. Fill all the necessary fields and Try again"
+        );
       }
 
       const data = await response.json();
 
-      console.log("data", data);
+      if (data.success) {
+        router.push("/dashboard/wallet/purchase-wallet");
+        toast.success("Successfully added new User");
+      }
     } catch (error: any) {
-      alert(error);
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  // fetch child user
+  const fetchChildUsers = async (userParse: UserData) => {
+    const response = await fetch(
+      `${baseUrl}/team/get-child-users/${userParse?._id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setChildUsers(data?.data);
+    }
+  };
+
+  useEffect(() => {
+    if (userCookie) {
+      try {
+        let userParse: UserData = JSON.parse(userCookie); // Parse safely
+        setUser(userParse);
+        fetchChildUsers(userParse);
+      } catch (error) {
+        console.error("Failed to parse user cookie:", error);
+      }
+    }
+
+    // get all child users
+  }, [userCookie]);
+
+  console.log("child", childUsers);
   return (
     <div className="p-5">
-      <h1 className="text-xl pb-4">Registration For New user!</h1>
+      <h1 className="text-xl pb-4 text-rose-600 font-bold">
+        New User Joining Form
+      </h1>
       <div className="mt-10 text-black">
         <div className="flex flex-col gap-10">
           {/* profile pic */}
@@ -250,7 +306,7 @@ const page = () => {
             {/* name */}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="name"
               >
                 Name <p className="inline text-red-500 text-lg font-bold">*</p>
@@ -266,7 +322,7 @@ const page = () => {
             {/* username */}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="username"
               >
                 Username{" "}
@@ -285,7 +341,7 @@ const page = () => {
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 text-sm bg-[#EAE9E8] px-2"
                 htmlFor="father or husband name"
               >
                 Father/Husband Name
@@ -300,7 +356,7 @@ const page = () => {
             </div>{" "}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="mother name"
               >
                 Mother Name
@@ -318,7 +374,7 @@ const page = () => {
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="nid"
               >
                 NID No.
@@ -334,7 +390,7 @@ const page = () => {
             </div>{" "}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="dob"
               >
                 DOB
@@ -348,12 +404,41 @@ const page = () => {
                 id="dob"
               />
             </div>
+            <div className="relative w-full">
+              <label
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                htmlFor="profession"
+              >
+                Profession
+              </label>
+              <input
+                onChange={(e) => setProfession(e.target.value)}
+                value={profession}
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                type="text"
+                id="profession"
+              />
+            </div>
+            <div className="relative w-full flex items-center gap-x-2">
+              <label className="px-2 text-sm" htmlFor="nationality">
+                Nationality
+              </label>
+              <select
+                onChange={(e) => setNationality(e.target.value)}
+                className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                name=""
+                id="nationality"
+              >
+                <option value="">Select</option>
+                <option value="Bangladesh">Bangladesh</option>
+              </select>
+            </div>
           </div>
-          {/* email and password mobile no*/}
+          {/* email and password,con pass mobile no*/}
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="email"
               >
                 Email <p className="inline text-red-500 text-lg font-bold">*</p>
@@ -368,7 +453,7 @@ const page = () => {
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="password"
               >
                 Password
@@ -384,7 +469,23 @@ const page = () => {
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                htmlFor="confirm-password"
+              >
+                Confirm Password
+                <p className="inline text-red-500 text-lg font-bold">*</p>
+              </label>
+              <input
+                onChange={(e) => setConFrimPassword(e.target.value)}
+                value={confirmPassword}
+                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                type="password"
+                id="confirm-password"
+              />
+            </div>
+            <div className="relative w-full">
+              <label
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="mobile_no"
               >
                 Mobile No
@@ -402,7 +503,7 @@ const page = () => {
           {/* Present Address */}
           <div className="relative">
             <label
-              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
               htmlFor="present-address"
             >
               Present Address
@@ -418,7 +519,7 @@ const page = () => {
           {/* permanent Address */}
           <div className="relative">
             <label
-              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
               htmlFor="permennt-address"
             >
               Permanent Address
@@ -432,75 +533,100 @@ const page = () => {
             />
           </div>
           {/* Profession,refference id  and placement id nationality */}
-          <div className="flex items-center gap-10">
-            <div className="relative w-full">
-              <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
-                htmlFor="profession"
-              >
-                Profession
-              </label>
-              <input
-                onChange={(e) => setProfession(e.target.value)}
-                value={profession}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                type="text"
-                id="profession"
-              />
-            </div>
-            <div className="relative w-full">
-              <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
-                htmlFor="refernce_id"
-              >
-                Reference Id
+          <div className="flex items-center gap-6">
+            <div className="relative w-full flex items-center gap-x-2">
+              <label className="px-2 text-sm" htmlFor="reference_id">
+                Reference ID
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
-              <input
+              <select
                 onChange={(e) => setReferenceId(e.target.value)}
-                value={referenceId}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                type="text"
-                id="refernce_id"
-              />
-            </div>
-            <div className="relative w-full">
-              <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
-                htmlFor="placement_id"
+                className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                name=""
+                id="reference_id"
               >
-                Parent Placement Id
+                <option value="">Select</option>
+                {childUsers?.map((child: { name: string; _id: string }, i) => (
+                  <option value={child?._id} key={i}>
+                    {child?.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="relative w-full flex items-center gap-x-2">
+              <label className="px-2 text-sm" htmlFor="role">
+                Placement ID
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
-              <input
-                onChange={(e) => setParentPlacementId(e.target.value)}
-                value={parentPlacementId}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                type="text"
+
+              <select
+                onChange={(e) => {
+                  setParentPlacementId(e.target.value);
+                  const selectedParent: any = childUsers.find(
+                    (user: any) => user?._id === e.target.value
+                  );
+                  const currentAvailableSides = [];
+
+                  if (selectedParent.left_side_partner === null) {
+                    currentAvailableSides.push({
+                      value: "a",
+                      label: "A",
+                    });
+                  }
+                  if (selectedParent.right_side_partner === null) {
+                    currentAvailableSides.push({
+                      value: "b",
+                      label: "B",
+                    });
+                  }
+                  if (
+                    selectedParent.left_side_partner !== null &&
+                    selectedParent.right_side_partner !== null
+                  ) {
+                    currentAvailableSides.push({
+                      value: "",
+                      label: "Both Sides are fillup",
+                    });
+                  }
+                  setCurrentOptions(currentAvailableSides);
+                }}
+                className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                name=""
                 id="placement_id"
-              />
-            </div>
-            <div className="relative w-full">
-              <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
-                htmlFor="nationality"
               >
-                Nationality
+                <option value="">Select</option>
+                {childUsers?.map((child: { name: string; _id: string }, i) => (
+                  <option value={child?._id} key={i}>
+                    {child?.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className=" w-full flex items-center">
+              <label className=" px-2" htmlFor="team_side">
+                Choice of Team{" "}
+                <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
-              <input
-                onChange={(e) => setNationality(e.target.value)}
-                value={nationality}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                type="text"
-                id="nationality"
-              />
+              <select
+                onChange={(e) => setTeams(e.target.value)}
+                value={team}
+                className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                name=""
+                id="team_side"
+              >
+                <option value="">Select</option>
+                {currentOptions?.map((opt: any) => (
+                  <option value={opt?.value}>{opt?.label}</option>
+                ))}
+              </select>
             </div>
           </div>
           {/* religion,maritual,team and blood gp */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 mt-10">
             {/* role */}
             <div className="w-full flex items-center">
-              <label className="px-2" htmlFor="role">
+              <label className="px-2 text-sm" htmlFor="role">
                 Role
               </label>
               <select
@@ -516,7 +642,7 @@ const page = () => {
               </select>
             </div>
             <div className=" w-full flex items-center">
-              <label className="px-2" htmlFor="religion">
+              <label className="px-2 text-sm" htmlFor="religion">
                 Religion
               </label>
               <select
@@ -534,7 +660,7 @@ const page = () => {
               </select>
             </div>
             <div className=" w-full flex items-center">
-              <label className=" px-2" htmlFor="maritual_status">
+              <label className=" px-2 text-sm" htmlFor="maritual_status">
                 Maritual Status
               </label>
               <select
@@ -549,25 +675,9 @@ const page = () => {
                 <option value="single">Single</option>
               </select>
             </div>
+
             <div className=" w-full flex items-center">
-              <label className=" px-2" htmlFor="team_side">
-                Choice of Team{" "}
-                <p className="inline text-red-500 text-lg font-bold">*</p>
-              </label>
-              <select
-                onChange={(e) => setTeams(e.target.value)}
-                value={team}
-                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
-                name=""
-                id="team_side"
-              >
-                <option value="">Select</option>
-                <option value="a">A</option>
-                <option value="b">B</option>
-              </select>
-            </div>
-            <div className=" w-full flex items-center">
-              <label className=" px-2" htmlFor="blood_gp">
+              <label className=" px-2 text-sm" htmlFor="blood_gp">
                 Blood Group
               </label>
               <select
@@ -620,7 +730,7 @@ const page = () => {
             <div className="flex items-center gap-10">
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                   htmlFor="nominee's_name"
                 >
                   Name
@@ -636,7 +746,7 @@ const page = () => {
               </div>
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                   htmlFor="nominee's_mobile"
                 >
                   Mobile No.
@@ -651,7 +761,7 @@ const page = () => {
               </div>
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                   htmlFor="relation_with_nominee"
                 >
                   Relation
@@ -668,7 +778,7 @@ const page = () => {
             {/* nominee's address */}
             <div className="relative">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
                 htmlFor="nominee's-address"
               >
                 Address
@@ -693,8 +803,20 @@ const page = () => {
           // }}
           className="w-1/2 mx-auto bg-[#cec8c3] shadow-lg cursor-pointer rounded-xl flex justify-center hover:scale-95  transition-all duration-300 ease-in"
         >
-          <button className="text-black font-bold px-12 py-3 ">
-            Complete Registration
+          <button className="text-black font-bold px-12 py-3 flex justify-center items-center">
+            {isLoading ? (
+              <ThreeCircles
+                visible={true}
+                height="30"
+                width="30"
+                color="#00A884"
+                ariaLabel="three-circles-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : (
+              <p>Complete Registration</p>
+            )}
           </button>
         </div>
       </div>
