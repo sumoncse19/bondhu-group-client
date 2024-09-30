@@ -117,6 +117,50 @@ const page = () => {
             </div>
           </div>
         </div>
+
+        {/* share holder */}
+        <div>
+          {/* plan */}
+          <div
+            onClick={() => {
+              if (selectedPlans.includes("share-holder")) {
+                // setTotalProjectShare(0);
+                const neww = selectedPlans.filter((p) => p != "share-holder");
+                setSelectedPlans(neww);
+              } else {
+                setSelectedPlans((prev) => {
+                  return [...prev, "share-holder"]; // Return the new array
+                });
+              }
+            }}
+            className={`w-[200px] h-[150px]  flex justify-center items-center border border-black rounded-md cursor-pointer relative ${selectedPlans.includes("fixed-deposit") && "shadow-2xl"}`}
+          >
+            <p className="text-xl font-bold">Share Holder</p>
+            {selectedPlans.includes("fixed-deposit") && (
+              <TiPin className="text-6xl absolute -top-7 -right-7 text-green-600" />
+            )}
+          </div>
+          {/* plan details */}
+          <div
+            className={`w-[200px] h-[150px]  mt-6 p-3 flex flex-col justify-between gap-y-3 ${!selectedPlans.includes("share-holder") && "cursor-not-allowed  text-gray-500"}`}
+          >
+            <div className="flex flex-col gap-y-3">
+              <label htmlFor="price">Enter Amount:</label>
+              <input
+                onChange={(e) => setFixedDepositAmount(e.target.value)}
+                type="number"
+                value={fixedDepositAmount}
+                className="outline-none border border-black rounded-md bg-[#EAE9E8] px-3 "
+                disabled={!selectedPlans.includes("fixed-deposit")}
+              />
+              {selectedPlans.includes("fixed-deposit") && (
+                <p className="bg-green-700 px-3 py-0.5 rounded-md text-white font-bold text-center cursor-pointer">
+                  Ok
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

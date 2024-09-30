@@ -39,7 +39,19 @@ body {
   }
 }
 
-.gradient-border {
-  border: 8px solid;
-  border-image: linear-gradient(to right, yellow, orange, red) 1;
+/* For Chrome, Safari, and Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield; /* Hides the spinners in Firefox */
+}
+
+/* Optional: To style the input field (optional) */
+input[type="number"] {
+  /* Add your styles here */
 }
