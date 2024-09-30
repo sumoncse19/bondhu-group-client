@@ -74,11 +74,11 @@ const firstMenuItems: MenuItem[] = [
       {
         key: "history",
         icon: <HistoryOutlined />,
-        label: <Link href="/history">History</Link>,
+        label: <Link href="/dashboard/history">History</Link>,
       },
       {
         key: "invest-now",
-        label: <Link href="/invest-now">Invest Now</Link>,
+        label: <Link href="/dashboard/invest-now">Invest Now</Link>,
       },
     ],
   },
@@ -89,23 +89,35 @@ const firstMenuItems: MenuItem[] = [
     children: [
       {
         key: "income-wallet",
-        label: <Link href="/income-wallet">Income</Link>,
+        label: <Link href="/dashboard/wallet/income-wallet">Income</Link>,
       },
       {
-        key: "return-purchase-wallet",
-        label: <Link href="/return-purchase-wallet">Share Return</Link>,
+        key: "purchase-wallet",
+        label: <Link href="/dashboard/wallet/purchase-wallet">Purchase</Link>,
+      },
+      {
+        key: "share-return-wallet",
+        label: (
+          <Link href="/dashboard/wallet/share-return-wallet">Share Return</Link>
+        ),
       },
       {
         key: "share-holder-wallet",
-        label: <Link href="/share-holder-wallet">Share Holder</Link>,
+        label: (
+          <Link href="/dashboard/wallet/share-holder-wallet">Share Holder</Link>
+        ),
       },
       {
         key: "fix-deposit-wallet",
-        label: <Link href="/fix-deposit-wallet">Fix Deposit</Link>,
+        label: (
+          <Link href="/dashboard/wallet/fix-deposit-wallet">Fix Deposit</Link>
+        ),
       },
       {
         key: "directorship-wallet",
-        label: <Link href="/directorship-wallet">Directorship</Link>,
+        label: (
+          <Link href="/dashboard/wallet/directorship-wallet">Directorship</Link>
+        ),
       },
     ],
   },
