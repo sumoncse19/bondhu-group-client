@@ -14,7 +14,7 @@ export default function Layout(props: { children: React.ReactNode }) {
       {pathname !== "/" ? (
         <div className="flex">
           <Sidebar />
-          <div className="grow p-5">{props.children}</div>
+          <div className="grow self-start p-5">{props.children}</div>
         </div>
       ) : (
         <div className="flex flex-col justify-between items-center">

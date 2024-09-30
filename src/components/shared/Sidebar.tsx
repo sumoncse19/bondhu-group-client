@@ -1,5 +1,4 @@
 "use client";
-
 import {
   AppstoreOutlined,
   AuditOutlined,
@@ -102,17 +101,18 @@ const firstMenuItems: MenuItem[] = [
         ),
       },
       {
-        key: "share-holder-wallet",
-        label: (
-          <Link href="/dashboard/wallet/share-holder-wallet">Share Holder</Link>
-        ),
-      },
-      {
         key: "fix-deposit-wallet",
         label: (
           <Link href="/dashboard/wallet/fix-deposit-wallet">Fix Deposit</Link>
         ),
       },
+      {
+        key: "share-holder-wallet",
+        label: (
+          <Link href="/dashboard/wallet/share-holder-wallet">Share Holder</Link>
+        ),
+      },
+
       {
         key: "directorship-wallet",
         label: (

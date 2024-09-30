@@ -2,7 +2,7 @@ import React from "react";
 
 const ChangePassword = () => {
   return (
-    <div className="w-full h-full ">
+    <div className="w-full h-[100vh] ">
       <div className="w-full h-full flex justify-center items-center">
         <div className="flex items-center border border-black p-2 rounded-md ">
           <div className="w-[400px] h-fit border border-black rounded-md p-8 ">

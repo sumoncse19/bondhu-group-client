@@ -7,6 +7,7 @@ import { error, log } from "console";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { ThreeCircles } from "react-loader-spinner";
+import Cookies from "js-cookie";
 interface IFormInput {
   username: string;
   password: string;
@@ -41,6 +42,9 @@ const page = () => {
 
       const data = await response.json();
       if (data.success) {
+        Cookies.set("user", JSON.stringify(data.data));
+        Cookies.set("token", data?.token);
+
         router.push("/dashboard");
         toast.success("Successfully Login");
         reset();

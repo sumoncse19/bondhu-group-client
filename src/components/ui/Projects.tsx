@@ -2,7 +2,7 @@ import React from "react";
 
 const Projects = () => {
   return (
-    <div className="mt-28 w-full">
+    <div id="projects" className="pt-28 w-full">
       {/* heading */}
       <div className="w-[80%] mx-auto ">
         <div className="w-full flex flex-col justify-center items-center ">
@@ -21,7 +21,7 @@ const Projects = () => {
               <div className="w-[550px] overflow-hidden rounded-3xl border-2 border-black p-1">
                 <div className="border-2 border-black p-1 rounded-3xl">
                   <img
-                    className="w-full object-cover rounded-3xl hover:scale-110 transition-all duration-300 ease-out"
+                    className="w-full h-[400px]  object-fill rounded-3xl hover:scale-110 transition-all duration-300 ease-out"
                     src={p?.image}
                     alt=""
                   />
@@ -44,7 +44,7 @@ export default Projects;
 const projects = [
   {
     id: 1,
-    title: "Bondhu Builders Ltd",
+    title: "Bondhu Builder's ",
     image: "/images/projectImg1.avif",
     details:
       "Leading construction company with investment opportunities available.",
@@ -64,19 +64,19 @@ const projects = [
   {
     id: 4,
     title: "Bondhu IT Institute",
-    image: "/images/projectImg4.avif",
+    image: "/images/projectImg4.jpeg",
     details: "Empowering future tech leaders with quality education programs.",
   },
   {
     id: 5,
-    title: "Bondhu Builders Ltd",
+    title: "Bondhu Brokerage ",
     image: "/images/projectImg1.avif",
     details:
       "Leading construction company with investment opportunities available.",
   },
   {
     id: 6,
-    title: "Bondhu Super Shop",
+    title: "Bondhu Food & Beverage",
     image: "/images/projectImg2.avif",
     details: "Exciting retail experience coming soon for everyone.",
   },
