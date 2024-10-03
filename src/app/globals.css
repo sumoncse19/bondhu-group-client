@@ -57,3 +57,27 @@ input[type="number"] {
 input[type="number"] {
   /* Add your styles here */
 }
+
+.company-header {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.pdf-print .company-header img {
+  max-width: 200px; /* Adjust the logo size */
+}
+
+.pdf-print .company-header h1 {
+  font-size: 24px;
+  margin: 5px 0;
+}
+
+.pdf-print .company-header p {
+  font-size: 12px;
+  margin: 2px 0;
+}

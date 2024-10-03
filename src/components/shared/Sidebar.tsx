@@ -21,6 +21,7 @@ import {
 import { TbUserStar } from "react-icons/tb";
 import { GrUserAdmin } from "react-icons/gr";
 import { RiUser2Fill } from "react-icons/ri";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 import { Avatar, ConfigProvider, Menu, type MenuProps } from "antd";
 import Link from "next/link";
@@ -137,7 +138,9 @@ const firstMenuItems: MenuItem[] = [
       },
       {
         key: "genealogy-tree",
-        label: <Link href="/genealogy-tree">Genealogy Tree</Link>,
+        label: (
+          <Link href="/dashboard/team-view/ganealogy-tree">Genealogy Tree</Link>
+        ),
       },
     ],
   },
@@ -168,6 +171,11 @@ const firstMenuItems: MenuItem[] = [
     key: "support",
     label: <Link href="/support">Support</Link>,
     icon: <CloudUploadOutlined />,
+  },
+  {
+    key: "man-management",
+    label: <Link href="/dashboard/man-management">Man Management</Link>,
+    icon: <FaPeopleGroup />,
   },
 ];
 
