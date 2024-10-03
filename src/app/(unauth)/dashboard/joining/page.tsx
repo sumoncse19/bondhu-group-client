@@ -116,9 +116,8 @@ const page = () => {
       if (data.success) {
         const imageurl = data.data.url; // Get the image URL from the response
         setImageUrl(imageurl);
-        console.log("Uploaded image URL:", imageUrl);
       } else {
-        console.error("Error uploading to imgbb:", data.error);
+        toast.error("Error uploading to imgbb:", data.error);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -203,7 +202,7 @@ const page = () => {
     };
 
     try {
-      const response = await fetch(`${baseUrl}/auth/register`, {
+      const response = await fetch(`${baseUrl}/user/auth/register`, {
         method: "POST",
         body: JSON.stringify(userData),
         headers: {

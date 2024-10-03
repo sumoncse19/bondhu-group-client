@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { ThreeCircles } from "react-loader-spinner";
 import Cookies from "js-cookie";
+import useStore from "../../../../Zustand/Store/useStore";
 interface IFormInput {
   username: string;
   password: string;
@@ -28,7 +29,7 @@ const page = () => {
     };
 
     try {
-      const response = await fetch(`${baseUrl}/auth/login`, {
+      const response = await fetch(`${baseUrl}/user/auth/login`, {
         method: "POST",
         body: JSON.stringify(userData),
         headers: {
@@ -42,8 +43,9 @@ const page = () => {
 
       const data = await response.json();
       if (data.success) {
-        Cookies.set("user", JSON.stringify(data.data));
+        Cookies.set("user", JSON.stringify(data?.data));
         Cookies.set("token", data?.token);
+        Cookies.set("id", data?.data?._id);
 
         router.push("/dashboard");
         toast.success("Successfully Login");
@@ -55,6 +57,7 @@ const page = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="flex items-center min-h-[100vh] loginbg bg-opacity-100  bg-no-repeat bg-cover  backdrop-blur-lg bg-white text-black">
       {/* left side */}

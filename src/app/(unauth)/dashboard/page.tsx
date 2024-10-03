@@ -12,16 +12,37 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import FixedDepositChart from "@/components/Chats/FixedDepositChart";
 import ShareHolderChart from "@/components/Chats/ShareHolderChart";
+import useStore from "../../../../Zustand/Store/useStore";
+import baseUrl from "../../../../config";
 
 const Dashboard = () => {
   const [user, setUser] = useState<any>({});
+  const { setSingleUser } = useStore();
   const userCookie = Cookies.get("user");
+  const token = Cookies.get("token");
+
+  // fetch single user
+  const fetchSingleUser = async (id: string) => {
+    const response = await fetch(`${baseUrl}/user/get-user/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+
+    if (data?.success) {
+      setUser(data?.data);
+      setSingleUser(data?.data);
+    }
+  };
 
   useEffect(() => {
     if (userCookie) {
       try {
         let userParse: any = JSON.parse(userCookie); // Parse safely
-        setUser(userParse);
+        fetchSingleUser(userParse?._id);
       } catch (error) {
         console.error("Failed to parse user cookie:", error);
       }

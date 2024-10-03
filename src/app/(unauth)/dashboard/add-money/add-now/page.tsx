@@ -2,41 +2,139 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TiPin } from "react-icons/ti";
 import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 const page = () => {
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
   const [totalProjectShare, setTotalProjectShare] = useState<number>(0);
   const [projectShareAmount, setProjectShareAmount] = useState<number>(0);
-  const [fixedDepositAmount, setFixedDepositAmount] = useState<any>();
-  const [shareHolderAmount, setShareHolderAmount] = useState<any>();
-  const [directorshipAmount, setDirectorshipAmount] = useState<any>();
+  const [fixedDepositAmount, setFixedDepositAmount] = useState<any>(0);
+  const [shareHolderAmount, setShareHolderAmount] = useState<any>(0);
+  const [directorshipAmount, setDirectorshipAmount] = useState<any>(0);
   const [totalPlanCost, setTotalPlanCost] = useState<number>(0);
+  const [moneyRecieptNumber, setMoneyRecieptNumber] = useState<string>("");
+  const [mobileNumber, setMobileNumber] = useState<string>("");
+  const [paymentMethod, setPaymentMethod] = useState<string>("");
+  const [transactionId, setTransactionId] = useState<string>("");
+  const [bankName, setBankName] = useState<string>("");
+  const [bankAccName, setBankAccName] = useState<string>("");
+  const [bankBranchName, setBankBranchName] = useState<string>("");
+  const [paymentPicture, setPaymentPicture] = useState<string>("");
+
+  const [user, setUser] = useState<any>({});
 
   const fixedDepositInputRef = useRef<HTMLInputElement>(null);
   const shareHolderInputRef = useRef<HTMLInputElement>(null);
   const directorshipInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const token = Cookies.get("token");
+  const userCookie = Cookies.get("user");
+
+  // manage cookie
+  useEffect(() => {
+    if (userCookie) {
+      try {
+        let userParse: any = JSON.parse(userCookie); // Parse safely
+        setUser(userParse);
+      } catch (error) {
+        console.error("Failed to parse user cookie:", error);
+      }
+    }
+  }, [userCookie]);
 
   useEffect(() => {
     setProjectShareAmount(totalProjectShare * 10000);
-    setTotalPlanCost(totalPlanCost + projectShareAmount);
+    // setTotalPlanCost(totalPlanCost + projectShareAmount);
   }, [totalProjectShare]);
 
-  console.log(fixedDepositAmount);
+  const handleImageClick = () => {
+    fileInputRef.current?.click(); // Trigger the hidden input
+  };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleFileUpload(file); // Upload the selected file
+    }
+  };
+
+  const handleFileUpload = async (file: File) => {
+    const apiKey = "fb3740bc653a7910499d04a143f890fc"; // Replace with your imgbb API key
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(
+        `https://api.imgbb.com/1/upload?key=${apiKey}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      if (data.success) {
+        const imageurl = data.data.url; // Get the image URL from the response
+        setPaymentPicture(imageurl);
+      } else {
+        toast.error("Error uploading to imgbb:", data.error);
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const handleRequestToAdmin = () => {
+    const paymentData = {
+      userId: user?._id,
+      project_share: projectShareAmount,
+      fixed_deposit: fixedDepositAmount,
+      share_holder: shareHolderAmount,
+      directorship: directorshipAmount,
+      total_amount: totalPlanCost,
+      add_money_history: {
+        money_receipt_number: moneyRecieptNumber,
+        phone: mobileNumber,
+        payment_method: paymentMethod,
+        bank_name: bankName,
+        bank_account_name: bankAccName,
+        branch_name: bankBranchName,
+        transaction_id: transactionId,
+        picture: paymentPicture,
+      },
+    };
+
+    console.log("payment details", paymentData);
+  };
+
+  console.log("planc", totalPlanCost);
 
   useEffect(() => {
-    const addCost = (amount: number) => {
-      setTotalPlanCost(totalPlanCost + amount);
-    };
+    console.log(
+      projectShareAmount,
+      fixedDepositAmount,
+      shareHolderAmount,
+      directorshipAmount
+    );
+
+    setTotalPlanCost(
+      projectShareAmount +
+        parseInt(fixedDepositAmount) +
+        parseInt(shareHolderAmount) +
+        parseInt(directorshipAmount)
+    );
   }, [
     projectShareAmount,
+    fixedDepositAmount,
     shareHolderAmount,
     directorshipAmount,
-    fixedDepositAmount,
   ]);
 
   return (
-    <div className="w-full h-full p-10 text-black">
-      <h1 className="text-2xl text-rose-600 font-bold tracking-widest ">
+    <div className="w-full h-full  text-black">
+      <h1 className="text-2xl text-rose-600 font-bold tracking-widest animate-bounce">
         Pick Your Plan
       </h1>
 
@@ -72,7 +170,7 @@ const page = () => {
               </p>
             </div>
             {selectedPlans.includes("project-share") && (
-              <TiPin className="text-6xl absolute -top-7 -right-7 text-green-600" />
+              <TiPin className="text-6xl absolute -top-7 -right-7 text-rose-600" />
             )}
           </div>
           {/* plan details */}
@@ -90,6 +188,7 @@ const page = () => {
                         return;
                       } else {
                         setTotalProjectShare(totalProjectShare - 1);
+                        // addCost();
                       }
                     }
                   }}
@@ -103,6 +202,7 @@ const page = () => {
                         return;
                       } else {
                         setTotalProjectShare(totalProjectShare + 1);
+                        // addCost();
                       }
                     }
                   }}
@@ -146,7 +246,7 @@ const page = () => {
               </p>
             </div>
             {selectedPlans.includes("fixed-deposit") && (
-              <TiPin className="text-6xl absolute -top-7 -right-7 text-green-600" />
+              <TiPin className="text-6xl absolute -top-7 -right-7 text-rose-600" />
             )}
           </div>
           {/* plan details */}
@@ -165,13 +265,18 @@ const page = () => {
               {selectedPlans.includes("fixed-deposit") && (
                 <p
                   onClick={() => {
-                    if (fixedDepositInputRef.current) {
+                    if (
+                      fixedDepositInputRef.current &&
+                      fixedDepositInputRef?.current?.value !== "" &&
+                      fixedDepositInputRef?.current?.value !== null
+                    ) {
                       setFixedDepositAmount(
                         fixedDepositInputRef.current?.value
                       );
+                      fixedDepositInputRef.current.value = "";
                     }
                   }}
-                  className="bg-green-700 px-3 py-0.5 rounded-md hover:scale-105 hover:tracking-widest transition-all duration-300 ease-in  text-white font-bold text-center cursor-pointer"
+                  className={`bg-green-700 px-3 py-0.5 rounded-md hover:scale-105 hover:tracking-widest transition-all duration-300 ease-in  text-white font-bold text-center cursor-pointer `}
                 >
                   Submit
                 </p>
@@ -210,7 +315,7 @@ const page = () => {
               </p>
             </div>
             {selectedPlans.includes("share-holder") && (
-              <TiPin className="text-6xl absolute -top-7 -right-7 text-green-600" />
+              <TiPin className="text-6xl absolute -top-7 -right-7 text-rose-600" />
             )}
           </div>
           {/* plan details */}
@@ -230,8 +335,13 @@ const page = () => {
               {selectedPlans.includes("share-holder") && (
                 <p
                   onClick={() => {
-                    if (shareHolderInputRef.current) {
+                    if (
+                      shareHolderInputRef.current &&
+                      shareHolderInputRef?.current?.value !== "" &&
+                      shareHolderInputRef?.current?.value !== null
+                    ) {
                       setShareHolderAmount(shareHolderInputRef.current?.value);
+                      shareHolderInputRef.current.value = "";
                     }
                   }}
                   className="bg-green-700 px-3 py-0.5 rounded-md hover:scale-105 hover:tracking-widest transition-all duration-300 ease-in text-white font-bold text-center cursor-pointer"
@@ -273,7 +383,7 @@ const page = () => {
               </p>
             </div>
             {selectedPlans.includes("directorship") && (
-              <TiPin className="text-6xl absolute -top-7 -right-7 text-green-600" />
+              <TiPin className="text-6xl absolute -top-7 -right-7 text-rose-600" />
             )}
           </div>
           {/* plan details */}
@@ -293,10 +403,15 @@ const page = () => {
               {selectedPlans.includes("directorship") && (
                 <p
                   onClick={() => {
-                    if (directorshipInputRef.current) {
+                    if (
+                      directorshipInputRef.current &&
+                      directorshipInputRef.current.value !== "" &&
+                      directorshipInputRef.current.value !== null
+                    ) {
                       setDirectorshipAmount(
                         directorshipInputRef.current?.value
                       );
+                      directorshipInputRef.current.value = "";
                     }
                   }}
                   className="bg-green-700 px-3 py-0.5 rounded-md hover:scale-105 hover:tracking-widest transition-all duration-300 ease-in text-white font-bold text-center cursor-pointer"
@@ -312,50 +427,190 @@ const page = () => {
       {/* Plans Summary and Payment details */}
       <div className="mt-16 flex gap-x-10">
         {/* plan summary */}
-        <div className="w-full min-h-[400px] bg-[#bfbdba]">
-          <div className="flex items-center justify-between p-4">
+        <div className="w-full min-h-[400px] ">
+          <div className="flex items-center justify-between px-4 py-2 bg-[#C9C3BD]">
             <p className="text-rose-700 font-bold text-2xl ">Plan Summary</p>
-            <p className="text-lg tracking-wider">Total:{totalPlanCost}</p>
+            <p className=" tracking-wider">Total: &#2547; {totalPlanCost}</p>
           </div>
 
-          <div className=" flex flex-col gap-y-3">
+          <div className=" flex flex-col">
+            {projectShareAmount <= 0 &&
+              fixedDepositAmount <= 0 &&
+              shareHolderAmount <= 0 &&
+              directorshipAmount <= 0 && (
+                <p className="text-center mt-3 text-xl">No Plan yet</p>
+              )}
             {projectShareAmount > 0 && (
-              <div className="flex items-center justify-between bg-[#a4a29f] px-4 py-3">
-                <div className="flex items-center gap-3 text-white">
+              <div className="flex items-center justify-between  px-4 py-3 border-b-2 border-black text-black">
+                <div className="flex items-center gap-3 ">
                   <p>Project Share</p>
                   <p>{totalProjectShare}</p>
                 </div>
-                <p className="text-white">{projectShareAmount}</p>
+                <p className="text-sm">&#2547; {projectShareAmount}</p>
               </div>
             )}
             {parseInt(fixedDepositAmount) > 0 && (
-              <div className="flex items-center justify-between bg-[#a4a29f] px-4 py-3 text-white">
+              <div className="flex items-center justify-between  px-4 py-3 border-b-2 border-black text-black">
                 <div className="flex items-center gap-3">
                   <p>Fixed Deposit</p>
                 </div>
-                <p>{fixedDepositAmount}</p>
+                <p className="text-sm">&#2547; {fixedDepositAmount}</p>
               </div>
             )}
             {parseInt(shareHolderAmount) > 0 && (
-              <div className="flex items-center justify-between bg-[#a4a29f] px-4 py-3 text-white">
+              <div className="flex items-center justify-between  px-4 py-3 border-b-2 border-black text-black">
                 <div className="flex items-center gap-3">
                   <p>Share Holder</p>
                 </div>
-                <p>{shareHolderAmount}</p>
+                <p className="text-sm">&#2547; {shareHolderAmount}</p>
               </div>
             )}
             {parseInt(directorshipAmount) > 0 && (
-              <div className="flex items-center justify-between bg-[#a4a29f] px-4 py-3 text-white">
-                <div className="flex items-center gap-3 px-4">
+              <div className="flex items-center justify-between  px-4 py-3 border-b-2 border-black text-black">
+                <div className="flex items-center gap-3">
                   <p>Directorship</p>
                 </div>
-                <p>{directorshipAmount}</p>
+                <p className="text-sm">&#2547; {directorshipAmount}</p>
               </div>
             )}
           </div>
         </div>
+
         {/* payment details */}
-        <div className="w-full"></div>
+        <div className="w-full">
+          {/* head */}
+          <div className="flex items-center justify-between px-4 py-2 bg-[#C9C3BD]">
+            <p className="text-rose-700 font-bold text-2xl ">Payment Summary</p>
+            {/* <p className=" tracking-wider">Total: &#2547; {totalPlanCost}</p> */}
+          </div>
+
+          <div className="mt-5 px-6 flex flex-col gap-y-5">
+            {/* money reciept no */}
+            <div className="flex items-center justify-between">
+              <label htmlFor="money-reciept-no">Money Reciept No</label>
+              <input
+                type="text"
+                name=""
+                id="money-reciept-no"
+                onChange={(e) => setMoneyRecieptNumber(e.target.value)}
+                className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                placeholder="enter money reciept number"
+              />
+            </div>
+            {/* mobile no */}
+            <div className="flex items-center justify-between">
+              <label htmlFor="mobile-number">Mobile Number</label>
+              <input
+                type="text"
+                name=""
+                id="mobile-number"
+                onChange={(e) => setMobileNumber(e.target.value)}
+                className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                placeholder="enter mobile number"
+              />
+            </div>
+            {/* payment method */}
+            <div className="flex items-center justify-between">
+              <label htmlFor="payment-method">Payment Method</label>
+              <select
+                name=""
+                id="payment-method"
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="bg-[#d9d7d5] cursor-pointer px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+              >
+                <option value="">Select Method</option>
+                <option value="cash">Cash</option>
+                <option value="bKash">Bkash</option>
+                <option value="rocket">Rocket</option>
+                <option value="nagad">Nagad</option>
+                <option value="bank">Online Bank</option>
+              </select>
+            </div>
+            {paymentMethod === "bank" && (
+              <div className="flex flex-col gap-y-5">
+                {/* bank name */}
+                <div className="flex items-center justify-between">
+                  <label htmlFor="bank-name">Bank Name</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="bank-name"
+                    onChange={(e) => setBankName(e.target.value)}
+                    className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                    placeholder="enter money reciept number"
+                  />
+                </div>
+                {/* bank acc name */}
+                <div className="flex items-center justify-between">
+                  <label htmlFor="bank-acc-name">Bank Account Name</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="bank-acc-name"
+                    onChange={(e) => setBankAccName(e.target.value)}
+                    className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                    placeholder="enter money reciept number"
+                  />
+                </div>
+                {/* bank branch name */}
+                <div className="flex items-center justify-between">
+                  <label htmlFor="bank-branch-name">Bank Branch Name</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="bank-branch-name"
+                    onChange={(e) => setBankBranchName(e.target.value)}
+                    className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                    placeholder="enter money reciept number"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* image upload */}
+            <div className="flex items-center justify-between">
+              <label htmlFor="transaction-id">Payment Picture</label>
+              <div className="w-80 flex flex-col items-center gap-y-2 cursor-pointer">
+                <img
+                  className="w-20 h-20 rounded-full object-cover cursor-pointer border-2 border-black"
+                  src={paymentPicture || "/images/paymentPictureDummy.jpg"} // Use uploaded image if available
+                  alt="Profile"
+                  onClick={handleImageClick}
+                />
+
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  onChange={handleFileChange} // Trigger upload on file selection
+                />
+              </div>
+            </div>
+
+            {/* tranxId */}
+            {paymentMethod !== "cash" && (
+              <div className="flex items-center justify-between">
+                <label htmlFor="transaction-id">Transaction Number</label>
+                <input
+                  type="text"
+                  name=""
+                  id="transaction-id"
+                  onChange={(e) => setTransactionId(e.target.value)}
+                  className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                  placeholder="enter transaction number"
+                />
+              </div>
+            )}
+
+            {/* requested button */}
+            <div
+              onClick={handleRequestToAdmin}
+              className={`${totalPlanCost <= 0 ? "cursor-not-allowed bg-gray-400" : "bg-rose-600 cursor-pointer hover:scale-95 hover:tracking-normal"} flex items-center justify-center py-2  rounded text-white font-bold  tracking-widest  transition-all duration-500 ease-in`}
+            >
+              <button>Request to Admin</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
