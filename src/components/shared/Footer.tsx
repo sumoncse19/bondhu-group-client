@@ -31,7 +31,7 @@ const Footer = () => {
             <p>EXPLORE</p>
             <span className="mt-6">
               <p>+8801600362935</p>
-              <p>bondhugroup@example.com</p>
+              <p>bondhugroup24@gmail.com</p>
             </span>
           </div>
           <div className="">
