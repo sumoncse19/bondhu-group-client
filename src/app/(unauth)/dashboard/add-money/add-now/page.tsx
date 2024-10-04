@@ -4,6 +4,8 @@ import { TiPin } from "react-icons/ti";
 import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { ColorRing } from "react-loader-spinner";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
@@ -21,6 +23,7 @@ const page = () => {
   const [bankAccName, setBankAccName] = useState<string>("");
   const [bankBranchName, setBankBranchName] = useState<string>("");
   const [paymentPicture, setPaymentPicture] = useState<string>("");
+  const [isLoadingForImage, setIsLoadingForImage] = useState<boolean>(false);
 
   const [user, setUser] = useState<any>({});
 
@@ -31,6 +34,7 @@ const page = () => {
 
   const token = Cookies.get("token");
   const userCookie = Cookies.get("user");
+  const router = useRouter();
 
   // manage cookie
   useEffect(() => {
@@ -60,6 +64,7 @@ const page = () => {
   };
 
   const handleFileUpload = async (file: File) => {
+    setIsLoadingForImage(true);
     const apiKey = "fb3740bc653a7910499d04a143f890fc"; // Replace with your imgbb API key
 
     const formData = new FormData();
@@ -78,15 +83,34 @@ const page = () => {
       if (data.success) {
         const imageurl = data.data.url; // Get the image URL from the response
         setPaymentPicture(imageurl);
+        setIsLoadingForImage(false);
       } else {
         toast.error("Error uploading to imgbb:", data.error);
+        setIsLoadingForImage(false);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
+      setIsLoadingForImage(false);
     }
   };
 
   const handleRequestToAdmin = () => {
+    if (
+      (totalPlanCost > 0 && !moneyRecieptNumber) ||
+      !mobileNumber ||
+      !paymentMethod ||
+      !transactionId ||
+      !paymentPicture
+    ) {
+      toast.error("Fill all field first");
+      return;
+    }
+    if (paymentMethod === "bank") {
+      if (!bankName || !bankAccName || !bankBranchName)
+        toast.error("Fill all bank info first");
+      return;
+    }
+
     const paymentData = {
       userId: user?._id,
       project_share: projectShareAmount,
@@ -106,19 +130,10 @@ const page = () => {
       },
     };
 
-    console.log("payment details", paymentData);
+    router.push("/dashboard/add-money/add-money-history");
   };
 
-  console.log("planc", totalPlanCost);
-
   useEffect(() => {
-    console.log(
-      projectShareAmount,
-      fixedDepositAmount,
-      shareHolderAmount,
-      directorshipAmount
-    );
-
     setTotalPlanCost(
       projectShareAmount +
         parseInt(fixedDepositAmount) +
@@ -584,6 +599,25 @@ const page = () => {
                   style={{ display: "none" }}
                   onChange={handleFileChange} // Trigger upload on file selection
                 />
+                <p>
+                  {isLoadingForImage && (
+                    <ColorRing
+                      visible={true}
+                      height="40"
+                      width="40"
+                      ariaLabel="color-ring-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="color-ring-wrapper"
+                      colors={[
+                        "#e15b64",
+                        "#f47e60",
+                        "#f8b26a",
+                        "#abbd81",
+                        "#849b87",
+                      ]}
+                    />
+                  )}
+                </p>
               </div>
             </div>
 
@@ -604,10 +638,18 @@ const page = () => {
 
             {/* requested button */}
             <div
-              onClick={handleRequestToAdmin}
+              onClick={
+                totalPlanCost > 0
+                  ? handleRequestToAdmin
+                  : (e) => e.preventDefault()
+              }
               className={`${totalPlanCost <= 0 ? "cursor-not-allowed bg-gray-400" : "bg-rose-600 cursor-pointer hover:scale-95 hover:tracking-normal"} flex items-center justify-center py-2  rounded text-white font-bold  tracking-widest  transition-all duration-500 ease-in`}
             >
-              <button>Request to Admin</button>
+              <button
+                className={`${totalPlanCost <= 0 ? "cursor-not-allowed" : " cursor-pointer"}`}
+              >
+                Request to Admin
+              </button>
             </div>
           </div>
         </div>

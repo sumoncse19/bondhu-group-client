@@ -15,7 +15,7 @@ const Header = () => {
       {/* left side */}
       <div className="flex items-center">
         <div className="flex items-center gap-3">
-          <img className="w-20 h-20" src="/images/logo.png" alt="" />
+          <img className="w-20 h-20" src="/images/logo1.png" alt="" />
           <p className="protest-guerrilla-regular text-3xl text-white">
             Bondhu Group
           </p>

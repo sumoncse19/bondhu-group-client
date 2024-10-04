@@ -74,11 +74,9 @@ const firstMenuItems: MenuItem[] = [
       {
         key: "history",
         icon: <HistoryOutlined />,
-        label: <Link href="/dashboard/history">History</Link>,
-      },
-      {
-        key: "invest-now",
-        label: <Link href="/dashboard/invest-now">Invest Now</Link>,
+        label: (
+          <Link href="/dashboard/add-money/add-money-history">History</Link>
+        ),
       },
     ],
   },
