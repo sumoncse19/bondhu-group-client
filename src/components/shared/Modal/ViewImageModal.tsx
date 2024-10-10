@@ -1,6 +1,6 @@
 import React from "react";
 
-const ViewImageModal = ({ setIsOpenImageModal }: any) => {
+const ViewImageModal = ({ setIsOpenImageModal, image }: any) => {
   return (
     <div
       onClick={(e) => {
@@ -8,7 +8,7 @@ const ViewImageModal = ({ setIsOpenImageModal }: any) => {
           setIsOpenImageModal(false);
         }
       }}
-      className="w-full min-h-[100vh] bg-black bg-opacity-80 fixed top-0 right-0 flex justify-center items-center cursor-pointer"
+      className="w-full min-h-[100vh] bg-black bg-opacity-80 fixed top-0 right-0 z-[2000000] flex justify-center items-center cursor-pointer"
     >
       <div
         onClick={(e) => {
@@ -33,7 +33,7 @@ const ViewImageModal = ({ setIsOpenImageModal }: any) => {
         <div className=" h-full">
           <img
             className="h-full"
-            src="/images/paymentPictureDummy.jpg"
+            src={image ? image : "/images/paymentPictureDummy.jpg"}
             alt=""
           />
         </div>

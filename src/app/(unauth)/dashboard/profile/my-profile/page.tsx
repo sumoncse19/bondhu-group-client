@@ -1,16 +1,142 @@
+"use client";
 import MatchingBonusChart from "@/components/Chats/MatchingBonusChart";
 import RefferelBonusChart from "@/components/Chats/RefferelBonusChart";
 import ProfileHeader from "@/components/ui/ProfileHeader";
 import { FaHandPointRight } from "react-icons/fa";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { UserData } from "@/type";
+import Cookies from "js-cookie";
+import baseUrl from "../../../../../../config";
 
 const MyProfile = () => {
+  const [user, setUser] = useState<UserData>();
+  const id = Cookies.get("id");
+  const token = Cookies.get("token");
+  const fetchSingleUser = async () => {
+    const response = await fetch(`${baseUrl}/user/get-user/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    if (data?.success) {
+      setUser(data?.data);
+    }
+  };
+  useEffect(() => {
+    fetchSingleUser();
+  }, [id]);
+  console.log("user", user);
+
+  const personalInfo = [
+    {
+      id: 1,
+      name: "Name",
+      value: user?.name,
+    },
+
+    {
+      id: 3,
+      name: "Id Status",
+      value: "Business Account",
+    },
+    {
+      id: 4,
+      name: "Username",
+      value: user?.user_name,
+    },
+    {
+      id: 5,
+      name: "Father/Husband",
+      value: user?.father_or_husband_name,
+    },
+    {
+      id: 6,
+      name: "Mother",
+      value: user?.mother_name,
+    },
+    {
+      id: 7,
+      name: "Mobile",
+      value: user?.phone,
+    },
+    {
+      id: 8,
+      name: "Email",
+      value: user?.email,
+    },
+    {
+      id: 9,
+      name: "Date Of Birth",
+      value: user?.dob,
+    },
+    {
+      id: 10,
+      name: "Religion",
+      value: user?.religion,
+    },
+
+    {
+      id: 12,
+      name: "Blood",
+      value: user?.blood_group,
+    },
+    {
+      id: 13,
+      name: "Maritual Status",
+      value: user?.marital_status,
+    },
+    {
+      id: 14,
+      name: "Nationality",
+      value: user?.nationality,
+    },
+    {
+      id: 15,
+      name: "Nid No",
+      value: user?.nid_passport_no,
+    },
+    {
+      id: 16,
+      name: "Profession",
+      value: user?.profession,
+    },
+    {
+      id: 17,
+      name: "Refferer",
+      value: user?.reference_id,
+    },
+    {
+      id: 18,
+      name: "Nominee's Name",
+      value: user?.nominee_name,
+    },
+    {
+      id: 19,
+      name: "Nominee's Phone",
+      value: user?.nominee_mobile_no,
+    },
+    {
+      id: 20,
+      name: "Relation With Nominee",
+      value: user?.relation_with_nominee,
+    },
+  ];
   return (
     <div>
       <div className="">
         {/* cover and profile pic */}
-        <ProfileHeader />
+        <ProfileHeader
+          name={user?.name}
+          user_name={user?.user_name}
+          phone={user?.phone}
+          registration_date={user?.registration_date}
+          picture={user?.picture}
+        />
 
         {/* profile details */}
         <div className="mt-16">
@@ -97,66 +223,3 @@ const MyProfile = () => {
 };
 
 export default MyProfile;
-
-const personalInfo = [
-  {
-    id: 1,
-    name: "Name",
-    value: "Shakir Ahmed",
-  },
-  {
-    id: 2,
-    name: "ID",
-    value: "31",
-  },
-  {
-    id: 3,
-    name: "Id Status",
-    value: "Business Account",
-  },
-  {
-    id: 4,
-    name: "Username",
-    value: "shakirAh019",
-  },
-  {
-    id: 5,
-    name: "Father",
-    value: "Jamal Uddin",
-  },
-  {
-    id: 6,
-    name: "Mother",
-    value: "",
-  },
-  {
-    id: 7,
-    name: "Mobile",
-    value: "+8801811311",
-  },
-  {
-    id: 8,
-    name: "Email",
-    value: "shakirahmed@gmail.com",
-  },
-  {
-    id: 9,
-    name: "Date Of Birth",
-    value: "10.09.1987",
-  },
-  {
-    id: 10,
-    name: "Religion",
-    value: "",
-  },
-  {
-    id: 11,
-    name: "Gender",
-    value: "Male",
-  },
-  {
-    id: 12,
-    name: "Blood",
-    value: "AB+",
-  },
-];

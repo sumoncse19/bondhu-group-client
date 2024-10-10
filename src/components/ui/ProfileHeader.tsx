@@ -4,8 +4,23 @@ import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { LuUser2 } from "react-icons/lu";
 import { IoCall } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
+import { UserData } from "@/type";
 
-const ProfileHeader = () => {
+interface ProfileHeaderProps {
+  name?: string;
+  user_name?: string;
+  phone?: string;
+  registration_date?: string;
+  picture?: string;
+}
+
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({
+  name,
+  user_name,
+  phone,
+  registration_date,
+  picture,
+}) => {
   return (
     <div className="w-full h-fit  flex flex-col rounded-md border overflow-hidden bg-[#dfd5cf] shadow">
       {/* cover image */}
@@ -24,14 +39,14 @@ const ProfileHeader = () => {
           <div className="-mt-12 z-[2000] p-2 relative">
             <img
               className="w-24 h-24"
-              src="/images/profilePicIcon.png"
+              src={picture ? picture : "/images/profilePicIcon.png"}
               alt=""
             />
             <FaCameraRetro className="text-white text-2xl absolute bottom-5 right-3 bg-black p-1 rounded-full" />
           </div>
           <div className="pt-3">
             <div className=" flex items-center gap-10">
-              <p className="text-xl font-bold text-black">Shakir Ahmed</p>
+              <p className="text-xl font-bold text-black">{name}</p>
               <span className="flex items-center gap-2">
                 <AiOutlineSafetyCertificate className="text-green-500 text-xl font-bold" />
                 <p className="bg-green-500 px-3 rounded-lg text-white font-bold">
@@ -43,15 +58,15 @@ const ProfileHeader = () => {
             <div className="mt-5 flex items-center gap-5 text-slate-600 text-sm">
               <span className="flex items-center gap-1">
                 <LuUser2 />
-                <p>shakirAh019</p>
+                <p>{user_name}</p>
               </span>
               <span className="flex items-center gap-1">
                 <IoCall />
-                <p>+88017122311</p>
+                <p>{phone}</p>
               </span>
               <span className="flex items-center gap-2">
                 <SlCalender />
-                <p>Joined 12/01/24</p>
+                <p>Joined {registration_date}</p>
               </span>
             </div>
           </div>

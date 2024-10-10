@@ -137,7 +137,7 @@ const firstMenuItems: MenuItem[] = [
       {
         key: "genealogy-tree",
         label: (
-          <Link href="/dashboard/team-view/ganealogy-tree">Genealogy Tree</Link>
+          <Link href="/dashboard/team-view/ganealogy-tree">Tree View</Link>
         ),
       },
     ],
@@ -213,7 +213,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-5 shadow-lg rounded-md min-h-screen">
+    <div className="lg:flex hidden flex-col items-center gap-5 shadow-lg rounded-md min-h-screen ">
       <Link
         href="/"
         className="border-none text-red-700 hover:text-red-900 pt-5"
