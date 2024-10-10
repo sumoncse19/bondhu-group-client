@@ -30,7 +30,6 @@ const MyProfile = () => {
   useEffect(() => {
     fetchSingleUser();
   }, [id]);
-  console.log("user", user);
 
   const personalInfo = [
     {

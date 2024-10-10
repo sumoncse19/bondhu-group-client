@@ -70,10 +70,15 @@ const page = () => {
     },
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [allUser, setAlluser] = useState([]);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const [searchValue, setSearchValue] = useState<string>("");
 
+  // Cookies value
   const id: string = Cookies.get("id") || "";
   const token: string = Cookies.get("token") || "";
 
+  // get team views
   const fetchTeamViews = async (id: string) => {
     try {
       setIsLoading(true);
@@ -85,8 +90,6 @@ const page = () => {
       });
       const data = await response.json();
       if (data.success) {
-        console.log("1212", data.data);
-
         setFullTeams(data.data);
         setSecondLevelLeftPartner(data?.data?.left_side_partner);
         setSecondLevelRightPartner(data?.data?.right_side_partner);
@@ -110,16 +113,30 @@ const page = () => {
     }
   };
 
-  // console.log("team", fullTeams);
-  // console.log("2", secondLevelLeftPartner);
-  // console.log("3", secondLevelRightPartner);
-  // console.log("4", thirdLeveLeftLeftPartner);
-  // console.log("5", thirdLeveLeftRightPartner);
-  // console.log("6", thirdLeveRightLeftPartner);
-  // console.log("7", thirdLeveRightRightPartner);
+  // get all user
+  const getAllUser = async () => {
+    const response = await fetch(`${baseUrl}/user/get-all-users`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      setAlluser(data?.data);
+    }
+  };
+
+  const handleSearchUser = (value) => {
+    const searchedUser = allUser.find((user) => user.user_name === value);
+    fetchTeamViews(searchedUser?._id);
+  };
 
   useEffect(() => {
     fetchTeamViews(id);
+    getAllUser();
     // for 1st level
     const canvas = canvasRef.current;
     if (canvas) {
@@ -147,6 +164,7 @@ const page = () => {
     }
   }, []);
 
+  // when page is loading
   if (isLoading) {
     return (
       <div className="w-full h-[90vh]  bg-opacity-60">
@@ -209,6 +227,26 @@ const page = () => {
           </div>
         </div>
       </div> */}
+
+      {/* search box */}
+      <div className="flex items-center gap-x-3">
+        <input
+          ref={searchInputRef}
+          defaultValue=""
+          type="text"
+          placeholder="search by username"
+          className="px-4 py-1 rounded-md outline-none border-2 border-black focus:border-green-600"
+        />
+        <button
+          onClick={() => {
+            // setSearchValue();
+            handleSearchUser(searchInputRef?.current?.value);
+          }}
+          className="bg-teal-500 px-4 py-1 rounded-md text-white"
+        >
+          Search
+        </button>
+      </div>
 
       <table className="w-full  text-sm text-left rtl:text-right text-white dark:text-gray-400">
         <tbody>

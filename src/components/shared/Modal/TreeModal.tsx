@@ -43,8 +43,6 @@ const TreeModal: React.FC<TreeModalProps> = ({
   setTreeModal,
   fetchTeamViews,
 }) => {
-  console.log(treeModal.value.name, setTreeModal);
-
   const userData = [
     {
       id: "1",
@@ -138,8 +136,6 @@ const TreeModal: React.FC<TreeModalProps> = ({
     // },
   ];
 
-  console.log(treeModal?.value, "id from tree");
-
   return (
     <div
       onClick={(e) => {
@@ -147,7 +143,7 @@ const TreeModal: React.FC<TreeModalProps> = ({
           setTreeModal({ open: false, value: {} });
         }
       }}
-      className="w-full min-h-screen overflow-y-auto bg-black bg-opacity-80 absolute top-0 right-0 flex justify-center items-center cursor-pointer z-[40000]"
+      className="w-full min-h-screen overflow-y-auto bg-black bg-opacity-80 absolute top-0 right-0 flex justify-center items-center cursor-pointer z-[40000000]"
     >
       <div
         onClick={(e) => {
