@@ -11,15 +11,15 @@ export default function Layout(props: { children: React.ReactNode }) {
 
   return (
     <div className="mainBg bg-[#EAE9E8] text-red-600 min-h-screen ">
-      {pathname !== "/" ? (
+      {pathname.includes("/dashboard") ? (
         <div className="flex">
           <Sidebar />
           <div className="grow self-start p-5">{props.children}</div>
         </div>
       ) : (
-        <div className="flex flex-col justify-between items-center">
+        <div className="flex flex-col justify-between ">
           <Header />
-          {props.children}
+          <div className="min-h-[100vh] mt-[100px]">{props.children}</div>
           <Footer />
         </div>
       )}

@@ -4,45 +4,30 @@ import Hero from "@/components/ui/Hero";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../../components/shared/Button";
 import Services from "@/components/ui/Services";
 import Projects from "@/components/ui/Projects";
-
-// Register ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
+import HomeBanner from "@/components/ui/HomeBanner";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const HomePage = () => {
-  const leftDivRef = useRef(null);
-  const rightDivRef = useRef(null);
-
-  const companies = [
-    "Bondhu Group-1",
-    "Bondhu Group-2",
-    "Bondhu Group-3",
-    "Bondhu Group-4",
-    "Bondhu Group-5",
-    "Bondhu Group-6",
-    "Bondhu Group-7",
-    "Bondhu Group-8",
-    "Bondhu Group-9",
-    "Bondhu Group-10",
-    "Bondhu Group-11",
-    "Bondhu Group-12",
-  ];
-
   return (
     <div className="w-full">
       {/* Hero section */}
-      <Hero />
+      {/* <Hero /> */}
+      <div>
+        <HomeBanner />
+      </div>
 
       {/* Bondhu builder intro */}
       <div className="my-24">
         <div className=" w-[80%] mx-auto flex items-center gap-10">
           {/* left div */}
-          <div ref={leftDivRef} className="w-full flex flex-col gap-5 left-div">
+          <div className="w-full flex flex-col gap-5 left-div">
             <h1 className="text-4xl text-black font-bold tracking-widest leading-relaxed">
-              Welcome to <br /> Bondhu Builder&#x27;s
+              Bondhu Builder&#x27;s
             </h1>
             <p className="text-gray-600">
               A diverse company focused on growth across multiple sectors,
@@ -53,10 +38,7 @@ const HomePage = () => {
           </div>
 
           {/* right div */}
-          <div
-            ref={rightDivRef}
-            className="w-full flex justify-center right-div"
-          >
+          <div className="w-full flex justify-center right-div">
             <img
               style={{
                 boxShadow:

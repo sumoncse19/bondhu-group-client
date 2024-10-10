@@ -5,16 +5,16 @@ const Hero = () => {
     <div className="relative w-full">
       <div
         style={{
-          background: "url('/images/heroBanner1.webp')",
+          background: "url('/images/heroBanner3.jpeg')",
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           height: "100vh",
           width: "100%",
         }}
-        className=" bg-contain bg-opacity-15"
+        className=" bg-contain bg-opacity-95"
       />
-      <div className="absolute inset-0 bg-black opacity-55" />
+      <div className="absolute inset-0 bg-black opacity-35" />
       <div className="w-[50%] absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2 z-[2000]   py-16 px-24 bg-opacity-50 rounded-md">
         <div>
           <h1 className="text-white text-6xl text-center font-bold protest-guerrilla-regular tracking-widest">
