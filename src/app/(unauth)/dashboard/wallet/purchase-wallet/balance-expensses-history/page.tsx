@@ -93,11 +93,7 @@ const page = () => {
             }
           );
 
-          console.log("promises", partnersDetailsPromises);
-
           const partnersDetails = await Promise.all(partnersDetailsPromises);
-
-          console.log("promisessss", partnersDetails);
 
           // Ensure no duplicates before updating the state
           setPartnersDetails((prev) => {

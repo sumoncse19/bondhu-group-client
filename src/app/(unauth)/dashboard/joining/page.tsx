@@ -142,7 +142,6 @@ const page = () => {
       if (data.success) {
         const imageUrl = data.data.url; // Get the image URL from the response
         setImageUrl2(imageUrl);
-        console.log("Uploaded image URL:", imageUrl2);
       } else {
         console.error("Error uploading to imgbb:", data.error);
       }
@@ -263,7 +262,6 @@ const page = () => {
     // get all child users
   }, [userCookie]);
 
-  console.log("child", childUsers);
   return (
     <div className="p-5">
       <h1 className="text-xl pb-4 text-rose-600 font-bold">

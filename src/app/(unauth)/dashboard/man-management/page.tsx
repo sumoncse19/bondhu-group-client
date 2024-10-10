@@ -61,7 +61,6 @@ const Page = () => {
       const adminUsers = data?.data?.filter(
         (user: { role: string }) => user?.role === "admin"
       );
-      console.log("1", adminUsers);
 
       setChildUsers(adminUsers);
       setIsLoading(false);

@@ -6,6 +6,8 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
+import baseUrl from "../../../../../../config";
+import axios from "axios";
 
 const page = () => {
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
@@ -94,7 +96,7 @@ const page = () => {
     }
   };
 
-  const handleRequestToAdmin = () => {
+  const handleRequestToAdmin = async () => {
     if (
       (totalPlanCost > 0 && !moneyRecieptNumber) ||
       !mobileNumber ||
@@ -114,23 +116,38 @@ const page = () => {
     const paymentData = {
       userId: user?._id,
       project_share: projectShareAmount,
-      fixed_deposit: fixedDepositAmount,
-      share_holder: shareHolderAmount,
-      directorship: directorshipAmount,
+      fixed_deposit: parseInt(fixedDepositAmount),
+      share_holder: parseInt(shareHolderAmount),
+      directorship: parseInt(directorshipAmount),
       total_amount: totalPlanCost,
-      add_money_history: {
-        money_receipt_number: moneyRecieptNumber,
-        phone: mobileNumber,
-        payment_method: paymentMethod,
-        bank_name: bankName,
-        bank_account_name: bankAccName,
-        branch_name: bankBranchName,
-        transaction_id: transactionId,
-        picture: paymentPicture,
-      },
+      money_receipt_number: moneyRecieptNumber,
+      phone: mobileNumber,
+      payment_method: paymentMethod,
+      bank_name: bankName,
+      bank_account_name: bankAccName,
+      branch_name: bankBranchName,
+      transaction_id: transactionId,
+      picture: paymentPicture,
     };
 
-    router.push("/dashboard/add-money/add-money-history");
+    console.log(paymentData);
+
+    try {
+      await axios
+        .post(`${baseUrl}/add-money`, paymentData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => console.log(res?.data));
+
+      // const data = await response.json();
+      // if (data.succes) {
+      //   console.log(data?.data, "addmoney");
+      // }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
