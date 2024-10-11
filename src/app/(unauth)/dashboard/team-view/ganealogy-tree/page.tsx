@@ -18,9 +18,12 @@ interface TeamViewData {
   parent_placement_id: string;
   name: string;
   email: string;
+  user_name: string; // Add this field
+  phone: string; // Add this field
+  registration_date: string; // Add this field
   left_side_partner: TeamViewData | null;
   right_side_partner: TeamViewData | null;
-  wallet: WalletData | null;
+  wallet: WalletData;
   accountable: {
     total_carry: number;
     total_point: number;
@@ -29,7 +32,7 @@ interface TeamViewData {
 
 interface TreeModalProps {
   open: boolean;
-  value: TeamViewData;
+  value: any;
 }
 
 const page = () => {
@@ -59,6 +62,9 @@ const page = () => {
       picture: "",
       parent_placement_id: "",
       name: "",
+      user_name: "",
+      registration_date: "",
+      phone: "",
       email: "",
       left_side_partner: null,
       right_side_partner: null,
@@ -129,8 +135,10 @@ const page = () => {
     }
   };
 
-  const handleSearchUser = (value) => {
-    const searchedUser = allUser.find((user) => user.user_name === value);
+  const handleSearchUser = (value: string) => {
+    const searchedUser: any = allUser.find(
+      (user: { user_name: string }) => user.user_name === value
+    );
     fetchTeamViews(searchedUser?._id);
   };
 
@@ -240,7 +248,7 @@ const page = () => {
         <button
           onClick={() => {
             // setSearchValue();
-            handleSearchUser(searchInputRef?.current?.value);
+            handleSearchUser(searchInputRef?.current?.value || "");
           }}
           className="bg-teal-500 px-4 py-1 rounded-md text-white"
         >
@@ -274,6 +282,10 @@ const page = () => {
                             parent_placement_id:
                               fullTeams?.parent_placement_id || "",
                             name: fullTeams?.name || "",
+                            user_name: fullTeams?.user_name || "",
+                            registration_date:
+                              fullTeams?.registration_date || "",
+                            phone: fullTeams?.phone || "",
                             email: fullTeams?.email || "",
                             left_side_partner:
                               fullTeams?.left_side_partner || null,
@@ -343,6 +355,10 @@ const page = () => {
                             parent_placement_id:
                               secondLevelLeftPartner?.parent_placement_id || "",
                             name: secondLevelLeftPartner?.name || "",
+                            user_name: secondLevelLeftPartner?.user_name || "",
+                            registration_date:
+                              secondLevelLeftPartner?.registration_date || "",
+                            phone: secondLevelLeftPartner?.phone || "",
                             email: secondLevelLeftPartner?.email || "",
                             left_side_partner:
                               secondLevelLeftPartner?.left_side_partner || null,
@@ -417,6 +433,10 @@ const page = () => {
                               secondLevelRightPartner?.parent_placement_id ||
                               "",
                             name: secondLevelRightPartner?.name || "",
+                            user_name: secondLevelRightPartner?.user_name || "",
+                            registration_date:
+                              secondLevelRightPartner?.registration_date || "",
+                            phone: secondLevelRightPartner?.phone || "",
                             email: secondLevelRightPartner?.email || "",
                             left_side_partner:
                               secondLevelRightPartner?.left_side_partner ||
@@ -506,6 +526,12 @@ const page = () => {
                                 thirdLeveLeftLeftPartner?.parent_placement_id ||
                                 "",
                               name: thirdLeveLeftLeftPartner?.name || "",
+                              user_name:
+                                thirdLeveLeftLeftPartner?.user_name || "",
+                              registration_date:
+                                thirdLeveLeftLeftPartner?.registration_date ||
+                                "",
+                              phone: thirdLeveLeftLeftPartner?.phone || "",
                               email: thirdLeveLeftLeftPartner?.email || "",
                               left_side_partner:
                                 thirdLeveLeftLeftPartner?.left_side_partner ||
@@ -581,6 +607,12 @@ const page = () => {
                                 thirdLeveLeftRightPartner?.parent_placement_id ||
                                 "",
                               name: thirdLeveLeftRightPartner?.name || "",
+                              user_name:
+                                thirdLeveLeftRightPartner?.user_name || "",
+                              registration_date:
+                                thirdLeveLeftRightPartner?.registration_date ||
+                                "",
+                              phone: thirdLeveLeftRightPartner?.phone || "",
                               email: thirdLeveLeftRightPartner?.email || "",
                               left_side_partner:
                                 thirdLeveLeftRightPartner?.left_side_partner ||
@@ -658,6 +690,12 @@ const page = () => {
                                 thirdLeveRightLeftPartner?.parent_placement_id ||
                                 "",
                               name: thirdLeveRightLeftPartner?.name || "",
+                              user_name:
+                                thirdLeveRightLeftPartner?.user_name || "",
+                              registration_date:
+                                thirdLeveRightLeftPartner?.registration_date ||
+                                "",
+                              phone: thirdLeveRightLeftPartner?.phone || "",
                               email: thirdLeveRightLeftPartner?.email || "",
                               left_side_partner:
                                 thirdLeveRightLeftPartner?.left_side_partner ||
@@ -734,6 +772,12 @@ const page = () => {
                                 thirdLeveRightRightPartner?.parent_placement_id ||
                                 "",
                               name: thirdLeveRightRightPartner?.name || "",
+                              user_name:
+                                thirdLeveRightRightPartner?.user_name || "",
+                              registration_date:
+                                thirdLeveRightRightPartner?.registration_date ||
+                                "",
+                              phone: thirdLeveRightRightPartner?.phone || "",
                               email: thirdLeveRightRightPartner?.email || "",
                               left_side_partner:
                                 thirdLeveRightRightPartner?.left_side_partner ||
