@@ -17,7 +17,7 @@ const HomeBanner = () => {
       spaceBetween={30}
       centeredSlides={true}
       autoplay={{
-        delay: 5000,
+        delay: 3000,
         disableOnInteraction: false,
       }}
       pagination={{
@@ -38,4 +38,9 @@ const HomeBanner = () => {
 
 export default HomeBanner;
 
-const images = ["/images/heroBanner1.jpeg", "/images/heroBanner2.jpeg"];
+const images = [
+  "/images/heroBanner1.jpeg",
+  "/images/heroBanner2.jpeg",
+  "/images/heroBanner3.jpeg",
+  "/images/heroBanner4.jpeg",
+];

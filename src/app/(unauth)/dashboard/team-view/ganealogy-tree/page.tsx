@@ -10,6 +10,22 @@ interface WalletData {
   purchase_wallet: number;
   income_wallet: number;
   reference_bonus: number;
+  matching_bonus: number;
+}
+interface AccountableData {
+  directorship: number;
+  fixed_deposit: number;
+  project_share: number;
+  share_holder: number;
+  team_a_carry: number;
+  team_a_member: number;
+  team_a_point: number;
+  team_b_carry: number;
+  team_b_member: number;
+  team_b_point: number;
+  total_amount: number;
+  total_carry: number;
+  total_point: number;
 }
 interface TeamViewData {
   _id: string;
@@ -24,10 +40,7 @@ interface TeamViewData {
   left_side_partner: TeamViewData | null;
   right_side_partner: TeamViewData | null;
   wallet: WalletData;
-  accountable: {
-    total_carry: number;
-    total_point: number;
-  };
+  accountable: AccountableData;
 }
 
 interface TreeModalProps {
@@ -68,8 +81,24 @@ const page = () => {
       email: "",
       left_side_partner: null,
       right_side_partner: null,
-      wallet: { purchase_wallet: 0, income_wallet: 0, reference_bonus: 0 },
+      wallet: {
+        purchase_wallet: 0,
+        income_wallet: 0,
+        reference_bonus: 0,
+        matching_bonus: 0,
+      },
       accountable: {
+        directorship: 0,
+        fixed_deposit: 0,
+        project_share: 0,
+        share_holder: 0,
+        team_a_carry: 0,
+        team_a_member: 0,
+        team_a_point: 0,
+        team_b_carry: 0,
+        team_b_member: 0,
+        team_b_point: 0,
+        total_amount: 0,
         total_carry: 0,
         total_point: 0,
       },
@@ -265,13 +294,11 @@ const page = () => {
               <div className=" flex flex-col items-center relative">
                 <div className="group ">
                   <img
-                    src={
-                      fullTeams
-                        ? "/images/profilePicIcon.png"
-                        : "/images/profilePicIcon2.png"
-                    }
-                    className="w-16 h-16 cursor-pointer"
+                    src={"/images/profilePicIcon.png"}
+                    className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                     onClick={() => {
+                      console.log(fullTeams);
+
                       if (fullTeams) {
                         setTreeModal({
                           open: true,
@@ -298,10 +325,36 @@ const page = () => {
                                 fullTeams?.wallet?.income_wallet || 0,
                               reference_bonus:
                                 fullTeams?.wallet?.reference_bonus || 0,
+                              matching_bonus:
+                                fullTeams?.wallet?.matching_bonus || 0,
                             },
                             accountable: {
-                              total_point: fullTeams?.accountable?.total_point,
-                              total_carry: fullTeams?.accountable?.total_carry,
+                              directorship:
+                                fullTeams?.accountable?.directorship || 0,
+                              fixed_deposit:
+                                fullTeams?.accountable?.fixed_deposit || 0,
+                              project_share:
+                                fullTeams?.accountable?.project_share || 0,
+                              share_holder:
+                                fullTeams?.accountable?.share_holder || 0,
+                              team_a_carry:
+                                fullTeams?.accountable?.team_a_carry || 0,
+                              team_a_member:
+                                fullTeams?.accountable?.team_a_member || 0,
+                              team_a_point:
+                                fullTeams?.accountable?.team_a_point || 0,
+                              team_b_carry:
+                                fullTeams?.accountable?.team_b_carry || 0,
+                              team_b_member:
+                                fullTeams?.accountable?.team_b_member || 0,
+                              team_b_point:
+                                fullTeams?.accountable?.team_b_point || 0,
+                              total_amount:
+                                fullTeams?.accountable?.total_amount || 0,
+                              total_carry:
+                                fullTeams?.accountable?.total_carry || 0,
+                              total_point:
+                                fullTeams?.accountable?.total_point || 0,
                             },
                           },
                         });
@@ -375,14 +428,50 @@ const page = () => {
                               reference_bonus:
                                 secondLevelLeftPartner?.wallet
                                   ?.reference_bonus || 0,
+                              matching_bonus:
+                                secondLevelLeftPartner?.wallet
+                                  ?.matching_bonus || 0,
                             },
                             accountable: {
-                              total_point:
+                              directorship:
                                 secondLevelLeftPartner?.accountable
-                                  ?.total_point,
+                                  ?.directorship || 0,
+                              fixed_deposit:
+                                secondLevelLeftPartner?.accountable
+                                  ?.fixed_deposit || 0,
+                              project_share:
+                                secondLevelLeftPartner?.accountable
+                                  ?.project_share || 0,
+                              share_holder:
+                                secondLevelLeftPartner?.accountable
+                                  ?.share_holder || 0,
+                              team_a_carry:
+                                secondLevelLeftPartner?.accountable
+                                  ?.team_a_carry || 0,
+                              team_a_member:
+                                secondLevelLeftPartner?.accountable
+                                  ?.team_a_member || 0,
+                              team_a_point:
+                                secondLevelLeftPartner?.accountable
+                                  ?.team_a_point || 0,
+                              team_b_carry:
+                                secondLevelLeftPartner?.accountable
+                                  ?.team_b_carry || 0,
+                              team_b_member:
+                                secondLevelLeftPartner?.accountable
+                                  ?.team_b_member || 0,
+                              team_b_point:
+                                secondLevelLeftPartner?.accountable
+                                  ?.team_b_point || 0,
+                              total_amount:
+                                secondLevelLeftPartner?.accountable
+                                  ?.total_amount || 0,
                               total_carry:
                                 secondLevelLeftPartner?.accountable
-                                  ?.total_carry,
+                                  ?.total_carry || 0,
+                              total_point:
+                                secondLevelLeftPartner?.accountable
+                                  ?.total_point || 0,
                             },
                           },
                         });
@@ -393,7 +482,7 @@ const page = () => {
                         ? "/images/profilePicIcon.png"
                         : "/images/profilePicIcon2.png"
                     }
-                    className="w-16 h-16  cursor-pointer"
+                    className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                     alt=""
                   />
                   {/* Left side info */}
@@ -454,14 +543,50 @@ const page = () => {
                               reference_bonus:
                                 secondLevelRightPartner?.wallet
                                   ?.reference_bonus || 0,
+                              matching_bonus:
+                                secondLevelRightPartner?.wallet
+                                  ?.matching_bonus || 0,
                             },
                             accountable: {
-                              total_point:
+                              directorship:
                                 secondLevelRightPartner?.accountable
-                                  ?.total_point,
+                                  ?.directorship || 0,
+                              fixed_deposit:
+                                secondLevelRightPartner?.accountable
+                                  ?.fixed_deposit || 0,
+                              project_share:
+                                secondLevelRightPartner?.accountable
+                                  ?.project_share || 0,
+                              share_holder:
+                                secondLevelRightPartner?.accountable
+                                  ?.share_holder || 0,
+                              team_a_carry:
+                                secondLevelRightPartner?.accountable
+                                  ?.team_a_carry || 0,
+                              team_a_member:
+                                secondLevelRightPartner?.accountable
+                                  ?.team_a_member || 0,
+                              team_a_point:
+                                secondLevelRightPartner?.accountable
+                                  ?.team_a_point || 0,
+                              team_b_carry:
+                                secondLevelRightPartner?.accountable
+                                  ?.team_b_carry || 0,
+                              team_b_member:
+                                secondLevelRightPartner?.accountable
+                                  ?.team_b_member || 0,
+                              team_b_point:
+                                secondLevelRightPartner?.accountable
+                                  ?.team_b_point || 0,
+                              total_amount:
+                                secondLevelRightPartner?.accountable
+                                  ?.total_amount || 0,
                               total_carry:
                                 secondLevelRightPartner?.accountable
-                                  ?.total_carry,
+                                  ?.total_carry || 0,
+                              total_point:
+                                secondLevelRightPartner?.accountable
+                                  ?.total_point || 0,
                             },
                           },
                         });
@@ -472,7 +597,7 @@ const page = () => {
                         ? "/images/profilePicIcon.png"
                         : "/images/profilePicIcon2.png"
                     }
-                    className="w-16 h-16  cursor-pointer"
+                    className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                     alt=""
                   />
                   {/* Left side info */}
@@ -490,7 +615,7 @@ const page = () => {
                 <p className="font-bold text-lg  text-black ">
                   {secondLevelRightPartner?.name
                     ? secondLevelRightPartner?.name
-                    : "Empty"}
+                    : ""}
                 </p>
               </div>
             </td>
@@ -549,14 +674,50 @@ const page = () => {
                                 reference_bonus:
                                   thirdLeveLeftLeftPartner?.wallet
                                     ?.reference_bonus || 0,
+                                matching_bonus:
+                                  thirdLeveLeftLeftPartner?.wallet
+                                    ?.matching_bonus || 0,
                               },
                               accountable: {
-                                total_point:
+                                directorship:
                                   thirdLeveLeftLeftPartner?.accountable
-                                    ?.total_point,
+                                    ?.directorship || 0,
+                                fixed_deposit:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.fixed_deposit || 0,
+                                project_share:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.project_share || 0,
+                                share_holder:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.share_holder || 0,
+                                team_a_carry:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.team_a_carry || 0,
+                                team_a_member:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.team_a_member || 0,
+                                team_a_point:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.team_a_point || 0,
+                                team_b_carry:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.team_b_carry || 0,
+                                team_b_member:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.team_b_member || 0,
+                                team_b_point:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.team_b_point || 0,
+                                total_amount:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.total_amount || 0,
                                 total_carry:
                                   thirdLeveLeftLeftPartner?.accountable
-                                    ?.total_carry,
+                                    ?.total_carry || 0,
+                                total_point:
+                                  thirdLeveLeftLeftPartner?.accountable
+                                    ?.total_point || 0,
                               },
                             },
                           });
@@ -567,7 +728,7 @@ const page = () => {
                           ? "/images/profilePicIcon.png"
                           : "/images/profilePicIcon2.png"
                       }
-                      className="w-16 h-16  cursor-pointer"
+                      className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                       alt=""
                     />{" "}
                     {/* Left side info */}
@@ -630,14 +791,50 @@ const page = () => {
                                 reference_bonus:
                                   thirdLeveLeftRightPartner?.wallet
                                     ?.reference_bonus || 0,
+                                matching_bonus:
+                                  thirdLeveLeftRightPartner?.wallet
+                                    ?.matching_bonus || 0,
                               },
                               accountable: {
-                                total_point:
+                                directorship:
                                   thirdLeveLeftRightPartner?.accountable
-                                    ?.total_point,
+                                    ?.directorship || 0,
+                                fixed_deposit:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.fixed_deposit || 0,
+                                project_share:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.project_share || 0,
+                                share_holder:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.share_holder || 0,
+                                team_a_carry:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.team_a_carry || 0,
+                                team_a_member:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.team_a_member || 0,
+                                team_a_point:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.team_a_point || 0,
+                                team_b_carry:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.team_b_carry || 0,
+                                team_b_member:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.team_b_member || 0,
+                                team_b_point:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.team_b_point || 0,
+                                total_amount:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.total_amount || 0,
                                 total_carry:
                                   thirdLeveLeftRightPartner?.accountable
-                                    ?.total_carry,
+                                    ?.total_carry || 0,
+                                total_point:
+                                  thirdLeveLeftRightPartner?.accountable
+                                    ?.total_point || 0,
                               },
                             },
                           });
@@ -648,7 +845,7 @@ const page = () => {
                           ? "/images/profilePicIcon.png"
                           : "/images/profilePicIcon2.png"
                       }
-                      className="w-16 h-16  cursor-pointer"
+                      className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                       alt=""
                     />{" "}
                     {/* Left side info */}
@@ -713,14 +910,50 @@ const page = () => {
                                 reference_bonus:
                                   thirdLeveRightLeftPartner?.wallet
                                     ?.reference_bonus || 0,
+                                matching_bonus:
+                                  thirdLeveRightLeftPartner?.wallet
+                                    ?.matching_bonus || 0,
                               },
                               accountable: {
-                                total_point:
+                                directorship:
                                   thirdLeveRightLeftPartner?.accountable
-                                    ?.total_point,
+                                    ?.directorship || 0,
+                                fixed_deposit:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.fixed_deposit || 0,
+                                project_share:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.project_share || 0,
+                                share_holder:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.share_holder || 0,
+                                team_a_carry:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.team_a_carry || 0,
+                                team_a_member:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.team_a_member || 0,
+                                team_a_point:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.team_a_point || 0,
+                                team_b_carry:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.team_b_carry || 0,
+                                team_b_member:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.team_b_member || 0,
+                                team_b_point:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.team_b_point || 0,
+                                total_amount:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.total_amount || 0,
                                 total_carry:
                                   thirdLeveRightLeftPartner?.accountable
-                                    ?.total_carry,
+                                    ?.total_carry || 0,
+                                total_point:
+                                  thirdLeveRightLeftPartner?.accountable
+                                    ?.total_point || 0,
                               },
                             },
                           });
@@ -731,7 +964,7 @@ const page = () => {
                           ? "/images/profilePicIcon.png"
                           : "/images/profilePicIcon2.png"
                       }
-                      className="w-16 h-16  cursor-pointer"
+                      className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                       alt=""
                     />{" "}
                     {/* Left side info */}
@@ -795,14 +1028,50 @@ const page = () => {
                                 reference_bonus:
                                   thirdLeveRightRightPartner?.wallet
                                     ?.reference_bonus || 0,
+                                matching_bonus:
+                                  thirdLeveRightRightPartner?.wallet
+                                    ?.matching_bonus || 0,
                               },
                               accountable: {
-                                total_point:
+                                directorship:
                                   thirdLeveRightRightPartner?.accountable
-                                    ?.total_point,
+                                    ?.directorship || 0,
+                                fixed_deposit:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.fixed_deposit || 0,
+                                project_share:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.project_share || 0,
+                                share_holder:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.share_holder || 0,
+                                team_a_carry:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.team_a_carry || 0,
+                                team_a_member:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.team_a_member || 0,
+                                team_a_point:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.team_a_point || 0,
+                                team_b_carry:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.team_b_carry || 0,
+                                team_b_member:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.team_b_member || 0,
+                                team_b_point:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.team_b_point || 0,
+                                total_amount:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.total_amount || 0,
                                 total_carry:
                                   thirdLeveRightRightPartner?.accountable
-                                    ?.total_carry,
+                                    ?.total_carry || 0,
+                                total_point:
+                                  thirdLeveRightRightPartner?.accountable
+                                    ?.total_point || 0,
                               },
                             },
                           });
@@ -813,7 +1082,7 @@ const page = () => {
                           ? "/images/profilePicIcon.png"
                           : "/images/profilePicIcon2.png"
                       }
-                      className="w-16 h-16  cursor-pointer"
+                      className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                       alt=""
                     />{" "}
                     {/* Left side info */}

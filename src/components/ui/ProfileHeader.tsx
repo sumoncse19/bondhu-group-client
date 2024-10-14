@@ -38,11 +38,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
           {/* profile pic */}
           <div className="-mt-12 z-[2000] p-2 relative">
             <img
-              className="w-24 h-24"
+              className="w-24 h-24 rounded-full border-4 border-red-500"
               src={picture ? picture : "/images/profilePicIcon.png"}
               alt=""
             />
-            <FaCameraRetro className="text-white text-2xl absolute bottom-5 right-3 bg-black p-1 rounded-full" />
+            {/* <FaCameraRetro className="text-white text-2xl absolute bottom-5 right-3 bg-black p-1 rounded-full" /> */}
           </div>
           <div className="pt-3">
             <div className=" flex items-center gap-10">

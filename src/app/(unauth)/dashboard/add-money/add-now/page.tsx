@@ -4,7 +4,7 @@ import { TiPin } from "react-icons/ti";
 import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { ColorRing } from "react-loader-spinner";
+import { ColorRing, ThreeCircles } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
 import baseUrl from "../../../../../../config";
 import axios from "axios";
@@ -28,6 +28,7 @@ const page = () => {
   const [isLoadingForImage, setIsLoadingForImage] = useState<boolean>(false);
 
   const [user, setUser] = useState<any>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fixedDepositInputRef = useRef<HTMLInputElement>(null);
   const shareHolderInputRef = useRef<HTMLInputElement>(null);
@@ -108,9 +109,11 @@ const page = () => {
       return;
     }
     if (paymentMethod === "bank") {
-      if (!bankName || !bankAccName || !bankBranchName)
+      if (!bankName || !bankAccName || !bankBranchName) {
         toast.error("Fill all bank info first");
-      return;
+        return;
+      }
+      console.log("hi");
     }
 
     const paymentData = {
@@ -130,7 +133,7 @@ const page = () => {
       picture: paymentPicture,
     };
 
-    console.log(paymentData);
+    setIsLoading(true);
 
     try {
       await axios
@@ -139,7 +142,12 @@ const page = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => console.log(res?.data));
+        .then((res) => {
+          if (res?.data?.success) {
+            router.push("/dashboard/add-money/add-money-history");
+            toast.success("Investment Request to Admin Successfully");
+          }
+        });
 
       // const data = await response.json();
       // if (data.succes) {
@@ -147,6 +155,8 @@ const page = () => {
       // }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -662,11 +672,23 @@ const page = () => {
               }
               className={`${totalPlanCost <= 0 ? "cursor-not-allowed bg-gray-400" : "bg-rose-600 cursor-pointer hover:scale-95 hover:tracking-normal"} flex items-center justify-center py-2  rounded text-white font-bold  tracking-widest  transition-all duration-500 ease-in`}
             >
-              <button
-                className={`${totalPlanCost <= 0 ? "cursor-not-allowed" : " cursor-pointer"}`}
-              >
-                Request to Admin
-              </button>
+              {isLoading ? (
+                <ThreeCircles
+                  visible={true}
+                  height="40"
+                  width="40"
+                  color="#fff"
+                  ariaLabel="three-circles-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+              ) : (
+                <button
+                  className={`${totalPlanCost <= 0 ? "cursor-not-allowed" : " cursor-pointer"}`}
+                >
+                  Request to Admin
+                </button>
+              )}
             </div>
           </div>
         </div>
