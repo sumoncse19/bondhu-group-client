@@ -3,6 +3,22 @@ interface WalletData {
   purchase_wallet: number;
   income_wallet: number;
   reference_bonus: number;
+  matching_bonus: number;
+}
+interface AccountableData {
+  directorship: number;
+  fixed_deposit: number;
+  project_share: number;
+  share_holder: number;
+  team_a_carry: number;
+  team_a_member: number;
+  team_a_point: number;
+  team_b_carry: number;
+  team_b_member: number;
+  team_b_point: number;
+  total_amount: number;
+  total_carry: number;
+  total_point: number;
 }
 interface TeamViewData {
   _id: string;
@@ -25,10 +41,7 @@ interface TreeModalProps {
       user_name: string;
       phone: string;
       registration_date: string;
-      accountable: {
-        total_carry: number;
-        total_point: number;
-      };
+      accountable: AccountableData;
       wallet: WalletData;
     };
   };
@@ -57,77 +70,84 @@ const TreeModal: React.FC<TreeModalProps> = ({
     {
       id: "2",
       key: "username",
-      value: treeModal?.value?.user_name || "--",
+      value: treeModal?.value?.user_name || 0,
     },
     {
       id: "3",
       key: "Phone",
-      value: treeModal?.value?.phone || "--",
+      value: treeModal?.value?.phone || 0,
     },
     {
       id: "4",
       key: "Joined",
-      value: treeModal?.value?.registration_date || "--",
+      value: treeModal?.value?.registration_date || 0,
     },
     {
       id: "5",
       key: "Team A Member",
-      value: "--",
+      value: treeModal?.value?.accountable?.team_a_member || 0,
     },
     {
       id: "6",
       key: "Team B Member",
-      value: "--",
+      value: treeModal?.value?.accountable?.team_b_member || 0,
     },
     {
       id: "7",
       key: "Total Member",
-      value: "--",
+      value:
+        treeModal?.value?.accountable?.team_a_member +
+          treeModal?.value?.accountable?.team_b_member || 0,
     },
     {
       id: "8",
       key: "Team A Point",
-      value: "--",
+      value: treeModal?.value?.accountable?.team_a_point || 0,
     },
     {
       id: "9",
       key: "Team B Point",
-      value: "--",
+      value: treeModal?.value?.accountable?.team_b_point || 0,
     },
     {
       id: "91",
       key: "Total Point",
-      value: treeModal?.value?.accountable?.total_point || "--",
+      value: treeModal?.value?.accountable?.total_point || 0,
     },
     {
       id: "10",
       key: "Team A Carry Point",
-      value: "--",
+      value: treeModal?.value?.accountable?.team_a_carry || 0,
     },
     {
       id: "11",
       key: "Team B Carry Point",
-      value: "--",
-    },
-    {
-      id: "111",
-      key: "Total Carry",
-      value: treeModal?.value?.accountable?.total_carry || "--",
+      value: treeModal?.value?.accountable?.team_b_carry || 0,
     },
     {
       id: "12",
-      key: "Purchase Wallet",
-      value: treeModal?.value?.wallet?.purchase_wallet || "--",
+      key: "Total Carry",
+      value: treeModal?.value?.accountable?.total_carry || 0,
     },
     {
       id: "13",
-      key: "Income Wallet",
-      value: treeModal?.value?.wallet?.income_wallet || "--",
+      key: "Purchase Wallet",
+      value: treeModal?.value?.wallet?.purchase_wallet || 0,
     },
     {
-      id: "12",
+      id: "14",
+      key: "Income Wallet",
+      value: treeModal?.value?.wallet?.income_wallet || 0,
+    },
+    {
+      id: "15",
       key: "Reference Bonus",
-      value: treeModal?.value?.wallet?.reference_bonus || "--",
+      value: treeModal?.value?.wallet?.reference_bonus || 0,
+    },
+    {
+      id: "16",
+      key: "Team Bonus",
+      value: treeModal?.value?.wallet?.matching_bonus || 0,
     },
     // {
     //   id: "12",

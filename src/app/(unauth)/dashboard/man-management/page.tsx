@@ -7,10 +7,12 @@ import { Circles } from "react-loader-spinner";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface UserData {
   _id: string;
   name: string;
+  user_name: string;
   role: string;
   phone: string;
   reference_id: string;
@@ -33,6 +35,8 @@ const Page = () => {
   const token = Cookies.get("token");
   const [user, setUser] = useState<any>({});
   const userCookie = Cookies.get("user");
+
+  const router = useRouter();
 
   // manage cookie
   useEffect(() => {
@@ -136,6 +140,9 @@ const Page = () => {
                 Name
               </th>
               <th scope="col" className="px-6 py-3 text-center">
+                Username
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
                 Role
               </th>
               <th scope="col" className="px-6 py-3 text-center">
@@ -178,11 +185,21 @@ const Page = () => {
                   key={user._id}
                   className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td className="px-6 py-4 text-center">{user.name}</td>
-                  <td className="px-6 py-4 text-center">{user.role}</td>
-                  <td className="px-6 py-4 text-center">{user.phone}</td>
+                  <td className="px-6 py-4 text-center">{user?.name}</td>
+                  <td
+                    onClick={() => {
+                      router.push(
+                        `/dashboard/man-management/userDetails/${user?._id}`
+                      );
+                    }}
+                    className="px-6 py-4 text-center cursor-pointer hover:text-red-500"
+                  >
+                    {user?.user_name}
+                  </td>
+                  <td className="px-6 py-4 text-center">{user?.role}</td>
+                  <td className="px-6 py-4 text-center">{user?.phone}</td>
                   <td className="px-6 py-4 text-center">
-                    {getReferrer(user.reference_id)}
+                    {getReferrer(user?.reference_id)}
                   </td>
                   <td className="px-6 py-4 text-center">
                     {getParent(user?.parent_placement_id)}
