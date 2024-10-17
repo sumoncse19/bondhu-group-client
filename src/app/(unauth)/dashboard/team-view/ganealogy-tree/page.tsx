@@ -297,8 +297,6 @@ const page = () => {
                     src={"/images/profilePicIcon.png"}
                     className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                     onClick={() => {
-                      console.log(fullTeams);
-
                       if (fullTeams) {
                         setTreeModal({
                           open: true,
@@ -364,18 +362,33 @@ const page = () => {
                   />
 
                   {/* Left side info */}
-                  <div className="absolute top-1/2 z-[300000] text-black -translate-y-1/2 -left-[100%] opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
-                    <p>Point: 10000</p>
-                    <p>Carry: 1000</p>
-                  </div>
+                  {fullTeams && (
+                    <div className="absolute top-1/2   -translate-y-1/2 -left-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                      <p>
+                        Points:{" "}
+                        {fullTeams ? fullTeams?.accountable?.team_a_point : ""}
+                      </p>
+                      <p>
+                        Carry:{" "}
+                        {fullTeams ? fullTeams?.accountable?.team_a_carry : ""}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Right side info */}
-                  <div className="absolute top-1/2 text-black -translate-y-1/2 -right-[100%] opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                    <p>Point: 10000</p>
-                    <p>Carry: 1000</p>
-                  </div>
+                  {fullTeams && (
+                    <div className="absolute top-1/2  -translate-y-1/2 -right-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                      <p>
+                        Points:{" "}
+                        {fullTeams ? fullTeams?.accountable?.team_b_point : ""}
+                      </p>
+                      <p>
+                        Carry:{" "}
+                        {fullTeams ? fullTeams?.accountable?.team_b_carry : ""}
+                      </p>
+                    </div>
+                  )}
                 </div>
-
                 {/* Team name */}
                 <p className="font-bold text-lg text-black">
                   {fullTeams?.name ? fullTeams?.name : ""}
@@ -485,17 +498,40 @@ const page = () => {
                     className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                     alt=""
                   />
-                  {/* Left side info */}
-                  <div className="absolute top-1/2 z-[300000] text-black -translate-y-1/2 -left-[100%] opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
-                    <p>Point: 10000</p>
-                    <p>Carry: 1000</p>
-                  </div>
+                  {secondLevelLeftPartner && (
+                    <div className="absolute top-1/2   -translate-y-1/2 -left-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                      <p>
+                        Points:{" "}
+                        {secondLevelLeftPartner
+                          ? secondLevelLeftPartner?.accountable?.team_a_point
+                          : ""}
+                      </p>
+                      <p>
+                        Carry:{" "}
+                        {secondLevelLeftPartner
+                          ? secondLevelLeftPartner?.accountable?.team_a_carry
+                          : ""}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Right side info */}
-                  <div className="absolute top-1/2 text-black -translate-y-1/2 -right-[100%] opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                    <p>Point: 10000</p>
-                    <p>Carry: 1000</p>
-                  </div>
+                  {secondLevelLeftPartner && (
+                    <div className="absolute top-1/2  -translate-y-1/2 -right-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                      <p>
+                        Points:{" "}
+                        {secondLevelLeftPartner
+                          ? secondLevelLeftPartner?.accountable?.team_b_point
+                          : ""}
+                      </p>
+                      <p>
+                        Carry:{" "}
+                        {secondLevelLeftPartner
+                          ? secondLevelLeftPartner?.accountable?.team_b_carry
+                          : ""}
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <p className="font-bold text-lg  text-black ">
                   {secondLevelLeftPartner?.name
@@ -600,17 +636,40 @@ const page = () => {
                     className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                     alt=""
                   />
-                  {/* Left side info */}
-                  <div className="absolute top-1/2 z-[300000] text-black -translate-y-1/2 -left-[100%] opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
-                    <p>Point: 10000</p>
-                    <p>Carry: 1000</p>
-                  </div>
+                  {secondLevelRightPartner && (
+                    <div className="absolute top-1/2   -translate-y-1/2 -left-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                      <p>
+                        Points:{" "}
+                        {secondLevelRightPartner
+                          ? secondLevelRightPartner?.accountable?.team_a_point
+                          : ""}
+                      </p>
+                      <p>
+                        Carry:{" "}
+                        {secondLevelRightPartner
+                          ? secondLevelRightPartner?.accountable?.team_a_carry
+                          : ""}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Right side info */}
-                  <div className="absolute top-1/2 text-black -translate-y-1/2 -right-[100%] opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                    <p>Point: 10000</p>
-                    <p>Carry: 1000</p>
-                  </div>
+                  {secondLevelRightPartner && (
+                    <div className="absolute top-1/2  -translate-y-1/2 -right-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                      <p>
+                        Points:{" "}
+                        {secondLevelRightPartner
+                          ? secondLevelRightPartner?.accountable?.team_b_point
+                          : ""}
+                      </p>
+                      <p>
+                        Carry:{" "}
+                        {secondLevelRightPartner
+                          ? secondLevelRightPartner?.accountable?.team_b_carry
+                          : ""}
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <p className="font-bold text-lg  text-black ">
                   {secondLevelRightPartner?.name
@@ -732,15 +791,43 @@ const page = () => {
                       alt=""
                     />{" "}
                     {/* Left side info */}
-                    <div className="absolute top-1/2 z-[300000] text-black -translate-y-1/2 -left-[50%] opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                      <p>Point: 10000</p>
-                      <p>Carry: 1000</p>
-                    </div>
+                    {thirdLeveLeftLeftPartner && (
+                      <div className="absolute top-1/2   -translate-y-1/2 -left-[50%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                        <p>
+                          Points:{" "}
+                          {thirdLeveLeftLeftPartner
+                            ? thirdLeveLeftLeftPartner?.accountable
+                                ?.team_a_point
+                            : ""}
+                        </p>
+                        <p>
+                          Carry:{" "}
+                          {thirdLeveLeftLeftPartner
+                            ? thirdLeveLeftLeftPartner?.accountable
+                                ?.team_a_carry
+                            : ""}
+                        </p>
+                      </div>
+                    )}
                     {/* Right side info */}
-                    <div className="absolute top-1/2 text-black -translate-y-1/2 -right-[50%] opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                      <p>Point: 10000</p>
-                      <p>Carry: 1000</p>
-                    </div>
+                    {thirdLeveLeftLeftPartner && (
+                      <div className="absolute top-1/2  -translate-y-1/2 -right-[50%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                        <p>
+                          Points:{" "}
+                          {thirdLeveLeftLeftPartner
+                            ? thirdLeveLeftLeftPartner?.accountable
+                                ?.team_b_point
+                            : ""}
+                        </p>
+                        <p>
+                          Carry:{" "}
+                          {thirdLeveLeftLeftPartner
+                            ? thirdLeveLeftLeftPartner?.accountable
+                                ?.team_b_carry
+                            : ""}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <p className="font-bold text-lg  text-black ">
                     {thirdLeveLeftLeftPartner?.name
@@ -849,15 +936,43 @@ const page = () => {
                       alt=""
                     />{" "}
                     {/* Left side info */}
-                    <div className="absolute top-1/2 z-[300000] text-black -translate-y-1/2 -left-[30%] opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                      <p>Point: 10000</p>
-                      <p>Carry: 1000</p>
-                    </div>
+                    {thirdLeveLeftRightPartner && (
+                      <div className="absolute top-1/2   -translate-y-1/2 -left-[30%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                        <p>
+                          Points:{" "}
+                          {thirdLeveLeftRightPartner
+                            ? thirdLeveLeftRightPartner?.accountable
+                                ?.team_a_point
+                            : ""}
+                        </p>
+                        <p>
+                          Carry:{" "}
+                          {thirdLeveLeftRightPartner
+                            ? thirdLeveLeftRightPartner?.accountable
+                                ?.team_a_carry
+                            : ""}
+                        </p>
+                      </div>
+                    )}
                     {/* Right side info */}
-                    <div className="absolute top-1/2 text-black -translate-y-1/2 -right-[30%] opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                      <p>Point: 10000</p>
-                      <p>Carry: 1000</p>
-                    </div>
+                    {thirdLeveLeftRightPartner && (
+                      <div className="absolute top-1/2  -translate-y-1/2 -right-[30%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                        <p>
+                          Points:{" "}
+                          {thirdLeveLeftRightPartner
+                            ? thirdLeveLeftRightPartner?.accountable
+                                ?.team_b_point
+                            : ""}
+                        </p>
+                        <p>
+                          Carry:{" "}
+                          {thirdLeveLeftRightPartner
+                            ? thirdLeveLeftRightPartner?.accountable
+                                ?.team_b_carry
+                            : ""}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <p className="font-bold text-lg  text-black ">
                     {thirdLeveLeftRightPartner?.name
@@ -968,15 +1083,43 @@ const page = () => {
                       alt=""
                     />{" "}
                     {/* Left side info */}
-                    <div className="absolute top-1/2 z-[300000] text-black -translate-y-1/2 -left-[25%] opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                      <p>Point: 10000</p>
-                      <p>Carry: 1000</p>
-                    </div>
+                    {thirdLeveRightLeftPartner && (
+                      <div className="absolute top-1/2   -translate-y-1/2 -left-[30%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                        <p>
+                          Points:{" "}
+                          {thirdLeveRightLeftPartner
+                            ? thirdLeveRightLeftPartner?.accountable
+                                ?.team_a_point
+                            : ""}
+                        </p>
+                        <p>
+                          Carry:{" "}
+                          {thirdLeveRightLeftPartner
+                            ? thirdLeveRightLeftPartner?.accountable
+                                ?.team_a_carry
+                            : ""}
+                        </p>
+                      </div>
+                    )}
                     {/* Right side info */}
-                    <div className="absolute top-1/2 text-black -translate-y-1/2 -right-[25%] opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                      <p>Point: 10000</p>
-                      <p>Carry: 1000</p>
-                    </div>
+                    {thirdLeveRightLeftPartner && (
+                      <div className="absolute top-1/2  -translate-y-1/2 -right-[30%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                        <p>
+                          Points:{" "}
+                          {thirdLeveRightLeftPartner
+                            ? thirdLeveRightLeftPartner?.accountable
+                                ?.team_b_point
+                            : ""}
+                        </p>
+                        <p>
+                          Carry:{" "}
+                          {thirdLeveRightLeftPartner
+                            ? thirdLeveRightLeftPartner?.accountable
+                                ?.team_b_carry
+                            : ""}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <p className="font-bold text-lg  text-black ">
                     {thirdLeveRightLeftPartner?.name
@@ -1086,15 +1229,43 @@ const page = () => {
                       alt=""
                     />{" "}
                     {/* Left side info */}
-                    <div className="absolute top-1/2 z-[300000] text-black -translate-y-1/2 -left-[30%] opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                      <p>Point: 10000</p>
-                      <p>Carry: 1000</p>
-                    </div>
+                    {thirdLeveRightRightPartner && (
+                      <div className="absolute top-1/2   -translate-y-1/2 -left-[30%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                        <p>
+                          Points:{" "}
+                          {thirdLeveRightRightPartner
+                            ? thirdLeveRightRightPartner?.accountable
+                                ?.team_a_point
+                            : ""}
+                        </p>
+                        <p>
+                          Carry:{" "}
+                          {thirdLeveRightRightPartner
+                            ? thirdLeveRightRightPartner?.accountable
+                                ?.team_a_carry
+                            : ""}
+                        </p>
+                      </div>
+                    )}
                     {/* Right side info */}
-                    <div className="absolute top-1/2 text-black -translate-y-1/2 -right-[30%] opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
-                      <p>Point: 10000</p>
-                      <p>Carry: 1000</p>
-                    </div>
+                    {thirdLeveRightRightPartner && (
+                      <div className="absolute top-1/2  -translate-y-1/2 -right-[30%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                        <p>
+                          Points:{" "}
+                          {thirdLeveRightRightPartner
+                            ? thirdLeveRightRightPartner?.accountable
+                                ?.team_b_point
+                            : ""}
+                        </p>
+                        <p>
+                          Carry:{" "}
+                          {thirdLeveRightRightPartner
+                            ? thirdLeveRightRightPartner?.accountable
+                                ?.team_b_carry
+                            : ""}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <p className="font-bold text-lg  text-black ">
                     {thirdLeveRightRightPartner?.name

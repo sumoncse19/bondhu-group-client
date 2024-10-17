@@ -11,8 +11,46 @@ import Projects from "@/components/ui/Projects";
 import HomeBanner from "@/components/ui/HomeBanner";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { io } from "socket.io-client";
+import baseUrl from "../../../config";
 
 const HomePage = () => {
+  const [socket, setSocket] = useState(null);
+  const [chatMessages, setChatMessages] = useState<[]>([]);
+  const [notifications, setNotifications] = useState<string[]>([]);
+
+  const id: string = Cookies.get("id") || "";
+
+  useEffect(() => {
+    // Connect to the socket server
+    const socketIO = io(baseUrl);
+
+    console.log(socketIO);
+
+    // Register the userId with the server after the connection is established
+    socketIO.emit("register", id); // Replace with actual userId
+
+    // Listen for chat messages
+    // socketIO.on("chatMessage", (data) => {
+    //   console.log("Received chat message:", data.content);
+    //   setChatMessages((prevMessages) => [...prevMessages, data.content]);
+    // });
+
+    // Listen for notifications
+    socketIO.on("notification", (data) => {
+      console.log("Received notification:", data.message);
+      setNotifications((prevNotifications) => [
+        ...prevNotifications,
+        data.message,
+      ]);
+    });
+
+    // Clean up the socket connection on component unmount
+    return () => {
+      socketIO.disconnect();
+    };
+  }, []);
+
   return (
     <div className="w-full">
       {/* Hero section */}
@@ -37,6 +75,9 @@ const HomePage = () => {
             <Button />
           </div>
 
+          {/* noti */}
+          <div>{notifications?.map((noti) => <p key={noti}>{noti}</p>)}</div>
+
           {/* right div */}
           <div className="w-full flex justify-center right-div">
             <img
@@ -44,7 +85,7 @@ const HomePage = () => {
                 boxShadow:
                   "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
               }}
-              className="rounded-full w-[500px] h-[500px] hover:rotate-[360deg] transition-all duration-1000 ease-out"
+              className="rounded-full w-[500px] h-[500px] transition-all duration-1000 ease-out"
               src="/images/buildersImg1.png"
               alt="Bondhu Builders"
             />

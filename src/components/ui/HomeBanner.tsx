@@ -39,8 +39,11 @@ const HomeBanner = () => {
 export default HomeBanner;
 
 const images = [
-  "/images/heroBanner1.jpeg",
-  "/images/heroBanner2.jpeg",
-  "/images/heroBanner3.jpeg",
-  "/images/heroBanner4.jpeg",
+  "/images/heroBanner5.jpeg",
+  "/images/heroBanner6.jpeg",
+  "/images/heroBanner7.jpeg",
+  "/images/heroBanner8.jpeg",
+  "/images/heroBanner9.jpeg",
+  "/images/heroBanner10.jpeg",
+  // "/images/heroBanner8.jpeg",
 ];

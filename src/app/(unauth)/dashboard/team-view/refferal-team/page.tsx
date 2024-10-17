@@ -79,7 +79,7 @@ const page = () => {
             <tbody>
               {isLoading ? (
                 <tr className="text-center">
-                  <td colSpan={7} align="center">
+                  <td colSpan={4} align="center">
                     <div className="my-5 flex flex-col justify-center items-center">
                       <Circles
                         height="50"
@@ -90,6 +90,14 @@ const page = () => {
                         wrapperClass=""
                         visible={true}
                       />
+                    </div>
+                  </td>
+                </tr>
+              ) : refferedUsers?.length <= 0 ? (
+                <tr className="text-center">
+                  <td colSpan={4} align="center">
+                    <div className="my-5 flex flex-col justify-center items-center">
+                      <p className="text-lg text-rose-500">No Data to Show</p>
                     </div>
                   </td>
                 </tr>

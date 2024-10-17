@@ -126,7 +126,7 @@ const projects = [
   },
   {
     id: 8,
-    title: "Bondhu General Hospitals",
+    title: "Bondhu General Hospital",
     image: "/images/bondhuHospitals.jpeg",
     details: "Exciting retail experience coming soon for everyone.",
   },
@@ -144,7 +144,7 @@ const projects = [
   },
   {
     id: 11,
-    title: "Bondhu Parcel And Currier Servic",
+    title: "Bondhu Parcel And Currier Service",
     image: "/images/bondhuParcel.webp",
     details: "Exciting retail experience coming soon for everyone.",
   },

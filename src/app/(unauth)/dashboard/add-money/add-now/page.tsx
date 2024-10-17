@@ -131,13 +131,14 @@ const page = () => {
       branch_name: bankBranchName,
       transaction_id: transactionId,
       picture: paymentPicture,
+      is_approved: false,
     };
 
     setIsLoading(true);
 
     try {
       await axios
-        .post(`${baseUrl}/add-money`, paymentData, {
+        .post(`${baseUrl}/add-money/new-request`, paymentData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

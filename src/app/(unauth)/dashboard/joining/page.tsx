@@ -218,8 +218,10 @@ const page = () => {
       const data = await response.json();
 
       if (data.success) {
-        router.push("/dashboard/wallet/purchase-wallet");
-        toast.success("Successfully added new User");
+        router.push("/dashboard/team-view/refferal-team");
+        setTimeout(() => {
+          toast.success("Successfully added new User");
+        }, 3000);
       }
     } catch (error: any) {
       toast.error(error.message);

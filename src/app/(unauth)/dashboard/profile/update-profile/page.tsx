@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { ThreeCircles } from "react-loader-spinner";
-
+import { motion, AnimatePresence } from "framer-motion";
 const UpdateProfile = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const fileInputRef2 = useRef<HTMLInputElement | null>(null);
@@ -44,6 +44,7 @@ const UpdateProfile = () => {
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<UserData>();
   const [childUsers, setChildUsers] = useState<[]>([]);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const [currentOptions, setCurrentOptions] = useState<any>([
     {
       label: "A",
@@ -70,7 +71,7 @@ const UpdateProfile = () => {
     if (data?.success) {
       setUser(data?.data);
       console.log(data?.data?.name);
-
+      setImageUrl(data?.data?.picture);
       setName(data?.data?.name);
       setUserName(data?.data?.user_name);
       setFatherOrHusbandName(data?.data?.father_or_husband_name);
@@ -295,13 +296,16 @@ const UpdateProfile = () => {
       registration_date: "30.09.2024",
     };
 
+    if (userData.password === "") {
+      delete userData.password;
+    }
     try {
       const response = await fetch(`${baseUrl}/user/auth/${id}`, {
         method: "PUT",
         body: JSON.stringify(userData),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${id}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -323,25 +327,27 @@ const UpdateProfile = () => {
       setIsLoading(false);
     }
   };
-  console.log("usr", user?.role);
 
   return (
-    <div>
-      <ProfileHeader
+    <div className="p-10">
+      <h1 className="text-2xl text-rose-600 font-bold tracking-widest">
+        Update Profile
+      </h1>
+      {/* <ProfileHeader
         name={user?.name}
         user_name={user?.user_name}
         phone={user?.phone}
         registration_date={user?.registration_date}
         picture={user?.picture}
-      />
+      /> */}
       <div className="mt-10 text-black">
         <div className="flex flex-col gap-10">
           {/* profile pic */}
-          {/* <div className="w-full flex flex-col items-center gap-y-2">
+          <div className="w-full flex flex-col items-center gap-y-2">
             <div className="flex flex-col items-center gap-y-2 cursor-pointer">
               <img
                 className="w-28 h-28 rounded-full object-cover cursor-pointer border-2 border-black"
-                src={imageUrl || "/images/profilePicIcon.png"} // Use uploaded image if available
+                src={imageUrl ? imageUrl : "/images/profilePicIcon.png"} // Use uploaded image if available
                 alt="Profile"
                 onClick={handleImageClick}
               />
@@ -364,7 +370,7 @@ const UpdateProfile = () => {
                 onChange={handleFileChange} // Trigger upload on file selection
               />
             </div>
-          </div> */}
+          </div>
           {/* name and userName */}
           <div className="flex items-center gap-10">
             {/* name */}
@@ -881,152 +887,186 @@ const UpdateProfile = () => {
 
         {/* more details */}
         <div className="mt-10">
-          <p className="text-xl text-red-500">More Information</p>
-          <div className="flex flex-col gap-10 mt-5">
-            {/* bkash, rocket, nagad details */}
-            <div className="flex items-center gap-10">
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="bkash_no"
-                >
-                  Bkash Number
-                </label>
-                <input
-                  onChange={(e) => setNomineeName(e.target.value)}
-                  // value={nomineeName}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="text"
-                  id="bkash_no"
-                />
-              </div>
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="rocket_no"
-                >
-                  Rocket Number
-                </label>
-                <input
-                  onChange={(e) => setNomineePhoneNo(e.target.value)}
-                  // value={nomineePhoneNo}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="number"
-                  id="rocket_no"
-                />
-              </div>
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="nagad_no"
-                >
-                  Nagad Number
-                </label>
-                <input
-                  onChange={(e) => setNomineeRelation(e.target.value)}
-                  // value={nomineeRelation}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="text"
-                  id="nagad_no"
-                />
-              </div>
-            </div>
-            {/* bank details*/}
-            <div className="flex items-center gap-10">
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="bank_acc_name"
-                >
-                  Bank Acc Name
-                </label>
-                <input
-                  onChange={(e) => setNomineeName(e.target.value)}
-                  // value={nomineeName}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="text"
-                  id="bank_acc_name"
-                />
-              </div>
-
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="bank_acc_no"
-                >
-                  Bank Acc No
-                </label>
-                <input
-                  onChange={(e) => setNomineeName(e.target.value)}
-                  // value={nomineeName}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="text"
-                  id="bank_acc_no"
-                />
-              </div>
-
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="bank_name"
-                >
-                  Bank Name
-                </label>
-                <input
-                  onChange={(e) => setNomineeRelation(e.target.value)}
-                  // value={nomineeRelation}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="text"
-                  id="bank_name"
-                />
-              </div>
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="bank_branch"
-                >
-                  Bank Branch
-                </label>
-                <input
-                  onChange={(e) => setNomineeRelation(e.target.value)}
-                  // value={nomineeRelation}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="text"
-                  id="bank_branch"
-                />
-              </div>
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="bank_routing_no"
-                >
-                  Bank Routing Number
-                </label>
-                <input
-                  onChange={(e) => setNomineeRelation(e.target.value)}
-                  // value={nomineeRelation}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="text"
-                  id="bank_routing_no"
-                />
-              </div>
-              <div className="relative w-full">
-                <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
-                  htmlFor="bank_swift_code"
-                >
-                  Bank Swift Code
-                </label>
-                <input
-                  onChange={(e) => setNomineePhoneNo(e.target.value)}
-                  // value={nomineePhoneNo}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                  type="number"
-                  id="bank_swift_code"
-                />
-              </div>
-            </div>
+          <div className="text-xl text-red-500 flex items-center gap-x-3">
+            <p>Add More Information</p>
+            <input
+              onChange={(e) => setIsChecked(e.target.checked)}
+              className="w-5 h-5"
+              type="checkbox"
+              checked={isChecked}
+              name=""
+              id=""
+            />
           </div>
+          <AnimatePresence initial={false}>
+            {isChecked && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+              >
+                <div
+                  className={`flex flex-col gap-5 mt-5 transition-all duration-5000 ease-in-out transform 
+       ${isChecked ? "opacity-100 scale-100 max-h-[1000px]" : "opacity-0 scale-5 max-h-0 overflow-hidden"}`}
+                >
+                  {/* bkash, rocket, nagad details */}
+                  <div>
+                    <p className="mb-5 font-bold text-teal-500 tracking-wider">
+                      Mobile Banking Information
+                    </p>
+                    <div className="flex items-center gap-10">
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="bkash_no"
+                        >
+                          Bkash Number
+                        </label>
+                        <input
+                          onChange={(e) => setNomineeName(e.target.value)}
+                          // value={nomineeName}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="text"
+                          id="bkash_no"
+                        />
+                      </div>
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="rocket_no"
+                        >
+                          Rocket Number
+                        </label>
+                        <input
+                          onChange={(e) => setNomineePhoneNo(e.target.value)}
+                          // value={nomineePhoneNo}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="number"
+                          id="rocket_no"
+                        />
+                      </div>
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="nagad_no"
+                        >
+                          Nagad Number
+                        </label>
+                        <input
+                          onChange={(e) => setNomineeRelation(e.target.value)}
+                          // value={nomineeRelation}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="text"
+                          id="nagad_no"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/* bank details*/}
+                  <div>
+                    <p className="mb-5 font-bold text-teal-500 tracking-wider">
+                      Bank Information
+                    </p>
+                    <div className="flex items-center gap-10">
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="bank_acc_name"
+                        >
+                          Acc Name
+                        </label>
+                        <input
+                          onChange={(e) => setNomineeName(e.target.value)}
+                          // value={nomineeName}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="text"
+                          id="bank_acc_name"
+                        />
+                      </div>
+
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="bank_acc_no"
+                        >
+                          Acc No
+                        </label>
+                        <input
+                          onChange={(e) => setNomineeName(e.target.value)}
+                          // value={nomineeName}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="text"
+                          id="bank_acc_no"
+                        />
+                      </div>
+
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="bank_name"
+                        >
+                          Bank Name
+                        </label>
+                        <input
+                          onChange={(e) => setNomineeRelation(e.target.value)}
+                          // value={nomineeRelation}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="text"
+                          id="bank_name"
+                        />
+                      </div>
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="bank_branch"
+                        >
+                          Branch Name
+                        </label>
+                        <input
+                          onChange={(e) => setNomineeRelation(e.target.value)}
+                          // value={nomineeRelation}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="text"
+                          id="bank_branch"
+                        />
+                      </div>
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="bank_routing_no"
+                        >
+                          Routing Number
+                        </label>
+                        <input
+                          onChange={(e) => setNomineeRelation(e.target.value)}
+                          // value={nomineeRelation}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="text"
+                          id="bank_routing_no"
+                        />
+                      </div>
+                      <div className="relative w-full">
+                        <label
+                          className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                          htmlFor="bank_swift_code"
+                        >
+                          Swift Code
+                        </label>
+                        <input
+                          onChange={(e) => setNomineePhoneNo(e.target.value)}
+                          // value={nomineePhoneNo}
+                          className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                          type="number"
+                          id="bank_swift_code"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
       {/* registration Button */}
