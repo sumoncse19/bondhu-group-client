@@ -11,11 +11,11 @@ import Projects from "@/components/ui/Projects";
 import HomeBanner from "@/components/ui/HomeBanner";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import baseUrl from "../../../config";
 
 const HomePage = () => {
-  const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [chatMessages, setChatMessages] = useState<[]>([]);
   const [notifications, setNotifications] = useState<string[]>([]);
 
@@ -23,7 +23,11 @@ const HomePage = () => {
 
   useEffect(() => {
     // Connect to the socket server
-    const socketIO = io(baseUrl);
+    const socketIO = io(baseUrl, {
+      // transports: ["polling"], // Force using HTTP polling
+    });
+
+    setSocket(socketIO);
 
     console.log(socketIO);
 
