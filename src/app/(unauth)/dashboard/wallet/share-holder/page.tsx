@@ -77,22 +77,29 @@ const page = () => {
                   projectShareProfitHistories
                     ?.slice()
                     .reverse()
-                    .map((history) => (
-                      <tr
-                        key={history._id}
-                        className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
-                      >
-                        <td className="px-6 py-4 text-center flex justify-center">
-                          {history?.amount}
-                        </td>
-                        <td className="px-6 py-4 text-center">
-                          {history?.reference_bonus_amount.toFixed(2)}
-                        </td>
-                        <td className="px-6 py-4 text-center">
-                          {formatDate(history?.date)}
-                        </td>
-                      </tr>
-                    ))
+                    .map(
+                      (history: {
+                        _id: string;
+                        amount: number;
+                        reference_bonus_amount: number;
+                        date: string;
+                      }) => (
+                        <tr
+                          key={history?._id}
+                          className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                        >
+                          <td className="px-6 py-4 text-center flex justify-center">
+                            {history?.amount}
+                          </td>
+                          <td className="px-6 py-4 text-center">
+                            {history?.reference_bonus_amount.toFixed(2)}
+                          </td>
+                          <td className="px-6 py-4 text-center">
+                            {formatDate(history?.date)}
+                          </td>
+                        </tr>
+                      )
+                    )
                 )}
               </tbody>
             </table>

@@ -111,7 +111,7 @@ const TeamBonus = () => {
                 .reverse()
                 .map((history: BonusHistories) => (
                   <tr
-                    key={history._id}
+                    key={history?._id}
                     className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
                   >
                     <td className="px-6 py-4 text-center">
