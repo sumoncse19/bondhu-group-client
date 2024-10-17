@@ -163,34 +163,36 @@ const page = () => {
 
   return (
     <div className="p-10">
-      {/* Personal Infos */}
-      <div className="flex flex-col items-center gap-y-3">
-        {personalInfoData?.map((info) => (
-          <div className="flex justify-between items-center" key={info?.id}>
-            <div>{info?.key}</div>
-            <div>{info?.value}</div>
-          </div>
-        ))}
-      </div>
-      {/* Accounts */}
-      <div>
-        <p>Wallet</p>
-        <div className="flex flex-col gap-y-3">
-          <div className="flex items-center justify-between">
-            <div>Income Waller</div>
-            <div>{user?.wallet?.income_wallet}</div>
-          </div>
-          <div className="flex items-center justify-between">
-            <div>Purchase Waller</div>
-            <div>{user?.wallet?.purchase_wallet}</div>
-          </div>
-          <div className="flex items-center justify-between">
-            <div>Team Bonus</div>
-            <div>{user?.wallet?.matching_bonus}</div>
-          </div>
-          <div className="flex items-center justify-between">
-            <div>Referrel Bonus</div>
-            <div>{user?.wallet?.reference_bonus}</div>
+      <div className="flex items-center justify-between">
+        {/* Personal Infos */}
+        <div className="flex flex-col items-center gap-y-3 bg-red-900">
+          {personalInfoData?.map((info) => (
+            <div className="flex justify-between items-center" key={info?.id}>
+              <div>{info?.key}</div>
+              <div>{info?.value}</div>
+            </div>
+          ))}
+        </div>
+        {/* Accounts */}
+        <div className="bg-red-500">
+          <p>Wallet</p>
+          <div className="flex flex-col gap-y-3">
+            <div className="flex items-center justify-between">
+              <div>Income Waller</div>
+              <div>{user?.wallet?.income_wallet}</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>Purchase Waller</div>
+              <div>{user?.wallet?.purchase_wallet}</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>Team Bonus</div>
+              <div>{user?.wallet?.matching_bonus}</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>Referrel Bonus</div>
+              <div>{user?.wallet?.reference_bonus}</div>
+            </div>
           </div>
         </div>
       </div>

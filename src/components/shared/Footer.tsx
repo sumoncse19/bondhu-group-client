@@ -4,8 +4,18 @@ import { FaInstagramSquare } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaTiktok } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
+import FacebookPageEmbed from "../FacebookPageEmbed";
 
 const Footer = () => {
+  const phoneNumber = "+8801600362935"; // Replace with the recipient's phone number
+  const message = "Hello! How can I help you?";
+
+  const handleClick = () => {
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
+  };
   return (
     <div className="bg-slate-600 w-full mt-20 pt-16 pb-8 px-28 text-blue-200">
       <div className="flex items-center justify-between">
@@ -15,12 +25,12 @@ const Footer = () => {
             <p className="text-xl">Connect</p>
             <p>Join us in building a better future today</p>
           </span>
-          <span className="flex items-center gap-0.5">
-            <FaFacebook />
+          <span className="flex items-center gap-2">
+            <FacebookPageEmbed />
             <FaInstagramSquare />
             <FaXTwitter />
             <FaTiktok />
-            <FaWhatsapp />
+            <FaWhatsapp onClick={handleClick} className="cursor-pointer" />
           </span>
           <span>© 2024. All rights reserved.</span>
         </div>

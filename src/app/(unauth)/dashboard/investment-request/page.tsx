@@ -1,47 +1,50 @@
 "use client";
 
-import ViewImageModal from "@/components/shared/Modal/ViewImageModal";
-import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
+import baseUrl from "../../../../../config";
+import Cookies from "js-cookie";
+import { formatDate } from "@/utils/dateUtils";
+import ViewImageModal from "@/components/shared/Modal/ViewImageModal";
+import { getUserNameById } from "@/utils/userUtils";
 import { Circles } from "react-loader-spinner";
-import baseUrl from "../../../../../../config";
-import { formatDate } from "../../../../../utils/dateUtils";
+import toast from "react-hot-toast";
 
-interface AddMoneyHistoriesInterface {
-  // userId: string | "";
-  _id: string;
+interface InvestmentHistoriesData {
+  _id?: string;
+  userId: string;
   project_share: number;
   fixed_deposit: number;
   share_holder: number;
   directorship: number;
   total_amount: number;
+  total_point: number;
   money_receipt_number: string;
   phone: string;
   payment_method: string;
-  bank_name: string;
-  bank_account_name: string;
-  branch_name: string;
+  bank_name?: string;
+  bank_account_name?: string;
+  branch_name?: string;
   transaction_id: string;
   picture: string;
-  date: string;
   is_approved: boolean;
+  createdAt: string;
 }
 
 const page = () => {
+  const [investmentHistories, setInvestmentHistories] =
+    useState<InvestmentHistoriesData[]>();
+  const [pageNo, setPageNo] = useState<number>(1);
   const [isOpenImageModal, setIsOpenImageModal] = useState<boolean>(false);
-  const [addMoneyHistories, setAddMoneyHistories] = useState<
-    AddMoneyHistoriesInterface[]
-  >([]);
+  const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [modalImage, seModalImgae] = useState<string>("");
-  const id: string = Cookies.get("id") || "";
+
   const token: string = Cookies.get("token") || "";
 
-  const fetchAddMoneyHistories = async () => {
+  const fetchAllInvestmentRequests = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${baseUrl}/history/get-add-money-history/${id}`,
+        `${baseUrl}/add-money/get-all-requested-add-money?page=${pageNo}&limit=10`,
         {
           method: "GET",
           headers: {
@@ -49,10 +52,11 @@ const page = () => {
           },
         }
       );
+
       const data = await response.json();
+
       if (data?.success) {
-        console.log(data?.data);
-        setAddMoneyHistories(data?.data?.addMoneyHistories);
+        setInvestmentHistories(data?.data?.requestedAddMoney);
       }
     } catch (error) {
       console.log(error);
@@ -62,33 +66,49 @@ const page = () => {
   };
 
   useEffect(() => {
-    fetchAddMoneyHistories();
-  }, [id]);
-  // const addMoneyHistories = [
-  //   {
-  //     id: 1,
-  //     money_reciept_nuber: "1231231h1oi",
-  //     phone: "01211431412",
-  //     payment_method: "bkash",
-  //     transaction_id: "uihjuiqywiu21",
-  //     picture: "/images/paymentPictureDummy.jpg",
-  //     createdAt: "3.30,Friday, 03.10.2024",
-  //     isApproved: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     money_reciept_nuber: "2839728937g",
-  //     phone: "018763245",
-  //     payment_method: "bank",
-  //     transaction_id: "werfsd321",
-  //     picture: "/images/paymentPictureDummy.jpg",
-  //     createdAt: "4.10,Thrusday, 02.10.2024",
-  //     isApproved: true,
-  //   },
-  // ];
+    fetchAllInvestmentRequests();
+  }, [token]);
+
+  // Fetch username for each bonus_from (userId) in referral bonus history
+  const fetchUsernames = async (
+    investmentHistories: InvestmentHistoriesData[]
+  ) => {
+    const newUsernames: { [key: string]: string } = {};
+    for (const history of investmentHistories) {
+      if (history.userId && !usernames[history.userId]) {
+        const username = await getUserNameById(history.userId, token);
+        newUsernames[history.userId] = username || "Unknown User";
+      }
+    }
+    setUsernames((prevUsernames) => ({ ...prevUsernames, ...newUsernames }));
+  };
+
+  useEffect(() => {
+    if (investmentHistories) {
+      fetchUsernames(investmentHistories);
+    }
+  }, [investmentHistories]);
+
+  const handleAcceptInvestmentRequest = async (id: string) => {
+    const response = await fetch(`${baseUrl}/add-money/approve/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (data?.success) {
+      toast.success("Accepted the Request");
+      fetchAllInvestmentRequests();
+    }
+  };
   return (
-    <div>
-      <h1 className="text-rose-600 font-bold text-2xl">Add Money History</h1>
+    <div className="h-full w-full p-10">
+      <h1 className="text-3xl text-rose-600 font-bold tracking-widest">
+        User's Investment Requests
+      </h1>
 
       <div className="w-[350px] sm:w-[500px] md:w-[750px] xl:w-full relative overflow-x-auto max-h-screen overflow-y-auto my-5">
         <table className="w-full text-sm text-left rtl:text-right text-white ">
@@ -100,6 +120,13 @@ const page = () => {
                 className="px-6 py-3 text-center text-xs border-r-2 border-black"
               >
                 Money Reciept Number
+              </th>
+              <th
+                rowSpan={2}
+                scope="col"
+                className="px-6 py-3 text-center border-r-2 border-black"
+              >
+                UserName
               </th>
               <th
                 rowSpan={2}
@@ -179,7 +206,7 @@ const page = () => {
                   </div>
                 </td>
               </tr>
-            ) : addMoneyHistories && addMoneyHistories?.length <= 0 ? (
+            ) : investmentHistories && investmentHistories?.length <= 0 ? (
               <tr className="text-center">
                 <td colSpan={12} align="center">
                   <div className="my-5 flex flex-col justify-center items-center">
@@ -188,68 +215,64 @@ const page = () => {
                 </td>
               </tr>
             ) : (
-              addMoneyHistories
-                ?.slice()
-                .reverse()
-                .map((history: AddMoneyHistoriesInterface) => (
-                  <tr
-                    key={history?._id}
-                    className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <td className="px-6 py-4 text-center">
-                      {history?.money_receipt_number}
-                    </td>
-                    <td className="px-6 py-4 text-center"> {history?.phone}</td>
-                    <td className="px-6 py-4 text-center">
-                      {history?.project_share}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {history?.fixed_deposit}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {history?.share_holder}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {history?.directorship}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {history?.payment_method}
-                      {history?.payment_method == "bank" && (
-                        <p className="pt-2">Bank Name:FCIC Bank-Branch:ctg</p>
-                      )}
-                    </td>
+              investmentHistories?.map((history: InvestmentHistoriesData) => (
+                <tr
+                  key={history?._id}
+                  className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <td className="px-6 py-4 text-center">
+                    {history?.money_receipt_number}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {usernames[history?.userId] || "Loading..."}
+                  </td>
+                  <td className="px-6 py-4 text-center"> {history?.phone}</td>
+                  <td className="px-6 py-4 text-center">
+                    {history?.project_share}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {history?.fixed_deposit}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {history?.share_holder}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {history?.directorship}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {history?.payment_method}
+                    {history?.payment_method == "bank" && (
+                      <p className="pt-2">Bank Name:FCIC Bank-Branch:ctg</p>
+                    )}
+                  </td>
 
-                    <td className="px-6 py-4 text-center">
-                      {history?.transaction_id}
-                    </td>
-                    <td className="px-6 py-4 text-center  flex justify-center items-center gap-x-2">
-                      <img
-                        className="w-10 h-10"
-                        src={history?.picture}
-                        alt=""
-                      />
-                      <p
-                        onClick={() => {
-                          setIsOpenImageModal(true);
-                          seModalImgae(history?.picture);
-                        }}
-                        className="cursor-pointer hover:text-rose-600 font-bold"
-                      >
-                        View
-                      </p>
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {formatDate(history?.date)}
-                    </td>
-                    <td className="px-6 py-4 text-center ">
-                      <p
-                        className={` text-white py-2 px-2 rounded-md shadow-2xl shadow-black ${history?.is_approved ? "bg-teal-500" : "bg-rose-500"}`}
-                      >
-                        {history?.is_approved ? "Approved" : "Requested"}
-                      </p>
-                    </td>
-                  </tr>
-                ))
+                  <td className="px-6 py-4 text-center">
+                    {history?.transaction_id}
+                  </td>
+                  <td className="px-6 py-4 text-center  flex justify-center items-center gap-x-2">
+                    <img className="w-10 h-10" src={history?.picture} alt="" />
+                    <p
+                      onClick={() => setIsOpenImageModal(true)}
+                      className="cursor-pointer hover:text-rose-600 font-bold"
+                    >
+                      View
+                    </p>
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {formatDate(history?.createdAt)}
+                  </td>
+                  <td className="px-6 py-4 text-center ">
+                    <p
+                      onClick={() => {
+                        handleAcceptInvestmentRequest(history?._id || "");
+                      }}
+                      className={` text-white py-2 px-2 rounded-md shadow-2xl cursor-pointer shadow-black transition-all duration-300 ease-in ${history.is_approved ? "bg-teal-500" : "bg-rose-500 hover:bg-rose-600 hover:tracking-wider"}`}
+                    >
+                      {history?.is_approved ? "Approved" : "Accept"}
+                    </p>
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
           {/* <tbody>
@@ -305,10 +328,7 @@ const page = () => {
         </table>
 
         {isOpenImageModal && (
-          <ViewImageModal
-            image={modalImage}
-            setIsOpenImageModal={setIsOpenImageModal}
-          />
+          <ViewImageModal setIsOpenImageModal={setIsOpenImageModal} />
         )}
       </div>
     </div>

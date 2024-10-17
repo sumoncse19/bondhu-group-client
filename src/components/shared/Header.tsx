@@ -9,7 +9,10 @@ import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [user, setUser] = useState<Object>();
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isDropDownOpen, setIsDropDownOpen] = useState({
+    status: false,
+    value: "",
+  });
   const router = useRouter();
   let userCookie;
   useEffect(() => {
@@ -53,38 +56,49 @@ const Header = () => {
           Home
         </a>
         <div
-          onMouseEnter={() => setIsDropDownOpen(true)}
-          onMouseLeave={() => setIsDropDownOpen(false)}
+          onMouseEnter={() =>
+            setIsDropDownOpen({
+              status: true,
+              value: "institutional",
+            })
+          }
+          onMouseLeave={() =>
+            setIsDropDownOpen({
+              status: false,
+              value: "",
+            })
+          }
           className="text-black  text-lg tracking-widest cursor-pointer hover:scale-110 hover:text-slate-800 transition-all duration-300 ease-in relative"
         >
           <a>Institutional</a>
 
           {/* dropdown */}
-          {isDropDownOpen && (
-            <div className="w-[200px] h-fit  absolute top-6 py-5">
-              <div className="bg-white text-black w-full h-full text-sm pt-5 pb-10 px-5 rounded">
-                <div className="flex flex-col  gap-y-3">
-                  <p
-                    onClick={() =>
-                      router.push("/institutional/board-directors")
-                    }
-                    className="border-b border-slate-700 pb-2 hover:text-red-500 transition-all duration-300 ease-in"
-                  >
-                    Board Of Directors
-                  </p>
-                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 transition-all duration-300 ease-in">
-                    Company Principles
-                  </p>
-                  <p
-                    onClick={() => router.push("/institutional/certificates")}
-                    className="border-b border-slate-700 pb-2 hover:text-red-500 transition-all duration-300 ease-in"
-                  >
-                    Our Certificates
-                  </p>
+          {isDropDownOpen.status &&
+            isDropDownOpen.value === "institutional" && (
+              <div className="w-[200px] h-fit  absolute top-6 py-5">
+                <div className="bg-white text-black w-full h-full text-sm pt-5 pb-10 px-5 rounded">
+                  <div className="flex flex-col  gap-y-3">
+                    <p
+                      onClick={() =>
+                        router.push("/institutional/board-directors")
+                      }
+                      className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in"
+                    >
+                      Board Of Directors
+                    </p>
+                    <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                      Company Principles
+                    </p>
+                    <p
+                      onClick={() => router.push("/institutional/certificates")}
+                      className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in"
+                    >
+                      Our Certificates
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
         <a
           href="#services"
@@ -92,12 +106,75 @@ const Header = () => {
         >
           Services
         </a>
-        <a
-          href="#projects"
+        <div
+          onMouseEnter={() =>
+            setIsDropDownOpen({
+              status: true,
+              value: "projects",
+            })
+          }
+          onMouseLeave={() =>
+            setIsDropDownOpen({
+              status: false,
+              value: "",
+            })
+          }
           className="text-black  tracking-widest cursor-pointer hover:scale-110 hover:text-slate-800 transition-all duration-300 ease-in"
         >
-          Projects
-        </a>
+          <a href="">Projects</a>
+          {isDropDownOpen.status && isDropDownOpen.value === "projects" && (
+            <div className="w-[300px] h-fit  absolute top-6 py-5">
+              <div className="bg-white text-black w-full h-full text-sm pt-5 pb-10 px-5 rounded">
+                <div className="flex flex-col  gap-y-3">
+                  <p
+                    // onClick={() =>
+                    //   router.push("/institutional/board-directors")
+                    // }
+                    className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in"
+                  >
+                    Bondhu Builders
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu Super Shop
+                  </p>
+                  <p
+                    // onClick={() => router.push("/institutional/certificates")}
+                    className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in"
+                  >
+                    Bondhu Agro & Agriculture
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu Resort
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu Brokerage
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu IT Institute
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu Tour & Travells
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu General Hospital
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu Food & Bevarage
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu Garments
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu Parcel And Currier Service
+                  </p>
+                  <p className="border-b border-slate-700 pb-2 hover:text-red-500 hover:font-semibold transition-all duration-300 ease-in">
+                    Bondhu Transport
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
         <a className="text-black  tracking-widest cursor-pointer hover:scale-110 hover:text-slate-800 transition-all duration-300 ease-in">
           Events
         </a>

@@ -8,6 +8,7 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { GiTakeMyMoney } from "react-icons/gi";
 
 interface UserData {
   _id: string;
@@ -23,6 +24,7 @@ interface UserData {
   right_side_partner: {
     name: string;
   };
+  is_approved: boolean;
 }
 
 const Page = () => {
@@ -32,8 +34,13 @@ const Page = () => {
   const [selectUser, setSelectuser] = useState("");
   const [amount, setAmount] = useState<string>("");
   const [childUsers, setChildUsers] = useState<UserData[]>([]);
+  const [totalInvesmentRequest, setTotalInvestmentRequest] =
+    useState<number>(0);
   const token = Cookies.get("token");
   const [user, setUser] = useState<any>({});
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchedUsers, setSearchedUsers] = useState<any>({});
+
   const userCookie = Cookies.get("user");
 
   const router = useRouter();
@@ -62,11 +69,37 @@ const Page = () => {
 
     if (data.success) {
       setUsers(data?.data);
+      setSearchedUsers(data?.data);
       const adminUsers = data?.data?.filter(
         (user: { role: string }) => user?.role === "admin"
       );
 
       setChildUsers(adminUsers);
+      setIsLoading(false);
+    }
+  };
+
+  const fetchAllInvestmentRequests = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${baseUrl}/add-money/get-all-requested-add-money`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data?.success) {
+        setTotalInvestmentRequest(data?.data?.requestedAddMoney.length);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -111,25 +144,60 @@ const Page = () => {
     return referrer[0]?.name ? referrer[0]?.name : "-----";
   };
   useEffect(() => {
+    fetchAllInvestmentRequests();
     fetchAllUsers();
   }, [user]);
+
+  useEffect(() => {
+    console.log("search value", searchValue);
+
+    const matchedUser = users.filter((user) =>
+      user?.user_name.includes(searchValue)
+    );
+    console.log("match", matchedUser);
+
+    setSearchedUsers(matchedUser);
+  }, [searchValue]);
 
   return (
     <div className="relative w-full h-full">
       <div className="mt-10 flex items-center justify-between">
         <h1 className="text-3xl text-rose-600 font-bold tracking-widest">
-          Customers List
+          Users List
         </h1>
-        {/* send wallet */}
-        <div
-          onClick={() => {
-            setIsWalletOpen(true);
-          }}
-          className="flex items-center gap-x-3 bg-teal-500 px-12 py-2 rounded text-white font-bold cursor-pointer tracking-widest hover:scale-90 transition-all duration-500 ease-in-out hover:tracking-wide"
-        >
-          <FaMoneyBillTransfer className="text-2xl" />
-          <p> Send Wallet</p>
+        <div className="flex items-center gap-x-4">
+          {/* send wallet */}
+          <div
+            onClick={() => {
+              setIsWalletOpen(true);
+            }}
+            className="flex items-center gap-x-3 bg-teal-500 px-4 py-2 rounded text-white font-bold cursor-pointer tracking-wider hover:scale-90 transition-all duration-500 ease-in-out hover:tracking-wide"
+          >
+            <FaMoneyBillTransfer className="text-2xl" />
+            <p> Send Purchase Wallet</p>
+          </div>
+          <div
+            onClick={() => {
+              router.push("/dashboard/investment-request");
+            }}
+            className="relative flex items-center gap-x-3 bg-rose-500 px-4 py-2 rounded text-white font-bold cursor-pointer tracking-wider hover:scale-90 transition-all duration-500 ease-in-out hover:tracking-wide"
+          >
+            <GiTakeMyMoney className="text-2xl" />
+            <p> Investment Requests</p>
+            <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-black text-white text-center">
+              {totalInvesmentRequest}
+            </span>
+          </div>
         </div>
+      </div>
+      {/* search box */}
+      <div className="mt-3">
+        <input
+          onChange={(e) => setSearchValue(e.target.value)}
+          type="text"
+          placeholder="Search user by username"
+          className=" w-52 px-2 py-1 text-sm rounded-md outline-none border-2 border-black focus:border-teal-500"
+        />
       </div>
       {/* users table */}
       <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
@@ -160,12 +228,18 @@ const Page = () => {
               <th scope="col" className="px-6 py-3 text-center">
                 Right Partner
               </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Status
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
               <tr className="text-center">
-                <td colSpan={7} align="center">
+                <td colSpan={12} align="center">
                   <div className="my-5 flex flex-col justify-center items-center">
                     <Circles
                       height="50"
@@ -180,7 +254,7 @@ const Page = () => {
                 </td>
               </tr>
             ) : (
-              users.map((user) => (
+              searchedUsers.map((user: any) => (
                 <tr
                   key={user._id}
                   className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
@@ -216,6 +290,58 @@ const Page = () => {
                       user?.right_side_partner?.name
                     ) : (
                       <p className="text-red-500 font-bold">Empty</p>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {user?.is_approved ? (
+                      <p className="text-teal-500 font-bold">Active</p>
+                    ) : (
+                      <p className="text-rose-500 font-semibold">Inactive</p>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {user?.is_approved ? (
+                      <p className="bg-teal-500  px-3 py-1 rounded-md text-white ">
+                        Approved
+                      </p>
+                    ) : (
+                      <p
+                        onClick={async () => {
+                          try {
+                            const response = await fetch(
+                              `${baseUrl}/user/auth/${user?._id}`,
+                              {
+                                method: "PUT",
+                                body: JSON.stringify({ is_approved: true }),
+                                headers: {
+                                  "Content-Type": "application/json",
+                                  Authorization: `Bearer ${token}`,
+                                },
+                              }
+                            );
+
+                            if (!response.ok) {
+                              toast.error(
+                                "This user approvation is not possible"
+                              );
+                            }
+
+                            const data = await response.json();
+
+                            if (data.success) {
+                              toast.success("User Approved");
+                              fetchAllUsers();
+                            }
+                          } catch (error: any) {
+                            toast.error(error.message);
+                          } finally {
+                            setIsLoading(false);
+                          }
+                        }}
+                        className="bg-rose-500 hover:bg-rose-700 cursor-pointer px-3 py-1 rounded-md text-white transition-all duration-300 ease-in"
+                      >
+                        Approve
+                      </p>
                     )}
                   </td>
                 </tr>

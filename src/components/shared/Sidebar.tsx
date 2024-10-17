@@ -26,173 +26,9 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { Avatar, ConfigProvider, Menu, type MenuProps } from "antd";
 import Link from "next/link";
 import React, { useState } from "react";
+import Cookies from "js-cookie";
 
 type MenuItem = Required<MenuProps>["items"][number];
-
-const firstMenuItems: MenuItem[] = [
-  {
-    key: "dashboard",
-    label: <Link href="/dashboard">Dashboard</Link>,
-    icon: <AppstoreOutlined />,
-  },
-  {
-    key: "profile",
-    label: "Profile",
-    icon: <ProfileOutlined />,
-    children: [
-      {
-        key: "my-profile",
-        icon: <RiUser2Fill />,
-        label: <Link href="/dashboard/profile/my-profile">My Profile</Link>,
-      },
-      {
-        key: "update-profile",
-        icon: <TbUserStar />,
-        label: (
-          <Link href="/dashboard/profile/update-profile">Profile Update</Link>
-        ),
-      },
-      {
-        key: "change-password",
-        icon: <GrUserAdmin />,
-        label: (
-          <Link href="/dashboard/profile/change-password">Change Password</Link>
-        ),
-      },
-    ],
-  },
-  {
-    key: "add-money",
-    label: "Add Money",
-    icon: <MoneyCollectOutlined />,
-    children: [
-      {
-        key: "add-now",
-        icon: <PlusSquareOutlined />,
-        label: <Link href="/dashboard/add-money/add-now">Add Now</Link>,
-      },
-      {
-        key: "history",
-        icon: <HistoryOutlined />,
-        label: (
-          <Link href="/dashboard/add-money/add-money-history">History</Link>
-        ),
-      },
-    ],
-  },
-  {
-    key: "wallet",
-    label: "Wallet",
-    icon: <WalletOutlined />,
-    children: [
-      {
-        key: "income-wallet",
-        label: <Link href="/dashboard/wallet/income-wallet">Income</Link>,
-      },
-      {
-        key: "purchase-wallet",
-        label: <Link href="/dashboard/wallet/purchase-wallet">Purchase</Link>,
-      },
-      {
-        key: "share-return-wallet",
-        label: (
-          <Link href="/dashboard/wallet/share-return-wallet">Share Return</Link>
-        ),
-      },
-      {
-        key: "fix-deposit-wallet",
-        label: (
-          <Link href="/dashboard/wallet/fix-deposit-wallet">Fix Deposit</Link>
-        ),
-      },
-      {
-        key: "share-holder-wallet",
-        label: (
-          <Link href="/dashboard/wallet/share-holder-wallet">Share Holder</Link>
-        ),
-      },
-
-      {
-        key: "directorship-wallet",
-        label: (
-          <Link href="/dashboard/wallet/directorship-wallet">Directorship</Link>
-        ),
-      },
-    ],
-  },
-  {
-    key: "joining",
-    label: <Link href="/dashboard/joining">Joining</Link>,
-    icon: <AuditOutlined />,
-  },
-  {
-    key: "team-info",
-    label: "Team Info",
-    icon: <TeamOutlined />,
-    children: [
-      {
-        key: "referral-team",
-        label: <Link href="/referral-team">Referral Team</Link>,
-      },
-      {
-        key: "genealogy-tree",
-        label: (
-          <Link href="/dashboard/team-view/ganealogy-tree">Tree View</Link>
-        ),
-      },
-    ],
-  },
-  {
-    key: "withdraw",
-    label: "Withdraw",
-    icon: <MoneyCollectFilled />,
-    children: [
-      {
-        key: "security-code",
-        label: <Link href="/security-code">Security Code</Link>,
-      },
-      {
-        key: "payment-setting",
-        label: <Link href="/payment-setting">Payment Setting</Link>,
-      },
-      {
-        key: "withdraw-now",
-        label: <Link href="/withdraw-now">Withdraw Now</Link>,
-      },
-      {
-        key: "withdraw-report",
-        label: <Link href="/withdraw-report">Withdraw Report</Link>,
-      },
-    ],
-  },
-  {
-    key: "support",
-    label: <Link href="/support">Support</Link>,
-    icon: <CloudUploadOutlined />,
-  },
-  {
-    key: "man-management",
-    label: <Link href="/dashboard/man-management">Man Management</Link>,
-    icon: <FaPeopleGroup />,
-  },
-];
-
-const secondMenuItems: MenuItem[] = [
-  {
-    key: "divider",
-    type: "divider",
-  },
-  {
-    key: "feedback",
-    label: <Link href="/feedback">Feedback</Link>,
-    icon: <UsergroupAddOutlined />,
-  },
-  {
-    key: "community-support",
-    label: <Link href="/community-support">Community & Support</Link>,
-    icon: <UsergroupAddOutlined />,
-  },
-];
 
 const Sidebar: React.FC = () => {
   const [selectedFirstMenuKey, setSelectedFirstMenuKey] = useState<
@@ -201,6 +37,193 @@ const Sidebar: React.FC = () => {
   const [selectedSecondMenuKey, setSelectedSecondMenuKey] = useState<
     string | null
   >(null);
+
+  const role: string = Cookies.get("role") || "";
+  const have_purchase_wallet: string =
+    Cookies.get("have_purchase_wallet") || "";
+
+  const firstMenuItems: MenuItem[] = [
+    {
+      key: "dashboard",
+      label: <Link href="/dashboard">Dashboard</Link>,
+      icon: <AppstoreOutlined />,
+    },
+    {
+      key: "profile",
+      label: "Profile",
+      icon: <ProfileOutlined />,
+      children: [
+        {
+          key: "my-profile",
+          icon: <RiUser2Fill />,
+          label: <Link href="/dashboard/profile/my-profile">My Profile</Link>,
+        },
+        {
+          key: "update-profile",
+          icon: <TbUserStar />,
+          label: (
+            <Link href="/dashboard/profile/update-profile">Profile Update</Link>
+          ),
+        },
+        {
+          key: "change-password",
+          icon: <GrUserAdmin />,
+          label: (
+            <Link href="/dashboard/profile/change-password">
+              Change Password
+            </Link>
+          ),
+        },
+      ],
+    },
+    {
+      key: "add-money",
+      label: "Add Money",
+      icon: <MoneyCollectOutlined />,
+      children: [
+        {
+          key: "add-now",
+          icon: <PlusSquareOutlined />,
+          label: <Link href="/dashboard/add-money/add-now">Add Now</Link>,
+        },
+        {
+          key: "history",
+          icon: <HistoryOutlined />,
+          label: (
+            <Link href="/dashboard/add-money/add-money-history">History</Link>
+          ),
+        },
+      ],
+    },
+    {
+      key: "wallet",
+      label: "Wallet",
+      icon: <WalletOutlined />,
+      children: [
+        {
+          key: "income-wallet",
+          label: <Link href="/dashboard/wallet/income-wallet">Income</Link>,
+        },
+        ...(have_purchase_wallet === "yes"
+          ? [
+              {
+                key: "purchase-wallet",
+                label: (
+                  <Link href="/dashboard/wallet/purchase-wallet">Purchase</Link>
+                ),
+              },
+            ]
+          : []),
+        {
+          key: "project-share-wallet",
+          label: (
+            <Link href="/dashboard/wallet/project-share">Project Share</Link>
+          ),
+        },
+        {
+          key: "fix-deposit-wallet",
+          label: (
+            <Link href="/dashboard/wallet/fixed-deposit">Fixed Deposit</Link>
+          ),
+        },
+        {
+          key: "share-holder-wallet",
+          label: (
+            <Link href="/dashboard/wallet/share-holder">Share Holder</Link>
+          ),
+        },
+
+        {
+          key: "directorship-wallet",
+          label: (
+            <Link href="/dashboard/wallet/directorship">Directorship</Link>
+          ),
+        },
+      ],
+    },
+    ...(have_purchase_wallet === "yes"
+      ? [
+          {
+            key: "joining",
+            label: <Link href="/dashboard/joining">Joining</Link>,
+            icon: <AuditOutlined />,
+          },
+        ]
+      : []),
+    {
+      key: "team-info",
+      label: "Team Info",
+      icon: <TeamOutlined />,
+      children: [
+        {
+          key: "referral-team",
+          label: (
+            <Link href="/dashboard/team-view/refferal-team">Referral Team</Link>
+          ),
+        },
+        {
+          key: "genealogy-tree",
+          label: (
+            <Link href="/dashboard/team-view/ganealogy-tree">Tree View</Link>
+          ),
+        },
+      ],
+    },
+    {
+      key: "withdraw",
+      label: "Withdraw",
+      icon: <MoneyCollectFilled />,
+      children: [
+        {
+          key: "security-code",
+          label: <Link href="/security-code">Security Code</Link>,
+        },
+        {
+          key: "payment-setting",
+          label: <Link href="/payment-setting">Payment Setting</Link>,
+        },
+        {
+          key: "withdraw-now",
+          label: <Link href="/withdraw-now">Withdraw Now</Link>,
+        },
+        {
+          key: "withdraw-report",
+          label: <Link href="/withdraw-report">Withdraw Report</Link>,
+        },
+      ],
+    },
+    {
+      key: "support",
+      label: <Link href="/support">Support</Link>,
+      icon: <CloudUploadOutlined />,
+    },
+    ...(role === "superAdmin"
+      ? [
+          {
+            key: "man-management",
+            label: <Link href="/dashboard/man-management">Man Management</Link>,
+            icon: <FaPeopleGroup />,
+          },
+        ]
+      : []),
+    // {
+    //   key: "users-investment-request",
+    //   label: <Link href="/dashboard/investment-request">Investment Request</Link>,
+    //   icon: <FaPeopleGroup />,
+    // },
+  ];
+  const secondMenuItems: MenuItem[] = [
+    {
+      key: "feedback",
+      label: <Link href="/feedback">Feedback</Link>,
+      icon: <UsergroupAddOutlined />,
+    },
+    {
+      key: "community-support",
+      label: <Link href="/community-support">Community & Support</Link>,
+      icon: <UsergroupAddOutlined />,
+    },
+  ];
 
   const handleFirstMenuSelect: MenuProps["onSelect"] = ({ key }) => {
     setSelectedFirstMenuKey(key);
@@ -218,7 +241,7 @@ const Sidebar: React.FC = () => {
         href="/"
         className="border-none text-red-700 hover:text-red-900 pt-5"
       >
-        BONDHU GROUP
+        BONDHU Builders
       </Link>
 
       <div className="flex grow flex-col justify-between">

@@ -61,7 +61,7 @@ export interface UserData {
   mother_name: string;
   picture: string;
   email: string;
-  password: string;
+  password?: string;
   phone: string;
   role: string;
   present_address: string;
