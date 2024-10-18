@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import useStore from "../../../../../../Zustand/Store/useStore";
+import useStore from "../../../../../Zustand/Store/userStore";
 import Cookies from "js-cookie";
 import baseUrl from "../../../../../../config";
 import { useRouter } from "next/navigation";

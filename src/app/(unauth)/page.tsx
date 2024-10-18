@@ -24,6 +24,7 @@ const HomePage = () => {
         <HomeBanner />
       </div>
 
+      {/* <SocketTest /> */}
       {/* Bondhu builder intro */}
       <div className="my-24">
         <div className=" w-[80%] mx-auto flex items-center gap-10">

@@ -1,7 +1,9 @@
 "use client";
+
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import baseUrl from "../../config";
 
 const SocketTest = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -37,8 +39,8 @@ const SocketTest = () => {
   // Send user id to the register channel
   const sendUserId = () => {
     if (socket && id) {
-      socket.emit("register", { content: id });
       console.log("Sent user id to register channel:", id);
+      socket.emit("register", id);
     }
   };
 
@@ -67,9 +69,9 @@ const SocketTest = () => {
 
   return (
     <div>
-      <h1>Socket.IO Client Test</h1>
+      {/* <h1>Socket.IO Client Test</h1>
       <button onClick={sendMessage}>Send Chat Message</button>
-      <button onClick={sendNotification}>Send Notification</button>
+      <button onClick={sendNotification}>Send Notification</button> */}
     </div>
   );
 };

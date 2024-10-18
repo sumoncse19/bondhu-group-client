@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import FixedDepositChart from "@/components/Chats/FixedDepositChart";
 import ShareHolderChart from "@/components/Chats/ShareHolderChart";
-import useStore from "../../../../Zustand/Store/useStore";
+import useStore from "../../../Zustand/Store/userStore";
 import baseUrl from "../../../../config";
 
 const Dashboard = () => {
