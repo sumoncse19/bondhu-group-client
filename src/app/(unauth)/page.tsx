@@ -13,48 +13,9 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { io, Socket } from "socket.io-client";
 import baseUrl from "../../../config";
+import SocketTest from "@/components/SocketTest";
 
 const HomePage = () => {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [chatMessages, setChatMessages] = useState<[]>([]);
-  const [notifications, setNotifications] = useState<string[]>([]);
-
-  const id: string = Cookies.get("id") || "";
-
-  useEffect(() => {
-    // Connect to the socket server
-    const socketIO = io(baseUrl, {
-      // transports: ["polling"], // Force using HTTP polling
-    });
-
-    setSocket(socketIO);
-
-    console.log(socketIO);
-
-    // Register the userId with the server after the connection is established
-    socketIO.emit("register", id); // Replace with actual userId
-
-    // Listen for chat messages
-    // socketIO.on("chatMessage", (data) => {
-    //   console.log("Received chat message:", data.content);
-    //   setChatMessages((prevMessages) => [...prevMessages, data.content]);
-    // });
-
-    // Listen for notifications
-    socketIO.on("notification", (data) => {
-      console.log("Received notification:", data.message);
-      setNotifications((prevNotifications) => [
-        ...prevNotifications,
-        data.message,
-      ]);
-    });
-
-    // Clean up the socket connection on component unmount
-    return () => {
-      socketIO.disconnect();
-    };
-  }, []);
-
   return (
     <div className="w-full">
       {/* Hero section */}
@@ -80,7 +41,7 @@ const HomePage = () => {
           </div>
 
           {/* noti */}
-          <div>{notifications?.map((noti) => <p key={noti}>{noti}</p>)}</div>
+          {/* <div>{notifications?.map((noti) => <p key={noti}>{noti}</p>)}</div> */}
 
           {/* right div */}
           <div className="w-full flex justify-center right-div">
