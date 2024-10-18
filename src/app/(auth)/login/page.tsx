@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { ThreeCircles } from "react-loader-spinner";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import Cookies from "js-cookie";
-import useStore from "../../../../Zustand/Store/useStore";
+import useStore from "../../../Zustand/Store/userStore";
 interface IFormInput {
   username: string;
   password: string;
