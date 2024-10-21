@@ -50,6 +50,7 @@ const page = () => {
           Cookies.set("token", data?.token);
           Cookies.set("id", data?.data?._id);
           Cookies.set("role", data?.data?.role);
+          Cookies.set("username", data?.data?.name);
           Cookies.set(
             "have_purchase_wallet",
             data?.data?.wallet?.purchase_wallet > 0 ? "yes" : "no"

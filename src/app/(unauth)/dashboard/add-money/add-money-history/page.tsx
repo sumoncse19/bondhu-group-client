@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import { Circles } from "react-loader-spinner";
 import baseUrl from "../../../../../../config";
 import { formatDate } from "../../../../../utils/dateUtils";
+import { BsBuildingFillAdd } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 interface AddMoneyHistoriesInterface {
   // userId: string | "";
@@ -23,7 +25,7 @@ interface AddMoneyHistoriesInterface {
   branch_name: string;
   transaction_id: string;
   picture: string;
-  date: string;
+  createdAt: string;
   is_approved: boolean;
 }
 
@@ -36,6 +38,8 @@ const page = () => {
   const [modalImage, seModalImgae] = useState<string>("");
   const id: string = Cookies.get("id") || "";
   const token: string = Cookies.get("token") || "";
+
+  const router = useRouter();
 
   const fetchAddMoneyHistories = async () => {
     setIsLoading(true);
@@ -64,6 +68,7 @@ const page = () => {
   useEffect(() => {
     fetchAddMoneyHistories();
   }, [id]);
+
   // const addMoneyHistories = [
   //   {
   //     id: 1,
@@ -88,11 +93,20 @@ const page = () => {
   // ];
   return (
     <div>
-      <h1 className="text-rose-600 font-bold text-2xl">Add Money History</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-rose-600 font-bold text-2xl">Add Money History</h1>
+        <div
+          onClick={() => router.push("/dashboard/add-money/add-now")}
+          className="border-2 border-black px-7 py-2 rounded-full shadow-2xl text-black cursor-pointer flex items-center gap-2"
+        >
+          <BsBuildingFillAdd />
+          <p>New Add Money</p>
+        </div>
+      </div>
 
       <div className="w-[350px] sm:w-[500px] md:w-[750px] xl:w-full relative overflow-x-auto max-h-screen overflow-y-auto my-5">
         <table className="w-full text-sm text-left rtl:text-right text-white ">
-          <thead className="sticky top-0 text-xs text-black  bg-[#d9d1ca] ">
+          <thead className="sticky top-0 text-xs text-black  bg-red-50 border-b-2 border-t-2 border-black">
             <tr>
               <th
                 rowSpan={2}
@@ -194,7 +208,7 @@ const page = () => {
                 .map((history: AddMoneyHistoriesInterface) => (
                   <tr
                     key={history?._id}
-                    className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                    className="bg-red-50 text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
                   >
                     <td className="px-6 py-4 text-center">
                       {history?.money_receipt_number}
@@ -239,7 +253,7 @@ const page = () => {
                       </p>
                     </td>
                     <td className="px-6 py-4 text-center">
-                      {formatDate(history?.date)}
+                      {formatDate(history?.createdAt)}
                     </td>
                     <td className="px-6 py-4 text-center ">
                       <p

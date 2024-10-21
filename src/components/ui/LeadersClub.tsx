@@ -25,16 +25,16 @@ const LeadersClub = () => {
           />
         )}
       </div>
+      {/* image */}
+      <div className="my-2 flex justify-center">
+        <img
+          className="w-60 h-60 rounded-full"
+          src="/images/leadersClubImg.jpeg"
+          alt=""
+        />
+      </div>
       {/* body */}
       <div className={`${showMore ? "block" : "hidden"}`}>
-        {/* image */}
-        <div className="my-5 flex justify-center">
-          <img
-            className="w-60 h-60 rounded"
-            src="/images/leadersClubImg.jpeg"
-            alt=""
-          />
-        </div>
         {/* details */}
         <p className="text-orange-200 px-5">
           Leader's Club is typically a program designed to develop leadership

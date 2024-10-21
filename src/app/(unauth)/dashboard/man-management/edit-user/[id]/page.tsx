@@ -3,14 +3,18 @@
 import ProfileHeader from "@/components/ui/ProfileHeader";
 import Cookies from "js-cookie";
 import React, { useEffect, useRef, useState } from "react";
-import baseUrl from "../../../../../../config";
+import baseUrl from "../../../../../../../config";
 import { UserData } from "@/type";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { ThreeCircles } from "react-loader-spinner";
 import { motion, AnimatePresence } from "framer-motion";
+import { GiFastBackwardButton } from "react-icons/gi";
 const UpdateProfile = () => {
+  const params = useParams();
+  const UserId = params.id;
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const fileInputRef2 = useRef<HTMLInputElement | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -60,7 +64,7 @@ const UpdateProfile = () => {
   const token: string = Cookies.get("token") || "";
 
   const fetchSignleUser = async () => {
-    const response = await fetch(`${baseUrl}/user/get-user/${id}`, {
+    const response = await fetch(`${baseUrl}/user/get-user/${UserId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -330,9 +334,18 @@ const UpdateProfile = () => {
 
   return (
     <div className="">
-      <h1 className="text-2xl text-rose-600 font-bold tracking-widest">
-        Update Profile
-      </h1>
+      <div className="flex items-center gap-5">
+        <h1 className="text-xl text-rose-600 font-bold tracking-widest">
+          Edit User Profile
+        </h1>
+        <div
+          onClick={() => router.back()}
+          className="border-2 border-black hover:bg-black hover:text-white transition-all duration-300 ease-in cursor-pointer text-black px-5 py-1 rounded-full flex items-center gap-3"
+        >
+          <GiFastBackwardButton />
+          <p>Back</p>
+        </div>
+      </div>
       {/* <ProfileHeader
         name={user?.name}
         user_name={user?.user_name}
@@ -383,7 +396,6 @@ const UpdateProfile = () => {
               </label>
               <input
                 onChange={(e) => setName(e.target.value)}
-                readOnly
                 value={name}
                 className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
@@ -401,7 +413,6 @@ const UpdateProfile = () => {
               </label>
               <input
                 onChange={(e) => setUserName(e.target.value)}
-                readOnly
                 value={userName}
                 className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
@@ -454,7 +465,6 @@ const UpdateProfile = () => {
               </label>
               <input
                 onChange={(e) => setNidNo(e.target.value)}
-                readOnly
                 value={nidNo}
                 className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="number"
@@ -519,14 +529,13 @@ const UpdateProfile = () => {
               </label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
-                readOnly
                 value={email}
                 className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="email"
                 id="email"
               />
             </div>
-            {/* <div className="relative w-full">
+            <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
                 htmlFor="password"
@@ -541,8 +550,8 @@ const UpdateProfile = () => {
                 type="password"
                 id="password"
               />
-            </div> */}
-            {/* <div className="relative w-full">
+            </div>
+            <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
                 htmlFor="confirm-password"
@@ -557,7 +566,7 @@ const UpdateProfile = () => {
                 type="password"
                 id="confirm-password"
               />
-            </div> */}
+            </div>
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
@@ -568,7 +577,6 @@ const UpdateProfile = () => {
               </label>
               <input
                 onChange={(e) => setMobileNo(e.target.value)}
-                readOnly
                 value={mobileNo}
                 className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="number"
@@ -828,7 +836,6 @@ const UpdateProfile = () => {
                 </label>
                 <input
                   onChange={(e) => setNomineeName(e.target.value)}
-                  readOnly
                   value={nomineeName}
                   className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                   type="text"

@@ -8,6 +8,7 @@ import { ColorRing, ThreeCircles } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
 import baseUrl from "../../../../../../config";
 import axios from "axios";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 const page = () => {
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
@@ -17,6 +18,7 @@ const page = () => {
   const [shareHolderAmount, setShareHolderAmount] = useState<any>(0);
   const [directorshipAmount, setDirectorshipAmount] = useState<any>(0);
   const [totalPlanCost, setTotalPlanCost] = useState<number>(0);
+
   const [moneyRecieptNumber, setMoneyRecieptNumber] = useState<string>("");
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<string>("");
@@ -25,15 +27,19 @@ const page = () => {
   const [bankAccName, setBankAccName] = useState<string>("");
   const [bankBranchName, setBankBranchName] = useState<string>("");
   const [paymentPicture, setPaymentPicture] = useState<string>("");
+  const [paymentPicture2, setPaymentPicture2] = useState<string>("");
   const [isLoadingForImage, setIsLoadingForImage] = useState<boolean>(false);
+  const [isLoadingForImage2, setIsLoadingForImage2] = useState<boolean>(false);
 
   const [user, setUser] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>("");
 
   const fixedDepositInputRef = useRef<HTMLInputElement>(null);
   const shareHolderInputRef = useRef<HTMLInputElement>(null);
   const directorshipInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const fileInputRef2 = useRef<HTMLInputElement | null>(null);
 
   const token = Cookies.get("token");
   const userCookie = Cookies.get("user");
@@ -59,10 +65,19 @@ const page = () => {
   const handleImageClick = () => {
     fileInputRef.current?.click(); // Trigger the hidden input
   };
+  const handleImageClick2 = () => {
+    fileInputRef2.current?.click(); // Trigger the hidden input
+  };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       handleFileUpload(file); // Upload the selected file
+    }
+  };
+  const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleFileUpload2(file); // Upload the selected file
     }
   };
 
@@ -96,6 +111,36 @@ const page = () => {
       setIsLoadingForImage(false);
     }
   };
+  const handleFileUpload2 = async (file: File) => {
+    setIsLoadingForImage2(true);
+    const apiKey = "fb3740bc653a7910499d04a143f890fc"; // Replace with your imgbb API key
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(
+        `https://api.imgbb.com/1/upload?key=${apiKey}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      if (data.success) {
+        const imageurl = data.data.url; // Get the image URL from the response
+        setPaymentPicture2(imageurl);
+        setIsLoadingForImage2(false);
+      } else {
+        toast.error("Error uploading to imgbb:", data.error);
+        setIsLoadingForImage2(false);
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      setIsLoadingForImage2(false);
+    }
+  };
 
   const handleRequestToAdmin = async () => {
     if (
@@ -103,7 +148,8 @@ const page = () => {
       !mobileNumber ||
       !paymentMethod ||
       !transactionId ||
-      !paymentPicture
+      !paymentPicture ||
+      !paymentPicture2
     ) {
       toast.error("Fill all field first");
       return;
@@ -131,6 +177,7 @@ const page = () => {
       branch_name: bankBranchName,
       transaction_id: transactionId,
       picture: paymentPicture,
+      payment_picture: paymentPicture2,
       is_approved: false,
     };
 
@@ -144,6 +191,8 @@ const page = () => {
           },
         })
         .then((res) => {
+          console.log(res, "ress");
+
           if (res?.data?.success) {
             router.push("/dashboard/add-money/add-money-history");
             toast.success("Investment Request to Admin Successfully");
@@ -155,7 +204,13 @@ const page = () => {
       //   console.log(data?.data, "addmoney");
       // }
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        // This ensures that error.response exists
+        toast.error(error.response?.data?.message || "An error occurred");
+      } else {
+        // Handle other types of errors
+        toast.error("An unexpected error occurred");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -175,8 +230,10 @@ const page = () => {
     directorshipAmount,
   ]);
 
+  console.log("total cost", typeof totalPlanCost);
+
   return (
-    <div className="w-full h-full  text-black">
+    <div className="w-full h-full  text-black mb-20">
       <h1 className="text-2xl text-rose-600 font-bold tracking-widest animate-bounce">
         Pick Your Plan
       </h1>
@@ -184,7 +241,9 @@ const page = () => {
       {/* plans */}
       <div className="mt-10 flex items-center gap-8">
         {/* Project Share part */}
-        <div>
+        <div
+          className={`border-2  rounded-xl ${selectedPlans.includes("project-share") && "shadow-2xl border-orange-500"}`}
+        >
           {/* plan */}
           <div
             onClick={() => {
@@ -198,7 +257,7 @@ const page = () => {
                 });
               }
             }}
-            className={`w-[200px] h-[150px]  flex justify-center items-center border border-black rounded-md cursor-pointer relative ${selectedPlans.includes("project-share") && "shadow-2xl"}`}
+            className={`w-[200px] h-[150px]  flex justify-center items-center  rounded-md cursor-pointer relative `}
           >
             <div className="flex flex-col items-center gap-y-2">
               <img
@@ -259,14 +318,16 @@ const page = () => {
         </div>
 
         {/* Fixed Deposit part */}
-        <div>
+        <div
+          className={`border-2  rounded-xl ${selectedPlans.includes("fixed-deposit") && "shadow-2xl border-orange-500"}`}
+        >
           {/* plan */}
           <div
             onClick={() => {
               if (selectedPlans.includes("fixed-deposit")) {
-                setTotalProjectShare(0);
+                // setTotalProjectShare(0);
                 const neww = selectedPlans.filter((p) => p != "fixed-deposit");
-                setFixedDepositAmount("");
+
                 setSelectedPlans(neww);
               } else {
                 setSelectedPlans((prev) => {
@@ -274,7 +335,7 @@ const page = () => {
                 });
               }
             }}
-            className={`w-[200px] h-[150px]  flex justify-center items-center border border-black rounded-md cursor-pointer relative ${selectedPlans.includes("fixed-deposit") && "shadow-2xl"}`}
+            className={`w-[200px] h-[150px]  flex justify-center items-center  rounded-md cursor-pointer relative `}
           >
             <div className="flex flex-col items-center gap-y-2">
               <img
@@ -329,7 +390,9 @@ const page = () => {
         </div>
 
         {/* share holder */}
-        <div>
+        <div
+          className={`border-2  rounded-xl ${selectedPlans.includes("share-holder") && "shadow-2xl border-orange-500"}`}
+        >
           {/* plan */}
           <div
             onClick={() => {
@@ -343,7 +406,7 @@ const page = () => {
                 });
               }
             }}
-            className={`w-[200px] h-[150px]  flex justify-center items-center border border-black rounded-md cursor-pointer relative ${selectedPlans.includes("fixed-deposit") && "shadow-2xl"}`}
+            className={`w-[200px] h-[150px]  flex justify-center items-center rounded-md cursor-pointer relative `}
           >
             <div className="flex flex-col items-center gap-y-2">
               <img
@@ -397,7 +460,9 @@ const page = () => {
         </div>
 
         {/* Directorship */}
-        <div>
+        <div
+          className={`border-2 rounded-xl ${selectedPlans.includes("directorship") && "shadow-2xl border-orange-500 "}`}
+        >
           {/* plan */}
           <div
             onClick={() => {
@@ -411,7 +476,7 @@ const page = () => {
                 });
               }
             }}
-            className={`w-[200px] h-[150px]  flex justify-center items-center border border-black rounded-md cursor-pointer relative ${selectedPlans.includes("fixed-deposit") && "shadow-2xl"}`}
+            className={`w-[200px] h-[150px]  flex justify-center items-center  rounded-md cursor-pointer relative `}
           >
             <div className="flex flex-col items-center gap-y-2">
               <img
@@ -471,9 +536,11 @@ const page = () => {
       <div className="mt-16 flex gap-x-10">
         {/* plan summary */}
         <div className="w-full min-h-[400px] ">
-          <div className="flex items-center justify-between px-4 py-2 bg-[#C9C3BD]">
+          <div className="flex items-center justify-between px-4 py-2 border-4 rounded-full border-black text-white">
             <p className="text-rose-700 font-bold text-2xl ">Plan Summary</p>
-            <p className=" tracking-wider">Total: &#2547; {totalPlanCost}</p>
+            <p className="text-black tracking-wider">
+              Total: &#2547; {totalPlanCost}
+            </p>
           </div>
 
           <div className=" flex flex-col">
@@ -487,9 +554,11 @@ const page = () => {
               <div className="flex items-center justify-between  px-4 py-3 border-b-2 border-black text-black">
                 <div className="flex items-center gap-3 ">
                   <p>Project Share</p>
-                  <p>{totalProjectShare}</p>
+                  <p className="">{totalProjectShare}</p>
                 </div>
-                <p className="text-sm">&#2547; {projectShareAmount}</p>
+                <p className="text-sm tracking-widest">
+                  &#2547; {projectShareAmount}
+                </p>
               </div>
             )}
             {parseInt(fixedDepositAmount) > 0 && (
@@ -497,7 +566,9 @@ const page = () => {
                 <div className="flex items-center gap-3">
                   <p>Fixed Deposit</p>
                 </div>
-                <p className="text-sm">&#2547; {fixedDepositAmount}</p>
+                <p className="text-sm tracking-widest">
+                  &#2547; {fixedDepositAmount}
+                </p>
               </div>
             )}
             {parseInt(shareHolderAmount) > 0 && (
@@ -505,7 +576,9 @@ const page = () => {
                 <div className="flex items-center gap-3">
                   <p>Share Holder</p>
                 </div>
-                <p className="text-sm">&#2547; {shareHolderAmount}</p>
+                <p className="text-sm tracking-widest">
+                  &#2547; {shareHolderAmount}
+                </p>
               </div>
             )}
             {parseInt(directorshipAmount) > 0 && (
@@ -513,7 +586,9 @@ const page = () => {
                 <div className="flex items-center gap-3">
                   <p>Directorship</p>
                 </div>
-                <p className="text-sm">&#2547; {directorshipAmount}</p>
+                <p className="text-sm tracking-widest">
+                  &#2547; {directorshipAmount}
+                </p>
               </div>
             )}
           </div>
@@ -522,7 +597,7 @@ const page = () => {
         {/* payment details */}
         <div className="w-full">
           {/* head */}
-          <div className="flex items-center justify-between px-4 py-2 bg-[#C9C3BD]">
+          <div className="flex items-center justify-between px-4 py-2 bg-white border-4 border-black rounded-full">
             <p className="text-rose-700 font-bold text-2xl ">Payment Summary</p>
             {/* <p className=" tracking-wider">Total: &#2547; {totalPlanCost}</p> */}
           </div>
@@ -536,21 +611,27 @@ const page = () => {
                 name=""
                 id="money-reciept-no"
                 onChange={(e) => setMoneyRecieptNumber(e.target.value)}
-                className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                placeholder="enter money reciept number"
+                className="bg-gray-200 px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                placeholder="Enter money reciept number"
               />
             </div>
             {/* mobile no */}
-            <div className="flex items-center justify-between">
+            <div className="flex  justify-between">
               <label htmlFor="mobile-number">Mobile Number</label>
-              <input
-                type="text"
-                name=""
-                id="mobile-number"
-                onChange={(e) => setMobileNumber(e.target.value)}
-                className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                placeholder="enter mobile number"
-              />
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id="mobile-number"
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                  className="bg-gray-300 px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                  placeholder="enter mobile number"
+                />
+                <div className="flex items-center gap-1 py-1 px-1 text-teal-600 font-bold text-sm">
+                  <IoMdInformationCircleOutline />
+                  <p className="">Mobile Number should be 11 digit</p>
+                </div>
+              </div>
             </div>
             {/* payment method */}
             <div className="flex items-center justify-between">
@@ -610,7 +691,7 @@ const page = () => {
               </div>
             )}
 
-            {/* image upload */}
+            {/* payment picture upload */}
             <div className="flex items-center justify-between">
               <label htmlFor="transaction-id">Payment Picture</label>
               <div className="w-80 flex flex-col items-center gap-y-2 cursor-pointer">
@@ -629,6 +710,45 @@ const page = () => {
                 />
                 <p>
                   {isLoadingForImage && (
+                    <ColorRing
+                      visible={true}
+                      height="40"
+                      width="40"
+                      ariaLabel="color-ring-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="color-ring-wrapper"
+                      colors={[
+                        "#e15b64",
+                        "#f47e60",
+                        "#f8b26a",
+                        "#abbd81",
+                        "#849b87",
+                      ]}
+                    />
+                  )}
+                </p>
+              </div>
+            </div>
+
+            {/* Money Receipt picture upload */}
+            <div className="flex items-center justify-between">
+              <label htmlFor="transaction-id">Money Reciept Picture</label>
+              <div className="w-80 flex flex-col items-center gap-y-2 cursor-pointer">
+                <img
+                  className="w-20 h-20 rounded-full object-cover cursor-pointer border-2 border-black"
+                  src={paymentPicture2 || "/images/paymentPictureDummy.jpg"} // Use uploaded image if available
+                  alt="Profile"
+                  onClick={handleImageClick2}
+                />
+
+                <input
+                  type="file"
+                  ref={fileInputRef2}
+                  style={{ display: "none" }}
+                  onChange={handleFileChange2} // Trigger upload on file selection
+                />
+                <p>
+                  {isLoadingForImage2 && (
                     <ColorRing
                       visible={true}
                       height="40"
@@ -676,8 +796,8 @@ const page = () => {
               {isLoading ? (
                 <ThreeCircles
                   visible={true}
-                  height="40"
-                  width="40"
+                  height="30"
+                  width="30"
                   color="#fff"
                   ariaLabel="three-circles-loading"
                   wrapperStyle={{}}

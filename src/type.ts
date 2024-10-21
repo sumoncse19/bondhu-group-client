@@ -60,6 +60,7 @@ export interface UserData {
   father_or_husband_name: string;
   mother_name: string;
   picture: string;
+  cover_photo?: string;
   email: string;
   password?: string;
   phone: string;

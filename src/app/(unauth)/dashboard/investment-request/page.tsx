@@ -8,6 +8,8 @@ import ViewImageModal from "@/components/shared/Modal/ViewImageModal";
 import { getUserNameById } from "@/utils/userUtils";
 import { Circles } from "react-loader-spinner";
 import toast from "react-hot-toast";
+import { GiFastBackwardButton } from "react-icons/gi";
+import { useRouter } from "next/navigation";
 
 interface InvestmentHistoriesData {
   _id?: string;
@@ -38,6 +40,7 @@ const page = () => {
   const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const router = useRouter();
   const token: string = Cookies.get("token") || "";
 
   const fetchAllInvestmentRequests = async () => {
@@ -105,91 +108,106 @@ const page = () => {
     }
   };
   return (
-    <div className="h-full w-full p-10">
-      <h1 className="text-3xl text-rose-600 font-bold tracking-widest">
-        User's Investment Requests
-      </h1>
+    <div className="h-full w-full">
+      <div className="flex items-center gap-5">
+        <h1 className="text-xl text-rose-600 font-bold tracking-widest">
+          User's Investment Requests
+        </h1>
+        <div
+          onClick={() => router.back()}
+          className="border-2 border-black hover:bg-black hover:text-white transition-all duration-300 ease-in cursor-pointer text-black px-5 py-1 rounded-full flex items-center gap-3"
+        >
+          <GiFastBackwardButton />
+          <p>Back</p>
+        </div>
+      </div>
 
-      <div className="w-[350px] sm:w-[500px] md:w-[750px] xl:w-full relative overflow-x-auto max-h-screen overflow-y-auto my-5">
-        <table className="w-full text-sm text-left rtl:text-right text-white ">
-          <thead className="sticky top-0 text-xs text-black  bg-[#d9d1ca] ">
+      <div
+        className="relative overflow-x-auto max-h-screen overflow-y-auto my-5"
+        // style={{ width: "calc(100% - 150px)" }}
+      >
+        <table className="min-w-full text-sm text-left rtl:text-right   ">
+          <thead className="sticky top-0 text-xs text-black  bg-red-50 border-2 border-black">
             <tr>
               <th
                 rowSpan={2}
                 scope="col"
-                className="px-6 py-3 text-center text-xs border-r-2 border-black"
+                className="px-3 py-3 text-center text-xs border-r-2 border-black"
               >
                 Money Reciept Number
               </th>
               <th
                 rowSpan={2}
                 scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
+                className="px-3 py-3 text-center border-r-2 border-black"
               >
                 UserName
               </th>
               <th
                 rowSpan={2}
                 scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
+                className="px-3 py-3 text-center border-r-2 border-black"
               >
                 Mobile Number
               </th>
               <th
-                colSpan={4}
+                colSpan={5}
                 scope="col"
-                className="px-6 py-3 text-center border-r-2 border-b-2 border-black"
+                className="px-3 py-3 text-center border-r-2 border-b-2 border-black"
               >
                 Investment
               </th>
               <th
                 rowSpan={2}
                 scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
+                className="px-3 py-3 text-center border-r-2 border-black"
               >
                 Payment Method
               </th>
               <th
                 rowSpan={2}
                 scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
+                className="px-3 py-3 text-center border-r-2 border-black"
               >
                 Transaction ID
               </th>
               <th
                 rowSpan={2}
                 scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
+                className="px-3 py-3 text-center border-r-2 border-black"
               >
                 Payment Picture
               </th>
               <th
                 rowSpan={2}
                 scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
+                className="px-3 py-3 text-center border-r-2 border-black"
               >
                 Request Date
               </th>
-              <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
+              <th rowSpan={2} scope="col" className="px-3 py-3 text-center ">
                 State
               </th>
             </tr>
             <tr>
-              <th className="px-6 py-3 text-center border-r-2 border-black">
+              <th className="px-3 py-3 text-center border-r-2 border-black">
                 Project Share
               </th>
-              <th className="px-6 py-3 text-center border-r-2 border-black">
-                Project Share
+              <th className="px-3 py-3 text-center border-r-2 border-black">
+                Fixed Deposite
               </th>
-              <th className="px-6 py-3 text-center border-r-2 border-black">
-                Project Share
+              <th className="px-3 py-3 text-center border-r-2 border-black">
+                Share Holder
               </th>
-              <th className="px-6 py-3 text-center border-r-2 border-black">
-                Project Share
+              <th className="px-3 py-3 text-center border-r-2 border-black">
+                Directorship
+              </th>
+              <th className="px-3 py-3 text-center border-r-2 border-black">
+                Total
               </th>
             </tr>
           </thead>
-          <tbody className="text-[10px]">
+          <tbody className="text-[12px]">
             {isLoading ? (
               <tr className="text-center">
                 <td colSpan={12} align="center">
@@ -218,38 +236,41 @@ const page = () => {
               investmentHistories?.map((history: InvestmentHistoriesData) => (
                 <tr
                   key={history?._id}
-                  className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-red-50 text-black border-b-2 border-slate-700 "
                 >
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center">
                     {history?.money_receipt_number}
                   </td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center">
                     {usernames[history?.userId] || "Loading..."}
                   </td>
-                  <td className="px-6 py-4 text-center"> {history?.phone}</td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center"> {history?.phone}</td>
+                  <td className="px-3 py-4 text-center">
                     {history?.project_share}
                   </td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center">
                     {history?.fixed_deposit}
                   </td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center">
                     {history?.share_holder}
                   </td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center">
                     {history?.directorship}
                   </td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center">
+                    {history?.total_amount}
+                  </td>
+                  <td className="px-3 py-4 text-center">
                     {history?.payment_method}
                     {history?.payment_method == "bank" && (
                       <p className="pt-2">Bank Name:FCIC Bank-Branch:ctg</p>
                     )}
                   </td>
 
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center">
                     {history?.transaction_id}
                   </td>
-                  <td className="px-6 py-4 text-center  flex justify-center items-center gap-x-2">
+                  <td className="px-3 py-4 text-center  flex justify-center items-center gap-x-2">
                     <img className="w-10 h-10" src={history?.picture} alt="" />
                     <p
                       onClick={() => setIsOpenImageModal(true)}
@@ -258,10 +279,10 @@ const page = () => {
                       View
                     </p>
                   </td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-3 py-4 text-center">
                     {formatDate(history?.createdAt)}
                   </td>
-                  <td className="px-6 py-4 text-center ">
+                  <td className="px-3 py-4 text-center ">
                     <p
                       onClick={() => {
                         handleAcceptInvestmentRequest(history?._id || "");

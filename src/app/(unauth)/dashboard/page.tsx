@@ -56,7 +56,7 @@ const Dashboard = () => {
         <div className="flex flex-wrap items-center  gap-5">
           <div className="w-full flex items-center justify-between gap-x-4">
             {/* name intro */}
-            <div className="w-[60%] h-60 bg-[#EAE9E8] rounded-md p-5 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+            <div className="w-[60%] h-60  rounded-md p-5 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
               <div className="flex gap-x-6 h-full">
                 <div className="w-[50%] flex flex-col gap-y-7 ">
                   <div className="flex gap-x-3">
@@ -101,7 +101,7 @@ const Dashboard = () => {
             </div>
 
             {/* invest part */}
-            <div className="w-[40%] h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+            <div className="w-[40%] h-60  p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
               <div className="h-full flex flex-col justify-between gap-y-2">
                 <div className=" flex flex-col justify-between">
                   <p className="font-bold">&#x9F3; 0.00</p>
@@ -125,7 +125,7 @@ const Dashboard = () => {
           <div className="flex flex-col items-center justify-between w-full gap-10">
             <div className="w-full flex items-center gap-10">
               {/*share profit part */}
-              <div className="w-full h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+              <div className="w-full h-60  p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
                 <div className="h-full flex flex-col justify-between gap-y-2">
                   <div className=" flex flex-col justify-between">
                     <p className="font-bold">&#x9F3; 0.00</p>
@@ -141,7 +141,7 @@ const Dashboard = () => {
                 </div>
               </div>
               {/* fixed deposit part */}
-              <div className="w-full h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+              <div className="w-full h-60  p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
                 <div className="h-full flex flex-col justify-between gap-y-2">
                   <div className=" flex flex-col justify-between">
                     <p className="font-bold">&#x9F3; 0.00</p>
@@ -160,7 +160,7 @@ const Dashboard = () => {
 
             <div className="w-full flex items-center gap-10">
               {/* share holder part */}
-              <div className="w-full h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+              <div className="w-full h-60  p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
                 <div className="h-full flex flex-col justify-between gap-y-2">
                   <div className=" flex flex-col justify-between">
                     <p className="font-bold">&#x9F3; 0.00</p>
@@ -176,7 +176,7 @@ const Dashboard = () => {
                 </div>
               </div>
               {/* directorship part */}
-              <div className="w-full h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+              <div className="w-full h-60  p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
                 <div className="h-full flex flex-col justify-between gap-y-2">
                   <div className=" flex flex-col justify-between">
                     <p className="font-bold">&#x9F3; 0.00</p>
@@ -202,7 +202,7 @@ const Dashboard = () => {
           <div className="w-[60%]">
             <div className="w-full flex items-center gap-3">
               {/* referrel bonus */}
-              <div className="w-full h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+              <div className="w-full h-60  p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
                 <div className="flex justify-between">
                   <div>
                     <p className="font-bold">&#x9F3; 0.00</p>
@@ -217,7 +217,7 @@ const Dashboard = () => {
                 </div>
               </div>
               {/* team bonus */}
-              <div className="w-full h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+              <div className="w-full h-60  p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
                 <div className="flex justify-between">
                   <div>
                     <p className="font-bold">&#x9F3; 0.00</p>
@@ -234,7 +234,7 @@ const Dashboard = () => {
             </div>
           </div>
           {/*  get in touch */}
-          <div className="w-[40%] h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+          <div className="w-[40%] h-60 p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
             <div>
               <p className="text-rose-700 font-bold text-lg">Get in touch</p>
               <div className="mt-10 flex justify-center items-center">

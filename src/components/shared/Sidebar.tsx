@@ -1,32 +1,23 @@
-"use client";
+import React, { useState, useEffect } from "react";
 import {
   AppstoreOutlined,
   AuditOutlined,
-  CloudUploadOutlined,
-  CustomerServiceOutlined,
-  GlobalOutlined,
-  HistoryOutlined,
-  KeyOutlined,
-  MedicineBoxOutlined,
-  MoneyCollectFilled,
   MoneyCollectOutlined,
   PlusSquareOutlined,
-  ProfileOutlined,
-  ProfileTwoTone,
-  ProjectOutlined,
-  TeamOutlined,
-  UsergroupAddOutlined,
+  HistoryOutlined,
   WalletOutlined,
+  TeamOutlined,
+  MoneyCollectFilled,
+  CloudUploadOutlined,
+  UsergroupAddOutlined,
+  ProfileOutlined,
 } from "@ant-design/icons";
 import { TbUserStar } from "react-icons/tb";
-import { GrUserAdmin } from "react-icons/gr";
 import { RiUser2Fill } from "react-icons/ri";
-import { FaPeopleGroup } from "react-icons/fa6";
-
 import { Avatar, ConfigProvider, Menu, type MenuProps } from "antd";
 import Link from "next/link";
-import React, { useState } from "react";
 import Cookies from "js-cookie";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -38,9 +29,23 @@ const Sidebar: React.FC = () => {
     string | null
   >(null);
 
-  const role: string = Cookies.get("role") || "";
-  const have_purchase_wallet: string =
-    Cookies.get("have_purchase_wallet") || "";
+  const [role, setRole] = useState<string>("");
+  const [havePurchaseWallet, setHavePurchaseWallet] = useState<string>("");
+
+  // Run this effect to set the client-side only values
+  useEffect(() => {
+    const roleFromCookie = Cookies.get("role") || "";
+    const havePurchaseWalletFromCookie =
+      Cookies.get("have_purchase_wallet") || "";
+
+    setRole(roleFromCookie);
+    setHavePurchaseWallet(havePurchaseWalletFromCookie);
+  }, []);
+
+  // Don't render the component until it is client-side
+  // if (!isClient) {
+  //   return null; // Return null during SSR
+  // }
 
   const firstMenuItems: MenuItem[] = [
     {
@@ -63,15 +68,6 @@ const Sidebar: React.FC = () => {
           icon: <TbUserStar />,
           label: (
             <Link href="/dashboard/profile/update-profile">Profile Update</Link>
-          ),
-        },
-        {
-          key: "change-password",
-          icon: <GrUserAdmin />,
-          label: (
-            <Link href="/dashboard/profile/change-password">
-              Change Password
-            </Link>
           ),
         },
       ],
@@ -104,7 +100,7 @@ const Sidebar: React.FC = () => {
           key: "income-wallet",
           label: <Link href="/dashboard/wallet/income-wallet">Income</Link>,
         },
-        ...(have_purchase_wallet === "yes"
+        ...(havePurchaseWallet === "yes"
           ? [
               {
                 key: "purchase-wallet",
@@ -132,7 +128,6 @@ const Sidebar: React.FC = () => {
             <Link href="/dashboard/wallet/share-holder">Share Holder</Link>
           ),
         },
-
         {
           key: "directorship-wallet",
           label: (
@@ -141,7 +136,7 @@ const Sidebar: React.FC = () => {
         },
       ],
     },
-    ...(have_purchase_wallet === "yes"
+    ...(havePurchaseWallet === "yes"
       ? [
           {
             key: "joining",
@@ -206,12 +201,8 @@ const Sidebar: React.FC = () => {
           },
         ]
       : []),
-    // {
-    //   key: "users-investment-request",
-    //   label: <Link href="/dashboard/investment-request">Investment Request</Link>,
-    //   icon: <FaPeopleGroup />,
-    // },
   ];
+
   const secondMenuItems: MenuItem[] = [
     {
       key: "feedback",
@@ -249,10 +240,10 @@ const Sidebar: React.FC = () => {
           theme={{
             components: {
               Menu: {
-                itemColor: "green",
+                itemColor: "black",
                 iconSize: 20,
                 itemSelectedBg: "#c9c3bd",
-                itemSelectedColor: "red",
+                itemSelectedColor: "green",
                 itemHeight: 42,
                 subMenuItemBg: "transparent",
               },

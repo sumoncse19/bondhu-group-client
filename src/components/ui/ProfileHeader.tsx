@@ -12,6 +12,7 @@ interface ProfileHeaderProps {
   phone?: string;
   registration_date?: string;
   picture?: string;
+  cover_photo?: string;
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({
@@ -20,11 +21,22 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   phone,
   registration_date,
   picture,
+  cover_photo,
 }) => {
+  console.log(cover_photo, "cover");
+
   return (
     <div className="w-full h-fit  flex flex-col rounded-md border overflow-hidden bg-[#dfd5cf] shadow">
       {/* cover image */}
-      <div className="w-full h-[200px] bg-blue-300 pt-10 px-16 relative">
+      <div
+        style={{
+          backgroundImage: `url(${cover_photo})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center", // This will center the image
+        }}
+        className="w-full h-[200px]  pt-10 px-16 relative"
+      >
         <div className=" absolute bottom-8 right-10">
           <div className="flex items-center gap-2 bg-white px-5 py-2 border border-black cursor-pointer text-black rounded-md">
             <FaCameraRetro />
