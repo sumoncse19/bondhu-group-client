@@ -35,7 +35,7 @@ const Page = () => {
         initial={{ y: "300px", opacity: 0 }} // Initial position (offscreen to the left)
         animate={{ y: 0, opacity: 1 }} // Animate to final position (center)
         transition={{ duration: 1.2, ease: "easeInOut" }} // Control animation duration and easing
-        className="mt-10 w-[70%] mx-auto"
+        className="mt-5 w-[70%] mx-auto"
       >
         {currentTab == "refferal" ? <RefferalBonus /> : <TeamBonus />}
       </motion.div>

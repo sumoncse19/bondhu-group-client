@@ -42,7 +42,7 @@ const Header = () => {
             src="/images/logo1.png"
             alt=""
           />
-          <p className=" text-lg text-black">Bondhu Group</p>
+          <p className=" text-lg text-black uppercase">Bondhu Group</p>
         </div>
       </div>
 
@@ -54,6 +54,11 @@ const Header = () => {
           <div
             onClick={() => {
               Cookies.remove("user");
+              Cookies.remove("id");
+              Cookies.remove("have_purchase_wallet");
+              Cookies.remove("role");
+              Cookies.remove("username");
+              Cookies.remove("token");
               setUser({});
             }}
             className="text-white tracking-wider bg-teal-700 px-5 py-2 font-bold rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest cursor-pointer"
@@ -63,7 +68,7 @@ const Header = () => {
         ) : (
           <Link
             href="/login"
-            className="text-black tracking-wider bg-teal-700 px-5 py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
+            className="text-white tracking-wider bg-teal-700 px-5 py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
           >
             Log in
           </Link>

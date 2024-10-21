@@ -73,7 +73,12 @@ const Dashboard = () => {
 
                   <div className="flex items-center gap-6 ml-20 ">
                     <div className="text-black  flex flex-col gap-y-2">
-                      <p>&#x9F3; 0.00</p>
+                      <p>
+                        &#x9F3;
+                        {user?.wallet?.income_wallet
+                          ? user?.wallet?.income_wallet
+                          : 0}
+                      </p>
                       <p>Income Wallet</p>
                       <p className="w-[60px] h-2 rounded-md bg-green-600" />
                     </div>

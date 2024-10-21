@@ -28,8 +28,8 @@ const page = () => {
 
           {/* table */}
           <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
-            <table className="w-full text-sm text-left rtl:text-right text-white dark:text-gray-400">
-              <thead className="sticky top-0 text-xs text-black uppercase bg-[#d9d1ca] dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left rtl:text-right text-white ">
+              <thead className="sticky top-0 text-xs text-black uppercase bg-[#d9d1ca]">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-center">
                     Invest Amount
@@ -86,7 +86,7 @@ const page = () => {
                       }) => (
                         <tr
                           key={history?._id}
-                          className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                          className="bg-[#EAE9E8] text-black border-b-2 border-slate-700"
                         >
                           <td className="px-6 py-4 text-center flex justify-center">
                             {history?.amount}

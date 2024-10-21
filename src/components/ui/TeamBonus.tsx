@@ -59,13 +59,13 @@ const TeamBonus = () => {
 
   return (
     <div
-      style={{
-        boxShadow:
-          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-      }}
-      className="p-4 rounded-lg"
+      // style={{
+      //   boxShadow:
+      //     "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+      // }}
+      className="p-4 rounded-lg "
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-x-5">
         <p className="text-rose-500 font-bold">Total Team Bonus</p>
         <p className="text-lg">
           &#2547; {teamBonusHistories?.total_matching_history}
@@ -75,7 +75,7 @@ const TeamBonus = () => {
       {/* table */}
       <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
         <table className="w-full text-sm text-left rtl:text-right text-white">
-          <thead className="sticky top-0 text-xs text-black uppercase bg-red-100 ">
+          <thead className="sticky top-0 text-xs text-black uppercase bg-red-300 border-t-2 border-b-2 border-black ">
             <tr>
               <th scope="col" className="px-6 py-3 text-center">
                 Bonus Amount

@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import SocketTest from "@/components/SocketTest";
 import { useSocketStore } from "@/Zustand/Store/socketStore";
 import { useEffect } from "react";
+import { ThemeProvider } from "./provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -45,9 +46,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div>{children}</div>
-        <Toaster position="top-right" />
-        <SocketTest />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div>{children}</div>
+          <Toaster position="top-right" />
+          <SocketTest />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -69,6 +69,8 @@ const page = () => {
     fetchAddMoneyHistories();
   }, [id]);
 
+  console.log(addMoneyHistories);
+
   // const addMoneyHistories = [
   //   {
   //     id: 1,
@@ -106,55 +108,31 @@ const page = () => {
 
       <div className="w-[350px] sm:w-[500px] md:w-[750px] xl:w-full relative overflow-x-auto max-h-screen overflow-y-auto my-5">
         <table className="w-full text-sm text-left rtl:text-right text-white ">
-          <thead className="sticky top-0 text-xs text-black  bg-red-50 border-b-2 border-t-2 border-black">
+          <thead className="sticky top-0 text-xs text-black  bg-red-300 border-b-2 border-t-2 border-black">
             <tr>
               <th
                 rowSpan={2}
                 scope="col"
-                className="px-6 py-3 text-center text-xs border-r-2 border-black"
+                className="px-6 py-3 text-center text-xs "
               >
                 Money Reciept Number
               </th>
-              <th
-                rowSpan={2}
-                scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
-              >
+              <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
                 Mobile Number
               </th>
-              <th
-                colSpan={4}
-                scope="col"
-                className="px-6 py-3 text-center border-r-2 border-b-2 border-black"
-              >
+              <th colSpan={4} scope="col" className="px-6 py-3 text-center ">
                 Investment
               </th>
-              <th
-                rowSpan={2}
-                scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
-              >
+              <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
                 Payment Method
               </th>
-              <th
-                rowSpan={2}
-                scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
-              >
+              <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
                 Transaction ID
               </th>
-              <th
-                rowSpan={2}
-                scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
-              >
+              <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
                 Payment Picture
               </th>
-              <th
-                rowSpan={2}
-                scope="col"
-                className="px-6 py-3 text-center border-r-2 border-black"
-              >
+              <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
                 Request Date
               </th>
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
@@ -162,18 +140,10 @@ const page = () => {
               </th>
             </tr>
             <tr>
-              <th className="px-6 py-3 text-center border-r-2 border-black">
-                Project Share
-              </th>
-              <th className="px-6 py-3 text-center border-r-2 border-black">
-                Project Share
-              </th>
-              <th className="px-6 py-3 text-center border-r-2 border-black">
-                Project Share
-              </th>
-              <th className="px-6 py-3 text-center border-r-2 border-black">
-                Project Share
-              </th>
+              <th className="px-6 py-3 text-center ">Project Share</th>
+              <th className="px-6 py-3 text-center ">Project Share</th>
+              <th className="px-6 py-3 text-center ">Project Share</th>
+              <th className="px-6 py-3 text-center ">Project Share</th>
             </tr>
           </thead>
           <tbody className="text-[10px]">
@@ -208,7 +178,7 @@ const page = () => {
                 .map((history: AddMoneyHistoriesInterface) => (
                   <tr
                     key={history?._id}
-                    className="bg-red-50 text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                    className="bg-red-50 text-black border-b-2 border-slate-700 "
                   >
                     <td className="px-6 py-4 text-center">
                       {history?.money_receipt_number}
@@ -287,7 +257,7 @@ const page = () => {
               users.map((user) => (
                 <tr
                   key={user._id}
-                  className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 "
                 >
                   <td className="px-6 py-4 text-center">{user.name}</td>
                   <td className="px-6 py-4 text-center">{user.role}</td>

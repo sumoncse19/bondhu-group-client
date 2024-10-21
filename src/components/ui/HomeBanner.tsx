@@ -48,10 +48,11 @@ const Slider = () => {
       <Carousel
         responsive={responsive}
         autoPlay={true}
-        arrows={false}
+        autoPlaySpeed={2000}
+        arrows={true}
         swipeable={true}
         draggable={true}
-        showDots={true}
+        // showDots={true}
         infinite={true}
         partialVisible={false}
         dotListClass="custom-dot-list-style"

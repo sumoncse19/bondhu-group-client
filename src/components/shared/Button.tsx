@@ -18,7 +18,7 @@ const Button = () => {
   return (
     <div className="flex">
       <div className="cursor-pointer hover:scale-90 hover:shadow-xl transition-all duration-300 ease-in bg-teal-500 font-medium px-16 py-3 rounded-lg">
-        <Link href={path} className="text-black">
+        <Link href={path} className="text-white">
           {text}
         </Link>
       </div>

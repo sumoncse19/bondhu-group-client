@@ -22,24 +22,26 @@ const Footer = () => {
         {/* left */}
         <div className="flex flex-col gap-y-10">
           <span className="flex flex-col gap-y-3">
-            <p className="text-xl">Connect</p>
+            {/* <p className="text-xl">Connect</p> */}
             <p>Join us in building a better future today</p>
           </span>
           <span className="flex items-center gap-2">
-            <FacebookPageEmbed />
             <FaInstagramSquare />
             <FaXTwitter />
             <FaTiktok />
-            <FaWhatsapp onClick={handleClick} className="cursor-pointer" />
           </span>
           <span>© 2024. All rights reserved.</span>
         </div>
 
         {/* right */}
         <div className="flex items-center gap-16 self-start">
-          <div className="flex flex-col gap-y-2 self-start">
-            <p>EXPLORE</p>
-            <span className="mt-6">
+          <div className="flex flex-col gap-y-3 self-start">
+            <p>Connect</p>
+            <span className="flex items-center gap-2">
+              <FacebookPageEmbed />
+              <FaWhatsapp onClick={handleClick} className="cursor-pointer" />
+            </span>
+            <span className="">
               <p>+8801600362935</p>
               <p>bondhugroup24@gmail.com</p>
             </span>
