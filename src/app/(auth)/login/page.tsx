@@ -92,7 +92,7 @@ const page = () => {
               </label>
               <div className="flex">
                 <input
-                  className="border-b border-black w-full px-4 py-2 rounded focus:border-b-2 focus:border-blue-600 outline-none text-sm"
+                  className="border-b border-black bg-white w-full px-4 py-2 rounded focus:border-b-2 focus:border-blue-600 outline-none text-sm"
                   placeholder="Write your username"
                   {...register("username", { required: true })}
                   type="text"
@@ -105,7 +105,7 @@ const page = () => {
               </label>
               <div className="flex relative">
                 <input
-                  className="border-b border-black w-full px-4 py-2 rounded focus:border-b-2 focus:border-blue-600 outline-none text-sm"
+                  className="border-b border-black bg-white w-full px-4 py-2 rounded focus:border-b-2 focus:border-blue-600 outline-none text-sm"
                   placeholder="Write your password"
                   type={showPassword ? "text" : "password"}
                   {...register("password", { required: true })}

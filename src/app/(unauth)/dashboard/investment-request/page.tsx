@@ -349,7 +349,7 @@ const page = () => {
               users.map((user) => (
                 <tr
                   key={user._id}
-                  className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 "
                 >
                   <td className="px-6 py-4 text-center">{user.name}</td>
                   <td className="px-6 py-4 text-center">{user.role}</td>

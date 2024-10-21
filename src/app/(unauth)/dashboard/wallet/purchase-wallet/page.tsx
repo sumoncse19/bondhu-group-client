@@ -65,25 +65,25 @@ const page = () => {
   }, [id]);
 
   return (
-    <div className="w-full h-full p-10">
+    <div className="w-full h-full">
       <h1 className=" text-3xl text-rose-600 font-bold">Purchase Wallet</h1>
 
       {/* balance inflow and cost */}
       <div className="mt-16 w-full  flex  justify-between gap-x-10">
         {/* inflow */}
         <div
-          style={{
-            boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
-          }}
-          className="w-full rounded-md bg-black"
+          // style={{
+          //   boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
+          // }}
+          className="w-full rounded-md"
         >
           <div className="border-4 border-black rounded-md">
-            <div className="bg-green-700 text-rose-300 font-bold py-5 px-2 border-b-4 border-black  text-xl">
+            <div className="bg-green-100 text-rose-700 font-bold py-5 px-2 border-b-4 border-black  text-xl">
               Balance Inflow
             </div>
 
             {/* from admin */}
-            <div className="flex items-center bg-green-500   text-black px-2">
+            <div className="flex items-center bg-green-200   text-black px-2">
               <div className="w-[60%] border-r-4 border-black py-4">
                 In From Admin
               </div>
@@ -105,17 +105,17 @@ const page = () => {
         </div>
         {/* expenses */}
         <div
-          style={{
-            boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
-          }}
+          // style={{
+          //   boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
+          // }}
           className="w-full rounded-md self-start"
         >
           <div className="border-4 border-black rounded-md">
-            <div className="bg-red-300 text-teal-900 font-bold py-5 px-2 border-b-4 border-black  text-xl">
+            <div className="bg-red-100 text-teal-700 font-bold py-5 px-2 border-b-4 border-black  text-xl">
               Balance Expenses
             </div>
             {/* deposite */}
-            <div className="flex items-center bg-red-400 text-white  px-2">
+            <div className="flex items-center bg-red-200 text-black  px-2">
               <div className="w-[60%] border-r-4 border-black py-4">
                 Joining
               </div>

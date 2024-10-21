@@ -39,6 +39,14 @@ export default function Layout(props: { children: React.ReactNode }) {
                 <IoIosNotifications className="text-xl cursor-pointer" />
                 <Link
                   href="/login"
+                  onClick={() => {
+                    Cookies.remove("user");
+                    Cookies.remove("id");
+                    Cookies.remove("have_purchase_wallet");
+                    Cookies.remove("role");
+                    Cookies.remove("username");
+                    Cookies.remove("token");
+                  }}
                   className="bg-black text-white px-5 py-1 rounded-full hover:scale-105 transition-all duration-300 ease-in"
                 >
                   Logout

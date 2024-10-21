@@ -20,7 +20,16 @@ import { motion } from "framer-motion";
 
 const HomePage = () => {
   return (
-    <div className="w-full">
+    <div
+      style={
+        {
+          // background:
+          //   "linear-gradient(180deg, #DDBDD6 0%, #E0D6E6 47%, #DEEFFF 100%)",
+          // backgroundImage: "linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%) ",
+        }
+      }
+      className="w-full"
+    >
       {/* Hero section */}
       {/* <Hero /> */}
       <div>{/* <HomeBanner /> */}</div>
@@ -54,19 +63,9 @@ const HomePage = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        initial={{ y: "100px", opacity: 0 }} // Initial position (offscreen to the left)
-        whileInView={{ y: 0, opacity: 1 }} // Animate when it comes into view
-        transition={{ duration: 1.5, ease: "easeIn" }} // Smooth transition
-        viewport={{ once: true, amount: 0.5 }} // Trigger only once, when 50% of the element is visible
-      >
-        <HomeBanner />
-      </motion.div>
-
-      {/* <SocketTest /> */}
       {/* Bondhu builder intro */}
       <motion.div
-        className="my-24"
+        className="my-10"
         initial={{ y: "100px", opacity: 0 }} // Initial position (offscreen to the left)
         whileInView={{ y: 0, opacity: 1 }} // Animate when it comes into view
         transition={{ duration: 0.5, ease: "easeIn" }} // Smooth transition
@@ -93,8 +92,11 @@ const HomePage = () => {
           <div className="w-full flex justify-end right-div">
             <img
               style={{
+                // boxShadow:
+                //   "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
+
                 boxShadow:
-                  "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
+                  "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
               }}
               className="rounded-full w-[500px] h-[500px] transition-all duration-1000 ease-out"
               src="/images/buildersImg1.png"
@@ -102,6 +104,16 @@ const HomePage = () => {
             />
           </div>
         </div>
+      </motion.div>
+
+      <motion.div
+        className="my-20"
+        initial={{ y: "100px", opacity: 0 }} // Initial position (offscreen to the left)
+        whileInView={{ y: 0, opacity: 1 }} // Animate when it comes into view
+        transition={{ duration: 1.5, ease: "easeIn" }} // Smooth transition
+        viewport={{ once: true, amount: 0.5 }} // Trigger only once, when 50% of the element is visible
+      >
+        <HomeBanner />
       </motion.div>
 
       {/* Our Service */}

@@ -116,12 +116,12 @@ const TreeModal: React.FC<TreeModalProps> = ({
     },
     {
       id: "10",
-      key: "Team A Carry Point",
+      key: "Team A Carry",
       value: treeModal?.value?.accountable?.team_a_carry || 0,
     },
     {
       id: "11",
-      key: "Team B Carry Point",
+      key: "Team B Carry",
       value: treeModal?.value?.accountable?.team_b_carry || 0,
     },
     {
@@ -132,22 +132,22 @@ const TreeModal: React.FC<TreeModalProps> = ({
     {
       id: "13",
       key: "Purchase Wallet",
-      value: treeModal?.value?.wallet?.purchase_wallet || 0,
+      value: treeModal?.value?.wallet?.purchase_wallet.toFixed(2) || 0,
     },
     {
       id: "14",
       key: "Income Wallet",
-      value: treeModal?.value?.wallet?.income_wallet || 0,
+      value: treeModal?.value?.wallet?.income_wallet.toFixed(2) || 0,
     },
     {
       id: "15",
       key: "Reference Bonus",
-      value: treeModal?.value?.wallet?.reference_bonus || 0,
+      value: treeModal?.value?.wallet?.reference_bonus.toFixed(2) || 0,
     },
     {
       id: "16",
       key: "Team Bonus",
-      value: treeModal?.value?.wallet?.matching_bonus || 0,
+      value: treeModal?.value?.wallet?.matching_bonus.toFixed(2) || 0,
     },
     // {
     //   id: "12",

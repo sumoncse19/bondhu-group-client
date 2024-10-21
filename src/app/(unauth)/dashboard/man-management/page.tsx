@@ -217,16 +217,16 @@ const Page = () => {
                 Phone No
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                Referrer
+                Refer
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                Parent
+                Placement
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                Left Partner
+                Left
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                Right Partner
+                Right
               </th>
               <th scope="col" className="px-6 py-3 text-center">
                 Status
@@ -257,7 +257,7 @@ const Page = () => {
               searchedUsers.map((user: any) => (
                 <tr
                   key={user._id}
-                  className="bg-red-50 hover:bg-red-200 cursor-pointer transition-all duration-500 ease-in text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-red-50 hover:bg-red-200 cursor-pointer transition-all duration-500 ease-in text-black border-b-2 border-slate-700 "
                 >
                   <td className="px-6 py-4 text-center">{user?.name}</td>
                   <td

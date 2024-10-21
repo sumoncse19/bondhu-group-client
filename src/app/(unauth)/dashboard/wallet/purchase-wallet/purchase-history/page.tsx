@@ -38,7 +38,7 @@ const page = () => {
 
     try {
       const response = await fetch(
-        `${baseUrl}/purchase/get-purchase-history/${id}`,
+        `${baseUrl}/history/get-purchase-history/${id}?page=1&limit=10`,
         {
           method: "GET",
           headers: {
@@ -54,7 +54,7 @@ const page = () => {
 
       const data = await response.json();
       if (data.success) {
-        setPurchaseHistories(data.data);
+        setPurchaseHistories(data.data?.userPurchaseHistory[0]);
       } else {
         // Handle case where the success flag is false
         throw new Error(data.message || "Failed to fetch purchase history");
@@ -197,8 +197,8 @@ const page = () => {
       <div>
         {/* users table */}
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
-          <table className="w-full text-sm text-left rtl:text-right text-white dark:text-gray-400">
-            <thead className="sticky top-0 text-xs text-black uppercase bg-[#d9d1ca] dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-sm text-left rtl:text-right text-white">
+            <thead className="sticky top-0 text-xs text-black uppercase bg-red-300 border-t-2 border-b-2 border-black">
               <tr>
                 <th scope="col" className="px-6 py-3 text-center">
                   Source
@@ -214,7 +214,7 @@ const page = () => {
             <tbody>
               {isLoading ? (
                 <tr className="text-center">
-                  <td colSpan={7} align="center">
+                  <td colSpan={3} align="center">
                     <div className="my-5 flex flex-col justify-center items-center">
                       <Circles
                         height="50"
@@ -228,6 +228,15 @@ const page = () => {
                     </div>
                   </td>
                 </tr>
+              ) : purchaseHistories?.purchase_amount_history &&
+                purchaseHistories?.purchase_amount_history?.length <= 0 ? (
+                <tr className="text-center">
+                  <td colSpan={3} align="center">
+                    <div className="my-5 flex flex-col justify-center items-center">
+                      <p className="text-lg text-rose-500">No Data to Show</p>
+                    </div>
+                  </td>
+                </tr>
               ) : (
                 purchaseHistories?.purchase_amount_history?.map(
                   (history: {
@@ -237,7 +246,7 @@ const page = () => {
                   }) => (
                     <tr
                       key={history?._id}
-                      className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                      className="bg-red-100 text-black border-b-2 border-slate-700"
                     >
                       <td className="px-6 py-4 text-center">Super Admin</td>
                       <td className="px-6 py-4 text-center">

@@ -126,7 +126,7 @@ const MyProfile = () => {
     },
   ];
   return (
-    <div className="h-[100vh]">
+    <div className="h-[100vh] bg-gray-100">
       <div className="">
         {/* cover and profile pic */}
         <ProfileHeader
@@ -174,15 +174,20 @@ const MyProfile = () => {
             <div className="w-[50%] flex flex-col gap-y-5 h-[500px]">
               {/* referrel bonus */}
               <div
-                style={{
-                  boxShadow:
-                    "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                }}
-                className="w-full h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700"
+                // style={{
+                //   boxShadow:
+                //     "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                // }}
+                className="w-full h-60 bg-white p-5 rounded-md text-slate-700"
               >
                 <div className="flex justify-between">
                   <div>
-                    <p className="font-bold">&#x9F3; 0.00</p>
+                    <p className="font-bold tracking-wider">
+                      &#x9F3;{" "}
+                      {user?.wallet?.reference_bonus
+                        ? user?.wallet?.reference_bonus
+                        : 0.0}
+                    </p>
                     <p className="text-rose-700 font-bold">Refferel Bonus</p>
                   </div>
                   <div className="px-2 h-8 bg-green-700 shadow-lg cursor-pointer rounded-sm flex justify-center items-center">
@@ -195,16 +200,21 @@ const MyProfile = () => {
               </div>
               {/* matching bonus */}
               <div
-                style={{
-                  boxShadow:
-                    "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                }}
-                className="w-full h-60 bg-[#EAE9E8] p-5 rounded-md text-slate-700"
+                // style={{
+                //   boxShadow:
+                //     "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                // }}
+                className="w-full h-60 bg-white p-5 rounded-md text-slate-700"
               >
                 <div className="flex justify-between">
                   <div>
-                    <p className="font-bold">&#x9F3; 0.00</p>
-                    <p className="text-rose-700 font-bold">Matching Bonus</p>
+                    <p className="font-bold tracking-widest">
+                      &#x9F3;{" "}
+                      {user?.wallet?.matching_bonus
+                        ? user?.wallet?.matching_bonus
+                        : 0.0}
+                    </p>
+                    <p className="text-rose-700 font-bold">Team Bonus</p>
                   </div>
                   <div className="px-2 h-8 bg-green-700 shadow-lg rounded-sm cursor-pointer flex justify-center items-center">
                     <p className="text-white text-sm font-bold">View</p>
