@@ -10,6 +10,7 @@ import { Circles } from "react-loader-spinner";
 import toast from "react-hot-toast";
 import { GiFastBackwardButton } from "react-icons/gi";
 import { useRouter } from "next/navigation";
+import { isAxiosError } from "axios";
 
 interface InvestmentHistoriesData {
   _id?: string;
@@ -39,6 +40,13 @@ const page = () => {
   const [isOpenImageModal, setIsOpenImageModal] = useState<boolean>(false);
   const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingAccept, setIsLoadingAccept] = useState<{
+    status: boolean;
+    idx: string;
+  }>({
+    status: false,
+    idx: "",
+  });
 
   const router = useRouter();
   const token: string = Cookies.get("token") || "";
@@ -93,18 +101,30 @@ const page = () => {
   }, [investmentHistories]);
 
   const handleAcceptInvestmentRequest = async (id: string) => {
-    const response = await fetch(`${baseUrl}/add-money/approve/${id}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    setIsLoadingAccept({
+      status: true,
+      idx: id,
     });
+    try {
+      const response = await fetch(`${baseUrl}/add-money/approve/${id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data?.success) {
-      toast.success("Accepted the Request");
-      fetchAllInvestmentRequests();
+      if (data?.success) {
+        toast.success("Accepted the Request");
+        fetchAllInvestmentRequests();
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error?.response?.data?.message);
+      }
+    } finally {
+      setIsLoadingAccept({ status: false, idx: "" });
     }
   };
   return (
@@ -233,67 +253,79 @@ const page = () => {
                 </td>
               </tr>
             ) : (
-              investmentHistories?.map((history: InvestmentHistoriesData) => (
-                <tr
-                  key={history?._id}
-                  className="bg-red-50 text-black border-b-2 border-slate-700 "
-                >
-                  <td className="px-3 py-4 text-center">
-                    {history?.money_receipt_number}
-                  </td>
-                  <td className="px-3 py-4 text-center">
-                    {usernames[history?.userId] || "Loading..."}
-                  </td>
-                  <td className="px-3 py-4 text-center"> {history?.phone}</td>
-                  <td className="px-3 py-4 text-center">
-                    {history?.project_share}
-                  </td>
-                  <td className="px-3 py-4 text-center">
-                    {history?.fixed_deposit}
-                  </td>
-                  <td className="px-3 py-4 text-center">
-                    {history?.share_holder}
-                  </td>
-                  <td className="px-3 py-4 text-center">
-                    {history?.directorship}
-                  </td>
-                  <td className="px-3 py-4 text-center">
-                    {history?.total_amount}
-                  </td>
-                  <td className="px-3 py-4 text-center">
-                    {history?.payment_method}
-                    {history?.payment_method == "bank" && (
-                      <p className="pt-2">Bank Name:FCIC Bank-Branch:ctg</p>
-                    )}
-                  </td>
+              investmentHistories
+                ?.slice()
+                .reverse()
+                .map((history: InvestmentHistoriesData) => (
+                  <tr
+                    key={history?._id}
+                    className="bg-red-50 text-black border-b-2 border-slate-700 "
+                  >
+                    <td className="px-3 py-4 text-center">
+                      {history?.money_receipt_number}
+                    </td>
+                    <td className="px-3 py-4 text-center">
+                      {usernames[history?.userId] || "Loading..."}
+                    </td>
+                    <td className="px-3 py-4 text-center"> {history?.phone}</td>
+                    <td className="px-3 py-4 text-center">
+                      {history?.project_share}
+                    </td>
+                    <td className="px-3 py-4 text-center">
+                      {history?.fixed_deposit}
+                    </td>
+                    <td className="px-3 py-4 text-center">
+                      {history?.share_holder}
+                    </td>
+                    <td className="px-3 py-4 text-center">
+                      {history?.directorship}
+                    </td>
+                    <td className="px-3 py-4 text-center">
+                      {history?.total_amount}
+                    </td>
+                    <td className="px-3 py-4 text-center">
+                      {history?.payment_method}
+                      {history?.payment_method == "bank" && (
+                        <p className="pt-2">Bank Name:FCIC Bank-Branch:ctg</p>
+                      )}
+                    </td>
 
-                  <td className="px-3 py-4 text-center">
-                    {history?.transaction_id}
-                  </td>
-                  <td className="px-3 py-4 text-center  flex justify-center items-center gap-x-2">
-                    <img className="w-10 h-10" src={history?.picture} alt="" />
-                    <p
-                      onClick={() => setIsOpenImageModal(true)}
-                      className="cursor-pointer hover:text-rose-600 font-bold"
-                    >
-                      View
-                    </p>
-                  </td>
-                  <td className="px-3 py-4 text-center">
-                    {formatDate(history?.createdAt)}
-                  </td>
-                  <td className="px-3 py-4 text-center ">
-                    <p
-                      onClick={() => {
-                        handleAcceptInvestmentRequest(history?._id || "");
-                      }}
-                      className={` text-white py-2 px-2 rounded-md shadow-2xl cursor-pointer shadow-black transition-all duration-300 ease-in ${history.is_approved ? "bg-teal-500" : "bg-rose-500 hover:bg-rose-600 hover:tracking-wider"}`}
-                    >
-                      {history?.is_approved ? "Approved" : "Accept"}
-                    </p>
-                  </td>
-                </tr>
-              ))
+                    <td className="px-3 py-4 text-center">
+                      {history?.transaction_id}
+                    </td>
+                    <td className="px-3 py-4 text-center  flex justify-center items-center gap-x-2">
+                      <img
+                        className="w-10 h-10"
+                        src={history?.picture}
+                        alt=""
+                      />
+                      <p
+                        onClick={() => setIsOpenImageModal(true)}
+                        className="cursor-pointer hover:text-rose-600 font-bold"
+                      >
+                        View
+                      </p>
+                    </td>
+                    <td className="px-3 py-4 text-center">
+                      {formatDate(history?.createdAt)}
+                    </td>
+                    <td className="px-3 py-4 text-center ">
+                      {isLoadingAccept.status &&
+                      isLoadingAccept.idx === history?._id ? (
+                        <p>Loading...</p>
+                      ) : (
+                        <p
+                          onClick={() => {
+                            handleAcceptInvestmentRequest(history?._id || "");
+                          }}
+                          className={` text-white py-2 px-2 rounded-md shadow-2xl cursor-pointer shadow-black transition-all duration-300 ease-in ${history.is_approved ? "bg-teal-500" : "bg-rose-500 hover:bg-rose-600 hover:tracking-wider"}`}
+                        >
+                          {history?.is_approved ? "Approved" : "Accept"}
+                        </p>
+                      )}
+                    </td>
+                  </tr>
+                ))
             )}
           </tbody>
           {/* <tbody>
