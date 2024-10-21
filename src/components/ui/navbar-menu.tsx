@@ -93,17 +93,13 @@ export const ProductItem = ({
       <img
         src={src}
         width={140}
-        height={70}
+        height={40}
         alt={title}
-        className="flex-shrink-0 rounded-md shadow-2xl"
+        className="flex-shrink-0 rounded-md shadow-2xl w-[120px] h-[70px]"
       />
       <div>
-        <h4 className="text-xl font-bold mb-1 text-black dark:text-white">
-          {title}
-        </h4>
-        <p className="text-neutral-700 text-sm max-w-[10rem] dark:text-neutral-300">
-          {description}
-        </p>
+        <h4 className="text-xl font-bold  text-black ">{title}</h4>
+        <p className="text-neutral-700 text-xs max-w-[10rem] ">{description}</p>
       </div>
     </Link>
   );

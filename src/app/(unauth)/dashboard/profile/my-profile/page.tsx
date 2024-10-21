@@ -126,7 +126,7 @@ const MyProfile = () => {
     },
   ];
   return (
-    <div>
+    <div className="h-[100vh]">
       <div className="">
         {/* cover and profile pic */}
         <ProfileHeader
@@ -135,6 +135,7 @@ const MyProfile = () => {
           phone={user?.phone}
           registration_date={user?.registration_date}
           picture={user?.picture}
+          cover_photo={user?.cover_photo}
         />
 
         {/* profile details */}
@@ -142,11 +143,11 @@ const MyProfile = () => {
           <div className="flex gap-6">
             {/* information */}
             <div
-              style={{
-                boxShadow:
-                  "rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px",
-              }}
-              className="w-[50%] h-fit bg-[#EAE9E8]  py-4 px-12 rounded"
+              // style={{
+              //   boxShadow:
+              //     "rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px",
+              // }}
+              className="w-[50%] h-fit bg-white  py-4 px-12 rounded"
             >
               <h1 className="text-black font-bold text-xl text-center">
                 Personal Information
@@ -155,7 +156,7 @@ const MyProfile = () => {
               <div className="py-10 flex flex-col gap-y-3">
                 {personalInfo?.map((info) => (
                   <div
-                    className="flex items-center bg-[#DBDBDA] text-slate-700 py-2"
+                    className="flex items-center bg-red-50 text-slate-700 py-2"
                     key={info?.id}
                   >
                     <div className="w-[50%] flex justify-center items-center">

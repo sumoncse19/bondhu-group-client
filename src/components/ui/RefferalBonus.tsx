@@ -82,7 +82,7 @@ const RefferalBonus = () => {
         boxShadow:
           "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
       }}
-      className=" p-4"
+      className="p-4 rounded-lg"
     >
       <div className="flex items-center justify-between">
         <p className="text-rose-500 font-bold">Total Refferal Bonus</p>
@@ -94,7 +94,7 @@ const RefferalBonus = () => {
       {/* table */}
       <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
         <table className="w-full text-sm text-left rtl:text-right text-white dark:text-gray-400">
-          <thead className="sticky top-0 text-xs text-black uppercase bg-[#d9d1ca] dark:bg-gray-700 dark:text-gray-400">
+          <thead className="sticky top-0 text-xs text-black uppercase bg-red-100 border-t-2 border-b-2 border-black">
             <tr>
               <th scope="col" className="px-6 py-3 text-center">
                 From
@@ -140,21 +140,10 @@ const RefferalBonus = () => {
                 .map((history: BonusHistories) => (
                   <tr
                     key={history?._id}
-                    className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                    className="bg-red-100  text-black border-b-2 border-slate-700"
                   >
                     <td className="px-6 py-4 text-center flex justify-center">
-                      {usernames[history.bonus_from] || (
-                        <ThreeDots
-                          visible={true}
-                          height="40"
-                          width="40"
-                          color="#F95454"
-                          radius="9"
-                          ariaLabel="three-dots-loading"
-                          wrapperStyle={{}}
-                          wrapperClass=""
-                        />
-                      )}
+                      {history?.bonus_from}
                     </td>
                     <td className="px-6 py-4 text-center">
                       {history?.reference_bonus_amount.toFixed(2)}

@@ -8,7 +8,7 @@ const page = () => {
     useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   return (
-    <div className="p-10">
+    <div className="">
       <h1 className="text-rose-600 text-2xl font-bold">
         Fixed Deposite Wallet
       </h1>

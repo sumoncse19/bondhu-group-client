@@ -1,49 +1,70 @@
 import React from "react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import "../../../src/Styles/HomeBanner.css";
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 4,
+    slidesToSlide: 4, // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 768 },
+    items: 3,
+    slidesToSlide: 3, // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 767, min: 464 },
+    items: 2,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+};
+const sliderImageUrl = [
+  //First image url
+  {
+    url: "/images/heroBanner5.jpeg",
+  },
+  {
+    url: "/images/heroBanner6.jpeg",
+  },
+  //Second image url
+  {
+    url: "/images/heroBanner7.jpeg",
+  },
+  //Third image url
+  {
+    url: "/images/heroBanner8.jpeg",
+  },
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+  //Fourth image url
 
-import "../../Styles/HomeBanner.css";
-// import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-
-const HomeBanner = () => {
+  {
+    url: "/images/heroBanner9.jpeg",
+  },
+];
+const Slider = () => {
   return (
-    <Swiper
-      spaceBetween={30}
-      centeredSlides={true}
-      autoplay={{
-        delay: 3000,
-        disableOnInteraction: false,
-      }}
-      pagination={{
-        clickable: true,
-      }}
-      // navigation={true}
-      modules={[Autoplay]}
-      className="mySwiper"
-    >
-      {images?.map((image) => (
-        <SwiperSlide key={image}>
-          <img src={image} alt="" />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="parent">
+      <Carousel
+        responsive={responsive}
+        autoPlay={true}
+        arrows={false}
+        swipeable={true}
+        draggable={true}
+        showDots={true}
+        infinite={true}
+        partialVisible={false}
+        dotListClass="custom-dot-list-style"
+      >
+        {sliderImageUrl.map((imageUrl, index) => {
+          return (
+            <div className="slider h-full" key={index}>
+              <img className="h-full" src={imageUrl.url} alt="movie" />
+            </div>
+          );
+        })}
+      </Carousel>
+    </div>
   );
 };
-
-export default HomeBanner;
-
-const images = [
-  "/images/heroBanner5.jpeg",
-  "/images/heroBanner6.jpeg",
-  "/images/heroBanner7.jpeg",
-  "/images/heroBanner8.jpeg",
-  "/images/heroBanner9.jpeg",
-  "/images/heroBanner10.jpeg",
-  // "/images/heroBanner8.jpeg",
-];
+export default Slider;

@@ -160,9 +160,9 @@ const Page = () => {
   }, [searchValue]);
 
   return (
-    <div className="relative w-full h-full">
-      <div className="mt-10 flex items-center justify-between">
-        <h1 className="text-3xl text-rose-600 font-bold tracking-widest">
+    <div className="relative w-full h-full pt-6">
+      <div className=" flex items-center justify-between">
+        <h1 className="text-xl text-rose-600 font-bold tracking-widest">
           Users List
         </h1>
         <div className="flex items-center gap-x-4">
@@ -171,7 +171,7 @@ const Page = () => {
             onClick={() => {
               setIsWalletOpen(true);
             }}
-            className="flex items-center gap-x-3 bg-teal-500 px-4 py-2 rounded text-white font-bold cursor-pointer tracking-wider hover:scale-90 transition-all duration-500 ease-in-out hover:tracking-wide"
+            className="flex items-center gap-x-3 bg-teal-800 px-4 py-2 rounded-full text-white font-bold cursor-pointer tracking-wider hover:scale-105 transition-all duration-500 ease-in-out hover:tracking-widest"
           >
             <FaMoneyBillTransfer className="text-2xl" />
             <p> Send Purchase Wallet</p>
@@ -180,7 +180,7 @@ const Page = () => {
             onClick={() => {
               router.push("/dashboard/investment-request");
             }}
-            className="relative flex items-center gap-x-3 bg-rose-500 px-4 py-2 rounded text-white font-bold cursor-pointer tracking-wider hover:scale-90 transition-all duration-500 ease-in-out hover:tracking-wide"
+            className="relative flex items-center gap-x-3 bg-rose-800 px-4 py-2 rounded-full text-white font-bold cursor-pointer tracking-wider hover:scale-105 transition-all duration-500 ease-in-out hover:tracking-widest"
           >
             <GiTakeMyMoney className="text-2xl" />
             <p> Investment Requests</p>
@@ -196,13 +196,13 @@ const Page = () => {
           onChange={(e) => setSearchValue(e.target.value)}
           type="text"
           placeholder="Search user by username"
-          className=" w-52 px-2 py-1 text-sm rounded-md outline-none border-2 border-black focus:border-teal-500"
+          className=" w-52 px-2 py-2 text-sm rounded-md outline-none border-2 border-black focus:border-teal-500"
         />
       </div>
       {/* users table */}
       <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
-        <table className="w-full text-sm text-left rtl:text-right text-white dark:text-gray-400">
-          <thead className="sticky top-0 text-xs text-black uppercase bg-[#d9d1ca] dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-white  ">
+          <thead className="sticky top-0 text-xs text-black uppercase bg-red-50  border-b-2 border-t-2 border-black rounded-md">
             <tr>
               <th scope="col" className="px-6 py-3 text-center">
                 Name
@@ -257,7 +257,7 @@ const Page = () => {
               searchedUsers.map((user: any) => (
                 <tr
                   key={user._id}
-                  className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-red-50 hover:bg-red-200 cursor-pointer transition-all duration-500 ease-in text-black border-b-2 border-slate-700 dark:bg-gray-800 dark:border-gray-700"
                 >
                   <td className="px-6 py-4 text-center">{user?.name}</td>
                   <td
@@ -266,7 +266,7 @@ const Page = () => {
                         `/dashboard/man-management/userDetails/${user?._id}`
                       );
                     }}
-                    className="px-6 py-4 text-center cursor-pointer hover:text-red-500"
+                    className="px-6 py-4 text-center cursor-pointer hover:text-red-700 hover:underline"
                   >
                     {user?.user_name}
                   </td>
@@ -294,14 +294,14 @@ const Page = () => {
                   </td>
                   <td className="px-6 py-4 text-center">
                     {user?.is_approved ? (
-                      <p className="text-teal-500 font-bold">Active</p>
+                      <p className="text-teal-700 font-bold">Active</p>
                     ) : (
-                      <p className="text-rose-500 font-semibold">Inactive</p>
+                      <p className="text-rose-700 font-semibold">Inactive</p>
                     )}
                   </td>
                   <td className="px-6 py-4 text-center">
                     {user?.is_approved ? (
-                      <p className="bg-teal-500  px-3 py-1 rounded-md text-white ">
+                      <p className="bg-teal-700  px-3 py-1 rounded-md text-white ">
                         Approved
                       </p>
                     ) : (

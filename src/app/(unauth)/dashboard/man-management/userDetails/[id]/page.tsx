@@ -1,16 +1,25 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import baseUrl from "../../../../../../../config";
 import Cookies from "js-cookie";
 import { UserData } from "@/type";
+import { FaUserEdit } from "react-icons/fa";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { GiFastBackwardButton } from "react-icons/gi";
 
 const page = () => {
   const [user, setUser] = useState<UserData>();
+  const [selectWallet, setSelectWallet] = useState<string>("income");
+  const [openSetPositionModal, setOpenSetPositionModal] =
+    useState<boolean>(false);
   const params = useParams();
   const id = params.id;
   const token: string = Cookies.get("token") || "";
+
+  const router = useRouter();
   const fetchSingleUser = async () => {
     const response = await fetch(`${baseUrl}/user/get-user/${id}`, {
       method: "GET",
@@ -162,39 +171,224 @@ const page = () => {
   const moreInfos = [];
 
   return (
-    <div className="p-10">
-      <div className="flex items-center justify-between">
-        {/* Personal Infos */}
-        <div className="flex flex-col items-center gap-y-3 bg-red-900">
-          {personalInfoData?.map((info) => (
-            <div className="flex justify-between items-center" key={info?.id}>
-              <div>{info?.key}</div>
-              <div>{info?.value}</div>
-            </div>
-          ))}
+    <div className="">
+      <div className="flex items-center gap-5">
+        <h1 className="text-xl text-rose-600 font-bold tracking-widest">
+          User Details
+        </h1>
+        <div
+          onClick={() => router.back()}
+          className="border-2 border-black hover:bg-black hover:text-white transition-all duration-300 ease-in cursor-pointer text-black px-5 py-1 rounded-full flex items-center gap-3"
+        >
+          <GiFastBackwardButton />
+          <p>Back</p>
         </div>
-        {/* Accounts */}
-        <div className="bg-red-500">
-          <p>Wallet</p>
-          <div className="flex flex-col gap-y-3">
-            <div className="flex items-center justify-between">
-              <div>Income Waller</div>
-              <div>{user?.wallet?.income_wallet}</div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>Purchase Waller</div>
-              <div>{user?.wallet?.purchase_wallet}</div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>Team Bonus</div>
-              <div>{user?.wallet?.matching_bonus}</div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>Referrel Bonus</div>
-              <div>{user?.wallet?.reference_bonus}</div>
+      </div>
+      <div className="flex items-center justify-between mt-6 gap-x-8 ">
+        {/* Personal Infos */}
+        <div className="flex flex-col gap-y-3 h-[300px] bg-white rounded-lg border-black border-2 w-full py-10 px-5">
+          <p>Personal Info</p>
+          <div className="flex gap-x-4 w-full">
+            <img
+              className="w-40 h-40 rounded-lg border-2 border-rose-500"
+              src={user?.picture}
+              alt=""
+            />
+            <div className="flex flex-col gap-y-2  flex-grow">
+              <div className="flex items-center justify-between">
+                <p className="text-lg text-rose-500 font-bold">{user?.name}</p>
+                <Link
+                  href={`/dashboard/man-management/edit-user/${user?._id}`}
+                  className="bg-black text-white px-5 py-1 rounded-full flex items-center gap-2 shadow-xl hover:scale-105 transition-all duration-300 ease-in"
+                >
+                  <FaUserEdit />
+                  <p>Edit User</p>
+                </Link>
+              </div>
+              <div className="flex items-center gap-3">
+                <p className="text-sm text-gray-700">{user?.user_name}</p>
+                <p className="text-sm text-gray-700">{user?.email}</p>
+                <p className="text-sm text-gray-700">{user?.phone}</p>
+              </div>
+              <div className="text-sm text-gray-700">
+                <p>Nid: {user?.nid_passport_no}</p>
+              </div>
+              <div className="text-sm text-gray-700">
+                <p>Refferer: {user?.reference_id}</p>
+              </div>
+              <div className="text-sm text-gray-700">
+                <p>Parent Placement: {user?.parent_placement_id}</p>
+              </div>
             </div>
           </div>
         </div>
+        {/* Accounts */}
+        <div className="flex flex-col gap-y-3 h-[300px] bg-white rounded-lg border-black border-2 w-full py-10 px-5">
+          <p className="font-bold">Wallet Info</p>
+          <div className="flex gap-x-4 w-full">
+            <div className="flex flex-col gap-y-2  flex-grow">
+              {/* select wallet */}
+              <div className="mb-5 flex items-center gap-5">
+                <p>Select Wallet</p>
+                <select
+                  className="w-[50%] border-2 border-black py-1 px-3 rounded-xl cursor-pointer"
+                  name=""
+                  id=""
+                  onChange={(e) => setSelectWallet(e.target.value)}
+                >
+                  <option value="income">Income</option>
+                  <option value="purchase">Purchase</option>
+                  <option value="project-share">Project Share</option>
+                  <option value="share-holder">Share Holder</option>
+                  <option value="fixed-deposite">Fixed Deposite</option>
+                  <option value="directorship">Directorship</option>
+                </select>
+              </div>
+
+              {selectWallet == "income" && (
+                <div className=" text-gray-700 text-lg">
+                  <div>
+                    Income Wallet:{" "}
+                    <p className="inline text-rose-500 text-base">
+                      {user?.wallet?.income_wallet
+                        ? user?.wallet?.income_wallet?.toFixed(2)
+                        : 0}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {selectWallet == "purchase" && (
+                <div className="text-sm text-gray-700">
+                  <div>
+                    Purchase Wallet:{" "}
+                    <p className="inline text-rose-500 text-base">
+                      {user?.wallet?.purchase_wallet
+                        ? user?.wallet?.purchase_wallet.toFixed(2)
+                        : 0}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {selectWallet == "project-share" && (
+                <div className="text-sm text-gray-700">
+                  <div>
+                    Project Share Wallet:{" "}
+                    <p className="inline text-rose-500 text-base">
+                      {user?.wallet?.share_profit_wallet
+                        ? user?.wallet?.share_profit_wallet.toFixed(2)
+                        : 0}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {selectWallet == "fixed-deposite" && (
+                <div className="text-sm text-gray-700">
+                  <div className="inline text-rose-500 text-base">
+                    Fixed Deposite Wallet:{" "}
+                    <p>
+                      {user?.wallet?.fix_deposit_wallet
+                        ? user?.wallet?.fix_deposit_wallet.toFixed(2)
+                        : 0}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {selectWallet == "share-holder" && (
+                <div className="text-sm text-gray-700">
+                  <div>
+                    Share Holder Wallet:{" "}
+                    <p className="inline text-rose-500 text-base">
+                      {user?.wallet?.share_holder_wallet
+                        ? user?.wallet?.share_holder_wallet.toFixed(2)
+                        : 0}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {selectWallet == "directorship" && (
+                <div className="text-sm text-gray-700">
+                  <div>
+                    Directorship Wallet:{" "}
+                    <p className="inline text-rose-500 text-base">
+                      {user?.wallet?.directorship_wallet
+                        ? user?.wallet?.directorship_wallet.toFixed(2)
+                        : 0}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Accounts */}
+      {/* <div className="flex flex-col gap-y-3 h-[300px] bg-white rounded-lg border-black border-2 w-full py-10 px-5 mt-6">
+        <p className="font-bold">Account Info</p>
+        <div>
+
+        </div>
+      </div> */}
+
+      {/* send wallet profit button */}
+      <div className="mt-5 flex items-center gap-x-5">
+        <div
+          onMouseEnter={() => setOpenSetPositionModal(true)}
+          onMouseLeave={() => setOpenSetPositionModal(false)}
+        >
+          <p
+            style={{
+              boxShadow:
+                "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+            }}
+            className="bg-teal-600 px-3 py-1 rounded-full text-white border-2 border-rose-400 shadow-black hover:scale-105 transition-all duration-300 ease-out cursor-pointer"
+          >
+            Set Position
+          </p>
+          <div
+            className={`absolute p-5 ${openSetPositionModal ? "opacity-100" : "opacity-0 h-0 hidden"}`}
+          >
+            <div className="bg-white p-4 rounded">
+              <input
+                className="border-2 border-black outline-none px-3 py-1 rounded-xl"
+                type="text"
+                name=""
+                id=""
+                placeholder="Type Position"
+              />
+              <div className="flex py-2 ">
+                {" "}
+                <p
+                  onClick={() => {
+                    setOpenSetPositionModal(false);
+                    toast.success("Set User Designation");
+                  }}
+                  className="p-1 bg-teal-400 hover:bg-teal-500 cursor-pointer rounded-full px-3 py-1"
+                >
+                  Save
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p
+          style={{
+            boxShadow:
+              "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+          }}
+          className="bg-teal-600 px-3 py-1 rounded-full text-white border-2 border-rose-400 shadow-black hover:scale-105 transition-all duration-300 ease-out cursor-pointer"
+        >
+          Send Share Holder Profit
+        </p>{" "}
+        <p
+          style={{
+            boxShadow:
+              "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+          }}
+          className="bg-teal-600 px-3 py-1 rounded-full text-white border-2 border-rose-400 shadow-black hover:scale-105 transition-all duration-300 ease-out cursor-pointer"
+        >
+          Send Directorship Profit
+        </p>
       </div>
     </div>
   );

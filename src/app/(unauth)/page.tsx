@@ -14,20 +14,65 @@ import Cookies from "js-cookie";
 import { io, Socket } from "socket.io-client";
 import baseUrl from "../../../config";
 import SocketTest from "@/components/SocketTest";
+import { ImAirplane } from "react-icons/im";
+import { TextGenerateEffectDemo } from "@/components/TextEffect";
+import { motion } from "framer-motion";
 
 const HomePage = () => {
   return (
     <div className="w-full">
       {/* Hero section */}
       {/* <Hero /> */}
-      <div>
-        <HomeBanner />
+      <div>{/* <HomeBanner /> */}</div>
+
+      {/* welcome text */}
+
+      <div className="pt-5  min-h-[90vh]  flex items-center px-10">
+        <div className="w-full ">
+          <div className="w-[80%] mx-auto relative">
+            <ImAirplane className="absolute -top-6 -left-10 text-4xl text-red-600" />
+            <TextGenerateEffectDemo />
+          </div>
+        </div>
+        <motion.div
+          className="w-full flex justify-center items-center relative"
+          initial={{ x: "300px", opacity: 0 }} // Initial position (offscreen to the left)
+          animate={{ x: 0, opacity: 1 }} // Animate to final position (center)
+          transition={{ duration: 1.2, ease: "easeInOut" }} // Control animation duration and easing
+        >
+          <img
+            className="w-[600px] h-[500px] rounded-lg object-cover"
+            src="/images/heroBanner1.jpeg"
+            alt=""
+          />
+          {/* <HomeBanner /> */}
+
+          {/* <div className="w-20 h-20 rounded-full bg-white absolute -top-8 left-3 z-50"></div>
+          <div className="w-20 h-20 rounded-full bg-white absolute -top-8 right-3 z-50"></div>
+          <div className="w-20 h-20 rounded-full bg-white absolute -bottom-8 left-3 z-50"></div>
+          <div className="w-20 h-20 rounded-full bg-white absolute -bottom-8 right-3 z-50"></div> */}
+        </motion.div>
       </div>
+
+      <motion.div
+        initial={{ y: "100px", opacity: 0 }} // Initial position (offscreen to the left)
+        whileInView={{ y: 0, opacity: 1 }} // Animate when it comes into view
+        transition={{ duration: 1.5, ease: "easeIn" }} // Smooth transition
+        viewport={{ once: true, amount: 0.5 }} // Trigger only once, when 50% of the element is visible
+      >
+        <HomeBanner />
+      </motion.div>
 
       {/* <SocketTest /> */}
       {/* Bondhu builder intro */}
-      <div className="my-24">
-        <div className=" w-[80%] mx-auto flex items-center gap-10">
+      <motion.div
+        className="my-24"
+        initial={{ y: "100px", opacity: 0 }} // Initial position (offscreen to the left)
+        whileInView={{ y: 0, opacity: 1 }} // Animate when it comes into view
+        transition={{ duration: 0.5, ease: "easeIn" }} // Smooth transition
+        viewport={{ once: true, amount: 0.5 }} // Trigger only once, when 50% of the element is visible
+      >
+        <div className=" w-[90%] mx-auto flex items-center justify-between">
           {/* left div */}
           <div className="w-full flex flex-col gap-5 left-div">
             <h1 className="text-4xl text-black font-bold tracking-widest leading-relaxed">
@@ -45,7 +90,7 @@ const HomePage = () => {
           {/* <div>{notifications?.map((noti) => <p key={noti}>{noti}</p>)}</div> */}
 
           {/* right div */}
-          <div className="w-full flex justify-center right-div">
+          <div className="w-full flex justify-end right-div">
             <img
               style={{
                 boxShadow:
@@ -57,7 +102,7 @@ const HomePage = () => {
             />
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Our Service */}
       <Services />
