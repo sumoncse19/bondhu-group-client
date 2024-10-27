@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { ThreeCircles } from "react-loader-spinner";
 import { isAxiosError } from "axios";
 import { CustomSelect } from "@/components/CustomSelect";
+import { CustomSelect2 } from "@/components/CustomSelect2";
 
 // Define your UserData interface
 interface UserData {
@@ -76,6 +77,7 @@ const page = () => {
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<UserData>();
   const [childUsers, setChildUsers] = useState<[]>([]);
+  const [allUser, setAllUser] = useState<[]>([]);
   const [currentOptions, setCurrentOptions] = useState<any>([
     {
       label: "A",
@@ -91,6 +93,7 @@ const page = () => {
 
   const userCookie = Cookies.get("user");
   const token = Cookies.get("token");
+  const id: string = Cookies.get("id") || "";
 
   const handleImageClick = () => {
     fileInputRef.current?.click(); // Trigger the hidden input
@@ -230,18 +233,31 @@ const page = () => {
     }
   };
 
+  // fetch all user
+  const fetchChildUsersLevel1 = async () => {
+    const response = await fetch(`${baseUrl}/team/get-child-users/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setAllUser(data?.data);
+    }
+  };
   // fetch child user
-  const fetchChildUsers = async (userParse: UserData) => {
-    const response = await fetch(
-      `${baseUrl}/team/get-child-users/${userParse?._id}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const fetchChildUsersLevel2 = async (id: string) => {
+    const response = await fetch(`${baseUrl}/team/get-child-users/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     const data = await response.json();
 
@@ -255,7 +271,8 @@ const page = () => {
       try {
         let userParse: UserData = JSON.parse(userCookie); // Parse safely
         setUser(userParse);
-        fetchChildUsers(userParse);
+        // fetchChildUsersLevel2(id);
+        fetchChildUsersLevel1();
       } catch (error) {
         console.error("Failed to parse user cookie:", error);
       }
@@ -533,25 +550,33 @@ const page = () => {
           </div>
           {/* Profession,refference id  and placement id nationality */}
           <div className="flex items-center gap-6">
-            <div className="relative w-full flex items-center gap-x-2">
+            {/* <div className="relative w-full flex items-center gap-x-2">
               <label className="px-2 text-sm" htmlFor="reference_id">
                 Reference ID
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <select
-                onChange={(e) => setReferenceId(e.target.value)}
+                onChange={(e) => {
+                  setReferenceId(e.target.value);
+                  fetchChildUsersLevel2(e.target.value);
+                }}
                 className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 name=""
                 id="reference_id"
               >
                 <option value="">Select</option>
-                {childUsers?.map((child: { name: string; _id: string }, i) => (
+                {allUser?.map((child: { name: string; _id: string }, i) => (
                   <option value={child?._id} key={i}>
                     {child?.name}
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
+            <CustomSelect2
+              allUser={allUser}
+              setReferenceId={setReferenceId}
+              fetchChildUsersLevel2={fetchChildUsersLevel2}
+            />
             <CustomSelect
               childUsers={childUsers}
               setParentPlacementId={setParentPlacementId}

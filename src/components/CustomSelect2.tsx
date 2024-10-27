@@ -1,43 +1,21 @@
 import React, { useState } from "react";
 
-export const CustomSelect = ({
-  childUsers,
-  setParentPlacementId,
-  setCurrentOptions,
+export const CustomSelect2 = ({
+  allUser,
+  setReferenceId,
+  fetchChildUsersLevel2,
 }: {
-  childUsers: [];
-  setParentPlacementId: (id: string) => void;
-  setCurrentOptions: (options: object) => void;
+  allUser: [];
+  setReferenceId: (id: string) => void;
+  fetchChildUsersLevel2: (id: string) => void;
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [user, setUser] = useState<{ name: string }>({ name: "" });
 
   const handleOptionSelect = (user: any) => {
-    setParentPlacementId(user?._id);
+    setReferenceId(user?._id);
     setIsDropdownOpen(false);
-
-    const currentAvailableSides = [];
-
-    if (user.left_side_partner === null) {
-      currentAvailableSides.push({
-        value: "a",
-        label: "A",
-      });
-    }
-    if (user.right_side_partner === null) {
-      currentAvailableSides.push({
-        value: "b",
-        label: "B",
-      });
-    }
-    if (user.left_side_partner !== null && user.right_side_partner !== null) {
-      currentAvailableSides.push({
-        value: "",
-        label: "Both Sides are fillup",
-      });
-    }
-    setCurrentOptions(currentAvailableSides);
   };
 
   return (
@@ -67,16 +45,17 @@ export const CustomSelect = ({
           />
 
           {/* Filtered Options */}
-          {childUsers
-            .filter((user: { name: string }) =>
+          {allUser
+            .filter((user: { name: string; _id: string }) =>
               user?.name.toLowerCase().includes(searchTerm.toLowerCase())
             )
-            .map((user: { name: string }, index) => (
+            .map((user: { name: string; _id: string }, index) => (
               <div
                 key={index}
                 onClick={() => {
                   handleOptionSelect(user);
                   setUser(user);
+                  fetchChildUsersLevel2(user?._id);
                 }}
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
               >
