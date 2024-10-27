@@ -16,8 +16,12 @@ interface UserData {
   user_name: string;
   role: string;
   phone: string;
-  reference_id: string;
-  parent_placement_id: string;
+  reference_id: {
+    name: string;
+  };
+  parent_placement_id: {
+    name: string;
+  };
   left_side_partner: {
     name: string;
   };
@@ -273,10 +277,10 @@ const Page = () => {
                   <td className="px-6 py-4 text-center">{user?.role}</td>
                   <td className="px-6 py-4 text-center">{user?.phone}</td>
                   <td className="px-6 py-4 text-center">
-                    {getReferrer(user?.reference_id)}
+                    {user?.reference_id?.name}
                   </td>
                   <td className="px-6 py-4 text-center">
-                    {getParent(user?.parent_placement_id)}
+                    {user?.parent_placement_id?.name}
                   </td>
                   <td className="px-6 py-4 text-center">
                     {user?.left_side_partner?.name ? (

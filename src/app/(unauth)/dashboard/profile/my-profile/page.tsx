@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { UserData } from "@/type";
 import Cookies from "js-cookie";
 import baseUrl from "../../../../../../config";
+import Link from "next/link";
 
 const MyProfile = () => {
   const [user, setUser] = useState<UserData>();
@@ -40,8 +41,8 @@ const MyProfile = () => {
 
     {
       id: 3,
-      name: "Id Status",
-      value: "Business Account",
+      name: "Designation",
+      value: user?.designation ? user?.designation : "",
     },
     {
       id: 4,
@@ -107,7 +108,7 @@ const MyProfile = () => {
     {
       id: 17,
       name: "Refferer",
-      value: user?.reference_id,
+      value: user?.reference_id?.user_name,
     },
     {
       id: 18,
@@ -139,7 +140,7 @@ const MyProfile = () => {
         />
 
         {/* profile details */}
-        <div className="mt-16">
+        <div className="mt-16 bg-white">
           <div className="flex gap-6">
             {/* information */}
             <div
@@ -156,7 +157,7 @@ const MyProfile = () => {
               <div className="py-10 flex flex-col gap-y-3">
                 {personalInfo?.map((info) => (
                   <div
-                    className="flex items-center bg-red-50 text-slate-700 py-2"
+                    className="flex items-center bg-red-50 text-slate-700 py-2 border border-black rounded-xl"
                     key={info?.id}
                   >
                     <div className="w-[50%] flex justify-center items-center">
@@ -190,8 +191,13 @@ const MyProfile = () => {
                     </p>
                     <p className="text-rose-700 font-bold">Refferel Bonus</p>
                   </div>
-                  <div className="px-2 h-8 bg-green-700 shadow-lg cursor-pointer rounded-sm flex justify-center items-center">
-                    <p className="text-white text-sm font-bold">View</p>
+                  <div className="px-2 h-8 bg-green-700 hover:scale-105 transition-all duration-300 ease-in shadow-lg cursor-pointer rounded-sm flex justify-center items-center">
+                    <Link
+                      href="/dashboard/wallet/income-wallet"
+                      className="text-white text-sm font-bold"
+                    >
+                      View
+                    </Link>
                   </div>
                 </div>
                 <div className="w-full h-28 mt-6">
@@ -216,8 +222,13 @@ const MyProfile = () => {
                     </p>
                     <p className="text-rose-700 font-bold">Team Bonus</p>
                   </div>
-                  <div className="px-2 h-8 bg-green-700 shadow-lg rounded-sm cursor-pointer flex justify-center items-center">
-                    <p className="text-white text-sm font-bold">View</p>
+                  <div className="px-2 h-8 bg-green-700 hover:scale-105 transition-all duration-300 ease-in shadow-lg rounded-sm cursor-pointer flex justify-center items-center">
+                    <Link
+                      href="/dashboard/wallet/income-wallet"
+                      className="text-white text-sm font-bold"
+                    >
+                      View
+                    </Link>
                   </div>
                 </div>
                 <div className="w-full h-28 mt-6">

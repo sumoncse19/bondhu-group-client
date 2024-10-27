@@ -9,166 +9,226 @@ import { FaUserEdit } from "react-icons/fa";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { GiFastBackwardButton } from "react-icons/gi";
+import axios, { isAxiosError } from "axios";
 
 const page = () => {
   const [user, setUser] = useState<UserData>();
   const [selectWallet, setSelectWallet] = useState<string>("income");
   const [openSetPositionModal, setOpenSetPositionModal] =
     useState<boolean>(false);
+  const [designation, setDesignation] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const params = useParams();
   const id = params.id;
+
   const token: string = Cookies.get("token") || "";
 
   const router = useRouter();
-  const fetchSingleUser = async () => {
-    const response = await fetch(`${baseUrl}/user/get-user/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
 
-    const data = await response.json();
-    if (data?.success) {
-      console.log("userN", data?.data);
-      setUser(data?.data);
+  const fetchSingleUser = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/user/get-user/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+      if (data?.success) {
+        console.log("userN", data?.data);
+        setUser(data?.data);
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error?.response?.data?.message);
+      }
+    } finally {
     }
   };
   useEffect(() => {
     fetchSingleUser();
-  }, [id]);
+  }, []);
 
-  const personalInfoData = [
-    {
-      id: 0,
-      key: "Id",
-      value: user?._id,
-    },
-    {
-      id: 1,
-      key: "Name",
-      value: user?.name,
-    },
-    {
-      id: 2,
-      key: "Picture",
-      value: user?.picture,
-    },
-    {
-      id: 3,
-      key: "Usename",
-      value: user?.user_name,
-    },
-    {
-      id: 4,
-      key: "Mobile No",
-      value: user?.phone,
-    },
-    {
-      id: 5,
-      key: "Nid No",
-      value: user?.nid_passport_no,
-    },
-    {
-      id: 6,
-      key: "Email",
-      value: user?.email,
-    },
-    {
-      id: 7,
-      key: "Present Address",
-      value: user?.present_address,
-    },
-    {
-      id: 8,
-      key: "Permanent Address",
-      value: user?.permanent_address,
-    },
-    {
-      id: 9,
-      key: "Nationality",
-      value: user?.nationality,
-    },
-    {
-      id: 10,
-      key: "Role",
-      value: user?.role,
-    },
-    {
-      id: 11,
-      key: "Religion",
-      value: user?.religion,
-    },
-    {
-      id: 12,
-      key: "Refferer",
-      value: user?.reference_id,
-    },
-    {
-      id: 13,
-      key: "Parent Placement",
-      value: user?.parent_placement_id,
-    },
-    {
-      id: 14,
-      key: "Team",
-      value: user?.choice_side,
-    },
-    {
-      id: 15,
-      key: "Blodd Group",
-      value: user?.blood_group,
-    },
-    {
-      id: 16,
-      key: "Father/Husband Name",
-      value: user?.father_or_husband_name,
-    },
-    {
-      id: 17,
-      key: "Mother Name",
-      value: user?.mother_name,
-    },
-    {
-      id: 18,
-      key: "Date Of Birth",
-      value: user?.dob,
-    },
-    {
-      id: 19,
-      key: "Maritual Status",
-      value: user?.marital_status,
-    },
-    {
-      id: 20,
-      key: "Profession",
-      value: user?.profession,
-    },
-    {
-      id: 21,
-      key: "Nominee's Name",
-      value: user?.nominee_name,
-    },
-    {
-      id: 22,
-      key: "Nominee's Address",
-      value: user?.nominee_address,
-    },
-    {
-      id: 23,
-      key: "Nominee's Mobile No",
-      value: user?.nominee_mobile_no,
-    },
-    {
-      id: 24,
-      key: "Relation With Nominee",
-      value: user?.relation_with_nominee,
-    },
-  ];
+  // const personalInfoData = [
+  //   {
+  //     id: 0,
+  //     key: "Id",
+  //     value: user?._id,
+  //   },
+  //   {
+  //     id: 1,
+  //     key: "Name",
+  //     value: user?.name,
+  //   },
+  //   {
+  //     id: 2,
+  //     key: "Picture",
+  //     value: user?.picture,
+  //   },
+  //   {
+  //     id: 3,
+  //     key: "Usename",
+  //     value: user?.user_name,
+  //   },
+  //   {
+  //     id: 4,
+  //     key: "Mobile No",
+  //     value: user?.phone,
+  //   },
+  //   {
+  //     id: 5,
+  //     key: "Nid No",
+  //     value: user?.nid_passport_no,
+  //   },
+  //   {
+  //     id: 6,
+  //     key: "Email",
+  //     value: user?.email,
+  //   },
+  //   {
+  //     id: 7,
+  //     key: "Present Address",
+  //     value: user?.present_address,
+  //   },
+  //   {
+  //     id: 8,
+  //     key: "Permanent Address",
+  //     value: user?.permanent_address,
+  //   },
+  //   {
+  //     id: 9,
+  //     key: "Nationality",
+  //     value: user?.nationality,
+  //   },
+  //   {
+  //     id: 10,
+  //     key: "Role",
+  //     value: user?.role,
+  //   },
+  //   {
+  //     id: 11,
+  //     key: "Religion",
+  //     value: user?.religion,
+  //   },
+  //   {
+  //     id: 12,
+  //     key: "Refferer",
+  //     value: user?.reference_id,
+  //   },
+  //   {
+  //     id: 13,
+  //     key: "Parent Placement",
+  //     value: user?.parent_placement_id,
+  //   },
+  //   {
+  //     id: 14,
+  //     key: "Team",
+  //     value: user?.choice_side,
+  //   },
+  //   {
+  //     id: 15,
+  //     key: "Blodd Group",
+  //     value: user?.blood_group,
+  //   },
+  //   {
+  //     id: 16,
+  //     key: "Father/Husband Name",
+  //     value: user?.father_or_husband_name,
+  //   },
+  //   {
+  //     id: 17,
+  //     key: "Mother Name",
+  //     value: user?.mother_name,
+  //   },
+  //   {
+  //     id: 18,
+  //     key: "Date Of Birth",
+  //     value: user?.dob,
+  //   },
+  //   {
+  //     id: 19,
+  //     key: "Maritual Status",
+  //     value: user?.marital_status,
+  //   },
+  //   {
+  //     id: 20,
+  //     key: "Profession",
+  //     value: user?.profession,
+  //   },
+  //   {
+  //     id: 21,
+  //     key: "Nominee's Name",
+  //     value: user?.nominee_name,
+  //   },
+  //   {
+  //     id: 22,
+  //     key: "Nominee's Address",
+  //     value: user?.nominee_address,
+  //   },
+  //   {
+  //     id: 23,
+  //     key: "Nominee's Mobile No",
+  //     value: user?.nominee_mobile_no,
+  //   },
+  //   {
+  //     id: 24,
+  //     key: "Relation With Nominee",
+  //     value: user?.relation_with_nominee,
+  //   },
+  // ];
 
-  const walletData = [];
+  // if (isLoading) {
+  //   return <p>Loading.....</p>;
+  // }
 
-  const moreInfos = [];
+  const handleSetPosition = async () => {
+    setIsLoading(true);
+    const updateData = {
+      designation,
+    };
+    try {
+      // const response = await fetch(`${baseUrl}/user/auth/${id}`, {
+      //   method: "PUT",
+      //   body: JSON.stringify(updateData),
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // });
+
+      // const data = await response.json();
+
+      // if (data.success) {
+      //   toast.success("Successfully set the designation");
+      //   setOpenSetPositionModal(false);
+      // }
+
+      await axios
+        .put(
+          `${baseUrl}/user/auth/${id}`,
+          { designation: designation },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res?.data?.success) {
+            toast.success("Set Designation Successfully");
+            setOpenSetPositionModal(false);
+            setDesignation("");
+          }
+        });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error?.response?.data?.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="">
@@ -196,9 +256,11 @@ const page = () => {
             />
             <div className="flex flex-col gap-y-2  flex-grow">
               <div className="flex items-center justify-between">
-                <p className="text-lg text-rose-500 font-bold">{user?.name}</p>
+                <p className="text-lg text-rose-500 font-bold">
+                  {user?.name && user?.name}
+                </p>
                 <Link
-                  href={`/dashboard/man-management/edit-user/${user?._id}`}
+                  href={`/dashboard/man-management/edit-user/${user?._id && user?._id}`}
                   className="bg-black text-white px-5 py-1 rounded-full flex items-center gap-2 shadow-xl hover:scale-105 transition-all duration-300 ease-in"
                 >
                   <FaUserEdit />
@@ -206,18 +268,31 @@ const page = () => {
                 </Link>
               </div>
               <div className="flex items-center gap-3">
-                <p className="text-sm text-gray-700">{user?.user_name}</p>
-                <p className="text-sm text-gray-700">{user?.email}</p>
-                <p className="text-sm text-gray-700">{user?.phone}</p>
+                <p className="text-sm text-gray-700">
+                  {user?.user_name && user?.user_name}
+                </p>
+                <p className="text-sm text-gray-700">
+                  {user?.email && user?.email}
+                </p>
+                <p className="text-sm text-gray-700">
+                  {user?.phone && user?.phone}
+                </p>
               </div>
               <div className="text-sm text-gray-700">
-                <p>Nid: {user?.nid_passport_no}</p>
+                <p>Nid: {user?.nid_passport_no && user?.nid_passport_no}</p>
               </div>
               <div className="text-sm text-gray-700">
-                <p>Refferer: {user?.reference_id}</p>
+                <p>
+                  Refferer:{" "}
+                  {user?.reference_id && user?.reference_id?.user_name}
+                </p>
               </div>
               <div className="text-sm text-gray-700">
-                <p>Parent Placement: {user?.parent_placement_id}</p>
+                <p>
+                  Parent Placement:{" "}
+                  {user?.parent_placement_id &&
+                    user?.parent_placement_id?.user_name}
+                </p>
               </div>
             </div>
           </div>
@@ -250,8 +325,8 @@ const page = () => {
                   <div>
                     Income Wallet:{" "}
                     <p className="inline text-rose-500 text-base">
-                      {user?.wallet?.income_wallet
-                        ? user?.wallet?.income_wallet?.toFixed(2)
+                      {user?.wallet && user?.wallet?.income_wallet
+                        ? user?.wallet?.income_wallet.toFixed(2)
                         : 0}
                     </p>
                   </div>
@@ -333,8 +408,11 @@ const page = () => {
       {/* send wallet profit button */}
       <div className="mt-5 flex items-center gap-x-5">
         <div
-          onMouseEnter={() => setOpenSetPositionModal(true)}
-          onMouseLeave={() => setOpenSetPositionModal(false)}
+          // onMouseEnter={() => setOpenSetPositionModal(true)}
+          // onMouseLeave={() => setOpenSetPositionModal(false)}
+          onClick={() => {
+            setOpenSetPositionModal((prev) => !prev);
+          }}
         >
           <p
             style={{
@@ -343,29 +421,34 @@ const page = () => {
             }}
             className="bg-teal-600 px-3 py-1 rounded-full text-white border-2 border-rose-400 shadow-black hover:scale-105 transition-all duration-300 ease-out cursor-pointer"
           >
-            Set Position
+            Set Designation
           </p>
           <div
+            onClick={(e) => e.stopPropagation()}
             className={`absolute p-5 ${openSetPositionModal ? "opacity-100" : "opacity-0 h-0 hidden"}`}
           >
             <div className="bg-white p-4 rounded">
               <input
                 className="border-2 border-black outline-none px-3 py-1 rounded-xl"
+                onChange={(e) => setDesignation(e.target.value)}
                 type="text"
                 name=""
                 id=""
-                placeholder="Type Position"
+                placeholder="Type designation"
               />
-              <div className="flex py-2 ">
+              <div className="flex items-center gap-x-2 py-2 ">
                 {" "}
                 <p
-                  onClick={() => {
-                    setOpenSetPositionModal(false);
-                    toast.success("Set User Designation");
-                  }}
+                  onClick={handleSetPosition}
                   className="p-1 bg-teal-400 hover:bg-teal-500 cursor-pointer rounded-full px-3 py-1"
                 >
-                  Save
+                  {isLoading ? "Loading..." : "Save"}
+                </p>
+                <p
+                  onClick={() => setOpenSetPositionModal(false)}
+                  className="p-1 bg-rose-400 hover:bg-rose-500 cursor-pointer rounded-full px-3 py-1"
+                >
+                  Close
                 </p>
               </div>
             </div>

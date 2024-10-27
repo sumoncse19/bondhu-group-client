@@ -6,6 +6,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Retrograde"; /* Give it a unique name */
+  src: url("/fonts/Retrograde.ttf") format("truetype"); /* Path to your font file */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "super-shiny"; /* Give it a unique name */
+  src: url("/fonts/Super Shiny.ttf") format("truetype"); /* Path to your font file */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "super-kinds"; /* Give it a unique name */
+  src: url("/fonts/Super Kinds.ttf") format("truetype"); /* Path to your font file */
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -34,11 +55,6 @@ body {
   font-family: "Protest Guerrilla", sans-serif;
   font-weight: 400;
   font-style: normal;
-}
-@media (max-width: 768px) {
-  .loginbg {
-    background-image: url("/images/loginPageImg2.png");
-  }
 }
 
 /* For Chrome, Safari, and Opera */
@@ -80,4 +96,12 @@ input[type="number"] {
 .pdf-print .company-header p {
   font-size: 12px;
   margin: 2px 0;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.service-part::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
 }

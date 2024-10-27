@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { ThreeCircles } from "react-loader-spinner";
+import { isAxiosError } from "axios";
+import { CustomSelect } from "@/components/CustomSelect";
 
 // Define your UserData interface
 interface UserData {
@@ -37,7 +39,7 @@ interface UserData {
   nominee_address: string;
   nominee_mobile_no: string;
   nominee_picture: string;
-  registration_date: string;
+  registration_date?: string;
 }
 
 const page = () => {
@@ -190,7 +192,7 @@ const page = () => {
       choice_side: team,
       marital_status: maritualStatus,
       profession,
-      reference_id: user?._id ?? "",
+      reference_id: referenceId ?? "",
       parent_placement_id: parentPlacementId,
       nominee_name: nomineeName,
       relation_with_nominee: nomineeRelation,
@@ -210,9 +212,7 @@ const page = () => {
       });
 
       if (!response.ok) {
-        toast.error(
-          "Registration Failed. Fill all the necessary fields and Try again"
-        );
+        toast.error("Registration failed");
       }
 
       const data = await response.json();
@@ -552,55 +552,11 @@ const page = () => {
                 ))}
               </select>
             </div>
-            <div className="relative w-full flex items-center gap-x-2">
-              <label className="px-2 text-sm" htmlFor="role">
-                Placement ID
-                <p className="inline text-red-500 text-lg font-bold">*</p>
-              </label>
-
-              <select
-                onChange={(e) => {
-                  setParentPlacementId(e.target.value);
-                  const selectedParent: any = childUsers.find(
-                    (user: any) => user?._id === e.target.value
-                  );
-                  const currentAvailableSides = [];
-
-                  if (selectedParent.left_side_partner === null) {
-                    currentAvailableSides.push({
-                      value: "a",
-                      label: "A",
-                    });
-                  }
-                  if (selectedParent.right_side_partner === null) {
-                    currentAvailableSides.push({
-                      value: "b",
-                      label: "B",
-                    });
-                  }
-                  if (
-                    selectedParent.left_side_partner !== null &&
-                    selectedParent.right_side_partner !== null
-                  ) {
-                    currentAvailableSides.push({
-                      value: "",
-                      label: "Both Sides are fillup",
-                    });
-                  }
-                  setCurrentOptions(currentAvailableSides);
-                }}
-                className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                name=""
-                id="placement_id"
-              >
-                <option value="">Select</option>
-                {childUsers?.map((child: { name: string; _id: string }, i) => (
-                  <option value={child?._id} key={i}>
-                    {child?.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <CustomSelect
+              childUsers={childUsers}
+              setParentPlacementId={setParentPlacementId}
+              setCurrentOptions={setCurrentOptions}
+            />
 
             <div className=" w-full flex items-center">
               <label className=" px-2" htmlFor="team_side">

@@ -27,33 +27,7 @@ export default function Layout(props: { children: React.ReactNode }) {
         <div className="flex">
           <Sidebar2 />
           <div className="grow self-start flex flex-col  ml-[230px] ">
-            <div
-              style={{
-                boxShadow:
-                  "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
-              }}
-              className="w-full h-[70px] flex justify-end items-center px-6 shadow-black"
-            >
-              <div className="flex items-center gap-x-4">
-                <p className="text-teal-600 font-bold text-lg">{userName}</p>
-                <IoIosNotifications className="text-xl cursor-pointer" />
-                <Link
-                  href="/login"
-                  onClick={() => {
-                    Cookies.remove("user");
-                    Cookies.remove("id");
-                    Cookies.remove("have_purchase_wallet");
-                    Cookies.remove("role");
-                    Cookies.remove("username");
-                    Cookies.remove("token");
-                  }}
-                  className="bg-black text-white px-5 py-1 rounded-full hover:scale-105 transition-all duration-300 ease-in"
-                >
-                  Logout
-                </Link>
-              </div>
-            </div>
-            <div className="p-5 bg-gray-100 flex-grow min-h-[100vh]">
+            <div className="p-5  bg-gray-100 flex-grow min-h-[100vh]">
               {props.children}
             </div>
           </div>
