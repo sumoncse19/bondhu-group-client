@@ -72,6 +72,9 @@ const UpdateProfile = () => {
       },
     });
     const data = await response.json();
+
+    console.log(data?.data);
+
     if (data?.success) {
       setUser(data?.data);
       console.log(data?.data?.name);
@@ -88,8 +91,8 @@ const UpdateProfile = () => {
       setMobileNo(data?.data?.phone);
       setPresentAddress(data?.data?.present_address);
       setPermanentAddress(data?.data?.permanent_address);
-      setReferenceId(data?.data?.reference_id);
-      setParentPlacementId(data?.data?.parent_placement_id);
+      setReferenceId(data?.data?.reference_id?._id);
+      setParentPlacementId(data?.data?.parent_placement_id?._id);
       setRole(data?.data?.role);
       setReligion(data?.data?.religion);
       setMaritualStatus(data?.data?.marital_status);
@@ -184,7 +187,7 @@ const UpdateProfile = () => {
       return;
     }
     setIsLoading(true);
-    const userData: UserData = {
+    const userData = {
       name,
       user_name: userName,
       father_or_husband_name: fatherOrHusbandName,
@@ -204,7 +207,7 @@ const UpdateProfile = () => {
       choice_side: team,
       marital_status: maritualStatus,
       profession,
-      reference_id: user?._id ?? "",
+      reference_id: referenceId,
       parent_placement_id: parentPlacementId,
       nominee_name: nomineeName,
       relation_with_nominee: nomineeRelation,

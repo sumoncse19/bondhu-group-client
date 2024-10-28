@@ -17,30 +17,43 @@ import SocketTest from "@/components/SocketTest";
 import { ImAirplane } from "react-icons/im";
 import { TextGenerateEffectDemo } from "@/components/TextEffect";
 import { motion } from "framer-motion";
+import { BackgroundBeamsWithCollision } from "@/components/ui/BackGroundBeamsWIthColluitions";
+import { TypeAnimation } from "react-type-animation";
+import { MissionVisionService } from "@/components/MissionVissionService";
 
 const HomePage = () => {
   return (
-    <div
-      style={
-        {
-          // background:
-          //   "linear-gradient(180deg, #DDBDD6 0%, #E0D6E6 47%, #DEEFFF 100%)",
-          // backgroundImage: "linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%) ",
-        }
-      }
-      className="w-full"
-    >
-      {/* Hero section */}
-      {/* <Hero /> */}
-      <div>{/* <HomeBanner /> */}</div>
-
+    <div className="w-full flex flex-col gap-y-28">
       {/* welcome text */}
-
       <div className="pt-5  min-h-[90vh]  flex items-center px-10">
-        <div className="w-full ">
+        <div className="w-full">
           <div className="w-[80%] mx-auto relative">
-            <ImAirplane className="absolute -top-6 -left-10 text-4xl text-red-600" />
             <TextGenerateEffectDemo />
+            <img
+              className="w-12 h-12 absolute left-0 -top-[150px]"
+              src="/images/icons/business5.png"
+              alt=""
+            />
+            <img
+              className="w-12 h-12 absolute right-0 -top-[150px]"
+              src="/images/icons/business3.png"
+              alt=""
+            />
+            <img
+              className="w-12 h-12 absolute left-[75%] -bottom-[100px] -translate-x-1/2"
+              src="/images/icons/business2.png"
+              alt=""
+            />
+            <img
+              className="w-12 h-12 absolute right-[50%] -translate-x-1/2 -top-[100px]"
+              src="/images/icons/business1.png"
+              alt=""
+            />
+            <img
+              className="w-12 h-12 absolute left-0 -bottom-[100px]"
+              src="/images/icons/business4.png"
+              alt=""
+            />
           </div>
         </div>
         <motion.div
@@ -54,21 +67,49 @@ const HomePage = () => {
             src="/images/heroBanner1.jpeg"
             alt=""
           />
-          {/* <HomeBanner /> */}
-
-          {/* <div className="w-20 h-20 rounded-full bg-white absolute -top-8 left-3 z-50"></div>
-          <div className="w-20 h-20 rounded-full bg-white absolute -top-8 right-3 z-50"></div>
-          <div className="w-20 h-20 rounded-full bg-white absolute -bottom-8 left-3 z-50"></div>
-          <div className="w-20 h-20 rounded-full bg-white absolute -bottom-8 right-3 z-50"></div> */}
         </motion.div>
+      </div>
+
+      {/* motivation speech */}
+      <div
+        style={{
+          backgroundImage: `url('/images/motivationBg.jpg')`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          // filter: "blur(1px)",
+        }}
+        className="w-full h-[500px] py-6 bg-teal-100 bg-opacity-0 flex items-center justify-center"
+      >
+        <div className="w-[80%] mx-auto z-50 bg-black bg-opacity-30 p-3 rounded-md">
+          <TypeAnimation
+            sequence={[
+              // Same substring at the start will only be typed once, initially
+              "Success is not final, failure is not fatal-it’s the courage to continue that counts.Dream big, start small, and act now.",
+              1000,
+              "Success is not final, failure is not fatal-it’s the courage to continue that counts.Opportunities don't happen; you create them.",
+              1000,
+              "Success is not final, failure is not fatal-it’s the courage to continue that counts.Your only limit is the one you set yourself.",
+              1000,
+              "Success is not final, failure is not fatal-it’s the courage to continue that counts.",
+              1000,
+            ]}
+            speed={20}
+            style={{
+              fontSize: "2.3em",
+              fontFamily: "Retrograde",
+              color: "white",
+            }}
+            repeat={Infinity}
+          />
+        </div>
       </div>
 
       {/* Bondhu builder intro */}
       <motion.div
         className="my-10"
-        initial={{ y: "100px", opacity: 0 }} // Initial position (offscreen to the left)
+        initial={{ y: "80px", opacity: 0 }} // Initial position (offscreen to the left)
         whileInView={{ y: 0, opacity: 1 }} // Animate when it comes into view
-        transition={{ duration: 0.5, ease: "easeIn" }} // Smooth transition
+        transition={{ duration: 0.4, ease: "easeIn" }} // Smooth transition
         viewport={{ once: true, amount: 0.5 }} // Trigger only once, when 50% of the element is visible
       >
         <div className=" w-[90%] mx-auto flex items-center justify-between">
@@ -106,6 +147,7 @@ const HomePage = () => {
         </div>
       </motion.div>
 
+      {/* all sister concerns slider */}
       <motion.div
         className="my-20"
         initial={{ y: "100px", opacity: 0 }} // Initial position (offscreen to the left)
@@ -117,7 +159,8 @@ const HomePage = () => {
       </motion.div>
 
       {/* Our Service */}
-      <Services />
+      {/* <Services /> */}
+      <MissionVisionService />
 
       {/* Our Projects */}
       <Projects />

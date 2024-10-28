@@ -159,7 +159,7 @@ const page = () => {
         </div>
       </div>
       {/* rigth side */}
-      <div className=" lg:items-center w-[50%] min-h-[100vh] hidden lg:flex px-6 order-1">
+      <div className="lg:items-center w-[50%] min-h-[100vh] hidden lg:flex px-6 order-1">
         <img
           className="w-full h-[600px] rounded object-contain"
           src="/images/loginPageImg4.png"

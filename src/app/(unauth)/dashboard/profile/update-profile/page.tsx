@@ -174,69 +174,69 @@ const UpdateProfile = () => {
   };
 
   // Function to handle registration
-  const handleRegistration = async () => {
-    if (password != confirmPassword) {
-      toast.error("Password doesnt match");
-      return;
-    }
-    setIsLoading(true);
-    const userData: UserData = {
-      name,
-      user_name: userName,
-      father_or_husband_name: fatherOrHusbandName,
-      mother_name: motherName,
-      picture: imageUrl,
-      email: email,
-      password: password,
-      phone: mobileNo,
-      role,
-      present_address: presentAddress,
-      permanent_address: permanentAddress,
-      nationality,
-      religion,
-      blood_group: bloodGroup,
-      nid_passport_no: nidNo,
-      dob,
-      choice_side: team,
-      marital_status: maritualStatus,
-      profession,
-      reference_id: user?._id ?? "",
-      parent_placement_id: parentPlacementId,
-      nominee_name: nomineeName,
-      relation_with_nominee: nomineeRelation,
-      nominee_address: nomineeAddress,
-      nominee_mobile_no: nomineePhoneNo,
-      nominee_picture: imageUrl2,
-      registration_date: "30.09.2024",
-    };
+  // const handleRegistration = async () => {
+  //   if (password != confirmPassword) {
+  //     toast.error("Password doesnt match");
+  //     return;
+  //   }
+  //   setIsLoading(true);
+  //   const userData: UserData = {
+  //     name,
+  //     user_name: userName,
+  //     father_or_husband_name: fatherOrHusbandName,
+  //     mother_name: motherName,
+  //     picture: imageUrl,
+  //     email: email,
+  //     password: password,
+  //     phone: mobileNo,
+  //     role,
+  //     present_address: presentAddress,
+  //     permanent_address: permanentAddress,
+  //     nationality,
+  //     religion,
+  //     blood_group: bloodGroup,
+  //     nid_passport_no: nidNo,
+  //     dob,
+  //     choice_side: team,
+  //     marital_status: maritualStatus,
+  //     profession,
+  //     reference_id: user?._id ?? "",
+  //     parent_placement_id: parentPlacementId,
+  //     nominee_name: nomineeName,
+  //     relation_with_nominee: nomineeRelation,
+  //     nominee_address: nomineeAddress,
+  //     nominee_mobile_no: nomineePhoneNo,
+  //     nominee_picture: imageUrl2,
+  //     registration_date: "30.09.2024",
+  //   };
 
-    try {
-      const response = await fetch(`${baseUrl}/user/auth/register`, {
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  //   try {
+  //     const response = await fetch(`${baseUrl}/user/auth/register`, {
+  //       method: "POST",
+  //       body: JSON.stringify(userData),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      if (!response.ok) {
-        toast.error(
-          "Registration Failed. Fill all the necessary fields and Try again"
-        );
-      }
+  //     if (!response.ok) {
+  //       toast.error(
+  //         "Registration Failed. Fill all the necessary fields and Try again"
+  //       );
+  //     }
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (data.success) {
-        router.push("/dashboard/wallet/purchase-wallet");
-        toast.success("Successfully added new User");
-      }
-    } catch (error: any) {
-      toast.error(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     if (data.success) {
+  //       router.push("/dashboard/wallet/purchase-wallet");
+  //       toast.success("Successfully added new User");
+  //     }
+  //   } catch (error: any) {
+  //     toast.error(error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   // fetch child user
   const fetchChildUsers = async () => {

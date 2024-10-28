@@ -5,5 +5,5 @@ const words = `Welcome to a world of limitless opportunities, where your busines
 `;
 
 export function TextGenerateEffectDemo() {
-  return <TextGenerateEffect words={words} />;
+  return <TextGenerateEffect words={words} className="" />;
 }

@@ -108,7 +108,7 @@ const projects = [
   {
     id: 5,
     title: "Bondhu Brokerage ",
-    image: "/images/projectImg1.avif",
+    image: "/images/bondhuBrokerage.jpg",
     details:
       "Leading construction company with investment opportunities available.",
   },

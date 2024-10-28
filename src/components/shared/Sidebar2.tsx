@@ -20,20 +20,21 @@ import Cookies from "js-cookie";
 
 const Sidebar2 = () => {
   const [role, setRole] = useState<string>("");
+  const [userNmae, setUserName] = useState<string>("");
   const [havePurchaseWallet, setHavePurchaseWallet] = useState<string>("");
 
   // Run this effect to set the client-side only values
   useEffect(() => {
     const roleFromCookie = Cookies.get("role") || "";
+    const userNameFromCookie = Cookies.get("username") || "";
     const havePurchaseWalletFromCookie =
       Cookies.get("have_purchase_wallet") || "";
 
     setRole(roleFromCookie);
+    setUserName(userNameFromCookie);
     setHavePurchaseWallet(havePurchaseWalletFromCookie);
   }, []);
   // Sidebar Menu Data
-
-  console.log(role, havePurchaseWallet, "check");
 
   const menuItemsData = [
     {
@@ -141,7 +142,7 @@ const Sidebar2 = () => {
       active: false,
       subItems: [
         {
-          title: "Tree View",
+          title: "View",
           link: "/dashboard/team-view/ganealogy-tree",
           active: false,
         },
@@ -152,34 +153,38 @@ const Sidebar2 = () => {
         },
       ],
     },
-    {
-      title: "Withdraw",
-      icon: <MoneyCollectFilled />,
-      link: "/dashboard/withdraw/security-code",
-      active: false,
-      subItems: [
-        {
-          title: "Security Code",
-          link: "/dashboard/withdraw/security-code",
-          active: false,
-        },
-        {
-          title: "Payment Setting",
-          link: "/dashboard/withdraw/peyment-setting",
-          active: false,
-        },
-        {
-          title: "Withdraw Now",
-          link: "/dashboard/withdraw/withdraw-now",
-          active: false,
-        },
-        {
-          title: "Withdraw Report",
-          link: "/dashboard/withdraw/withdraw-report",
-          active: false,
-        },
-      ],
-    },
+    ...(role !== "superAdmin"
+      ? [
+          {
+            title: "Withdraw",
+            icon: <MoneyCollectFilled />,
+            link: "/dashboard/withdraw/withdraw-now",
+            active: false,
+            subItems: [
+              // {
+              //   title: "Security Code",
+              //   link: "/dashboard/withdraw/security-code",
+              //   active: false,
+              // },
+              // {
+              //   title: "Payment Setting",
+              //   link: "/dashboard/withdraw/payment-setting",
+              //   active: false,
+              // },
+              {
+                title: "Withdraw Now",
+                link: "/dashboard/withdraw/withdraw-now",
+                active: false,
+              },
+              {
+                title: "Withdraw Report",
+                link: "/dashboard/withdraw/withdraw-report",
+                active: false,
+              },
+            ],
+          },
+        ]
+      : []),
     ...(role === "superAdmin"
       ? [
           {
@@ -306,7 +311,7 @@ const Sidebar2 = () => {
   return (
     <div
       // style={{ boxShadow: "10px 10px 5px -10px rgba(0, 0, 0, 0.8)" }}
-      className="flex min-w-[230px] h-full flex-col justify-between gap-12 rounded-l-xl bg-white px-[18px] py-6 fixed "
+      className="sidebar flex min-w-[230px] h-full overflow-y-auto flex-col justify-between gap-12 rounded-l-xl bg-white px-[18px] py-6 fixed "
     >
       <div className="flex flex-col gap-[30px]">
         <div className="flex flex-col items-center gap-1.5 ">
@@ -378,6 +383,29 @@ const Sidebar2 = () => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center gap-y-5">
+        <div className="flex flex-col justify-center items-center gap-y-3">
+          <img
+            className="w-10 h-10 rounded-full"
+            src="/images/profilePicIcon.png"
+            alt=""
+          />
+          <p className="text-black">{userNmae}</p>
+        </div>
+        <div
+          onClick={() => {
+            router.push("/login");
+            Cookies.remove("user");
+            Cookies.remove("token");
+            Cookies.remove("id");
+            Cookies.remove("username");
+          }}
+          className="w-full bg-black opacity-90 cursor-pointer text-white font-bold flex justify-center py-2 rounded-xl"
+        >
+          <p>Logout</p>
         </div>
       </div>
 

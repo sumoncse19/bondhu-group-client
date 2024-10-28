@@ -60,7 +60,7 @@ const page = () => {
         {/* users table */}
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
           <table className="w-full text-sm text-left rtl:text-right text-white ">
-            <thead className="sticky top-0 text-xs text-black uppercase bg-[#d9d1ca] ">
+            <thead className="sticky top-0 text-xs text-black uppercase bg-red-200 border-t-2 border-b-2 border-black">
               <tr>
                 <th scope="col" className="px-6 py-3 text-center">
                   Name
@@ -112,7 +112,7 @@ const page = () => {
                   }) => (
                     <tr
                       key={user._id}
-                      className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 "
+                      className="bg-red-50 text-black border-b-2 border-slate-700 "
                     >
                       <td className="px-6 py-4 text-center">{user?.name}</td>
                       <td className="px-6 py-4 text-center">

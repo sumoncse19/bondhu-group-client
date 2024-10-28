@@ -24,9 +24,7 @@ function Navbar({ className }: { className?: string }) {
       className={cn("fixed top-10 inset-x-0 max-w-xl mx-auto  z-50", className)}
     >
       <Menu setActive={setActive}>
-        <Link href="/" className="text-black ">
-          Home
-        </Link>
+        <MenuItem setActive={setActive} active={active} item="Home"></MenuItem>
         <MenuItem setActive={setActive} active={active} item="Institutional">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="">Board Directors</HoveredLink>
@@ -65,7 +63,7 @@ function Navbar({ className }: { className?: string }) {
             <ProductItem
               title="Bondhu Brokerage"
               href=""
-              src="/images/bondhuResort.jpeg"
+              src="/images/bondhuBrokerage.jpg"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
@@ -118,6 +116,16 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/individual">General Program</HoveredLink>
           </div>
         </MenuItem>
+        <MenuItem
+          setActive={setActive}
+          active={active}
+          item="Magazine"
+        ></MenuItem>
+        <MenuItem
+          setActive={setActive}
+          active={active}
+          item="Media Partner"
+        ></MenuItem>
       </Menu>
     </div>
   );

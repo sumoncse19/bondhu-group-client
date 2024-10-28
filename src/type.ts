@@ -71,12 +71,19 @@ export interface UserData {
   religion: string;
   blood_group: string;
   nid_passport_no: string;
+  designation?: string;
   dob: string;
   choice_side?: string;
   marital_status: string;
   profession: string;
-  reference_id?: string;
-  parent_placement_id?: string;
+  reference_id?: {
+    _id: string;
+    user_name?: string;
+  };
+  parent_placement_id?: {
+    _id: string;
+    user_name?: string;
+  };
   nominee_name: string;
   relation_with_nominee: string;
   nominee_address: string;
