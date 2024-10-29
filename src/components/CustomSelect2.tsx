@@ -21,7 +21,7 @@ export const CustomSelect2 = ({
   return (
     <div className="relative w-full flex gap-y-2">
       <label className="px-2 text-sm" htmlFor="placement_id">
-        Placement ID
+        Reference ID
         <p className="inline text-red-500 text-lg font-bold">*</p>
       </label>
 
@@ -29,7 +29,7 @@ export const CustomSelect2 = ({
         className="w-full cursor-pointer bg-[#EAE9E8] text-gray-7s00 px-5 py-3 rounded-md border-2 border-black"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
-        {user?.name ? user?.name : <span>Select Placement ID</span>}
+        {user?.name ? user?.name : <span>Select Reference ID</span>}
       </div>
 
       {/* Dropdown */}

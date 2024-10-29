@@ -1,11 +1,12 @@
 "use client";
 
 import Cookies from "js-cookie";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import baseUrl from "../../../../config";
 import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import useStore from "@/Zustand/Store/userStore";
 
 const WithdrawRequest = ({
   setCurrentTab,
@@ -36,11 +37,27 @@ const WithdrawRequest = ({
   code: string;
   selectedGateway: string;
 }) => {
+  const [incomeWalletPortion, setIncomeWalletPortion] = useState<string>("");
+
+  const [user, setUser] = useState<any>();
+
   // get cookies value
   const id: string = Cookies.get("id") || "";
   const token: string = Cookies.get("token") || "";
+  const userCookie = Cookies.get("user");
 
   const router = useRouter();
+  // manage cookie
+  useEffect(() => {
+    if (userCookie) {
+      try {
+        let userParse: any = JSON.parse(userCookie); // Parse safely
+        setUser(userParse);
+      } catch (error) {
+        console.error("Failed to parse user cookie:", error);
+      }
+    }
+  }, [userCookie]);
 
   const handleWithdrawAmount = async () => {
     console.log(withdrawAmount, code, selectedWallet);
@@ -101,16 +118,39 @@ const WithdrawRequest = ({
           <select
             id="select_wallet"
             onChange={(e) => setSelectedWallet(e.target.value)}
-            className="w-52 px-3 py-1 bg-white outline-none border-2 border-slate-600 rounded-md"
+            className="w-52 px-3 py-1 bg-white text-sm outline-none border-2 border-slate-600 rounded-md"
           >
             <option value="">Select--</option>
-            <option value="income_wallet">Income Wallet</option>
-            <option value="project_share_wallet">Project Share Wallet</option>
-            <option value="fixed-deposit_wallet">Fixed Deposite Wallet</option>
-            <option value="share_holder_wallet">Share Holder Wallet</option>
-            <option value="directorship_wallet">Directorship</option>
+            <option value="income_wallet">
+              {`Income Wallet (৳ ${Math.ceil(user?.wallet?.income_wallet)})`}
+            </option>
+            <option value="project_share_wallet">
+              Project Share Wallet (৳ 0)
+            </option>
+            <option value="fixed-deposit_wallet">
+              Fixed Deposite Wallet (৳ 0)
+            </option>
+            <option value="share_holder_wallet">
+              Share Holder Wallet (৳ 0)
+            </option>
+            <option value="directorship_wallet">Directorship (৳ 0)</option>
           </select>
         </div>
+
+        {selectedWallet === "income_wallet" && (
+          <div className="flex items-center justify-between">
+            <label htmlFor="income_wallet_portion">Income Wallet Portion</label>
+            <select
+              id="income_wallet_portion"
+              onChange={(e) => setIncomeWalletPortion(e.target.value)}
+              className="w-52 px-3 py-1 bg-white text-sm outline-none border-2 border-slate-600 rounded-md"
+            >
+              <option value="">Select--</option>
+              <option value="income_wallet">{`Reference Bonus (৳ ${Math.ceil(user?.wallet?.reference_bonus)})`}</option>
+              <option value="project_share_wallet">{`Team (৳ ${Math.ceil(user?.wallet?.matching_bonus)})`}</option>
+            </select>
+          </div>
+        )}
 
         <div className="flex items-center justify-between">
           <label htmlFor="withdraw_amnt">Withdraw Amount</label>
@@ -118,7 +158,7 @@ const WithdrawRequest = ({
             onChange={(e) => setWithdrawAmount(e.target.value)}
             type="number"
             placeholder=""
-            className="w-52 px-3 py-1 bg-white outline-none border-2 border-slate-600 rounded-md"
+            className="w-52 px-3 py-1 text-sm tracking-wider bg-white outline-none border-2 border-slate-600 rounded-md"
           />
         </div>
         <div className="flex items-center justify-between">
