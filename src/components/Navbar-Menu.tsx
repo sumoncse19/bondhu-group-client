@@ -38,7 +38,7 @@ function Navbar({ className }: { className?: string }) {
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Projects">
-          <div className="w-full text-sm grid grid-cols-3 gap-5 p-4">
+          <div className="w-full  text-sm grid grid-cols-2 gap-3 p-4">
             <ProductItem
               title="Bondhu Builder's"
               href="/projects/bondhu-builders"

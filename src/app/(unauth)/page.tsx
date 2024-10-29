@@ -93,7 +93,7 @@ const HomePage = () => {
               "Success is not final, failure is not fatal-it’s the courage to continue that counts.",
               1000,
             ]}
-            speed={20}
+            speed={1}
             style={{
               fontSize: "2.5em",
               fontFamily: "Retrograde",
