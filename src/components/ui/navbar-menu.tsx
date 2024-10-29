@@ -44,12 +44,13 @@ export const MenuItem = ({
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.3 }}
+          className="w-full"
         >
-          <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+          <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2  transform -translate-x-1/2 pt-4">
             <motion.div
               transition={{ duration: 0.3 }}
               layoutId="active"
-              className="bg-white backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] shadow-xl"
+              className="z-50 bg-white w-full backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] shadow-xl"
             >
               <motion.div layout className="w-max h-full p-4">
                 {children}
