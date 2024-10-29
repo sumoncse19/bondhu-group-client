@@ -80,7 +80,7 @@ const HomePage = () => {
         }}
         className="w-full h-[500px] py-6 bg-teal-100 bg-opacity-0 flex items-center justify-center"
       >
-        <div className="w-[80%] mx-auto z-50 bg-black bg-opacity-50 p-3 rounded-md">
+        <div className="w-[80%] min-h-40 mx-auto flex justify-center items-center z-50 bg-black bg-opacity-70 p-3 rounded-md">
           <TypeAnimation
             sequence={[
               // Same substring at the start will only be typed once, initially
@@ -97,7 +97,7 @@ const HomePage = () => {
             style={{
               fontSize: "2.5em",
               fontFamily: "Retrograde",
-              color: "white",
+              color: "yellow",
             }}
             repeat={Infinity}
           />
@@ -150,9 +150,9 @@ const HomePage = () => {
       {/* all sister concerns slider */}
       <motion.div
         className="my-0"
-        initial={{ y: "100px", opacity: 0 }} // Initial position (offscreen to the left)
+        initial={{ y: "50px", opacity: 0 }} // Initial position (offscreen to the left)
         whileInView={{ y: 0, opacity: 1 }} // Animate when it comes into view
-        transition={{ duration: 1.5, ease: "easeIn" }} // Smooth transition
+        transition={{ duration: 1, ease: "easeIn" }} // Smooth transition
         viewport={{ once: true, amount: 0.5 }} // Trigger only once, when 50% of the element is visible
       >
         <HomeBanner />

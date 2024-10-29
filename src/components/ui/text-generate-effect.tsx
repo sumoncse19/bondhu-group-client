@@ -59,7 +59,7 @@ export const TextGenerateEffect = ({
         <div
           style={{
             textShadow: "#FC0 1px 10px 10px",
-            fontStyle: "super-shiny",
+            fontFamily: "super-shiny",
           }}
           className="super-shiny text-black text-4xl leading-snug tracking-widest"
         >
