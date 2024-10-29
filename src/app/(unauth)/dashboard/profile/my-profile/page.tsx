@@ -186,7 +186,7 @@ const MyProfile = () => {
                     <p className="font-bold tracking-wider">
                       &#x9F3;{" "}
                       {user?.wallet?.reference_bonus
-                        ? user?.wallet?.reference_bonus
+                        ? Math.ceil(user?.wallet?.reference_bonus)
                         : 0.0}
                     </p>
                     <p className="text-rose-700 font-bold">Refferel Bonus</p>
@@ -217,7 +217,7 @@ const MyProfile = () => {
                     <p className="font-bold tracking-widest">
                       &#x9F3;{" "}
                       {user?.wallet?.matching_bonus
-                        ? user?.wallet?.matching_bonus
+                        ? Math.ceil(user?.wallet?.matching_bonus)
                         : 0.0}
                     </p>
                     <p className="text-rose-700 font-bold">Team Bonus</p>

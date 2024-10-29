@@ -6,10 +6,13 @@ import { FaHandPointDown } from "react-icons/fa";
 
 import "../../Styles/Projects.css";
 import LeadersClub from "./LeadersClub";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Projects = () => {
   const [showAll, setShowAll] = useState<boolean>(false);
   const visibleItems = showAll ? projects : projects.slice(0, 6);
+  const router = useRouter();
   return (
     <div id="projects" className="pt-28 w-[80%] mx-auto">
       {/* heading */}
@@ -33,7 +36,13 @@ const Projects = () => {
               <div className="flex justify-center items-center cursor-pointer ">
                 <div className="flex flex-col">
                   <div className="w-[550px] overflow-hidden rounded-3xl border-2 border-black p-1">
-                    <div className="border-2 border-black p-1 rounded-3xl">
+                    <div
+                      // href={p?.path}
+                      onClick={() => {
+                        router.push(p?.path);
+                      }}
+                      className="border-2 border-black p-1 rounded-3xl"
+                    >
                       <img
                         className="w-full h-[400px]  object-cover rounded-3xl hover:scale-110 transition-all duration-300 ease-out"
                         src={p?.image}
@@ -84,30 +93,35 @@ const projects = [
     id: 1,
     title: "Bondhu Builder's ",
     image: "/images/bondhuBuilders.jpeg",
+    path: "/projects/bondhu-builders",
     details:
       "Leading construction company with investment opportunities available.",
   },
   {
     id: 2,
     title: "Bondhu Super Shop",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuSuperShop.jpeg",
     details: "Exciting retail experience coming soon for everyone.",
   },
   {
     id: 3,
     title: "Bondhu Agro & Agriculture",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuAgro.jpeg",
     details: "Sustainable agriculture solutions launching soon for farmers.",
   },
   {
     id: 4,
     title: "Bondhu Resort",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuResort.jpeg",
     details: "Empowering future tech leaders with quality education programs.",
   },
   {
     id: 5,
     title: "Bondhu Brokerage ",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuBrokerage.jpg",
     details:
       "Leading construction company with investment opportunities available.",
@@ -115,42 +129,49 @@ const projects = [
   {
     id: 6,
     title: "Bondhu IT Institute",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuIT.jpeg",
     details: "Exciting retail experience coming soon for everyone.",
   },
   {
     id: 7,
     title: "Bondhu Tour & Travels",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuTourTravels.jpg",
     details: "Exciting retail experience coming soon for everyone.",
   },
   {
     id: 8,
     title: "Bondhu General Hospital",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuHospitals.jpeg",
     details: "Exciting retail experience coming soon for everyone.",
   },
   {
     id: 9,
     title: "Bondhu Food & Bevarage",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuBevarage.webp",
     details: "Exciting retail experience coming soon for everyone.",
   },
   {
     id: 10,
     title: "Bondhu Garments",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuGarments.webp",
     details: "Exciting retail experience coming soon for everyone.",
   },
   {
     id: 11,
     title: "Bondhu Parcel And Currier Service",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuParcel.webp",
     details: "Exciting retail experience coming soon for everyone.",
   },
   {
     id: 12,
     title: "Bondhu Transport",
+    path: "/projects/bondhu-builders",
     image: "/images/bondhuTransport.jpeg",
     details: "Exciting retail experience coming soon for everyone.",
   },

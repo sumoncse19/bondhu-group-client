@@ -35,76 +35,76 @@ function Navbar({ className }: { className?: string }) {
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Projects">
-          <div className="  text-sm grid grid-cols-3 gap-5 p-4">
+          <div className="w-full text-sm grid grid-cols-3 gap-5 p-4">
             <ProductItem
               title="Bondhu Builder's"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuBuilders.jpeg"
               description="Prepare for tech interviews like never before."
             />
             <ProductItem
               title="Bondhu Super Shop"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuSuperShop.jpeg"
               description="Production ready Tailwind css components for your next project"
             />
             <ProductItem
               title="Bondhu Agro & Agriculture"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuAgro.jpeg"
               description="Never write from scratch again. Go from idea to blog in minutes."
             />
             <ProductItem
               title="Bondhu Resort"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuResort.jpeg"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
               title="Bondhu Brokerage"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuBrokerage.jpg"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
               title="Bondhu IT Institute"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuIT.jpeg"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
               title="Bondhu Tour & Travells"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuTourTravels.jpg"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
               title="Bondhu General Hospital"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuHospitals.jpeg"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
               title="Bondhu Food & Bevarage"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuBevarage.webp"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
               title="Bondhu Garments"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuGarments.webp"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
               title="Bondhu Parcel And Currier Service"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuParcel.webp"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
             <ProductItem
               title="Bondhu Transport"
-              href=""
+              href="/projects/bondhu-builders"
               src="/images/bondhuTransport.jpeg"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
