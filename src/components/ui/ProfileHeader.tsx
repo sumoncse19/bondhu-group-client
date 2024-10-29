@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { FaCameraRetro } from "react-icons/fa";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { LuUser2 } from "react-icons/lu";
 import { IoCall } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
 import { UserData } from "@/type";
+import toast from "react-hot-toast";
+import baseUrl from "../../../config";
+import Cookies from "js-cookie";
 
 interface ProfileHeaderProps {
   name?: string;
@@ -23,14 +26,77 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   picture,
   cover_photo,
 }) => {
-  console.log(cover_photo, "cover");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [coverImage, setCoverImage] = useState<string>("");
+
+  // cookies value
+  const id: string = Cookies.get("id") || "";
+  const token: string = Cookies.get("token") || "";
+
+  const uploadCoverImage = async (image: string) => {
+    const response = await fetch(`${baseUrl}/user/auth/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ cover_photo: image }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      toast.success("Updated Cover Photo");
+    } else {
+      toast.error(data?.errors[0]);
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click(); // Trigger the hidden input
+  };
+
+  const handleFileUpload = async (file: File) => {
+    const apiKey = "fb3740bc653a7910499d04a143f890fc"; // Replace with your imgbb API key
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(
+        `https://api.imgbb.com/1/upload?key=${apiKey}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      if (data.success) {
+        const imageurl = data.data.url; // Get the image URL from the response
+        setCoverImage(imageurl);
+        uploadCoverImage(imageurl);
+      } else {
+        toast.error("Error uploading to imgbb:", data.error);
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleFileUpload(file); // Upload the selected file
+    }
+  };
 
   return (
     <div className="w-full h-fit  flex flex-col rounded-md border overflow-hidden bg-[#dfd5cf] shadow">
       {/* cover image */}
       <div
         style={{
-          backgroundImage: `url(${cover_photo})`,
+          backgroundImage: cover_photo
+            ? `url(${cover_photo})`
+            : `url('/images/defaultCoverImage.jpeg')`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center", // This will center the image
@@ -38,10 +104,21 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         className="w-full h-[200px]  pt-10 px-16 relative"
       >
         <div className=" absolute bottom-8 right-10">
-          <div className="flex items-center gap-2 bg-white px-5 py-2 border border-black cursor-pointer text-black rounded-md">
+          <div
+            onClick={handleImageClick}
+            className="flex items-center gap-2 bg-white px-5 py-2 border border-black cursor-pointer text-black rounded-md"
+          >
             <FaCameraRetro />
             <p>Edit Cover</p>
           </div>
+          <input
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            hidden
+            type="file"
+            name=""
+            id=""
+          />
         </div>
       </div>
       {/* profile image and intro */}

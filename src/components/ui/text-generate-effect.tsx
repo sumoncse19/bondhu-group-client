@@ -59,8 +59,9 @@ export const TextGenerateEffect = ({
         <div
           style={{
             textShadow: "#FC0 1px 10px 10px",
+            fontStyle: "super-shiny",
           }}
-          className="  text-black text-4xl leading-snug tracking-widest"
+          className="super-shiny text-black text-4xl leading-snug tracking-widest"
         >
           {renderWords()}
         </div>

@@ -5,6 +5,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import baseUrl from "../../../../config";
 import { isAxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 const WithdrawRequest = ({
   setCurrentTab,
@@ -39,6 +40,8 @@ const WithdrawRequest = ({
   const id: string = Cookies.get("id") || "";
   const token: string = Cookies.get("token") || "";
 
+  const router = useRouter();
+
   const handleWithdrawAmount = async () => {
     console.log(withdrawAmount, code, selectedWallet);
 
@@ -56,7 +59,7 @@ const WithdrawRequest = ({
       swift_code: swiftCode || "",
       withdraw_wallet: selectedWallet,
       withdraw_amount: parseInt(withdrawAmount),
-      security_code: parseInt(code),
+      security_code: code,
       withdraw_status: "pending",
       is_withdrawn: false,
     };
@@ -74,6 +77,9 @@ const WithdrawRequest = ({
       const data = await response.json();
       if (data?.success) {
         toast.success("Withdraw Submitted Successfully");
+        router.push("/dashboard/withdraw/withdraw-report");
+      } else {
+        toast.error(data.errors[0]);
       }
     } catch (error) {
       if (isAxiosError(error)) {
@@ -95,14 +101,14 @@ const WithdrawRequest = ({
           <select
             id="select_wallet"
             onChange={(e) => setSelectedWallet(e.target.value)}
-            className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
+            className="w-52 px-3 py-1 bg-white outline-none border-2 border-slate-600 rounded-md"
           >
             <option value="">Select--</option>
             <option value="income_wallet">Income Wallet</option>
-            <option value="share_return">Project Share Wallet</option>
-            <option value="fixed-deposit">Fixed Deposite Wallet</option>
-            <option value="share_holder">Share Holder Wallet</option>
-            <option value="directorship">Directorship</option>
+            <option value="project_share_wallet">Project Share Wallet</option>
+            <option value="fixed-deposit_wallet">Fixed Deposite Wallet</option>
+            <option value="share_holder_wallet">Share Holder Wallet</option>
+            <option value="directorship_wallet">Directorship</option>
           </select>
         </div>
 
@@ -112,7 +118,7 @@ const WithdrawRequest = ({
             onChange={(e) => setWithdrawAmount(e.target.value)}
             type="number"
             placeholder=""
-            className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
+            className="w-52 px-3 py-1 bg-white outline-none border-2 border-slate-600 rounded-md"
           />
         </div>
         <div className="flex items-center justify-between">
@@ -121,7 +127,7 @@ const WithdrawRequest = ({
             onChange={(e) => setCode(e.target.value)}
             type="number"
             placeholder=""
-            className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
+            className="w-52 px-3 py-1 bg-white outline-none border-2 border-slate-600 rounded-md"
           />
         </div>
 

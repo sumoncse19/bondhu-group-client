@@ -30,6 +30,9 @@ export const MenuItem = ({
     <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={{ duration: 0.3 }}
+        style={{
+          fontFamily: ` "Playwrite GB S", cursive`,
+        }}
         className="cursor-pointer text-black hover:opacity-[0.9]"
       >
         {item}

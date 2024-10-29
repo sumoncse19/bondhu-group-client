@@ -43,7 +43,7 @@ const Setting = ({
             onChange={(e) => setAccountNo(e.target.value)}
             type="text"
             placeholder=""
-            className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
+            className="w-52 px-3 py-1 bg-white outline-none border-2 border-slate-600 rounded-md"
           />
         </div>
         {selectedGateway === "bank" && (

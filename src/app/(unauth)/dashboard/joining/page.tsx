@@ -50,6 +50,7 @@ const page = () => {
   const [imageUrl2, setImageUrl2] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
+  const [idNo, setIdNo] = useState<string>("");
   const [fatherOrHusbandName, setFatherOrHusbandName] = useState<string>("");
   const [motherName, setMotherName] = useState<string>("");
   const [role, setRole] = useState<string>("");
@@ -175,7 +176,7 @@ const page = () => {
       return;
     }
     setIsLoading(true);
-    const userData: UserData = {
+    const userData = {
       name,
       user_name: userName,
       father_or_husband_name: fatherOrHusbandName,
@@ -322,7 +323,7 @@ const page = () => {
             {/* name */}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="name"
               >
                 Name <p className="inline text-red-500 text-lg font-bold">*</p>
@@ -330,7 +331,7 @@ const page = () => {
               <input
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="name"
               />
@@ -338,7 +339,7 @@ const page = () => {
             {/* username */}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="username"
               >
                 Username{" "}
@@ -347,9 +348,25 @@ const page = () => {
               <input
                 onChange={(e) => setUserName(e.target.value)}
                 value={userName}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="username"
+              />
+            </div>
+            {/* serial id */}
+            <div className="relative w-full">
+              <label
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+                htmlFor="id"
+              >
+                ID No <p className="inline text-red-500 text-lg font-bold">*</p>
+              </label>
+              <input
+                onChange={(e) => setIdNo(e.target.value)}
+                value={idNo}
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                type="text"
+                id="id"
               />
             </div>
           </div>
@@ -357,7 +374,7 @@ const page = () => {
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 text-sm bg-[#EAE9E8] px-2"
+                className="absolute -top-3 left-3 text-sm bg-[#F3F4F6] px-2"
                 htmlFor="father or husband name"
               >
                 Father/Husband Name
@@ -365,14 +382,14 @@ const page = () => {
               <input
                 onChange={(e) => setFatherOrHusbandName(e.target.value)}
                 value={fatherOrHusbandName}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="father or husband name"
               />
             </div>{" "}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="mother name"
               >
                 Mother Name
@@ -380,7 +397,7 @@ const page = () => {
               <input
                 onChange={(e) => setMotherName(e.target.value)}
                 value={motherName}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="mother name"
               />
@@ -390,7 +407,7 @@ const page = () => {
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="nid"
               >
                 NID No.
@@ -399,14 +416,14 @@ const page = () => {
               <input
                 onChange={(e) => setNidNo(e.target.value)}
                 value={nidNo}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="number"
                 id="nid"
               />
             </div>{" "}
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="dob"
               >
                 DOB
@@ -415,14 +432,14 @@ const page = () => {
                 onChange={(e) => setDob(e.target.value)}
                 value={dob}
                 placeholder="ex: 12.09.1999"
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="dob"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="profession"
               >
                 Profession
@@ -430,7 +447,7 @@ const page = () => {
               <input
                 onChange={(e) => setProfession(e.target.value)}
                 value={profession}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="profession"
               />
@@ -441,7 +458,7 @@ const page = () => {
               </label>
               <select
                 onChange={(e) => setNationality(e.target.value)}
-                className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full cursor-pointer bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 name=""
                 id="nationality"
               >
@@ -454,7 +471,7 @@ const page = () => {
           <div className="flex items-center gap-10">
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="email"
               >
                 Email <p className="inline text-red-500 text-lg font-bold">*</p>
@@ -462,14 +479,14 @@ const page = () => {
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="email"
                 id="email"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="password"
               >
                 Password
@@ -478,14 +495,14 @@ const page = () => {
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="password"
                 id="password"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="confirm-password"
               >
                 Confirm Password
@@ -494,14 +511,14 @@ const page = () => {
               <input
                 onChange={(e) => setConFrimPassword(e.target.value)}
                 value={confirmPassword}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="password"
                 id="confirm-password"
               />
             </div>
             <div className="relative w-full">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="mobile_no"
               >
                 Mobile No
@@ -510,7 +527,7 @@ const page = () => {
               <input
                 onChange={(e) => setMobileNo(e.target.value)}
                 value={mobileNo}
-                className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="number"
                 id="mobile_no"
               />
@@ -519,7 +536,7 @@ const page = () => {
           {/* Present Address */}
           <div className="relative">
             <label
-              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+              className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
               htmlFor="present-address"
             >
               Present Address
@@ -529,13 +546,13 @@ const page = () => {
               value={presentAddress}
               id="present-address"
               rows={3}
-              className="w-full bg-[#EAE9E8] px-12 py-1.5 text-black rounded-md border-2 border-black outline-none group resize-none"
+              className="w-full bg-[#F3F4F6] px-12 py-1.5 text-black rounded-md border-2 border-black outline-none group resize-none"
             />
           </div>
           {/* permanent Address */}
           <div className="relative">
             <label
-              className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+              className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
               htmlFor="permennt-address"
             >
               Permanent Address
@@ -545,7 +562,7 @@ const page = () => {
               value={permanentAddress}
               id="permennt-address"
               rows={3}
-              className="w-full bg-[#EAE9E8] px-12 py-2 text-black rounded-md border-2 border-black outline-none group resize-none"
+              className="w-full bg-[#F3F4F6] px-12 py-2 text-black rounded-md border-2 border-black outline-none group resize-none"
             />
           </div>
           {/* Profession,refference id  and placement id nationality */}
@@ -560,7 +577,7 @@ const page = () => {
                   setReferenceId(e.target.value);
                   fetchChildUsersLevel2(e.target.value);
                 }}
-                className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full cursor-pointer bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 name=""
                 id="reference_id"
               >
@@ -591,7 +608,7 @@ const page = () => {
               <select
                 onChange={(e) => setTeams(e.target.value)}
                 value={team}
-                className="w-full cursor-pointer bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className="w-full cursor-pointer bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 name=""
                 id="team_side"
               >
@@ -612,7 +629,7 @@ const page = () => {
               <select
                 onChange={(e) => setRole(e.target.value)}
                 value={role}
-                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="bg-[#F3F4F6] border border-black px-8 py-1 rounded-md cursor-pointer"
                 name=""
                 id="role"
               >
@@ -628,7 +645,7 @@ const page = () => {
               <select
                 onChange={(e) => setReligion(e.target.value)}
                 value={religion}
-                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="bg-[#F3F4F6] border border-black px-8 py-1 rounded-md cursor-pointer"
                 name=""
                 id="religion"
               >
@@ -646,7 +663,7 @@ const page = () => {
               <select
                 onChange={(e) => setMaritualStatus(e.target.value)}
                 value={maritualStatus}
-                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="bg-[#F3F4F6] border border-black px-8 py-1 rounded-md cursor-pointer"
                 name=""
                 id="maritual_status"
               >
@@ -663,7 +680,7 @@ const page = () => {
               <select
                 onChange={(e) => setBloodGroup(e.target.value)}
                 value={bloodGroup}
-                className="bg-[#EAE9E8] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="bg-[#F3F4F6] border border-black px-8 py-1 rounded-md cursor-pointer"
                 name=""
                 id="blood_gp"
               >
@@ -710,7 +727,7 @@ const page = () => {
             <div className="flex items-center gap-10">
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                  className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                   htmlFor="nominee's_name"
                 >
                   Name
@@ -719,14 +736,14 @@ const page = () => {
                 <input
                   onChange={(e) => setNomineeName(e.target.value)}
                   value={nomineeName}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                  className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                   type="text"
                   id="nominee's_name"
                 />
               </div>
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                  className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                   htmlFor="nominee's_mobile"
                 >
                   Mobile No.
@@ -734,14 +751,14 @@ const page = () => {
                 <input
                   onChange={(e) => setNomineePhoneNo(e.target.value)}
                   value={nomineePhoneNo}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                  className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                   type="number"
                   id="nominee's_mobile"
                 />
               </div>
               <div className="relative w-full">
                 <label
-                  className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                  className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                   htmlFor="relation_with_nominee"
                 >
                   Relation
@@ -749,7 +766,7 @@ const page = () => {
                 <input
                   onChange={(e) => setNomineeRelation(e.target.value)}
                   value={nomineeRelation}
-                  className="w-full bg-[#EAE9E8] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                  className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                   type="text"
                   id="relation_with_nominee"
                 />
@@ -758,7 +775,7 @@ const page = () => {
             {/* nominee's address */}
             <div className="relative">
               <label
-                className="absolute -top-3 left-3 bg-[#EAE9E8] px-2 text-sm"
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
                 htmlFor="nominee's-address"
               >
                 Address
@@ -768,7 +785,7 @@ const page = () => {
                 value={nomineeAddress}
                 id="nominee's-address"
                 rows={3}
-                className="w-full bg-[#EAE9E8] px-12 py-1.5 text-black rounded-md border-2 border-black outline-none group resize-none"
+                className="w-full bg-[#F3F4F6] px-12 py-1.5 text-black rounded-md border-2 border-black outline-none group resize-none"
               />
             </div>
           </div>

@@ -76,7 +76,7 @@ const Dashboard = () => {
                       <p>
                         &#x9F3;
                         {user?.wallet?.income_wallet
-                          ? user?.wallet?.income_wallet
+                          ? Math.ceil(user?.wallet?.income_wallet)
                           : 0}
                       </p>
                       <p>Income Wallet</p>
@@ -86,7 +86,7 @@ const Dashboard = () => {
                       <p>
                         &#x9F3;{" "}
                         {user?.wallet?.purchase_wallet
-                          ? user?.wallet?.purchase_wallet
+                          ? Math.ceil(user?.wallet?.purchase_wallet)
                           : 0}
                       </p>
                       <p>Purchase Wallet</p>
