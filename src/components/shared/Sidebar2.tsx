@@ -332,7 +332,7 @@ const Sidebar2 = () => {
           <div className="flex flex-col gap-1.5">
             <h4 className="text-[10px] font-bold text-[#929292]">MENU</h4>
             {menuItems.map((menuItem) => (
-              <div key={menuItem.title} className="flex flex-col">
+              <div key={menuItem.title} className="flex flex-col ">
                 <Link
                   href={menuItem.link}
                   className={`flex w-full cursor-pointer items-center justify-between rounded-md ${
@@ -342,7 +342,7 @@ const Sidebar2 = () => {
                 >
                   <div className="flex gap-1.5">
                     {menuItem.icon}
-                    <p className="text-xs font-bold leading-[18px] text-[#161616]">
+                    <p className="text-sm font-bold leading-[18px] text-[#161616]">
                       {menuItem.title}
                     </p>
                   </div>

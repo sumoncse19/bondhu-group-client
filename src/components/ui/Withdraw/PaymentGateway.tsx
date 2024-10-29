@@ -15,6 +15,19 @@ const PaymentGateway = ({
       <div className="mt-8 w-[50%] mx-auto ">
         <div className="w-full flex flex-col gap-4">
           <div className="w-full flex items-center justify-between gap-4 ">
+            {/* cash */}
+            <div
+              onClick={() => setSelectedGateway("cash")}
+              className={`flex justify-between items-center gap-5 border-2  p-2 rounded-2xl cursor-pointer ${selectedGateway === "cash" ? "border-teal-600 bg-teal-100" : "border-slate-400"}`}
+            >
+              <div className="bg-white border border-slate-400 rounded-2xl p-2 overflow-hidden">
+                <img
+                  className="w-52 h-24 object-cover rounded-2xl"
+                  src="/images/cashImage.jpg"
+                  alt="cash Logo"
+                />
+              </div>
+            </div>
             {/* bkash */}
             <div
               onClick={() => setSelectedGateway("bKash")}
@@ -22,7 +35,7 @@ const PaymentGateway = ({
             >
               <div className="bg-white border border-slate-400 rounded-2xl p-2 overflow-hidden">
                 <img
-                  className="w-40 h-16 object-cover"
+                  className="w-52 h-24 object-cover"
                   src="/images/logos/bkashLogo.png"
                   alt="bKash Logo"
                 />
@@ -35,7 +48,7 @@ const PaymentGateway = ({
             >
               <div className="bg-white border border-slate-400 rounded-2xl p-2 overflow-hidden">
                 <img
-                  className="w-40 h-16 object-fill"
+                  className="w-52 h-24 object-fill"
                   src="/images/logos/rocketLogo.png"
                   alt="Rocket Logo"
                 />
@@ -50,7 +63,7 @@ const PaymentGateway = ({
             >
               <div className="bg-white border border-slate-400 rounded-2xl p-2 overflow-hidden">
                 <img
-                  className="w-40 h-16 object-fill"
+                  className="w-64 h-32 object-cover"
                   src="/images/logos/nagadLogo.png"
                   alt="Nagad Logo"
                 />
@@ -63,7 +76,7 @@ const PaymentGateway = ({
             >
               <div className="bg-white border border-slate-400 rounded-2xl p-2 overflow-hidden">
                 <img
-                  className="w-40 h-16 object-fill"
+                  className="w-64 h-32 object-cover"
                   src="/images/logos/bankLogo.webp"
                   alt="Bank Logo"
                 />
@@ -77,7 +90,11 @@ const PaymentGateway = ({
           <button
             onClick={() => {
               if (selectedGateway !== "") {
-                setCurrentTab("setting");
+                if (selectedGateway === "cash") {
+                  setCurrentTab("withdraw-request");
+                } else {
+                  setCurrentTab("setting");
+                }
               } else {
                 toast.error("Select a gateway first");
               }

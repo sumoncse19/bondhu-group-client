@@ -17,7 +17,7 @@ import baseUrl from "../../../../config";
 
 const Dashboard = () => {
   const [user, setUser] = useState<any>({});
-  const { setSingleUser } = useStore();
+  const { singleUser, setSingleUser } = useStore();
   const userCookie = Cookies.get("user");
   const token = Cookies.get("token");
 
