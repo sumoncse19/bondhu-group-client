@@ -44,6 +44,7 @@ body {
   /* color: var(--foreground); */
   /* background: var(--background); */
   font-family: "Fredoka", sans-serif;
+  background-color: white;
 }
 
 @layer utilities {
