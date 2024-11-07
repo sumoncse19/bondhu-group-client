@@ -299,7 +299,7 @@ const page = () => {
             <td className="py-3 flex justify-center items-center ">
               {" "}
               <div className=" flex flex-col items-center relative">
-                <div className="group ">
+                <div className="group flex flex-col items-center">
                   <img
                     src={"/images/profilePicIcon.png"}
                     className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
@@ -376,7 +376,7 @@ const page = () => {
 
                   {/* Left side info */}
                   {fullTeams && (
-                    <div className="absolute top-1/2   -translate-y-1/2 -left-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                    <div className="absolute top-1/2   -translate-y-1/2 -left-[50%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
                       {/* <p>
                         Points:{" "}
                         {fullTeams ? fullTeams?.accountable?.team_a_point : ""}
@@ -389,7 +389,7 @@ const page = () => {
 
                   {/* Right side info */}
                   {fullTeams && (
-                    <div className="absolute top-1/2  -translate-y-1/2 -right-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                    <div className="absolute top-1/2  -translate-y-1/2 -right-[50%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
                       {/* <p>
                         Points:{" "}
                         {fullTeams ? fullTeams?.accountable?.team_b_point : ""}
@@ -422,7 +422,7 @@ const page = () => {
               {/* secondLevelLeftPartner */}
               <td className=" flex justify-center items-center w-full  pl-32">
                 <div className="flex flex-col items-center relative">
-                  <div className="group">
+                  <div className="group  flex flex-col items-center">
                     <img
                       onClick={() => {
                         if (secondLevelLeftPartner) {
@@ -567,7 +567,7 @@ const page = () => {
               {/* secondLevelRightPartner */}
               <td className=" flex justify-center items-center w-full  pr-32">
                 <div className="flex flex-col items-center relative ">
-                  <div className="group">
+                  <div className="group  flex flex-col items-center">
                     <img
                       onClick={() => {
                         if (secondLevelRightPartner) {
@@ -730,7 +730,7 @@ const page = () => {
                 {/* thirdLeveLeftLeftPartner */}
                 <div className="flex justify-center w-full ">
                   <div className="flex flex-col items-center w-[150px] ml-16 relative">
-                    <div className="group">
+                    <div className="group  flex flex-col items-center">
                       <img
                         onClick={() => {
                           if (thirdLeveLeftLeftPartner) {
@@ -882,7 +882,7 @@ const page = () => {
                 {/* thirdLeveLeftRightPartner */}
                 <div className="flex justify-center w-full ">
                   <div className="flex flex-col items-center w-[150px] -mr-36 relative">
-                    <div className="group">
+                    <div className="group  flex flex-col items-center">
                       <img
                         onClick={() => {
                           if (thirdLeveLeftRightPartner) {
@@ -1036,7 +1036,7 @@ const page = () => {
                 {/* thirdLeveRightLeftPartner */}
                 <div className="flex justify-center w-full ">
                   <div className="flex flex-col items-center w-[150px] -ml-36 relative">
-                    <div className="group">
+                    <div className="group  flex flex-col items-center">
                       <img
                         onClick={() => {
                           if (thirdLeveRightLeftPartner) {
@@ -1188,7 +1188,7 @@ const page = () => {
                 {/* thirdLeveRightRightPartner */}
                 <div className="flex justify-center w-full ">
                   <div className="flex flex-col items-center w-[150px] mr-20 relative">
-                    <div className="group">
+                    <div className="group  flex flex-col items-center">
                       <img
                         onClick={() => {
                           if (thirdLeveRightRightPartner) {

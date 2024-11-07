@@ -19,6 +19,8 @@ import { TextGenerateEffectDemo } from "@/components/TextEffect";
 import { motion } from "framer-motion";
 import { BackgroundBeamsWithCollision } from "@/components/ui/BackGroundBeamsWIthColluitions";
 import { TypeAnimation } from "react-type-animation";
+import { FaMapPin } from "react-icons/fa";
+
 import { MissionVisionService } from "@/components/MissionVissionService";
 
 const HomePage = () => {
@@ -29,6 +31,7 @@ const HomePage = () => {
         <div className="w-full">
           <div className="w-[80%] mx-auto relative">
             <TextGenerateEffectDemo />
+            {/* business icons */}
             <img
               className="w-12 h-12 absolute left-0 -top-[150px]"
               src="/images/icons/business5.png"
@@ -62,11 +65,31 @@ const HomePage = () => {
           animate={{ x: 0, opacity: 1 }} // Animate to final position (center)
           transition={{ duration: 1.2, ease: "easeInOut" }} // Control animation duration and easing
         >
-          <img
-            className="w-[600px] h-[500px] rounded-lg object-cover"
-            src="/images/heroBanner1.jpeg"
-            alt=""
-          />
+          <div className="relative">
+            <img
+              className="w-[600px]  h-[500px]  rounded-lg object-cover"
+              src="/images/heroBanner1.jpeg"
+              alt=""
+            />
+            <div className="bg-rose-200 w-[200px] pb-10 absolute -top-16 -right-16  -rotate-[30deg]">
+              <p
+                style={{
+                  fontFamily: ` "Caveat", cursive`,
+                }}
+                className="text-lg p-4 leading-5 text-rose-900"
+              >
+                Success comes to those who dare to dream, work relentlessly, and
+                innovate without limits—because in business, staying ahead means
+                believing in your vision and turning challenges into
+                opportunities
+              </p>
+              <FaMapPin className="text-3xl absolute left-[50%] -translate-x-1/2 -top-4" />
+              <p className="w-2 h-2 rounded-full bg-white absolute bottom-2 left-[50%] -translate-x-1/2 mr-10"></p>
+              <p className="w-2 h-2 rounded-full bg-white absolute bottom-2 left-[50%] -translate-x-1/2"></p>
+              <p className="w-2 h-2 rounded-full bg-white absolute bottom-2 left-[50%] -translate-x-1/2 ml-5"></p>
+              <p className="w-2 h-2 rounded-full bg-white absolute bottom-2 left-[50%] -translate-x-1/2 ml-10"></p>
+            </div>
+          </div>
         </motion.div>
       </div>
 
