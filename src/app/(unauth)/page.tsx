@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { io, Socket } from "socket.io-client";
 import baseUrl from "../../../config";
-import SocketTest from "@/components/SocketTest";
+// import SocketTest from "@/components/SocketTest";
 import { ImAirplane } from "react-icons/im";
 import { TextGenerateEffectDemo } from "@/components/TextEffect";
 import { motion } from "framer-motion";
@@ -76,7 +76,7 @@ const HomePage = () => {
                 style={{
                   fontFamily: ` "Caveat", cursive`,
                 }}
-                className="text-lg p-4 leading-5 text-rose-900"
+                className="text-xl p-4 leading-5 text-rose-900"
               >
                 Success comes to those who dare to dream, work relentlessly, and
                 innovate without limits—because in business, staying ahead means

@@ -47,13 +47,13 @@ function Navbar({ className }: { className?: string }) {
             />
             <ProductItem
               title="Bondhu Super Shop"
-              href="/projects/bondhu-builders"
+              href="/projects/bondhu-super-shop"
               src="/images/bondhuSuperShop.jpeg"
               description="Production ready Tailwind css components for your next project"
             />
             <ProductItem
               title="Bondhu Agro & Agriculture"
-              href="/projects/bondhu-builders"
+              href="/projects/bondhu-agro-agriculture"
               src="/images/bondhuAgro.jpeg"
               description="Never write from scratch again. Go from idea to blog in minutes."
             />
