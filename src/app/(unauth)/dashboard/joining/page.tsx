@@ -215,20 +215,33 @@ const page = () => {
         },
       });
 
-      if (!response.ok) {
-        toast.error("Registration failed");
-      }
+      // if (!response.ok) {
+      //   toast.error("Registration failed");
+      // }
 
       const data = await response.json();
+
+      console.log(data);
 
       if (data.success) {
         router.push("/dashboard/team-view/refferal-team");
         setTimeout(() => {
           toast.success("Successfully added new User");
         }, 3000);
+      } else {
+        console.log(data?.statusCode);
+        if (data?.statusCode == 400) {
+          console.log("1");
+
+          toast.error(data?.errors[0].message);
+        } else {
+          console.log("2");
+
+          toast.error(data?.errors[0]);
+        }
       }
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       setIsLoading(false);
     }

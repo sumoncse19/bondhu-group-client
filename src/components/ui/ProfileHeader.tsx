@@ -34,6 +34,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   const token: string = Cookies.get("token") || "";
 
   const uploadCoverImage = async (image: string) => {
+    console.log(image);
+
     const response = await fetch(`${baseUrl}/user/auth/${id}`, {
       method: "PUT",
       body: JSON.stringify({ cover_photo: image }),

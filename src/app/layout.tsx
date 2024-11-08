@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import SocketTest from "@/components/SocketTest";
-import { useSocketStore } from "@/Zustand/Store/socketStore";
+// import SocketTest from "@/components/SocketTest";
+// import { useSocketStore } from "@/Zustand/Store/socketStore";
 import { useEffect } from "react";
 import { ThemeProvider } from "./provider";
 
@@ -29,18 +29,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const connectSocket = useSocketStore((state) => state.connectSocket);
-  const disconnectSocket = useSocketStore((state) => state.disconnectSocket);
+  // const connectSocket = useSocketStore((state) => state.connectSocket);
+  // const disconnectSocket = useSocketStore((state) => state.disconnectSocket);
 
-  useEffect(() => {
-    // Connect the socket on mount
-    connectSocket();
+  // useEffect(() => {
+  //   // Connect the socket on mount
+  //   connectSocket();
 
-    // Disconnect the socket on unmount
-    return () => {
-      disconnectSocket();
-    };
-  }, [connectSocket, disconnectSocket]);
+  //   // Disconnect the socket on unmount
+  //   return () => {
+  //     disconnectSocket();
+  //   };
+  // }, [connectSocket, disconnectSocket]);
   return (
     <html lang="en">
       <body
@@ -54,7 +54,7 @@ export default function RootLayout({
         >
           <div>{children}</div>
           <Toaster position="top-right" />
-          <SocketTest />
+          {/* <SocketTest /> */}
         </ThemeProvider>
       </body>
     </html>
