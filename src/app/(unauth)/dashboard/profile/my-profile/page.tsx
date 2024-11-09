@@ -1,6 +1,6 @@
 "use client";
-import MatchingBonusChart from "@/components/Chats/MatchingBonusChart";
-import RefferelBonusChart from "@/components/Chats/RefferelBonusChart";
+import MatchingBonusChart from "@/components/Charts/MatchingBonusChart";
+import RefferelBonusChart from "@/components/Charts/RefferelBonusChart";
 import ProfileHeader from "@/components/ui/ProfileHeader";
 import { FaHandPointRight } from "react-icons/fa";
 
@@ -9,11 +9,13 @@ import { UserData } from "@/type";
 import Cookies from "js-cookie";
 import baseUrl from "../../../../../../config";
 import Link from "next/link";
+import ClubBonusChart from "@/components/Charts/ClubBonusChart";
 
 const MyProfile = () => {
   const [user, setUser] = useState<UserData>();
   const id = Cookies.get("id");
   const token = Cookies.get("token");
+
   const fetchSingleUser = async () => {
     const response = await fetch(`${baseUrl}/user/get-user/${id}`, {
       method: "GET",
@@ -126,6 +128,13 @@ const MyProfile = () => {
       value: user?.relation_with_nominee,
     },
   ];
+
+  const sampleData = [
+    { name: "Page A", uv: 100, pv: 100 },
+    { name: "Page B", uv: 200, pv: 200 },
+    // Add more data as needed
+  ];
+
   return (
     <div className="h-[100vh] bg-gray-100">
       <div className="">
@@ -233,6 +242,38 @@ const MyProfile = () => {
                 </div>
                 <div className="w-full h-28 mt-6">
                   <MatchingBonusChart />
+                </div>
+              </div>
+
+              {/* Club Bonus */}
+              <div
+                // style={{
+                //   boxShadow:
+                //     "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                // }}
+                className="w-full h-60 bg-white p-5 rounded-md text-slate-700"
+              >
+                <div className="flex justify-between">
+                  <div>
+                    <p className="font-bold tracking-widest">
+                      &#x9F3;{" "}
+                      {user?.wallet?.matching_bonus
+                        ? Math.ceil(user?.wallet?.matching_bonus)
+                        : 0.0}
+                    </p>
+                    <p className="text-rose-700 font-bold">Club Bonus</p>
+                  </div>
+                  <div className="px-2 h-8 bg-green-700 hover:scale-105 transition-all duration-300 ease-in shadow-lg rounded-sm cursor-pointer flex justify-center items-center">
+                    <Link
+                      href="/dashboard/wallet/income-wallet"
+                      className="text-white text-sm font-bold"
+                    >
+                      View
+                    </Link>
+                  </div>
+                </div>
+                <div className="w-full h-28 mt-6">
+                  <ClubBonusChart />
                 </div>
               </div>
             </div>

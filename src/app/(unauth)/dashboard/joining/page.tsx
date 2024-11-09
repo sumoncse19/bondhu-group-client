@@ -10,6 +10,7 @@ import { ThreeCircles } from "react-loader-spinner";
 import { isAxiosError } from "axios";
 import { CustomSelect } from "@/components/CustomSelect";
 import { CustomSelect2 } from "@/components/CustomSelect2";
+import { FaExclamation, FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Define your UserData interface
 interface UserData {
@@ -55,11 +56,13 @@ const page = () => {
   const [motherName, setMotherName] = useState<string>("");
   const [role, setRole] = useState<string>("");
   const [nidNo, setNidNo] = useState<string>("");
+  const [isNidLessThan11, setIsNidLessThan11] = useState(false);
   const [dob, setDob] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConFrimPassword] = useState<string>("");
   const [mobileNo, setMobileNo] = useState<string>("");
+  const [isMobileNoLessThan11, setIsMobileNoLessThan11] = useState(false);
   const [presentAddress, setPresentAddress] = useState<string>("");
   const [permanentAddress, setPermanentAddress] = useState<string>("");
   const [profession, setProfession] = useState<string>("");
@@ -89,7 +92,9 @@ const page = () => {
       value: "b",
     },
   ]);
-
+  const [showedPassword, setShowedPassword] = useState<boolean>(false);
+  const [showedConfirmPassword, setShowedConfirmPassword] =
+    useState<boolean>(false);
   const router = useRouter();
 
   const userCookie = Cookies.get("user");
@@ -129,6 +134,7 @@ const page = () => {
       console.error("Error uploading image:", error);
     }
   };
+
   const handleFileUpload2 = async (file: File) => {
     const apiKey = "fb3740bc653a7910499d04a143f890fc"; // Replace with your imgbb API key
 
@@ -162,6 +168,7 @@ const page = () => {
       handleFileUpload(file); // Upload the selected file
     }
   };
+
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -176,9 +183,19 @@ const page = () => {
       return;
     }
     setIsLoading(true);
+
+    // Get the current date
+    const currentDate = new Date();
+
+    // Format the date as dd-mm-yyyy
+    const formattedDate = `${String(currentDate.getDate()).padStart(2, "0")}-${String(
+      currentDate.getMonth() + 1
+    ).padStart(2, "0")}-${currentDate.getFullYear()}`;
+
     const userData = {
       name,
       user_name: userName,
+      serial_number: idNo,
       father_or_husband_name: fatherOrHusbandName,
       mother_name: motherName,
       picture: imageUrl,
@@ -203,7 +220,8 @@ const page = () => {
       nominee_address: nomineeAddress,
       nominee_mobile_no: nomineePhoneNo,
       nominee_picture: imageUrl2,
-      registration_date: "30.09.2024",
+      registration_date: formattedDate,
+      agent_id: id,
     };
 
     try {
@@ -215,28 +233,15 @@ const page = () => {
         },
       });
 
-      // if (!response.ok) {
-      //   toast.error("Registration failed");
-      // }
-
       const data = await response.json();
-
-      console.log(data);
 
       if (data.success) {
         router.push("/dashboard/team-view/refferal-team");
-        setTimeout(() => {
-          toast.success("Successfully added new User");
-        }, 3000);
+        toast.success("Successfully added new User");
       } else {
-        console.log(data?.statusCode);
         if (data?.statusCode == 400) {
-          console.log("1");
-
           toast.error(data?.errors[0].message);
         } else {
-          console.log("2");
-
           toast.error(data?.errors[0]);
         }
       }
@@ -263,6 +268,7 @@ const page = () => {
       setAllUser(data?.data);
     }
   };
+
   // fetch child user
   const fetchChildUsersLevel2 = async (id: string) => {
     const response = await fetch(`${baseUrl}/team/get-child-users/${id}`, {
@@ -307,7 +313,7 @@ const page = () => {
             <div className="flex flex-col items-center gap-y-2 cursor-pointer">
               <img
                 className="w-28 h-28 rounded-full object-cover cursor-pointer border-2 border-black"
-                src={imageUrl || "/images/profilePicIcon.png"} // Use uploaded image if available
+                src={imageUrl || "/images/profilePicIcon3.png"} // Use uploaded image if available
                 alt="Profile"
                 onClick={handleImageClick}
               />
@@ -331,7 +337,7 @@ const page = () => {
               />
             </div>
           </div>
-          {/* name and userName */}
+          {/* name and userName, serial no */}
           <div className="flex items-center gap-10">
             {/* name */}
             <div className="relative w-full">
@@ -425,14 +431,27 @@ const page = () => {
               >
                 NID No.
                 <p className="inline text-red-500 text-lg font-bold">*</p>
+                <p className="inline text-xs px-1">
+                  (Nid No should be atleast 11 digit)
+                </p>
               </label>
               <input
-                onChange={(e) => setNidNo(e.target.value)}
+                onChange={(e) => {
+                  setNidNo(e.target.value);
+                }}
+                onFocus={() => {
+                  if (nidNo.length < 11) {
+                    setIsNidLessThan11(true);
+                  }
+                }}
                 value={nidNo}
-                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                className={`w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group`}
                 type="number"
                 id="nid"
               />
+              {isNidLessThan11 && nidNo.length < 11 && (
+                <FaExclamation className="absolute top-[50%] -translate-y-1/2 right-3 text-red-500 font-bold animate-pulse " />
+              )}
             </div>{" "}
             <div className="relative w-full">
               <label
@@ -440,6 +459,7 @@ const page = () => {
                 htmlFor="dob"
               >
                 DOB
+                <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <input
                 onChange={(e) => setDob(e.target.value)}
@@ -476,7 +496,16 @@ const page = () => {
                 id="nationality"
               >
                 <option value="">Select</option>
+                <option value="Alberia">Alberia</option>
                 <option value="Bangladesh">Bangladesh</option>
+                <option value="Bhutan">Bhutan</option>
+                <option value="Canada">Canada</option>
+                <option value="Finland">Finland</option>
+                <option value="India">India</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Srilanka">Srilanka</option>
               </select>
             </div>
           </div>
@@ -504,14 +533,25 @@ const page = () => {
               >
                 Password
                 <p className="inline text-red-500 text-lg font-bold">*</p>
-              </label>
+              </label>{" "}
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                type="password"
+                type={showedPassword ? "text" : "password"}
                 id="password"
               />
+              {showedPassword ? (
+                <FaEye
+                  onClick={() => setShowedPassword(false)}
+                  className="absolute top-[50%] -translate-y-1/2 right-3 text-lg cursor-pointer"
+                />
+              ) : (
+                <FaEyeSlash
+                  onClick={() => setShowedPassword(true)}
+                  className="absolute top-[50%] -translate-y-1/2 right-3 text-lg cursor-pointer"
+                />
+              )}
             </div>
             <div className="relative w-full">
               <label
@@ -525,9 +565,20 @@ const page = () => {
                 onChange={(e) => setConFrimPassword(e.target.value)}
                 value={confirmPassword}
                 className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                type="password"
+                type={showedConfirmPassword ? "text" : "password"}
                 id="confirm-password"
               />
+              {showedConfirmPassword ? (
+                <FaEye
+                  onClick={() => setShowedConfirmPassword(false)}
+                  className="absolute top-[50%] -translate-y-1/2 right-3 text-lg cursor-pointer"
+                />
+              ) : (
+                <FaEyeSlash
+                  onClick={() => setShowedConfirmPassword(true)}
+                  className="absolute top-[50%] -translate-y-1/2 right-3 text-lg cursor-pointer"
+                />
+              )}
             </div>
             <div className="relative w-full">
               <label
@@ -536,14 +587,25 @@ const page = () => {
               >
                 Mobile No
                 <p className="inline text-red-500 text-lg font-bold">*</p>
+                <p className="inline text-xs px-1">(Must be 11 digit)</p>
               </label>
               <input
-                onChange={(e) => setMobileNo(e.target.value)}
+                onChange={(e) => {
+                  setMobileNo(e.target.value);
+                }}
+                onFocus={() => {
+                  if (mobileNo.length < 11) {
+                    setIsMobileNoLessThan11(true);
+                  }
+                }}
                 value={mobileNo}
                 className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="number"
                 id="mobile_no"
               />
+              {isMobileNoLessThan11 && mobileNo.length != 11 && (
+                <FaExclamation className="absolute top-[50%] -translate-y-1/2 right-3 text-red-500 font-bold animate-pulse " />
+              )}
             </div>
           </div>
           {/* Present Address */}
@@ -602,11 +664,13 @@ const page = () => {
                 ))}
               </select>
             </div> */}
+            {/* reference id */}
             <CustomSelect2
               allUser={allUser}
               setReferenceId={setReferenceId}
               fetchChildUsersLevel2={fetchChildUsersLevel2}
             />
+            {/* placement id */}
             <CustomSelect
               childUsers={childUsers}
               setParentPlacementId={setParentPlacementId}
@@ -638,6 +702,7 @@ const page = () => {
             <div className="w-full flex items-center">
               <label className="px-2 text-sm" htmlFor="role">
                 Role
+                <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <select
                 onChange={(e) => setRole(e.target.value)}
@@ -719,7 +784,7 @@ const page = () => {
             <div className="flex flex-col items-center gap-y-2 cursor-pointer">
               <img
                 className="w-28 h-28 rounded-full"
-                src={imageUrl2 || "/images/profilePicIcon.png"} // Use uploaded image if available
+                src={imageUrl2 || "/images/profilePicIcon3.png"} // Use uploaded image if available
                 alt=""
                 onClick={handleImageClick2}
               />
@@ -760,6 +825,7 @@ const page = () => {
                   htmlFor="nominee's_mobile"
                 >
                   Mobile No.
+                  <p className="inline text-xs px-1">(Must be 11 digit)</p>
                 </label>
                 <input
                   onChange={(e) => setNomineePhoneNo(e.target.value)}
@@ -808,10 +874,11 @@ const page = () => {
       <div className="my-10 flex">
         <div
           onClick={handleRegistration}
-          // style={{
-          //   boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-          // }}
-          className="w-1/2 mx-auto bg-[#cec8c3] shadow-lg cursor-pointer rounded-xl flex justify-center hover:scale-95  transition-all duration-300 ease-in"
+          style={{
+            boxShadow:
+              "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+          }}
+          className="w-1/2 mx-auto bg-teal-400 text-white shadow-lg cursor-pointer rounded-xl flex justify-center hover:scale-105  transition-all duration-300 ease-in"
         >
           <button className="text-black font-bold px-12 py-3 flex justify-center items-center">
             {isLoading ? (

@@ -27,10 +27,17 @@ function Navbar({ className }: { className?: string }) {
       )}
     >
       <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="Home"></MenuItem>
+        <MenuItem
+          setActive={setActive}
+          active={active}
+          item="Home"
+          href="/"
+        ></MenuItem>
         <MenuItem setActive={setActive} active={active} item="Institutional">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="">Board Directors</HoveredLink>
+            <HoveredLink href="/institutional/board-directors">
+              Board Directors
+            </HoveredLink>
             <HoveredLink href="">Company Principles</HoveredLink>
             <HoveredLink href="/institutional/certificates">
               Our Certificates

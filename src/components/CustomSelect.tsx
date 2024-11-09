@@ -11,7 +11,9 @@ export const CustomSelect = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [user, setUser] = useState<{ name: string }>({ name: "" });
+  const [user, setUser] = useState<{ user_name: string }>({
+    user_name: "",
+  });
 
   const handleOptionSelect = (user: any) => {
     setParentPlacementId(user?._id);
@@ -48,10 +50,10 @@ export const CustomSelect = ({
       </label>
 
       <div
-        className="w-full cursor-pointer bg-[#EAE9E8] text-gray-7s00 px-5 py-3 rounded-md border-2 border-black"
+        className="w-full cursor-pointer bg-transparent text-gray-7s00 px-5 py-3 rounded-md border-2 border-black"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
-        {user?.name ? user?.name : <span>Select Placement ID</span>}
+        {user?.user_name ? user?.user_name : <span>Select Placement ID</span>}
       </div>
 
       {/* Dropdown */}
@@ -68,10 +70,10 @@ export const CustomSelect = ({
 
           {/* Filtered Options */}
           {childUsers
-            .filter((user: { name: string }) =>
-              user?.name.toLowerCase().includes(searchTerm.toLowerCase())
+            .filter((user: { user_name: string }) =>
+              user?.user_name.toLowerCase().includes(searchTerm.toLowerCase())
             )
-            .map((user: { name: string }, index) => (
+            .map((user: { user_name: string }, index) => (
               <div
                 key={index}
                 onClick={() => {
@@ -80,7 +82,7 @@ export const CustomSelect = ({
                 }}
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
               >
-                {user?.name}
+                {user?.user_name}
               </div>
             ))}
         </div>

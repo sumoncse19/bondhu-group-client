@@ -130,6 +130,8 @@ const page = () => {
       });
       const data = await response.json();
       if (data.success) {
+        console.log(data?.data, "tree");
+
         setFullTeams(data.data);
         setSecondLevelLeftPartner(data?.data?.left_side_partner);
         setSecondLevelRightPartner(data?.data?.right_side_partner);

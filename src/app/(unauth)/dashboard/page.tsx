@@ -1,19 +1,20 @@
 "use client";
-import RefferelBonusChart from "@/components/Chats/RefferelBonusChart";
-import ShareProfitChart from "@/components/Chats/ShareProfitChart";
+import RefferelBonusChart from "@/components/Charts/RefferelBonusChart";
+import ShareProfitChart from "@/components/Charts/ShareProfitChart";
 import { FaFacebook } from "react-icons/fa";
 import { IoLogoYoutube } from "react-icons/io";
 import { IoMail } from "react-icons/io5";
 import { RiWhatsappLine } from "react-icons/ri";
 import { FaTelegram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
-import MatchingBonusChart from "@/components/Chats/MatchingBonusChart";
+import MatchingBonusChart from "@/components/Charts/MatchingBonusChart";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import FixedDepositChart from "@/components/Chats/FixedDepositChart";
-import ShareHolderChart from "@/components/Chats/ShareHolderChart";
+import FixedDepositChart from "@/components/Charts/FixedDepositChart";
+import ShareHolderChart from "@/components/Charts/ShareHolderChart";
 import useStore from "../../../Zustand/Store/userStore";
 import baseUrl from "../../../../config";
+import ClubBonusChart from "@/components/Charts/ClubBonusChart";
 
 const Dashboard = () => {
   const [user, setUser] = useState<any>({});
@@ -238,8 +239,25 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+
+          {/* club bonus */}
+
+          <div className="w-[40%] h-60  p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+            <div className="flex justify-between">
+              <div>
+                <p className="font-bold">&#x9F3; 0.00</p>
+                <p className="text-rose-700 font-bold">Club Bonus</p>
+              </div>
+              <div className="px-2 h-8 bg-green-700 shadow-lg rounded-sm cursor-pointer flex justify-center items-center">
+                <p className="text-white text-sm font-bold">View</p>
+              </div>
+            </div>
+            <div className="w-full h-28 mt-6">
+              <ClubBonusChart />
+            </div>
+          </div>
           {/*  get in touch */}
-          <div className="w-[40%] h-60 p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
+          {/* <div className="w-[40%] h-60 p-5 rounded-md text-slate-700 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer">
             <div>
               <p className="text-rose-700 font-bold text-lg">Get in touch</p>
               <div className="mt-10 flex justify-center items-center">
@@ -289,7 +307,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
