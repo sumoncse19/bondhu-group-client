@@ -27,12 +27,22 @@ const HomePage = () => {
   return (
     <div className="w-full flex flex-col gap-y-28">
       {/* welcome text */}
-      <div className="pt-5  min-h-[90vh]  flex items-center px-10">
+      <div className="pt-5  min-h-[80vh]  flex items-center px-10">
         <div className="w-full">
           <div className="w-[80%] mx-auto relative">
+            <div className="text-xl xl:text-6xl 2xl:text-7xl tracking-wide  font-serif uppercase font-bold">
+              Turning <p className="text-red-500 inline">Ideas</p> <br />
+              Into Lasting
+              <p className="text-blue-600 ">Success.</p>
+            </div>
             <TextGenerateEffectDemo />
+            <div className="flex my-3">
+              <p className="bg-teal-500  px-16 py-3 rounded border-2 border-teal-100 text-center text-teal-100">
+                Get Started
+              </p>
+            </div>
             {/* business icons */}
-            <img
+            {/* <img
               className="w-12 h-12 absolute left-0 -top-[150px]"
               src="/images/icons/business5.png"
               alt=""
@@ -56,7 +66,7 @@ const HomePage = () => {
               className="w-12 h-12 absolute left-0 -bottom-[100px]"
               src="/images/icons/business4.png"
               alt=""
-            />
+            /> */}
           </div>
         </div>
         <motion.div
@@ -67,11 +77,11 @@ const HomePage = () => {
         >
           <div className="relative">
             <img
-              className="w-[600px]  h-[500px]  rounded-lg object-cover"
+              className="w-[600px]  h-[600px]  rounded-full object-cover"
               src="/images/heroBanner1.jpeg"
               alt=""
             />
-            <div className="bg-rose-200 w-[200px] pb-10 absolute -top-16 -right-16  -rotate-[30deg]">
+            {/* <div className="bg-rose-200 w-[200px] pb-10 absolute -top-16 -right-16  -rotate-[30deg]">
               <p
                 style={{
                   fontFamily: ` "Caveat", cursive`,
@@ -88,7 +98,7 @@ const HomePage = () => {
               <p className="w-2 h-2 rounded-full bg-white absolute bottom-2 left-[50%] -translate-x-1/2"></p>
               <p className="w-2 h-2 rounded-full bg-white absolute bottom-2 left-[50%] -translate-x-1/2 ml-5"></p>
               <p className="w-2 h-2 rounded-full bg-white absolute bottom-2 left-[50%] -translate-x-1/2 ml-10"></p>
-            </div>
+            </div> */}
           </div>
         </motion.div>
       </div>
@@ -101,7 +111,7 @@ const HomePage = () => {
           backgroundSize: "cover",
           // filter: "blur(1px)",
         }}
-        className="w-full h-[500px] py-6 bg-teal-100 bg-opacity-0 flex items-center justify-center"
+        className="w-full h-[500px] py-6 bg-teal-100 bg-opacity-0 flex items-center justify-center relative"
       >
         <div className="w-[80%] min-h-40 mx-auto flex justify-center items-center z-50 bg-black bg-opacity-70 p-3 rounded-md">
           <TypeAnimation
@@ -124,6 +134,49 @@ const HomePage = () => {
             }}
             repeat={Infinity}
           />
+        </div>
+
+        {/* client,service and projects */}
+
+        <div className=" w-[70%] mx-auto h-40 absolute -bottom-24">
+          <div className="flex items-center justify-between">
+            <div
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+              }}
+              className="w-[250px] h-[150px] rounded-md bg-red-200 text-red-700 flex flex-col justify-center items-center"
+            >
+              <p>Our Projects</p>
+              <p className="text-5xl font-bold">9</p>
+            </div>
+            <div
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+              }}
+              className="w-[250px] h-[150px] rounded-md bg-blue-200 text-blue-700 flex flex-col justify-center items-center"
+            >
+              <p>Our Clients</p>
+              <p className="text-5xl font-bold">110+</p>
+            </div>
+            <div
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+              }}
+              className="w-[250px] h-[150px] rounded-md bg-teal-200 text-teal-700 flex flex-col justify-center items-center"
+            >
+              <p>Our Service</p>
+              <p className="text-5xl font-bold">12+</p>
+            </div>
+            <div
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+              }}
+              className="w-[250px] h-[150px] rounded-md bg-purple-200 text-purple-700 flex flex-col justify-center items-center"
+            >
+              <p>Our Achievement</p>
+              <p className="text-5xl font-bold">20+</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -155,13 +208,14 @@ const HomePage = () => {
           {/* right div */}
           <div className="w-full flex justify-end right-div">
             <img
-              style={{
-                // boxShadow:
-                //   "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
-
-                boxShadow:
-                  "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-              }}
+              style={
+                {
+                  // boxShadow:
+                  //   "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
+                  // boxShadow:
+                  //   "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                }
+              }
               className="rounded-full w-[500px] h-[500px] transition-all duration-1000 ease-out"
               src="/images/buildersImg1.png"
               alt="Bondhu Builders"

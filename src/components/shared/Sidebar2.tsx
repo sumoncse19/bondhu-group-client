@@ -315,11 +315,11 @@ const Sidebar2 = () => {
     >
       <div className="flex flex-col gap-[30px]">
         <div className="flex flex-col items-center gap-1.5 ">
-          <Link className="flex items-center gap-x-2" href="/">
+          <Link className="flex items-center gap-x-2" href="">
             <Image
-              src="/images/logos/bondhuBuildersLogo.png"
-              width={130}
-              height={130}
+              src="/images/Logo1.png"
+              width={100}
+              height={100}
               alt="logo"
               className="object-cover"
             />

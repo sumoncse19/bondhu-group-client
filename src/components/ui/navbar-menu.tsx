@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const transition = {
   type: "spring",
@@ -18,13 +19,17 @@ export const MenuItem = ({
   active,
   item,
   children,
+  href,
 }: {
   setActive: (item: string) => void;
   active: string | null;
   item: string;
   children?: React.ReactNode;
+  href?: string;
 }) => {
   const hasSubmenu = !!children; // Check if submenu content exists
+
+  const router = useRouter();
 
   return (
     <div onMouseEnter={() => setActive(item)} className="relative">
@@ -34,6 +39,7 @@ export const MenuItem = ({
           fontFamily: ` "Playwrite GB S", cursive`,
         }}
         className="cursor-pointer text-black hover:opacity-[0.9]"
+        onClick={() => router.push(href || "")}
       >
         {item}
       </motion.p>

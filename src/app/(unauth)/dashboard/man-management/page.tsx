@@ -200,7 +200,7 @@ const Page = () => {
           onChange={(e) => setSearchValue(e.target.value)}
           type="text"
           placeholder="Search user by username"
-          className=" w-52 px-2 py-2 text-sm rounded-md outline-none border-2 border-black focus:border-teal-500"
+          className=" w-52 px-2 py-2 text-sm rounded-md outline-none border-2 border-black focus:border-teal-500 bg-transparent"
         />
       </div>
       {/* users table */}
@@ -393,7 +393,7 @@ const Page = () => {
                 </label>
                 <select
                   onChange={(e) => setSelectuser(e.target.value)}
-                  className="border border-gray-700 w-[200px] px-5 py-2  rounded-md"
+                  className="border border-gray-700 w-[200px] px-5 py-2  rounded-md bg-transparent"
                   name="username"
                   id="username"
                 >
@@ -417,7 +417,7 @@ const Page = () => {
                 <input
                   onChange={(e) => setAmount(e.target.value)}
                   type="text"
-                  className="border border-gray-700 w-[200px] px-5 py-2  rounded-md"
+                  className="border border-gray-700 w-[200px] px-5 py-2  rounded-md bg-transparent"
                   placeholder="Enter amount"
                 />
               </div>
