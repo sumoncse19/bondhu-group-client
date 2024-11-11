@@ -194,7 +194,7 @@ const page = () => {
 
     const userData = {
       name,
-      user_name: userName,
+      user_name: userName.toLocaleLowerCase(),
       serial_number: idNo,
       father_or_husband_name: fatherOrHusbandName,
       mother_name: motherName,
@@ -254,7 +254,7 @@ const page = () => {
 
   // fetch all user
   const fetchChildUsersLevel1 = async () => {
-    const response = await fetch(`${baseUrl}/team/get-child-users/${id}`, {
+    const response = await fetch(`${baseUrl}/user/get-all-users`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -337,7 +337,56 @@ const page = () => {
               />
             </div>
           </div>
-          {/* name and userName, serial no */}
+          {/* serial no, ref id, placement id and role */}
+          <div className="flex items-center gap-10">
+            {/* serial id */}
+            <div className="relative w-full">
+              <label
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+                htmlFor="id"
+              >
+                ID No <p className="inline text-red-500 text-lg font-bold">*</p>
+              </label>
+              <input
+                onChange={(e) => setIdNo(e.target.value)}
+                value={idNo}
+                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                type="text"
+                id="id"
+              />
+            </div>
+            {/* reference id */}
+            <CustomSelect2
+              allUser={allUser}
+              setReferenceId={setReferenceId}
+              fetchChildUsersLevel2={fetchChildUsersLevel2}
+            />
+            {/* placement id */}
+            <CustomSelect
+              childUsers={childUsers}
+              setParentPlacementId={setParentPlacementId}
+              setCurrentOptions={setCurrentOptions}
+            />
+            <div className=" w-full flex items-center">
+              <label className=" px-2" htmlFor="team_side">
+                Choice of Team{" "}
+                <p className="inline text-red-500 text-lg font-bold">*</p>
+              </label>
+              <select
+                onChange={(e) => setTeams(e.target.value)}
+                value={team}
+                className="w-full cursor-pointer bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                name=""
+                id="team_side"
+              >
+                <option value="">Select</option>
+                {currentOptions?.map((opt: any) => (
+                  <option value={opt?.value}>{opt?.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          {/* username, name*/}
           <div className="flex items-center gap-10">
             {/* name */}
             <div className="relative w-full">
@@ -370,22 +419,6 @@ const page = () => {
                 className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="username"
-              />
-            </div>
-            {/* serial id */}
-            <div className="relative w-full">
-              <label
-                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
-                htmlFor="id"
-              >
-                ID No <p className="inline text-red-500 text-lg font-bold">*</p>
-              </label>
-              <input
-                onChange={(e) => setIdNo(e.target.value)}
-                value={idNo}
-                className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                type="text"
-                id="id"
               />
             </div>
           </div>
@@ -459,7 +492,6 @@ const page = () => {
                 htmlFor="dob"
               >
                 DOB
-                <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <input
                 onChange={(e) => setDob(e.target.value)}
@@ -640,62 +672,7 @@ const page = () => {
               className="w-full bg-[#F3F4F6] px-12 py-2 text-black rounded-md border-2 border-black outline-none group resize-none"
             />
           </div>
-          {/* Profession,refference id  and placement id nationality */}
-          <div className="flex items-center gap-6">
-            {/* <div className="relative w-full flex items-center gap-x-2">
-              <label className="px-2 text-sm" htmlFor="reference_id">
-                Reference ID
-                <p className="inline text-red-500 text-lg font-bold">*</p>
-              </label>
-              <select
-                onChange={(e) => {
-                  setReferenceId(e.target.value);
-                  fetchChildUsersLevel2(e.target.value);
-                }}
-                className="w-full cursor-pointer bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                name=""
-                id="reference_id"
-              >
-                <option value="">Select</option>
-                {allUser?.map((child: { name: string; _id: string }, i) => (
-                  <option value={child?._id} key={i}>
-                    {child?.name}
-                  </option>
-                ))}
-              </select>
-            </div> */}
-            {/* reference id */}
-            <CustomSelect2
-              allUser={allUser}
-              setReferenceId={setReferenceId}
-              fetchChildUsersLevel2={fetchChildUsersLevel2}
-            />
-            {/* placement id */}
-            <CustomSelect
-              childUsers={childUsers}
-              setParentPlacementId={setParentPlacementId}
-              setCurrentOptions={setCurrentOptions}
-            />
 
-            <div className=" w-full flex items-center">
-              <label className=" px-2" htmlFor="team_side">
-                Choice of Team{" "}
-                <p className="inline text-red-500 text-lg font-bold">*</p>
-              </label>
-              <select
-                onChange={(e) => setTeams(e.target.value)}
-                value={team}
-                className="w-full cursor-pointer bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                name=""
-                id="team_side"
-              >
-                <option value="">Select</option>
-                {currentOptions?.map((opt: any) => (
-                  <option value={opt?.value}>{opt?.label}</option>
-                ))}
-              </select>
-            </div>
-          </div>
           {/* religion,maritual,team and blood gp */}
           <div className="flex items-center gap-3 mt-10">
             {/* role */}

@@ -10,6 +10,8 @@ import { ThreeCircles } from "react-loader-spinner";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import Cookies from "js-cookie";
 import useStore from "../../../Zustand/Store/userStore";
+import Header from "@/components/shared/Header";
+import Footer from "@/components/shared/Footer";
 interface IFormInput {
   username: string;
   password: string;
@@ -71,59 +73,61 @@ const page = () => {
   };
 
   return (
-    <div className="flex items-center min-h-[100vh] loginbg bg-opacity-100  bg-no-repeat bg-cover  backdrop-blur-lg bg-white text-black">
-      {/* left side */}
-      <div className="min-h-[100vh] w-full lg:w-[50%] flex items-center justify-center order-2 ">
-        <div className="px-4 py-10  ">
-          <div className="flex flex-col items-center">
-            <h1 className="text-base lg:text-4xl font-bold">Welcome Back!</h1>
-            <p className="py-2 text-gray-500 text-sm">
-              Enter to get unlimited access of data & information.
-            </p>
-          </div>
-          {/* login form  */}
-          <form
-            className="flex flex-col gap-y-3 pt-16"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="flex flex-col gap-1">
-              <label className="font-bold" htmlFor="username">
-                Username <p className="inline text-red-500">*</p>
-              </label>
-              <div className="flex">
-                <input
-                  className="border-b border-black bg-white w-full px-4 py-2 rounded focus:border-b-2 focus:border-blue-600 outline-none text-sm"
-                  placeholder="Write your username"
-                  {...register("username", { required: true })}
-                  type="text"
-                />
-              </div>
+    <div>
+      <Header />
+      <div className="flex items-center min-h-[100vh] loginbg bg-opacity-100  bg-no-repeat bg-cover  backdrop-blur-lg bg-white text-black">
+        {/* left side */}
+        <div className="min-h-[100vh] w-full lg:w-[50%] flex items-center justify-center order-2 ">
+          <div className="px-4 py-10  ">
+            <div className="flex flex-col items-center">
+              <h1 className="text-base lg:text-4xl font-bold">Welcome Back!</h1>
+              <p className="py-2 text-gray-500 text-sm">
+                Enter to get unlimited access of data & information.
+              </p>
             </div>
-            <div className="flex flex-col gap-1">
-              <label className="font-bold" htmlFor="password">
-                Password <p className="inline text-red-500">*</p>
-              </label>
-              <div className="flex relative">
-                <input
-                  className="border-b border-black bg-white w-full px-4 py-2 rounded focus:border-b-2 focus:border-blue-600 outline-none text-sm"
-                  placeholder="Write your password"
-                  type={showPassword ? "text" : "password"}
-                  {...register("password", { required: true })}
-                />
-                {showPassword ? (
-                  <IoEye
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-5 bottom-2 cursor-pointer text-lg"
+            {/* login form  */}
+            <form
+              className="flex flex-col gap-y-3 pt-16"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div className="flex flex-col gap-1">
+                <label className="font-bold" htmlFor="username">
+                  Username <p className="inline text-red-500">*</p>
+                </label>
+                <div className="flex">
+                  <input
+                    className="border-b border-black bg-white w-full px-4 py-2 rounded focus:border-b-2 focus:border-blue-600 outline-none text-sm"
+                    placeholder="Write your username"
+                    {...register("username", { required: true })}
+                    type="text"
                   />
-                ) : (
-                  <IoEyeOff
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-5 bottom-2 cursor-pointer text-lg"
-                  />
-                )}
+                </div>
               </div>
-            </div>
-            {/* <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-1">
+                <label className="font-bold" htmlFor="password">
+                  Password <p className="inline text-red-500">*</p>
+                </label>
+                <div className="flex relative">
+                  <input
+                    className="border-b border-black bg-white w-full px-4 py-2 rounded focus:border-b-2 focus:border-blue-600 outline-none text-sm"
+                    placeholder="Write your password"
+                    type={showPassword ? "text" : "password"}
+                    {...register("password", { required: true })}
+                  />
+                  {showPassword ? (
+                    <IoEye
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-5 bottom-2 cursor-pointer text-lg"
+                    />
+                  ) : (
+                    <IoEyeOff
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-5 bottom-2 cursor-pointer text-lg"
+                    />
+                  )}
+                </div>
+              </div>
+              {/* <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <input
                   className=" h-4 w-4 border border-gray-300 rounded-md outline-none checked:bg-blue-600 checked:border-transparent checked:outline-none focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -135,37 +139,39 @@ const page = () => {
               </div>
               <div className="text-gray-600 text-sm">Forgot your password?</div>
             </div> */}
-            <div className="mt-16 bg-[#3B82F6] text-white flex justify-center  rounded-full hover:shadow-2xl hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer">
-              <button
-                type="submit"
-                className="w-full h-full py-4 flex justify-center items-center text-xl"
-              >
-                {isLoading ? (
-                  <ThreeCircles
-                    visible={true}
-                    height="40"
-                    width="40"
-                    color="#fff"
-                    ariaLabel="three-circles-loading"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                  />
-                ) : (
-                  <p>Login</p>
-                )}
-              </button>
-            </div>
-          </form>
+              <div className="mt-16 bg-[#3B82F6] text-white flex justify-center  rounded-full hover:shadow-2xl hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer">
+                <button
+                  type="submit"
+                  className="w-full h-full py-4 flex justify-center items-center text-xl"
+                >
+                  {isLoading ? (
+                    <ThreeCircles
+                      visible={true}
+                      height="40"
+                      width="40"
+                      color="#fff"
+                      ariaLabel="three-circles-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  ) : (
+                    <p>Login</p>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        {/* rigth side */}
+        <div className="lg:items-center w-[50%] min-h-[100vh] hidden lg:flex px-6 order-1">
+          <img
+            className="w-full h-[600px] rounded object-contain"
+            src="/images/loginPageImg4.png"
+            alt=""
+          />
         </div>
       </div>
-      {/* rigth side */}
-      <div className="lg:items-center w-[50%] min-h-[100vh] hidden lg:flex px-6 order-1">
-        <img
-          className="w-full h-[600px] rounded object-contain"
-          src="/images/loginPageImg4.png"
-          alt=""
-        />
-      </div>
+      <Footer />
     </div>
   );
 };
