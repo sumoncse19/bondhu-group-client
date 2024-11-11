@@ -402,6 +402,8 @@ const Sidebar2 = () => {
             Cookies.remove("token");
             Cookies.remove("id");
             Cookies.remove("username");
+            Cookies.remove("role");
+            Cookies.remove("have_purchase_wallet");
           }}
           className="w-full bg-black opacity-90 cursor-pointer text-white font-bold flex justify-center py-2 rounded-xl"
         >

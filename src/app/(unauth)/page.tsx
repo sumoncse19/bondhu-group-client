@@ -37,7 +37,7 @@ const HomePage = () => {
             </div>
             <TextGenerateEffectDemo />
             <div className="flex my-3">
-              <p className="bg-teal-500  px-16 py-3 rounded border-2 border-teal-100 text-center text-teal-100">
+              <p className="bg-teal-400  px-16 py-3 rounded border-2 border-teal-100 text-center text-white">
                 Get Started
               </p>
             </div>
@@ -70,17 +70,24 @@ const HomePage = () => {
           </div>
         </div>
         <motion.div
-          className="w-full flex justify-center items-center relative"
+          className="w-full flex justify-center items-center relative "
           initial={{ x: "300px", opacity: 0 }} // Initial position (offscreen to the left)
           animate={{ x: 0, opacity: 1 }} // Animate to final position (center)
           transition={{ duration: 1.2, ease: "easeInOut" }} // Control animation duration and easing
         >
-          <div className="relative">
+          <div className="relative border-b-8 border-orange-400 p-2 rounded-full">
             <img
               className="w-[600px]  h-[600px]  rounded-full object-cover"
               src="/images/heroBanner1.jpeg"
               alt=""
             />
+            <div className="absolute -right-5 bottom-10">
+              <img
+                className="w-[250px] h-[150px] object-cover"
+                src="/images/heroBanner11.png"
+                alt=""
+              />
+            </div>
             {/* <div className="bg-rose-200 w-[200px] pb-10 absolute -top-16 -right-16  -rotate-[30deg]">
               <p
                 style={{
@@ -138,7 +145,7 @@ const HomePage = () => {
 
         {/* client,service and projects */}
 
-        <div className=" w-[70%] mx-auto h-40 absolute -bottom-24">
+        <div className=" w-[80%] mx-auto h-40 absolute -bottom-24">
           <div className="flex items-center justify-between">
             <div
               style={{
@@ -188,7 +195,7 @@ const HomePage = () => {
         transition={{ duration: 0.4, ease: "easeIn" }} // Smooth transition
         viewport={{ once: true, amount: 0.5 }} // Trigger only once, when 50% of the element is visible
       >
-        <div className=" w-[90%] mx-auto flex items-center justify-between">
+        <div className=" w-[80%] mx-auto flex items-center justify-between">
           {/* left div */}
           <div className="w-full flex flex-col gap-5 left-div">
             <h1 className="text-4xl text-black font-bold tracking-widest leading-relaxed">
@@ -226,7 +233,7 @@ const HomePage = () => {
 
       {/* all sister concerns slider */}
       <motion.div
-        className="my-0"
+        className="my-0 w-[80%] mx-auto"
         initial={{ y: "50px", opacity: 0 }} // Initial position (offscreen to the left)
         whileInView={{ y: 0, opacity: 1 }} // Animate when it comes into view
         transition={{ duration: 1, ease: "easeIn" }} // Smooth transition

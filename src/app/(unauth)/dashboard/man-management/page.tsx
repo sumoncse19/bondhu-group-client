@@ -277,21 +277,21 @@ const Page = () => {
                   <td className="px-6 py-4 text-center">{user?.role}</td>
                   <td className="px-6 py-4 text-center">{user?.phone}</td>
                   <td className="px-6 py-4 text-center">
-                    {user?.reference_id?.name}
+                    {user?.reference_id?.user_name}
                   </td>
                   <td className="px-6 py-4 text-center">
-                    {user?.parent_placement_id?.name}
+                    {user?.parent_placement_id?.user_name}
                   </td>
                   <td className="px-6 py-4 text-center">
-                    {user?.left_side_partner?.name ? (
-                      user?.left_side_partner?.name
+                    {user?.left_side_partner?.user_name ? (
+                      user?.left_side_partner?.user_name
                     ) : (
                       <p className="text-red-500 font-bold">Empty</p>
                     )}
                   </td>
                   <td className="px-6 py-4 text-center">
-                    {user?.right_side_partner?.name ? (
-                      user?.right_side_partner?.name
+                    {user?.right_side_partner?.user_name ? (
+                      user?.right_side_partner?.user_name
                     ) : (
                       <p className="text-red-500 font-bold">Empty</p>
                     )}
@@ -373,7 +373,7 @@ const Page = () => {
           >
             {/* head */}
             <div className="py-4 px-6 flex justify-between items-center rounded bg-gray-300 text-black">
-              <p>Send Purchase Wallter</p>
+              <p>Send Purchase Wallet</p>
               <p
                 onClick={() => setIsWalletOpen(false)}
                 className="bg-red-500 hover:bg-red-600 transition-all duration-300 ease-in px-3 py-1 rounded-md cursor-pointer text-white"
@@ -389,7 +389,7 @@ const Page = () => {
                   htmlFor="username"
                   className="text-black font-bold  tracking-wider"
                 >
-                  Username
+                  User
                 </label>
                 <select
                   onChange={(e) => setSelectuser(e.target.value)}
@@ -399,9 +399,12 @@ const Page = () => {
                 >
                   <option value="">Select User</option>
                   {childUsers?.map(
-                    (child: { _id: string; name: string }, i) => (
+                    (
+                      child: { _id: string; name: string; user_name: string },
+                      i
+                    ) => (
                       <option key={i} value={child?._id}>
-                        {child?.name}
+                        {`${child?.name}--${child?.user_name}`}
                       </option>
                     )
                   )}

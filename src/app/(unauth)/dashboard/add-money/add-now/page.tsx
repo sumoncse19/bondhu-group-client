@@ -30,6 +30,7 @@ const page = () => {
   const [paymentPicture2, setPaymentPicture2] = useState<string>("");
   const [isLoadingForImage, setIsLoadingForImage] = useState<boolean>(false);
   const [isLoadingForImage2, setIsLoadingForImage2] = useState<boolean>(false);
+  const [paymentDate, setPaymentDate] = useState<string>("");
 
   const [user, setUser] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -143,17 +144,30 @@ const page = () => {
   };
 
   const handleRequestToAdmin = async () => {
-    if (
-      (totalPlanCost > 0 && !moneyRecieptNumber) ||
-      !mobileNumber ||
-      !paymentMethod ||
-      !transactionId ||
-      !paymentPicture ||
-      !paymentPicture2
-    ) {
-      toast.error("Fill all field first");
-      return;
+    if (paymentMethod !== "cash") {
+      if (
+        (totalPlanCost > 0 && !moneyRecieptNumber) ||
+        !mobileNumber ||
+        !paymentMethod ||
+        !transactionId ||
+        !paymentPicture ||
+        !paymentPicture2
+      ) {
+        toast.error("Fill all field first");
+        return;
+      }
+    } else {
+      if (
+        (totalPlanCost > 0 && !moneyRecieptNumber) ||
+        !mobileNumber ||
+        !paymentMethod ||
+        !paymentPicture2
+      ) {
+        toast.error("Fill all field first");
+        return;
+      }
     }
+
     if (paymentMethod === "bank") {
       if (!bankName || !bankAccName || !bankBranchName) {
         toast.error("Fill all bank info first");
@@ -178,6 +192,7 @@ const page = () => {
       transaction_id: transactionId,
       picture: paymentPicture,
       payment_picture: paymentPicture2,
+      date: paymentDate,
       is_approved: false,
     };
 
@@ -690,46 +705,46 @@ const page = () => {
                 </div>
               </div>
             )}
-
             {/* payment picture upload */}
-            <div className="flex items-center justify-between">
-              <label htmlFor="transaction-id">Payment Picture</label>
-              <div className="w-80 flex flex-col items-center gap-y-2 cursor-pointer">
-                <img
-                  className="w-20 h-20 rounded-full object-cover cursor-pointer border-2 border-black"
-                  src={paymentPicture || "/images/paymentPictureDummy.jpg"} // Use uploaded image if available
-                  alt="Profile"
-                  onClick={handleImageClick}
-                />
+            {paymentMethod !== "cash" && (
+              <div className="flex items-center justify-between">
+                <label htmlFor="transaction-id">Transaction Picture</label>
+                <div className="w-80 flex flex-col items-center gap-y-2 cursor-pointer">
+                  <img
+                    className="w-20 h-20 rounded-full object-cover cursor-pointer border-2 border-black"
+                    src={paymentPicture || "/images/paymentPictureDummy.jpg"} // Use uploaded image if available
+                    alt="Profile"
+                    onClick={handleImageClick}
+                  />
 
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  onChange={handleFileChange} // Trigger upload on file selection
-                />
-                <p>
-                  {isLoadingForImage && (
-                    <ColorRing
-                      visible={true}
-                      height="40"
-                      width="40"
-                      ariaLabel="color-ring-loading"
-                      wrapperStyle={{}}
-                      wrapperClass="color-ring-wrapper"
-                      colors={[
-                        "#e15b64",
-                        "#f47e60",
-                        "#f8b26a",
-                        "#abbd81",
-                        "#849b87",
-                      ]}
-                    />
-                  )}
-                </p>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: "none" }}
+                    onChange={handleFileChange} // Trigger upload on file selection
+                  />
+                  <p>
+                    {isLoadingForImage && (
+                      <ColorRing
+                        visible={true}
+                        height="40"
+                        width="40"
+                        ariaLabel="color-ring-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="color-ring-wrapper"
+                        colors={[
+                          "#e15b64",
+                          "#f47e60",
+                          "#f8b26a",
+                          "#abbd81",
+                          "#849b87",
+                        ]}
+                      />
+                    )}
+                  </p>
+                </div>
               </div>
-            </div>
-
+            )}
             {/* Money Receipt picture upload */}
             <div className="flex items-center justify-between">
               <label htmlFor="transaction-id">Money Reciept Picture</label>
@@ -768,7 +783,6 @@ const page = () => {
                 </p>
               </div>
             </div>
-
             {/* tranxId */}
             {paymentMethod !== "cash" && (
               <div className="flex items-center justify-between">
@@ -783,7 +797,16 @@ const page = () => {
                 />
               </div>
             )}
-
+            {/* // Inside your component, add the payment date section */}
+            <div className="flex items-center justify-between mt-5">
+              <label htmlFor="payment-date">Payment Date</label>
+              <input
+                type="date"
+                id="payment-date"
+                onChange={(e) => setPaymentDate(e.target.value)}
+                className="bg-gray-200 px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+              />
+            </div>
             {/* requested button */}
             <div
               onClick={

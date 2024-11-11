@@ -289,7 +289,7 @@ const page = () => {
               </div>
               <div className="text-sm text-gray-700">
                 <p>
-                  Parent Placement:{" "}
+                  Placement:{" "}
                   {user?.parent_placement_id &&
                     user?.parent_placement_id?.user_name}
                 </p>
@@ -306,7 +306,7 @@ const page = () => {
               <div className="mb-5 flex items-center gap-5">
                 <p>Select Wallet</p>
                 <select
-                  className="w-[50%] border-2 border-black py-1 px-3 rounded-xl cursor-pointer"
+                  className="w-[50%] border-2 border-black py-1 px-3 rounded-xl cursor-pointer bg-white"
                   name=""
                   id=""
                   onChange={(e) => setSelectWallet(e.target.value)}
@@ -429,7 +429,7 @@ const page = () => {
           >
             <div className="bg-white p-4 rounded">
               <input
-                className="border-2 border-black outline-none px-3 py-1 rounded-xl"
+                className="border-2 border-black outline-none px-3 py-1 rounded-xl bg-white"
                 onChange={(e) => setDesignation(e.target.value)}
                 type="text"
                 name=""

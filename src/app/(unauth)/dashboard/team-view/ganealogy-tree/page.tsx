@@ -295,7 +295,7 @@ const page = () => {
       )}
 
       <table className="w-full  text-sm text-left rtl:text-right text-white ">
-        <tbody>
+        <tbody className="">
           {/* 1st level */}
           <tr className="">
             <td className="py-3 flex justify-center items-center ">

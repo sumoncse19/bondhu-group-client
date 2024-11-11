@@ -25,7 +25,9 @@ interface AddMoneyHistoriesInterface {
   branch_name: string;
   transaction_id: string;
   picture: string;
+  payment_picture: string;
   createdAt: string;
+  date: string;
   is_approved: boolean;
 }
 
@@ -130,7 +132,10 @@ const page = () => {
                 Transaction ID
               </th>
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
-                Payment Picture
+                Transaction Picture
+              </th>
+              <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
+                Money Reciept Picture
               </th>
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
                 Request Date
@@ -204,27 +209,49 @@ const page = () => {
                     </td>
 
                     <td className="px-6 py-4 text-center">
-                      {history?.transaction_id}
-                    </td>
-                    <td className="px-6 py-4 text-center  flex justify-center items-center gap-x-2">
-                      <img
-                        className="w-10 h-10"
-                        src={history?.picture}
-                        alt=""
-                      />
-                      <p
-                        onClick={() => {
-                          setIsOpenImageModal(true);
-                          seModalImgae(history?.picture);
-                        }}
-                        className="cursor-pointer hover:text-rose-600 font-bold"
-                      >
-                        View
-                      </p>
+                      {history?.transaction_id ? history?.transaction_id : "--"}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      {formatDate(history?.createdAt)}
+                      {history?.picture ? (
+                        <div className="flex justify-center items-center gap-x-2">
+                          <img
+                            className="w-10 h-10"
+                            src={history?.picture}
+                            alt=""
+                          />
+                          <p
+                            onClick={() => {
+                              setIsOpenImageModal(true);
+                              seModalImgae(history?.picture);
+                            }}
+                            className="cursor-pointer hover:text-rose-600 font-bold"
+                          >
+                            View
+                          </p>
+                        </div>
+                      ) : (
+                        "--"
+                      )}
                     </td>
+                    <td className="px-6 py-4 text-center ">
+                      <div className="flex justify-center items-center gap-x-2">
+                        <img
+                          className="w-10 h-10"
+                          src={history?.payment_picture}
+                          alt=""
+                        />
+                        <p
+                          onClick={() => {
+                            setIsOpenImageModal(true);
+                            seModalImgae(history?.payment_picture);
+                          }}
+                          className="cursor-pointer hover:text-rose-600 font-bold"
+                        >
+                          View
+                        </p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-center">{history?.date}</td>
                     <td className="px-6 py-4 text-center ">
                       <p
                         className={` text-white py-2 px-2 rounded-md shadow-2xl shadow-black ${history?.is_approved ? "bg-teal-500" : "bg-rose-500"}`}

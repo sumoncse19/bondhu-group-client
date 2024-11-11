@@ -147,7 +147,8 @@ const WithdrawRequest = ({
             >
               <option value="">Select--</option>
               <option value="income_wallet">{`Reference Bonus (৳ ${Math.ceil(user?.wallet?.reference_bonus)})`}</option>
-              <option value="project_share_wallet">{`Team (৳ ${Math.ceil(user?.wallet?.matching_bonus)})`}</option>
+              <option value="project_share_wallet">{`Team Bonus (৳ ${Math.ceil(user?.wallet?.matching_bonus)})`}</option>
+              <option value="project_share_wallet">{`Club Bonus (৳ 0)`}</option>
             </select>
           </div>
         )}
