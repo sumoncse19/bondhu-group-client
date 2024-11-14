@@ -202,10 +202,10 @@ const HomePage = () => {
       >
         <div className="w-[95%] lg:w-[80%] mx-auto flex flex-col lg:flex-row items-center justify-between mt-28">
           <div className="w-full flex flex-col gap-5 left-div">
-            <h1 className="text-4xl text-black font-bold tracking-widest leading-relaxed">
+            <h1 className="text-xl lg:text-4xl text-black font-bold tracking-widest leading-relaxed">
               Bondhu Builder&#x27;s
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm lg:text-base text-gray-600">
               A diverse company focused on growth across multiple sectors,
               including construction, IT, travel, and more. Join us in our
               journey towards excellence and innovation.
@@ -215,7 +215,7 @@ const HomePage = () => {
 
           <div className="w-full flex justify-center lg:justify-end right-div ">
             <img
-              className="rounded-full w-[300px] h-[200px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
+              className="rounded-full w-[300px] h-[250px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
               src="/images/buildersImg1.png"
               alt="Bondhu Builders"
             />
