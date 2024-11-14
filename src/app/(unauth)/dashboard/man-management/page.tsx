@@ -34,6 +34,13 @@ interface UserData {
 const Page = () => {
   const [users, setUsers] = useState<UserData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingForApprove, setIsLoadingForApprove] = useState<{
+    state: boolean;
+    id: string;
+  }>({
+    state: false,
+    id: "",
+  });
   const [isWalletOpen, setIsWalletOpen] = useState(false);
   const [selectUser, setSelectuser] = useState("");
   const [amount, setAmount] = useState<string>("");
@@ -130,23 +137,6 @@ const Page = () => {
       });
   };
 
-  // get parent details
-  const getParent = (id: string) => {
-    const parent: UserData[] = users?.filter(
-      (user: { _id: string }) => user?._id == id
-    );
-
-    return parent[0]?.name ? parent[0]?.name : "-----";
-  };
-
-  // get referrer details
-  const getReferrer = (id: string) => {
-    const referrer: UserData[] = users?.filter(
-      (user: { _id: string }) => user?._id == id
-    );
-
-    return referrer[0]?.name ? referrer[0]?.name : "-----";
-  };
   useEffect(() => {
     fetchAllInvestmentRequests();
     fetchAllUsers();
@@ -175,7 +165,7 @@ const Page = () => {
             onClick={() => {
               setIsWalletOpen(true);
             }}
-            className="flex items-center gap-x-3 bg-teal-800 px-4 py-2 rounded-full text-white font-bold cursor-pointer tracking-wider hover:scale-105 transition-all duration-500 ease-in-out hover:tracking-widest"
+            className="flex items-center gap-x-3 bg-teal-200 px-4 py-2 rounded-full text-teal-700  cursor-pointer tracking-wider hover:scale-105 transition-all duration-500 ease-in-out hover:tracking-widest"
           >
             <FaMoneyBillTransfer className="text-2xl" />
             <p> Send Purchase Wallet</p>
@@ -184,7 +174,7 @@ const Page = () => {
             onClick={() => {
               router.push("/dashboard/investment-request");
             }}
-            className="relative flex items-center gap-x-3 bg-rose-800 px-4 py-2 rounded-full text-white font-bold cursor-pointer tracking-wider hover:scale-105 transition-all duration-500 ease-in-out hover:tracking-widest"
+            className="relative flex items-center gap-x-3 bg-rose-200 px-4 py-2 rounded-full text-rose-700  cursor-pointer tracking-wider hover:scale-105 transition-all duration-500 ease-in-out hover:tracking-widest"
           >
             <GiTakeMyMoney className="text-2xl" />
             <p> Investment Requests</p>
@@ -200,13 +190,13 @@ const Page = () => {
           onChange={(e) => setSearchValue(e.target.value)}
           type="text"
           placeholder="Search user by username"
-          className=" w-52 px-2 py-2 text-sm rounded-md outline-none border-2 border-black focus:border-teal-500 bg-transparent"
+          className=" w-52 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
         />
       </div>
       {/* users table */}
       <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
         <table className="w-full text-sm text-left rtl:text-right text-white  ">
-          <thead className="sticky top-0 text-xs text-black uppercase bg-red-50  border-b-2 border-t-2 border-black rounded-md">
+          <thead className="sticky top-0 text-xs text-black uppercase bg-teal-200  border-2  border-black rounded-md">
             <tr>
               <th scope="col" className="px-6 py-3 text-center">
                 Name
@@ -258,10 +248,10 @@ const Page = () => {
                 </td>
               </tr>
             ) : (
-              searchedUsers.map((user: any) => (
+              searchedUsers.map((user: any, i: number) => (
                 <tr
                   key={user._id}
-                  className="bg-red-50 hover:bg-red-200 cursor-pointer transition-all duration-500 ease-in text-black border-b-2 border-slate-700 "
+                  className={`${i % 2 == 0 ? "bg-teal-50" : "bg-teal-200"} cursor-pointer transition-all duration-500 ease-in text-black border-2 border-slate-700`}
                 >
                   <td className="px-6 py-4 text-center">{user?.name}</td>
                   <td
@@ -305,12 +295,16 @@ const Page = () => {
                   </td>
                   <td className="px-6 py-4 text-center">
                     {user?.is_approved ? (
-                      <p className="bg-teal-700  px-3 py-1 rounded-md text-white ">
+                      <p className="italic px-3 py-1 rounded-md text-teal-700">
                         Approved
                       </p>
                     ) : (
-                      <p
+                      <div
                         onClick={async () => {
+                          setIsLoadingForApprove({
+                            state: true,
+                            id: user?._id,
+                          });
                           try {
                             const response = await fetch(
                               `${baseUrl}/user/auth/${user?._id}`,
@@ -339,13 +333,20 @@ const Page = () => {
                           } catch (error: any) {
                             toast.error(error.message);
                           } finally {
-                            setIsLoading(false);
+                            setIsLoadingForApprove({ state: false, id: "" });
                           }
                         }}
-                        className="bg-rose-500 hover:bg-rose-700 cursor-pointer px-3 py-1 rounded-md text-white transition-all duration-300 ease-in"
+                        className="  cursor-pointer  rounded-md  transition-all duration-300 ease-in"
                       >
-                        Approve
-                      </p>
+                        {isLoadingForApprove &&
+                        isLoadingForApprove.id === user?._id ? (
+                          "Loading.."
+                        ) : (
+                          <p className="bg-rose-300 text-rose-700 rounded-md px-3 py-1">
+                            Approve
+                          </p>
+                        )}
+                      </div>
                     )}
                   </td>
                 </tr>

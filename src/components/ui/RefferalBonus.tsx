@@ -148,9 +148,7 @@ const RefferalBonus = () => {
                     <td className="px-6 py-4 text-center">
                       {history?.reference_bonus_amount.toFixed(2)}
                     </td>
-                    <td className="px-6 py-4 text-center">
-                      {formatDate(history?.date)}
-                    </td>
+                    <td className="px-6 py-4 text-center">{history?.date}</td>
                   </tr>
                 ))
             )}

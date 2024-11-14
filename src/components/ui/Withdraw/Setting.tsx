@@ -96,10 +96,10 @@ const Setting = ({
           <p
             onClick={() => {
               if (selectedGateway !== "bank") {
-                if (accountNo) {
+                if (accountNo && accountNo.length == 11) {
                   setCurrentTab("withdraw-request");
                 } else {
-                  toast.error("Fiiled all Field First");
+                  toast.error("Invalid Account No");
                 }
               } else {
                 if (accountNo && bankName && branchName && routingNo) {

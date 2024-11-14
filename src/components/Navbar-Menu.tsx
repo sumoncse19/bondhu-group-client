@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export function NavbarDemo() {
   return (
-    <div className="relative w-fit flex items-center justify-center  px-2">
+    <div className="relative w-fit hidden lg:flex lg:items-center lg:justify-center px-2 ">
       <Navbar className="top-2" />
     </div>
   );

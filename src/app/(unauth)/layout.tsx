@@ -4,6 +4,7 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import { Sidebar } from "@/components/shared/Sidebar";
 import Sidebar2 from "@/components/shared/Sidebar2";
+import WariningMessage from "@/components/shared/Warning";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
