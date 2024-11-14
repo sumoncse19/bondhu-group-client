@@ -74,7 +74,9 @@ const WithdrawRequest = ({
       branch_name: branchName || "",
       routing_no: routingNo || "",
       swift_code: swiftCode || "",
-      withdraw_wallet: selectedWallet,
+      withdraw_wallet: incomeWalletPortion
+        ? incomeWalletPortion
+        : selectedWallet,
       withdraw_amount: parseInt(withdrawAmount),
       security_code: code,
       withdraw_status: "pending",
@@ -96,7 +98,11 @@ const WithdrawRequest = ({
         toast.success("Withdraw Submitted Successfully");
         router.push("/dashboard/withdraw/withdraw-report");
       } else {
-        toast.error(data.errors[0]);
+        if (data?.message === "Validation error") {
+          toast.error(data?.errors[0]?.message);
+        } else {
+          toast.error(data.errors[0]);
+        }
       }
     } catch (error) {
       if (isAxiosError(error)) {
@@ -146,9 +152,9 @@ const WithdrawRequest = ({
               className="w-52 px-3 py-1 bg-white text-sm outline-none border-2 border-slate-600 rounded-md"
             >
               <option value="">Select--</option>
-              <option value="income_wallet">{`Reference Bonus (৳ ${Math.ceil(user?.wallet?.reference_bonus)})`}</option>
-              <option value="project_share_wallet">{`Team Bonus (৳ ${Math.ceil(user?.wallet?.matching_bonus)})`}</option>
-              <option value="project_share_wallet">{`Club Bonus (৳ 0)`}</option>
+              <option value="reference_bonus">{`Reference Bonus (৳ ${Math.ceil(user?.wallet?.reference_bonus)})`}</option>
+              <option value="matching_bonus">{`Team Bonus (৳ ${Math.ceil(user?.wallet?.matching_bonus)})`}</option>
+              <option value="club_bonus">{`Club Bonus (৳ 0)`}</option>
             </select>
           </div>
         )}

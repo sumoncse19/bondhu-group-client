@@ -52,6 +52,7 @@ const Setting = ({
               <label htmlFor="bank_name">Bank Name</label>
               <input
                 onChange={(e) => setBankName(e.target.value)}
+                value={bankName}
                 type="text"
                 placeholder=""
                 className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
@@ -61,6 +62,7 @@ const Setting = ({
               <label htmlFor="branch_name">Branch Name</label>
               <input
                 onChange={(e) => setBranchName(e.target.value)}
+                value={branchName}
                 type="text"
                 placeholder=""
                 className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
@@ -70,6 +72,7 @@ const Setting = ({
               <label htmlFor="routing_no">Routing No</label>
               <input
                 onChange={(e) => setRoutingNo(e.target.value)}
+                value={routingNo}
                 type="text"
                 placeholder=""
                 className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
@@ -79,6 +82,7 @@ const Setting = ({
               <label htmlFor="swift_code">Swift Code</label>
               <input
                 onChange={(e) => setSwiftCode(e.target.value)}
+                value={swiftCode}
                 type="text"
                 placeholder=""
                 className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"

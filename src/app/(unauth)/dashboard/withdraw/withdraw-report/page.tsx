@@ -56,7 +56,7 @@ const page = () => {
 
       <div className="w-[350px] sm:w-[500px] md:w-[750px] xl:w-full relative overflow-x-auto max-h-screen overflow-y-auto my-5">
         <table className="w-full text-sm text-left rtl:text-right text-white ">
-          <thead className="sticky top-0 text-xs text-black  bg-red-300 border-b-2 border-t-2 border-black">
+          <thead className="sticky top-0 text-xs text-black  bg-teal-200 border-2  border-black">
             <tr>
               <th scope="col" className="px-6 py-3 text-center text-xs ">
                 Payment Method
@@ -78,7 +78,7 @@ const page = () => {
           <tbody className="text-[10px]">
             {isLoading ? (
               <tr className="text-center">
-                <td colSpan={12} align="center">
+                <td colSpan={5} align="center">
                   <div className="my-5 flex flex-col justify-center items-center">
                     <Circles
                       height="50"
@@ -94,7 +94,7 @@ const page = () => {
               </tr>
             ) : widthdrawHistories && widthdrawHistories?.length <= 0 ? (
               <tr className="text-center">
-                <td colSpan={12} align="center">
+                <td colSpan={5} align="center">
                   <div className="my-5 flex flex-col justify-center items-center">
                     <p className="text-lg text-rose-500">No Data to Show</p>
                   </div>
@@ -102,17 +102,20 @@ const page = () => {
               </tr>
             ) : (
               widthdrawHistories.map(
-                (history: {
-                  _id: string;
-                  payment_method: string;
-                  account_no: string;
-                  withdraw_wallet: string;
-                  withdraw_amount: number;
-                  withdraw_status: string;
-                }) => (
+                (
+                  history: {
+                    _id: string;
+                    payment_method: string;
+                    account_no: string;
+                    withdraw_wallet: string;
+                    withdraw_amount: number;
+                    withdraw_status: string;
+                  },
+                  i
+                ) => (
                   <tr
                     key={history?._id}
-                    className="bg-red-50 text-black border-b-2 border-slate-700 "
+                    className={` ${i % 2 == 0 ? "bg-teal-50" : "bg-teal-100"} text-black border-2 border-slate-700 `}
                   >
                     <td className="px-6 py-4 text-center">
                       {history?.payment_method}
@@ -130,7 +133,7 @@ const page = () => {
 
                     <td className="px-6 py-4 text-center ">
                       <p
-                        className={` text-white py-2 px-2 rounded-md shadow-2xl shadow-black ${history?.withdraw_status ? "bg-teal-500" : "bg-rose-500"}`}
+                        className={`py-2 px-2 italic  ${history?.withdraw_status ? "text-teal-700" : "bg-rose-700"}`}
                       >
                         {history?.withdraw_status !== "pending"
                           ? "Approved"
