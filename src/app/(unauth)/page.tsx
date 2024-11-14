@@ -193,15 +193,14 @@ const HomePage = () => {
       </div>
 
       {/* Bondhu builder intro */}
-      {/* <motion.div
+      <motion.div
         className="my-10"
         initial={{ y: "80px", opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }} 
-        transition={{ duration: 0.4, ease: "easeIn" }} 
-        viewport={{ once: true, amount: 0.5 }} 
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeIn" }}
+        viewport={{ once: true, amount: 0.5 }}
       >
-        <div className=" w-[80%] mx-auto flex items-center justify-between">
-          
+        <div className="w-[95%] lg:w-[80%] mx-auto flex flex-col lg:flex-row items-center justify-between mt-28">
           <div className="w-full flex flex-col gap-5 left-div">
             <h1 className="text-4xl text-black font-bold tracking-widest leading-relaxed">
               Bondhu Builder&#x27;s
@@ -214,27 +213,26 @@ const HomePage = () => {
             <Button />
           </div>
 
-          
-          <div className="w-full flex justify-end right-div">
+          <div className="w-full flex justify-center lg:justify-end right-div">
             <img
-              className="rounded-full w-[500px] h-[500px] transition-all duration-1000 ease-out"
+              className="rounded-full w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
               src="/images/buildersImg1.png"
               alt="Bondhu Builders"
             />
           </div>
         </div>
-      </motion.div> */}
+      </motion.div>
 
       {/* all sister concerns slider */}
-      {/* <motion.div
-        className="my-0 w-[80%] mx-auto"
-        initial={{ y: "50px", opacity: 0 }} 
+      <motion.div
+        className="my-0 w-full lg:w-[80%] mx-auto"
+        initial={{ y: "50px", opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: "easeIn" }} 
-        viewport={{ once: true, amount: 0.5 }} 
+        transition={{ duration: 1, ease: "easeIn" }}
+        viewport={{ once: true, amount: 0.5 }}
       >
         <HomeBanner />
-      </motion.div> */}
+      </motion.div>
 
       {/* Our Service */}
       {/* <Services /> */}
