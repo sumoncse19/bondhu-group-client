@@ -5,6 +5,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaTiktok } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import FacebookPageEmbed from "../FacebookPageEmbed";
+import { MdDeveloperBoard } from "react-icons/md";
 
 const Footer = () => {
   const phoneNumber = "+8801600362935"; // Replace with the recipient's phone number
@@ -17,10 +18,10 @@ const Footer = () => {
     window.open(whatsappUrl, "_blank");
   };
   return (
-    <div className="bg-slate-600 w-full mt-20 pt-16 pb-8 px-28 text-blue-200 hidden lg:block">
-      <div className="flex items-center justify-between">
+    <div className="bg-slate-600 w-full mt-20 pt-5 lg:pt-16 pb-8  px-3 lg:px-28 text-blue-200">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-y-16">
         {/* left */}
-        <div className="flex flex-col gap-y-10">
+        <div className="self-start flex flex-col gap-y-10 order-2 lg:order-1">
           <span className="flex flex-col gap-y-3">
             {/* <p className="text-xl">Connect</p> */}
             <p>Join us in building a better future today</p>
@@ -30,12 +31,15 @@ const Footer = () => {
             <FaXTwitter />
             <FaTiktok />
           </span>
-          <span>© 2024. All rights reserved.</span>
+          <span>
+            © 2024. All rights reserved to Bondhu Group. <br />{" "}
+            <MdDeveloperBoard className="inline" /> Developed By SoftHexis
+          </span>
         </div>
 
         {/* right */}
-        <div className="flex items-center gap-16 self-start">
-          <div className="flex flex-col gap-y-3 self-start">
+        <div className="flex  items-center justify-between gap-5 lg:gap-16 self-start order-1 lg:order-2  w-full">
+          <div className="flex flex-col gap-y-3 self-start ">
             <p>Connect</p>
             <span className="flex items-center gap-2">
               <FacebookPageEmbed />
@@ -47,16 +51,16 @@ const Footer = () => {
             </span>
           </div>
           <div className="">
-            <p className="mb-6">INNOVATIVE</p>
+            <p className="mb-2 lg:mb-6">INNOVATIVE</p>
             <span className="pt-6">
               <p>Enter your email address</p>
               <div className="flex flex-col gap-2 items-start my-2">
                 <input
                   type="email"
                   placeholder="type your email"
-                  className="px-6 py-1 rounded-lg outline-none bg-blue-200 text-black"
+                  className="px-3 lg:px-8 py-1 rounded-lg outline-none bg-blue-200 text-black"
                 />
-                <button className="bg-blue-400  py-2 px-8 text-black rounded-full cursor-pointer">
+                <button className="bg-blue-400  py-2 px-3 lg:px-8 text-black rounded-full cursor-pointer">
                   Join Bondhu Group Now.
                 </button>
               </div>

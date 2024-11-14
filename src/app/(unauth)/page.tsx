@@ -239,7 +239,7 @@ const HomePage = () => {
       <MissionVisionService />
 
       {/* Our Projects */}
-      {/* <Projects /> */}
+      <Projects />
     </div>
   );
 };

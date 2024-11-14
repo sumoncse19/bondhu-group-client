@@ -18,7 +18,7 @@ const Projects = () => {
       {/* heading */}
       <div className="w-[80%] mx-auto ">
         <div className="w-full flex flex-col justify-center items-center ">
-          <h1 className="text-6xl text-black">Our Projects</h1>
+          <h1 className="text-xl lg:text-6xl text-black">Our Projects</h1>
           <p className="pt-5 text-gray-600 text-center max-w-[500px]">
             Explore our diverse sectors and innovative business ventures.
           </p>
@@ -29,13 +29,13 @@ const Projects = () => {
       <div>
         <TransitionGroup
           component="div"
-          className="mt-10  grid grid-cols-2 gap-10"
+          className="mt-10  grid grid-cols-1 lg:grid-cols-2 gap-10 place-items-center justify-items-center"
         >
           {visibleItems?.map((p) => (
             <CSSTransition key={p?.id} timeout={500} classNames="fade">
               <div className="flex justify-center items-center cursor-pointer ">
                 <div className="flex flex-col">
-                  <div className="w-[550px] overflow-hidden rounded-3xl border-2 border-black p-1">
+                  <div className="w-[400px] lg:w-[400px] xl:w-[550px] overflow-hidden rounded-3xl border-2 border-black p-1">
                     <div
                       // href={p?.path}
                       onClick={() => {
@@ -79,7 +79,7 @@ const Projects = () => {
       </div>
 
       {/* Leaders Club */}
-      <div className="mt-10 w-[70%] mx-auto">
+      <div className="mt-10 w-[95%] lg:w-[70%] mx-auto">
         <LeadersClub />
       </div>
     </div>
