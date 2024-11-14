@@ -181,69 +181,64 @@ const UpdateProfile = () => {
   };
 
   // Function to handle registration
-  const handleRegistration = async () => {
-    if (password != confirmPassword) {
-      toast.error("Password doesnt match");
-      return;
-    }
-    setIsLoading(true);
-    const userData = {
-      name,
-      user_name: userName,
-      father_or_husband_name: fatherOrHusbandName,
-      mother_name: motherName,
-      picture: imageUrl,
-      email: email,
-      password: password,
-      phone: mobileNo,
-      role,
-      present_address: presentAddress,
-      permanent_address: permanentAddress,
-      nationality,
-      religion,
-      blood_group: bloodGroup,
-      nid_passport_no: nidNo,
-      dob,
-      choice_side: team,
-      marital_status: maritualStatus,
-      profession,
-      reference_id: referenceId,
-      parent_placement_id: parentPlacementId,
-      nominee_name: nomineeName,
-      relation_with_nominee: nomineeRelation,
-      nominee_address: nomineeAddress,
-      nominee_mobile_no: nomineePhoneNo,
-      nominee_picture: imageUrl2,
-      registration_date: "30.09.2024",
-    };
+  // const handleUpdateUser = async () => {
+  //   // if (password != confirmPassword) {
+  //   //   toast.error("Password doesnt match");
+  //   //   return;
+  //   // }
+  //   setIsLoading(true);
+  //   const userData = {
+  //     name,
+  //     user_name: userName,
+  //     father_or_husband_name: fatherOrHusbandName,
+  //     mother_name: motherName,
+  //     picture: imageUrl,
+  //     email: email,
+  //     password: password,
+  //     phone: mobileNo,
+  //     role,
+  //     present_address: presentAddress,
+  //     permanent_address: permanentAddress,
+  //     nationality,
+  //     religion,
+  //     blood_group: bloodGroup,
+  //     nid_passport_no: nidNo,
+  //     dob,
+  //     choice_side: team,
+  //     marital_status: maritualStatus,
+  //     profession,
+  //     reference_id: referenceId,
+  //     parent_placement_id: parentPlacementId,
+  //     nominee_name: nomineeName,
+  //     relation_with_nominee: nomineeRelation,
+  //     nominee_address: nomineeAddress,
+  //     nominee_mobile_no: nomineePhoneNo,
+  //     nominee_picture: imageUrl2,
+  //     registration_date: "30.09.2024",
+  //   };
 
-    try {
-      const response = await fetch(`${baseUrl}/user/auth/register`, {
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  //   try {
+  //     const response = await fetch(`${baseUrl}/user/auth/${id}`, {
+  //       method: "POST",
+  //       body: JSON.stringify(userData),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
 
-      if (!response.ok) {
-        toast.error(
-          "Registration Failed. Fill all the necessary fields and Try again"
-        );
-      }
+  //     const data = await response.json();
 
-      const data = await response.json();
-
-      if (data.success) {
-        router.push("/dashboard/wallet/purchase-wallet");
-        toast.success("Successfully added new User");
-      }
-    } catch (error: any) {
-      toast.error(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     if (data.success) {
+  //       router.push(`/man-management/userDetails/${id}`);
+  //       toast.success("Successfully Updated User");
+  //     }
+  //   } catch (error: any) {
+  //     toast.error(error.response?.data?.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   // fetch child user
   const fetchChildUsers = async () => {
@@ -268,27 +263,23 @@ const UpdateProfile = () => {
   }, [id]);
   // Function to handle registration
   const handleUpdateUser = async () => {
-    if (password != confirmPassword) {
-      toast.error("Password doesnt match");
-      return;
-    }
     setIsLoading(true);
-    const userData: UserData = {
+    const userData = {
       name,
       user_name: userName,
       father_or_husband_name: fatherOrHusbandName,
       mother_name: motherName,
       picture: imageUrl,
-      email: email,
-      password: password,
-      phone: mobileNo,
+      // email: email,
+      // password: password,
+      // phone: mobileNo,
       role,
       present_address: presentAddress,
       permanent_address: permanentAddress,
       nationality,
       religion,
       blood_group: bloodGroup,
-      nid_passport_no: nidNo,
+      // nid_passport_no: nidNo,
       dob,
       // choice_side: team,
       marital_status: maritualStatus,
@@ -300,14 +291,13 @@ const UpdateProfile = () => {
       nominee_address: nomineeAddress,
       nominee_mobile_no: nomineePhoneNo,
       nominee_picture: imageUrl2,
-      registration_date: "30.09.2024",
     };
 
-    if (userData.password === "") {
-      delete userData.password;
-    }
+    // if (userData.password === "") {
+    //   delete userData.password;
+    // }
     try {
-      const response = await fetch(`${baseUrl}/user/auth/${id}`, {
+      const response = await fetch(`${baseUrl}/user/auth/${user?._id}`, {
         method: "PUT",
         body: JSON.stringify(userData),
         headers: {
@@ -316,17 +306,11 @@ const UpdateProfile = () => {
         },
       });
 
-      if (!response.ok) {
-        toast.error(
-          "Profile Update Failed. Fill all the necessary fields and Try again"
-        );
-      }
-
       const data = await response.json();
 
       if (data.success) {
-        router.push("/dashboard/profile/my-profile");
-        toast.success("Successfully update profile");
+        // router.push(`/man-management/userDetails/${id}`);
+        toast.success("Successfully Updated User");
       }
     } catch (error: any) {
       toast.error(error.message);

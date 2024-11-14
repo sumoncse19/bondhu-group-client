@@ -54,27 +54,9 @@ const RefferalBonus = () => {
     }
   };
 
-  // Fetch username for each bonus_from (userId) in referral bonus history
-  const fetchUsernames = async (bonusHistories: BonusHistories[]) => {
-    const newUsernames: { [key: string]: string } = {};
-    for (const history of bonusHistories) {
-      if (history.bonus_from && !usernames[history.bonus_from]) {
-        const username = await getUserNameById(history.bonus_from, token);
-        newUsernames[history.bonus_from] = username || "Unknown User";
-      }
-    }
-    setUsernames((prevUsernames) => ({ ...prevUsernames, ...newUsernames }));
-  };
-
   useEffect(() => {
     fetchRefferalBonusHistory();
   }, [id]);
-
-  useEffect(() => {
-    if (refferalBonusHistories?.referral_bonus_history) {
-      fetchUsernames(refferalBonusHistories.referral_bonus_history);
-    }
-  }, [refferalBonusHistories]);
 
   return (
     <div
@@ -134,10 +116,8 @@ const RefferalBonus = () => {
                 </td>
               </tr>
             ) : (
-              refferalBonusHistories?.referral_bonus_history
-                ?.slice()
-                .reverse()
-                .map((history: BonusHistories) => (
+              refferalBonusHistories?.referral_bonus_history?.map(
+                (history: BonusHistories) => (
                   <tr
                     key={history?._id}
                     className="bg-red-100  text-black border-b-2 border-slate-700"
@@ -150,7 +130,8 @@ const RefferalBonus = () => {
                     </td>
                     <td className="px-6 py-4 text-center">{history?.date}</td>
                   </tr>
-                ))
+                )
+              )
             )}
           </tbody>
         </table>

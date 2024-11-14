@@ -10,6 +10,7 @@ import {
   TeamOutlined,
   WalletOutlined,
 } from "@ant-design/icons";
+import { PiHandWithdrawFill } from "react-icons/pi";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -191,6 +192,12 @@ const Sidebar2 = () => {
             title: "Man Management",
             icon: <FaPeopleGroup />,
             link: "/dashboard/man-management",
+            active: false,
+          },
+          {
+            title: "Withdraw Request",
+            icon: <PiHandWithdrawFill />,
+            link: "/dashboard/users-withdraw-request",
             active: false,
           },
         ]
