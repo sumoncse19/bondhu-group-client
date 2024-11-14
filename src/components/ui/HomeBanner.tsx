@@ -2,23 +2,25 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../../../src/Styles/HomeBanner.css";
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 4,
-    slidesToSlide: 4, // optional, default to 1.
+    slidesToSlide: 4,
   },
   tablet: {
     breakpoint: { max: 1024, min: 768 },
     items: 3,
-    slidesToSlide: 3, // optional, default to 1.
+    slidesToSlide: 3,
   },
   mobile: {
-    breakpoint: { max: 767, min: 464 },
+    breakpoint: { max: 767, min: 0 }, // Changed min to 0 to ensure small screens are covered
     items: 2,
-    slidesToSlide: 1, // optional, default to 1.
+    slidesToSlide: 1,
   },
 };
+
 const sliderImageUrl = [
   //First image url
   {
