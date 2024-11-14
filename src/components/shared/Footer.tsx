@@ -38,7 +38,7 @@ const Footer = () => {
         </div>
 
         {/* right */}
-        <div className="flex  items-center justify-between gap-5 lg:gap-16 self-start order-1 lg:order-2  w-full">
+        <div className="flex flex-col lg:flex-row  items-center justify-between gap-5 lg:gap-16 self-start order-1 lg:order-2  w-full">
           <div className="flex flex-col gap-y-3 self-start ">
             <p>Connect</p>
             <span className="flex items-center gap-2">
@@ -50,7 +50,7 @@ const Footer = () => {
               <p>bondhugroup24@gmail.com</p>
             </span>
           </div>
-          <div className="">
+          <div className="self-start">
             <p className="mb-2 lg:mb-6">INNOVATIVE</p>
             <span className="pt-6">
               <p>Enter your email address</p>
