@@ -4,7 +4,7 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { FaMinus, FaPlus, FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { NavbarDemo } from "../Navbar-Menu";
 import WariningMessage from "./Warning";
 import WarningMessage from "./Warning";
@@ -25,7 +25,7 @@ const Header = () => {
   });
 
   const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname();
   // const location=use
 
   let userCookie;
