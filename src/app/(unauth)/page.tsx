@@ -194,7 +194,7 @@ const HomePage = () => {
 
       {/* Bondhu builder intro */}
       <motion.div
-        className="my-10"
+        className="mt-10 "
         initial={{ y: "80px", opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: "easeIn" }}
@@ -213,9 +213,9 @@ const HomePage = () => {
             <Button />
           </div>
 
-          <div className="w-full flex justify-center lg:justify-end right-div">
+          <div className="w-full flex justify-center lg:justify-end right-div ">
             <img
-              className="rounded-full w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
+              className="rounded-full w-[300px] h-[200px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
               src="/images/buildersImg1.png"
               alt="Bondhu Builders"
             />
@@ -236,7 +236,7 @@ const HomePage = () => {
 
       {/* Our Service */}
       {/* <Services /> */}
-      {/* <MissionVisionService /> */}
+      <MissionVisionService />
 
       {/* Our Projects */}
       {/* <Projects /> */}

@@ -67,7 +67,7 @@ export const StickyScroll = ({
       className="service-part h-[50rem]  overflow-y-scroll  relative  p-10"
       ref={ref}
     >
-      <div className="w-[75%] mx-auto flex justify-between relative">
+      <div className="w-[95%] lg:w-[75%] mx-auto flex justify-between relative">
         <div className="div relative flex items-start px-4">
           <div className="max-w-2xl">
             {content.map((item, index) => (
