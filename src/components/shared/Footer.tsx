@@ -17,7 +17,7 @@ const Footer = () => {
     window.open(whatsappUrl, "_blank");
   };
   return (
-    <div className="bg-slate-600 w-full mt-20 pt-16 pb-8 px-28 text-blue-200">
+    <div className="bg-slate-600 w-full mt-20 pt-16 pb-8 px-28 text-blue-200 hidden lg:block">
       <div className="flex items-center justify-between">
         {/* left */}
         <div className="flex flex-col gap-y-10">

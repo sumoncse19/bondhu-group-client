@@ -110,7 +110,7 @@ const page = () => {
 
       <div className="w-[350px] sm:w-[500px] md:w-[750px] xl:w-full relative overflow-x-auto max-h-screen overflow-y-auto my-5">
         <table className="w-full text-sm text-left rtl:text-right text-white ">
-          <thead className="sticky top-0 text-xs text-black  bg-red-300 border-b-2 border-t-2 border-black">
+          <thead className="sticky top-0 text-xs text-black  bg-teal-200 border-2  border-black">
             <tr>
               <th
                 rowSpan={2}
@@ -138,7 +138,7 @@ const page = () => {
                 Money Reciept Picture
               </th>
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
-                Request Date
+                Request Date <br /> (yyyy-mm-dd)
               </th>
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
                 State
@@ -177,13 +177,11 @@ const page = () => {
                 </td>
               </tr>
             ) : (
-              addMoneyHistories
-                ?.slice()
-                .reverse()
-                .map((history: AddMoneyHistoriesInterface) => (
+              addMoneyHistories?.map(
+                (history: AddMoneyHistoriesInterface, i) => (
                   <tr
                     key={history?._id}
-                    className="bg-red-50 text-black border-b-2 border-slate-700 "
+                    className={`${i % 2 == 0 ? "bg-teal-50" : "bg-teal-200"} text-black border-2 border-slate-700`}
                   >
                     <td className="px-6 py-4 text-center">
                       {history?.money_receipt_number}
@@ -254,13 +252,14 @@ const page = () => {
                     <td className="px-6 py-4 text-center">{history?.date}</td>
                     <td className="px-6 py-4 text-center ">
                       <p
-                        className={` text-white py-2 px-2 rounded-md shadow-2xl shadow-black ${history?.is_approved ? "bg-teal-500" : "bg-rose-500"}`}
+                        className={`  py-2 px-2 rounded-md italic  ${history?.is_approved ? "bg-teal-200 text-teal-700" : "bg-rose-200 text-rose-700"}`}
                       >
                         {history?.is_approved ? "Approved" : "Requested"}
                       </p>
                     </td>
                   </tr>
-                ))
+                )
+              )
             )}
           </tbody>
           {/* <tbody>

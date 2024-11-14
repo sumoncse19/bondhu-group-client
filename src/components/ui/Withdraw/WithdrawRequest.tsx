@@ -174,7 +174,13 @@ const WithdrawRequest = ({
 
         <div className="flex justify-end items-center gap-x-2 mt-10">
           <p
-            onClick={() => setCurrentTab("setting")}
+            onClick={() => {
+              if (selectedGateway === "cash") {
+                setCurrentTab("payment-gateway");
+              } else {
+                setCurrentTab("setting");
+              }
+            }}
             className="bg-rose-500 text-white font-bold hover:bg-rose-600 px-3 py-1 rounded-md cursor-pointer"
           >
             Back

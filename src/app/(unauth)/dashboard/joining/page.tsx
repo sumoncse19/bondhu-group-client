@@ -498,7 +498,7 @@ const page = () => {
                 value={dob}
                 placeholder="ex: 12.09.1999"
                 className="w-full bg-[#F3F4F6] text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
-                type="text"
+                type="date"
                 id="dob"
               />
             </div>
@@ -863,7 +863,7 @@ const page = () => {
                 visible={true}
                 height="30"
                 width="30"
-                color="#00A884"
+                color="#fff"
                 ariaLabel="three-circles-loading"
                 wrapperStyle={{}}
                 wrapperClass=""

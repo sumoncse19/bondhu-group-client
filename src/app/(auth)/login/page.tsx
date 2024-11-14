@@ -41,10 +41,6 @@ const page = () => {
         },
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to register");
-      }
-
       const data = await response.json();
       if (data.success) {
         if (data?.data?.is_approved) {
@@ -64,6 +60,8 @@ const page = () => {
           toast.error("This User is not Approved by Admin Yet");
         }
         reset();
+      } else {
+        alert(data.errors[0]);
       }
     } catch (error: any) {
       toast.error(error.message);

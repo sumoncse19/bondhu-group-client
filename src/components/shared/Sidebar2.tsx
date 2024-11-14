@@ -177,7 +177,7 @@ const Sidebar2 = () => {
                 active: false,
               },
               {
-                title: "Withdraw Report",
+                title: "Withdraw History",
                 link: "/dashboard/withdraw/withdraw-report",
                 active: false,
               },

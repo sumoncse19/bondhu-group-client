@@ -29,8 +29,9 @@ interface InvestmentHistoriesData {
   branch_name?: string;
   transaction_id: string;
   picture: string;
+  payment_picture: string;
   is_approved: boolean;
-  createdAt: string;
+  date: string;
 }
 
 const page = () => {
@@ -38,6 +39,7 @@ const page = () => {
     useState<InvestmentHistoriesData[]>();
   const [pageNo, setPageNo] = useState<number>(1);
   const [isOpenImageModal, setIsOpenImageModal] = useState<boolean>(false);
+  const [modalImage, seModalImgae] = useState<string>("");
   const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingAccept, setIsLoadingAccept] = useState<{
@@ -147,7 +149,7 @@ const page = () => {
         // style={{ width: "calc(100% - 150px)" }}
       >
         <table className="min-w-full text-sm text-left rtl:text-right   ">
-          <thead className="sticky top-0 text-xs text-black  bg-red-50 border-2 border-black">
+          <thead className="sticky top-0 text-xs text-black  bg-teal-200 border-2 border-black">
             <tr>
               <th
                 rowSpan={2}
@@ -196,14 +198,21 @@ const page = () => {
                 scope="col"
                 className="px-3 py-3 text-center border-r-2 border-black"
               >
-                Payment Picture
+                Transaction Picture
               </th>
               <th
                 rowSpan={2}
                 scope="col"
                 className="px-3 py-3 text-center border-r-2 border-black"
               >
-                Request Date
+                Money Receipt
+              </th>
+              <th
+                rowSpan={2}
+                scope="col"
+                className="px-3 py-3 text-center border-r-2 border-black"
+              >
+                Request Date <br /> (yyyy-mm-dd)
               </th>
               <th rowSpan={2} scope="col" className="px-3 py-3 text-center ">
                 State
@@ -253,13 +262,11 @@ const page = () => {
                 </td>
               </tr>
             ) : (
-              investmentHistories
-                ?.slice()
-                .reverse()
-                .map((history: InvestmentHistoriesData) => (
+              investmentHistories?.map(
+                (history: InvestmentHistoriesData, i) => (
                   <tr
                     key={history?._id}
-                    className="bg-red-50 text-black border-b-2 border-slate-700 "
+                    className={`${i % 2 == 0 ? "bg-teal-50" : "bg-teal-200"} text-black border-2 border-slate-700 `}
                   >
                     <td className="px-3 py-4 text-center">
                       {history?.money_receipt_number}
@@ -293,22 +300,47 @@ const page = () => {
                     <td className="px-3 py-4 text-center">
                       {history?.transaction_id}
                     </td>
-                    <td className="px-3 py-4 text-center  flex justify-center items-center gap-x-2">
-                      <img
-                        className="w-10 h-10"
-                        src={history?.picture}
-                        alt=""
-                      />
-                      <p
-                        onClick={() => setIsOpenImageModal(true)}
-                        className="cursor-pointer hover:text-rose-600 font-bold"
-                      >
-                        View
-                      </p>
+                    <td className="px-3 py-4 text-center  ">
+                      {history?.picture ? (
+                        <div className="flex justify-center items-center gap-x-2">
+                          <img
+                            className="w-10 h-10"
+                            src={history?.picture}
+                            alt=""
+                          />
+                          <p
+                            onClick={() => {
+                              setIsOpenImageModal(true);
+                              seModalImgae(history?.picture);
+                            }}
+                            className="cursor-pointer hover:text-rose-600 font-bold"
+                          >
+                            View
+                          </p>
+                        </div>
+                      ) : (
+                        "--"
+                      )}
                     </td>
-                    <td className="px-3 py-4 text-center">
-                      {formatDate(history?.createdAt)}
+                    <td className="px-3 py-4 text-center ">
+                      <div className=" flex justify-center items-center gap-x-2">
+                        <img
+                          className="w-10 h-10"
+                          src={history?.payment_picture}
+                          alt=""
+                        />
+                        <p
+                          onClick={() => {
+                            setIsOpenImageModal(true);
+                            seModalImgae(history?.payment_picture);
+                          }}
+                          className="cursor-pointer hover:text-rose-600 font-bold"
+                        >
+                          View
+                        </p>
+                      </div>
                     </td>
+                    <td className="px-3 py-4 text-center">{history?.date}</td>
                     <td className="px-3 py-4 text-center ">
                       {isLoadingAccept.status &&
                       isLoadingAccept.idx === history?._id ? (
@@ -318,14 +350,15 @@ const page = () => {
                           onClick={() => {
                             handleAcceptInvestmentRequest(history?._id || "");
                           }}
-                          className={` text-white py-2 px-2 rounded-md shadow-2xl cursor-pointer shadow-black transition-all duration-300 ease-in ${history.is_approved ? "bg-teal-500" : "bg-rose-500 hover:bg-rose-600 hover:tracking-wider"}`}
+                          className={`py-2 px-2 rounded-md shadow-2xl cursor-pointer shadow-black transition-all duration-300 ease-in ${history.is_approved ? "bg-teal-500" : "bg-rose-200 text-rose-700 hover:bg-rose-300 "}`}
                         >
                           {history?.is_approved ? "Approved" : "Accept"}
                         </p>
                       )}
                     </td>
                   </tr>
-                ))
+                )
+              )
             )}
           </tbody>
           {/* <tbody>
@@ -381,7 +414,10 @@ const page = () => {
         </table>
 
         {isOpenImageModal && (
-          <ViewImageModal setIsOpenImageModal={setIsOpenImageModal} />
+          <ViewImageModal
+            image={modalImage}
+            setIsOpenImageModal={setIsOpenImageModal}
+          />
         )}
       </div>
     </div>
