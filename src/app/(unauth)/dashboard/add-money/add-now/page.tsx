@@ -176,6 +176,8 @@ const page = () => {
       console.log("hi");
     }
 
+    const payment_date = new Date(paymentDate);
+
     const paymentData = {
       userId: user?._id,
       project_share: projectShareAmount,
@@ -192,7 +194,7 @@ const page = () => {
       transaction_id: transactionId ? transactionId : "",
       picture: paymentPicture ? paymentPicture : "",
       payment_picture: paymentPicture2,
-      date: paymentDate,
+      date: payment_date.toISOString(),
       is_approved: false,
     };
 
@@ -502,7 +504,7 @@ const page = () => {
               <p
                 className={`text-xl ${selectedPlans.includes("directorship") ? "font-bold" : ""}`}
               >
-                Directorship
+                Partnership
               </p>
             </div>
             {selectedPlans.includes("directorship") && (
@@ -599,7 +601,7 @@ const page = () => {
             {parseInt(directorshipAmount) > 0 && (
               <div className="flex items-center justify-between  px-4 py-3 border-b-2 border-black text-black">
                 <div className="flex items-center gap-3">
-                  <p>Directorship</p>
+                  <p>Partnership</p>
                 </div>
                 <p className="text-sm tracking-widest">
                   &#2547; {directorshipAmount}

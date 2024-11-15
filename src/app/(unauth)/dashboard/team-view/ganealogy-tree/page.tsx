@@ -273,7 +273,7 @@ const page = () => {
       </div> */}
 
       {/* search box */}
-      {role === "superAdmin" && (
+      {(role === "superAdmin" || role === "admin") && (
         <div className="flex items-center gap-x-3">
           <input
             ref={searchInputRef}
@@ -384,6 +384,7 @@ const page = () => {
                         {fullTeams ? fullTeams?.accountable?.team_a_point : ""}
                       </p> */}
                       <p>
+                        Team A{" "}
                         {fullTeams ? fullTeams?.accountable?.team_a_carry : ""}
                       </p>
                     </div>
@@ -397,6 +398,7 @@ const page = () => {
                         {fullTeams ? fullTeams?.accountable?.team_b_point : ""}
                       </p> */}
                       <p>
+                        Team B{" "}
                         {fullTeams ? fullTeams?.accountable?.team_b_carry : ""}
                       </p>
                     </div>
@@ -411,7 +413,7 @@ const page = () => {
             </td>
           </tr>
           {/* tree */}
-          {role === "superAdmin" && (
+          {(role === "superAdmin" || role === "admin") && (
             <tr className="">
               <td className=" flex justify-center items-center ">
                 <img src="/images/tree.png" alt="" className="w-[48%] ml-10" />
@@ -419,7 +421,7 @@ const page = () => {
             </tr>
           )}
           {/* 2nd level */}
-          {role === "superAdmin" && (
+          {(role === "superAdmin" || role === "admin") && (
             <tr className=" flex gap-5 ">
               {/* secondLevelLeftPartner */}
               <td className=" flex justify-center items-center w-full  pl-32">
@@ -527,7 +529,7 @@ const page = () => {
                       </div>
                     )}
                     {secondLevelLeftPartner && (
-                      <div className="absolute top-1/2   -translate-y-1/2 -left-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                      <div className="absolute top-1/2   -translate-y-1/2 -left-[100%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
                         {/* <p>
                         Points:{" "}
                         {secondLevelLeftPartner
@@ -535,6 +537,7 @@ const page = () => {
                           : ""}
                       </p> */}
                         <p>
+                          Team A{" "}
                           {secondLevelLeftPartner
                             ? secondLevelLeftPartner?.accountable?.team_a_carry
                             : ""}
@@ -544,7 +547,7 @@ const page = () => {
 
                     {/* Right side info */}
                     {secondLevelLeftPartner && (
-                      <div className="absolute top-1/2  -translate-y-1/2 -right-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                      <div className="absolute top-1/2  -translate-y-1/2 -right-[100%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
                         {/* <p>
                         Points:{" "}
                         {secondLevelLeftPartner
@@ -552,6 +555,7 @@ const page = () => {
                           : ""}
                       </p> */}
                         <p>
+                          Team B{" "}
                           {secondLevelLeftPartner
                             ? secondLevelLeftPartner?.accountable?.team_b_carry
                             : ""}
@@ -673,7 +677,7 @@ const page = () => {
                       </div>
                     )}
                     {secondLevelRightPartner && (
-                      <div className="absolute top-1/2   -translate-y-1/2 -left-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                      <div className="absolute top-1/2   -translate-y-1/2 -left-[100%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
                         {/* <p>
                         Points:{" "}
                         {secondLevelRightPartner
@@ -681,6 +685,7 @@ const page = () => {
                           : ""}
                       </p> */}
                         <p>
+                          Team A{" "}
                           {secondLevelRightPartner
                             ? secondLevelRightPartner?.accountable?.team_a_carry
                             : ""}
@@ -689,7 +694,7 @@ const page = () => {
                     )}
                     {/* Right side info */}
                     {secondLevelRightPartner && (
-                      <div className="absolute top-1/2  -translate-y-1/2 -right-[150%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                      <div className="absolute top-1/2  -translate-y-1/2 -right-[100%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
                         {/* <p>
                         Points:{" "}
                         {secondLevelRightPartner
@@ -697,6 +702,7 @@ const page = () => {
                           : ""}
                       </p> */}
                         <p>
+                          Team B{" "}
                           {secondLevelRightPartner
                             ? secondLevelRightPartner?.accountable?.team_b_carry
                             : ""}
@@ -714,7 +720,7 @@ const page = () => {
             </tr>
           )}
           {/* tree */}
-          {role === "superAdmin" && (
+          {(role === "superAdmin" || role === "admin") && (
             <tr className="flex ">
               <td className=" flex justify-center items-center w-full  pl-32">
                 <img src="/images/tree.png" className="w-[400px]" alt="" />
@@ -725,7 +731,7 @@ const page = () => {
             </tr>
           )}
           {/* 3rd level */}
-          {role === "superAdmin" && (
+          {(role === "superAdmin" || role === "admin") && (
             <tr className="flex ">
               {/* thirdLeveLeftLeftPartner and thirdLeveLeftRightPartner */}
               <td className=" flex  items-center w-full ">
@@ -847,6 +853,7 @@ const page = () => {
                             : ""}
                         </p> */}
                           <p>
+                            Team A{" "}
                             {thirdLeveLeftLeftPartner
                               ? thirdLeveLeftLeftPartner?.accountable
                                   ?.team_a_carry
@@ -865,6 +872,7 @@ const page = () => {
                             : ""}
                         </p> */}
                           <p>
+                            Team B{" "}
                             {thirdLeveLeftLeftPartner
                               ? thirdLeveLeftLeftPartner?.accountable
                                   ?.team_b_carry
@@ -990,7 +998,7 @@ const page = () => {
                       )}
                       {/* Left side info */}
                       {thirdLeveLeftRightPartner && (
-                        <div className="absolute top-1/2   -translate-y-1/2 -left-[10%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                        <div className="absolute top-1/2   -translate-y-1/2 -left-[50%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
                           {/* <p>
                           Points:{" "}
                           {thirdLeveLeftRightPartner
@@ -999,6 +1007,7 @@ const page = () => {
                             : ""}
                         </p> */}
                           <p>
+                            Team A{" "}
                             {thirdLeveLeftRightPartner
                               ? thirdLeveLeftRightPartner?.accountable
                                   ?.team_a_carry
@@ -1008,7 +1017,7 @@ const page = () => {
                       )}
                       {/* Right side info */}
                       {thirdLeveLeftRightPartner && (
-                        <div className="absolute top-1/2  -translate-y-1/2 -right-[10%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                        <div className="absolute top-1/2  -translate-y-1/2 -right-[50%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
                           {/* <p>
                           Points:{" "}
                           {thirdLeveLeftRightPartner
@@ -1017,6 +1026,7 @@ const page = () => {
                             : ""}
                         </p> */}
                           <p>
+                            Team B{" "}
                             {thirdLeveLeftRightPartner
                               ? thirdLeveLeftRightPartner?.accountable
                                   ?.team_b_carry
@@ -1144,7 +1154,7 @@ const page = () => {
                       )}
                       {/* Left side info */}
                       {thirdLeveRightLeftPartner && (
-                        <div className="absolute top-1/2   -translate-y-1/2 -left-[10%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
+                        <div className="absolute top-1/2   -translate-y-1/2 -left-[50%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-in-out">
                           {/* <p>
                           Points:{" "}
                           {thirdLeveRightLeftPartner
@@ -1153,6 +1163,7 @@ const page = () => {
                             : ""}
                         </p> */}
                           <p>
+                            Team A{" "}
                             {thirdLeveRightLeftPartner
                               ? thirdLeveRightLeftPartner?.accountable
                                   ?.team_a_carry
@@ -1162,7 +1173,7 @@ const page = () => {
                       )}
                       {/* Right side info */}
                       {thirdLeveRightLeftPartner && (
-                        <div className="absolute top-1/2  -translate-y-1/2 -right-[10%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
+                        <div className="absolute top-1/2  -translate-y-1/2 -right-[50%] z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md  opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-in-out">
                           {/* <p>
                           Points:{" "}
                           {thirdLeveRightLeftPartner
@@ -1171,6 +1182,7 @@ const page = () => {
                             : ""}
                         </p> */}
                           <p>
+                            Team B{" "}
                             {thirdLeveRightLeftPartner
                               ? thirdLeveRightLeftPartner?.accountable
                                   ?.team_b_carry
@@ -1306,6 +1318,7 @@ const page = () => {
                             : ""}
                         </p> */}
                           <p>
+                            Team A{" "}
                             {thirdLeveRightRightPartner
                               ? thirdLeveRightRightPartner?.accountable
                                   ?.team_a_carry
@@ -1324,6 +1337,7 @@ const page = () => {
                             : ""}
                         </p> */}
                           <p>
+                            Team B{" "}
                             {thirdLeveRightRightPartner
                               ? thirdLeveRightRightPartner?.accountable
                                   ?.team_b_carry
