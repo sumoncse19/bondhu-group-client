@@ -33,9 +33,8 @@ const HomePage = () => {
         <div className="w-full">
           <div className="w-full lg:w-[80%] mx-auto relative">
             <div className="hidden lg:block text-xl xl:text-6xl 2xl:text-7xl tracking-wide  font-serif uppercase font-bold ">
-              Turning <p className="text-red-500 inline">Ideas</p> <br />
-              Into Lasting
-              <p className="text-blue-600 ">Success.</p>
+              Better <p className="text-red-500 inline">Believe</p> Creates{" "}
+              Better <p className="text-blue-600 inline">Business.</p>
             </div>
             <div className="block lg:hidden text-xl tracking-wide  font-serif uppercase font-bold ">
               Turning <p className="text-red-500 inline mr-2">Ideas</p>
