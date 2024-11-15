@@ -29,7 +29,7 @@ const Projects = () => {
       <div>
         <TransitionGroup
           component="div"
-          className="mt-10  grid grid-cols-1 lg:grid-cols-2 gap-10 place-items-center justify-items-center"
+          className="mt-10  grid grid-cols-1 lg:grid-cols-2 gap-10 place-items-center justify-items-center px-2"
         >
           {visibleItems?.map((p) => (
             <CSSTransition key={p?.id} timeout={500} classNames="fade">
