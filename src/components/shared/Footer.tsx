@@ -21,7 +21,7 @@ const Footer = () => {
     <div className="bg-slate-600 w-full mt-20 pt-5 lg:pt-16 pb-8  px-3 lg:px-28 text-blue-200">
       <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-y-16">
         {/* left */}
-        <div className="self-start flex flex-col gap-y-10 order-2 lg:order-1">
+        <div className="w-full self-start flex flex-col gap-y-10 order-2 lg:order-1">
           <span className="flex flex-col gap-y-3">
             {/* <p className="text-xl">Connect</p> */}
             <p>Join us in building a better future today</p>
@@ -38,8 +38,8 @@ const Footer = () => {
         </div>
 
         {/* right */}
-        <div className="flex flex-row  items-center justify-between gap-5 lg:gap-16 self-start order-1 lg:order-2">
-          <div className="flex flex-col gap-y-3 self-start ">
+        <div className="w-full flex flex-col lg:flex-row  items-center justify-between gap-10 lg:gap-16 self-start order-1 lg:order-2">
+          <div className="w-full flex flex-row lg:flex-col justify-between lg:justify-normal gap-y-3 self-start ">
             <p>Connect</p>
             <span className="flex items-center gap-2">
               <FacebookPageEmbed />
@@ -50,9 +50,9 @@ const Footer = () => {
               <p>bondhugroup24@gmail.com</p>
             </span>
           </div>
-          <div className="self-start">
+          <div className="self-start flex flex-row lg:flex-col justify-between w-full">
             <p className="mb-2 lg:mb-6">INNOVATIVE</p>
-            <span className="pt-6">
+            <div className="pt-6 self-start">
               <p>Enter your email address</p>
               <div className="flex flex-col gap-2 items-start my-2">
                 <input
@@ -64,7 +64,7 @@ const Footer = () => {
                   Join Bondhu Group Now.
                 </button>
               </div>
-            </span>
+            </div>
           </div>
         </div>
       </div>
