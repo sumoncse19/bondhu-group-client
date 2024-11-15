@@ -262,8 +262,10 @@ const page = () => {
                 </td>
               </tr>
             ) : (
-              investmentHistories?.map(
-                (history: InvestmentHistoriesData, i) => (
+              investmentHistories
+                ?.slice()
+                ?.reverse()
+                ?.map((history: InvestmentHistoriesData, i) => (
                   <tr
                     key={history?._id}
                     className={`${i % 2 == 0 ? "bg-teal-50" : "bg-teal-200"} text-black border-2 border-slate-700 `}
@@ -357,8 +359,7 @@ const page = () => {
                       )}
                     </td>
                   </tr>
-                )
-              )
+                ))
             )}
           </tbody>
           {/* <tbody>

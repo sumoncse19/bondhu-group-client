@@ -17,10 +17,15 @@ import baseUrl from "../../../../config";
 import ClubBonusChart from "@/components/Charts/ClubBonusChart";
 import BonusChart from "@/components/Charts/BonusChart";
 import IncomeWalletPieChart from "@/components/Charts/IncomeWalletPieChart";
+import PurchaseWalletChart from "@/components/Charts/PurchaseWalletChart";
+import DonutChart from "@/components/Charts/PurchaseWalletChart";
+import PurchaseMoneyCostingTable from "@/components/Table/PurchaseMoneyCostingTable";
 
 const Dashboard = () => {
   const [user, setUser] = useState<any>({});
   const { singleUser, setSingleUser } = useStore();
+
+  const have_purchase_wallet = Cookies.get("have_purchase_wallet");
   const userCookie = Cookies.get("user");
   const token = Cookies.get("token");
 
@@ -116,7 +121,7 @@ const Dashboard = () => {
 
         {/* referrel bonus , matching bonus and club bonus  */}
         <div className="bg-white w-full h-fit p-3">
-          <p className="text-2xl border-b-2 mb-2 border-slate-700">Bonus</p>
+          <p className="text-2xl mb-2 ">Bonus</p>
           <div className="flex gap-x-9 py-4">
             <p>
               Reference &#x9F3;{" "}
@@ -148,9 +153,19 @@ const Dashboard = () => {
 
         {/* purchase_wallet */}
 
-        <div className=" w-full flex p-3">
-          <div className="h-fit bg-white p-5">hello</div>
-        </div>
+        {have_purchase_wallet === "yes" && (
+          <div className=" w-full flex gap-8  p-3">
+            {/* purchase wallet chart */}
+            <DonutChart
+              percentage={parseInt(user?.wallet?.purchase_wallet) / 1000}
+              purchase_wallet={user?.wallet?.purchase_wallet}
+            />
+            {/* purchase money costing table */}
+            <div className="flex-grow">
+              <PurchaseMoneyCostingTable />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
