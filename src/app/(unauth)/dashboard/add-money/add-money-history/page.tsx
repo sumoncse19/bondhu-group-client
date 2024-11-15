@@ -252,7 +252,7 @@ const page = () => {
                     <td className="px-6 py-4 text-center">{history?.date}</td>
                     <td className="px-6 py-4 text-center ">
                       <p
-                        className={`  py-2 px-2 rounded-md italic  ${history?.is_approved ? "bg-teal-200 text-teal-700" : "bg-rose-200 text-rose-700"}`}
+                        className={`  py-2 px-2 rounded-md italic  ${history?.is_approved ? " text-teal-700" : "text-rose-700"}`}
                       >
                         {history?.is_approved ? "Approved" : "Requested"}
                       </p>

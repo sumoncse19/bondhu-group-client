@@ -68,12 +68,8 @@ const Header = () => {
         {/* middle side */}
         <NavbarDemo />
         {/* right side */}
-        <div className="">
-          <BsMenuButtonWideFill
-            onClick={() => setIsSidebarOpen(true)}
-            className="text-xl text-teal-500 lg:hidden"
-          />
-          {/* {user ? (
+        <div className="flex items-center gap-4">
+          {user ? (
             <div
               onClick={() => {
                 Cookies.remove("user");
@@ -84,18 +80,22 @@ const Header = () => {
                 Cookies.remove("token");
                 setUser({});
               }}
-              className="text-white tracking-wider bg-teal-700 px-5 py-2 font-bold rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest cursor-pointer"
+              className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 font-bold rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest cursor-pointer"
             >
               Log Out
             </div>
           ) : (
             <Link
               href="/login"
-              className="text-white tracking-wider bg-teal-700 px-5 py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
+              className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
             >
               Log in
             </Link>
-          )} */}
+          )}
+          <BsMenuButtonWideFill
+            onClick={() => setIsSidebarOpen(true)}
+            className="text-xl text-teal-500 lg:hidden"
+          />
         </div>
       </div>
 
