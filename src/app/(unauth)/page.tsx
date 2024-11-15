@@ -100,7 +100,7 @@ const HomePage = () => {
         }}
         className="w-full h-[300px] lg:h-[500px] py-3 lg:py-6 bg-opacity-0 flex items-center justify-center relative"
       >
-        <div className="hidden lg:flex w-[80%] min-h-40 mx-auto  justify-center items-center z-50 bg-black bg-opacity-70 p-3 rounded-md">
+        <div className="hidden lg:flex w-[80%] min-h-40 mx-auto  justify-center items-center  bg-black bg-opacity-70 p-3 rounded-md">
           <TypeAnimation
             sequence={[
               // Same substring at the start will only be typed once, initially
@@ -123,7 +123,7 @@ const HomePage = () => {
           />
         </div>
         {/* mobile version */}
-        <div className=" lg:hidden flex w-[90%] min-h-20 mx-auto  justify-center items-center z-50 bg-black bg-opacity-70 p-3 rounded-md">
+        <div className=" lg:hidden flex w-[90%] min-h-20 mx-auto  justify-center items-center  bg-black bg-opacity-70 p-3 rounded-md">
           <TypeAnimation
             sequence={[
               // Same substring at the start will only be typed once, initially
