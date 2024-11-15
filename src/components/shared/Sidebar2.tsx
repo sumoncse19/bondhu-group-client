@@ -324,7 +324,7 @@ const Sidebar2 = () => {
         <div className="flex flex-col items-center gap-1.5 ">
           <Link className="flex items-center gap-x-2" href="">
             <Image
-              src="/images/Logo1.png"
+              src="/images/logo1.png"
               width={100}
               height={100}
               alt="logo"
