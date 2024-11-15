@@ -146,9 +146,9 @@ const page = () => {
             </tr>
             <tr>
               <th className="px-6 py-3 text-center ">Project Share</th>
-              <th className="px-6 py-3 text-center ">Project Share</th>
-              <th className="px-6 py-3 text-center ">Project Share</th>
-              <th className="px-6 py-3 text-center ">Project Share</th>
+              <th className="px-6 py-3 text-center ">Fixed Deposite</th>
+              <th className="px-6 py-3 text-center ">Share Holder</th>
+              <th className="px-6 py-3 text-center ">Partnership</th>
             </tr>
           </thead>
           <tbody className="text-[10px]">

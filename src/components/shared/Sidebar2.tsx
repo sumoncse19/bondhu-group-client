@@ -120,7 +120,7 @@ const Sidebar2 = () => {
           active: false,
         },
         {
-          title: "Directorship",
+          title: "Partnership",
           link: "/dashboard/wallet/directorship",
           active: false,
         },

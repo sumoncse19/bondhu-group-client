@@ -55,7 +55,7 @@ const Setting = ({
                 value={bankName}
                 type="text"
                 placeholder=""
-                className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
+                className="w-52 px-3 py-1 outline-none border-2 bg-transparent border-slate-600 rounded-md"
               />
             </div>
             <div className="flex items-center justify-between">
@@ -65,7 +65,7 @@ const Setting = ({
                 value={branchName}
                 type="text"
                 placeholder=""
-                className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
+                className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md bg-transparent"
               />
             </div>
             <div className="flex items-center justify-between">
@@ -75,7 +75,7 @@ const Setting = ({
                 value={routingNo}
                 type="text"
                 placeholder=""
-                className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
+                className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md bg-transparent"
               />
             </div>
             <div className="flex items-center justify-between">
@@ -85,7 +85,7 @@ const Setting = ({
                 value={swiftCode}
                 type="text"
                 placeholder=""
-                className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md"
+                className="w-52 px-3 py-1 outline-none border-2 border-slate-600 rounded-md bg-transparent"
               />
             </div>
           </>
