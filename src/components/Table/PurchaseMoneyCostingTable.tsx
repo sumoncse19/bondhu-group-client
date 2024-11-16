@@ -19,9 +19,10 @@ interface ExpensessHistoryItem {
 
 interface ExpensessInterface {
   _id: string;
-  userId: string;
-  purchase_amount: string;
-  joining_cost_history: ExpensessHistoryItem[];
+  new_partner_id: string;
+  partner_name: string;
+  partner_user_name: string;
+  date: string;
 }
 
 interface partnerDetails {
@@ -37,7 +38,7 @@ interface partnerDetails {
 
 const PurchaseMoneyCostingTable = () => {
   const [expensesHistories, setExpensessHistories] =
-    useState<ExpensessInterface>();
+    useState<ExpensessInterface[]>();
   const [partnersDetails, setPartnersDetails] = useState<partnerDetails[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -64,49 +65,51 @@ const PurchaseMoneyCostingTable = () => {
 
       const data = await response.json();
       if (data.success) {
-        setExpensessHistories(data?.data?.userPurchaseHistory[0]);
+        setExpensessHistories(
+          data?.data?.userPurchaseHistory[0]?.joining_cost_history
+        );
 
-        const joiningCostHistory =
-          data?.data?.userPurchaseHistory[0]?.joining_cost_history;
+        // const joiningCostHistory =
+        //   data?.data?.userPurchaseHistory[0]?.joining_cost_history;
 
-        if (joiningCostHistory?.length) {
-          const partnersDetailsPromises = joiningCostHistory.map(
-            async (join: ExpensessHistoryItem) => {
-              const userResponse = await fetch(
-                `${baseUrl}/user/get-user/${join?.new_partner_id}`,
-                {
-                  method: "GET",
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
+        // if (joiningCostHistory?.length) {
+        //   const partnersDetailsPromises = joiningCostHistory.map(
+        //     async (join: ExpensessHistoryItem) => {
+        //       const userResponse = await fetch(
+        //         `${baseUrl}/user/get-user/${join?.new_partner_id}`,
+        //         {
+        //           method: "GET",
+        //           headers: {
+        //             Authorization: `Bearer ${token}`,
+        //             "Content-Type": "application/json",
+        //           },
+        //         }
+        //       );
 
-              const userData = await userResponse.json();
-              if (userData.success) {
-                return userData?.data; // Return the partner data
-              } else {
-                throw new Error(
-                  userData.message || "Failed to fetch user details"
-                );
-              }
-            }
-          );
+        //     const userData = await userResponse.json();
+        //     if (userData.success) {
+        //       return userData?.data; // Return the partner data
+        //     } else {
+        //       throw new Error(
+        //         userData.message || "Failed to fetch user details"
+        //       );
+        //     }
+        //   }
+        // );
 
-          const partnersDetails = await Promise.all(partnersDetailsPromises);
+        // const partnersDetails = await Promise.all(partnersDetailsPromises);
 
-          // Ensure no duplicates before updating the state
-          setPartnersDetails((prev) => {
-            const newPartners = partnersDetails.filter(
-              (newPartner) =>
-                !prev.some(
-                  (existingPartner) => existingPartner._id === newPartner._id
-                )
-            );
-            return [...prev, ...newPartners];
-          });
-        }
+        // // Ensure no duplicates before updating the state
+        // setPartnersDetails((prev) => {
+        //   const newPartners = partnersDetails.filter(
+        //     (newPartner) =>
+        //       !prev.some(
+        //         (existingPartner) => existingPartner._id === newPartner._id
+        //       )
+        //   );
+        //   return [...prev, ...newPartners];
+        // });
+        // }
       } else {
         throw new Error(data.message || "Failed to fetch purchase history");
       }
@@ -170,16 +173,7 @@ const PurchaseMoneyCostingTable = () => {
                   New Joined User
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
-                  Email
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
                   Username
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  Nid No
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  Phone No
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
                   Joined Date
@@ -206,7 +200,7 @@ const PurchaseMoneyCostingTable = () => {
                     </div>
                   </td>
                 </tr>
-              ) : partnersDetails && partnersDetails?.length <= 0 ? (
+              ) : expensesHistories && expensesHistories?.length <= 0 ? (
                 <tr className="text-center">
                   <td colSpan={7} align="center">
                     <div className="my-5 flex flex-col justify-center items-center">
@@ -215,22 +209,23 @@ const PurchaseMoneyCostingTable = () => {
                   </td>
                 </tr>
               ) : (
-                partnersDetails?.map((detail: partnerDetails) => (
+                expensesHistories?.map((detail: ExpensessInterface) => (
                   <tr
                     key={detail._id}
                     className="bg-gray-100 text-black border-2 border-slate-700"
                   >
-                    <td className="px-6 py-4 text-center">{detail?.name}</td>
-                    <td className="px-6 py-4 text-center">{detail?.email}</td>
                     <td className="px-6 py-4 text-center">
-                      {detail?.user_name}
+                      {detail?.partner_name ? detail?.partner_name : "--"}
                     </td>
+
                     <td className="px-6 py-4 text-center">
-                      {detail?.nid_passport_no}
+                      {detail?.partner_user_name
+                        ? detail?.partner_user_name
+                        : "--"}
                     </td>
-                    <td className="px-6 py-4 text-center">{detail?.phone}</td>
+
                     <td className="px-6 py-4 text-center">
-                      {formatDate(detail?.createdAt)}
+                      {formatDate(detail?.date)}
                     </td>
                     <td className="px-6 py-4 text-center text-red-500">1000</td>
                   </tr>

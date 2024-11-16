@@ -350,9 +350,11 @@ const page = () => {
                       ) : (
                         <p
                           onClick={() => {
-                            handleAcceptInvestmentRequest(history?._id || "");
+                            if (!isLoadingAccept.status) {
+                              handleAcceptInvestmentRequest(history?._id || "");
+                            }
                           }}
-                          className={`py-2 px-2 rounded-md shadow-2xl cursor-pointer shadow-black transition-all duration-300 ease-in ${history.is_approved ? "bg-teal-500" : "bg-rose-200 text-rose-700 hover:bg-rose-300 "}`}
+                          className={`py-2 px-2 rounded-md shadow-2xl  ${isLoadingAccept.status ? "cursor-not-allowed" : "cursor-pointer"} shadow-black transition-all duration-300 ease-in ${history.is_approved ? "bg-teal-500" : "bg-rose-200 text-rose-700 hover:bg-rose-300 "}`}
                         >
                           {history?.is_approved ? "Approved" : "Accept"}
                         </p>
