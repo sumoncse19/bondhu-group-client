@@ -1,5 +1,8 @@
+import axios, { isAxiosError } from "axios";
 import Cookies from "js-cookie";
-import React from "react";
+import React, { useState } from "react";
+import baseUrl from "../../../config";
+import toast from "react-hot-toast";
 
 interface DonutChartProps {
   percentage: number; // The percentage of the chart to fill
@@ -10,6 +13,8 @@ const DonutChart: React.FC<DonutChartProps> = ({
   percentage,
   purchase_wallet,
 }) => {
+  const [newPurchaseMoney, setNewPurchaseMoney] = useState(0);
+
   const conicStyle: React.CSSProperties = {
     background: `conic-gradient(
       #78fade ${percentage}%,
@@ -18,8 +23,33 @@ const DonutChart: React.FC<DonutChartProps> = ({
   };
 
   const wallet = Cookies.get("wallet");
+  const id: string = Cookies.get("id") || "";
+  const token: string = Cookies.get("token") || "";
 
-  console.log("wallet", wallet);
+  const handleGeneratePurchaseWallet = async () => {
+    try {
+      // axios.put(
+      //   `${baseUrl}/user/auth/${id}`,
+      //   {
+      //     wallet: {
+      //       purchase_wallet: 100000,
+      //       income_wallet: 23800,
+      //       reference_bonus: 9800,
+      //       matching_bonus: 14000,
+      //     },
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error?.response?.data?.message);
+      }
+    }
+  };
 
   return (
     <div className="h-fit bg-[#e3fdf7] p-5">
@@ -35,6 +65,14 @@ const DonutChart: React.FC<DonutChartProps> = ({
             <p className="text-red-500">{100 - percentage}%</p>
           </div>
         </div>
+      </div>
+      <div className="flex justify-center">
+        <button
+          onClick={handleGeneratePurchaseWallet}
+          className="bg-green-200 text-green-800 px-5 py-1 rounded-md"
+        >
+          Generate Wallet
+        </button>
       </div>
     </div>
   );

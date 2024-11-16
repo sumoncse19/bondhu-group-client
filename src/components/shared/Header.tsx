@@ -36,6 +36,8 @@ const Header = () => {
 
   console.log(isSidebarOpen, "sidebar");
 
+  console.log(pathname);
+
   return (
     <div>
       <div
@@ -69,28 +71,32 @@ const Header = () => {
         <NavbarDemo />
         {/* right side */}
         <div className="flex items-center gap-4">
-          {user ? (
-            <div
-              onClick={() => {
-                Cookies.remove("user");
-                Cookies.remove("id");
-                Cookies.remove("have_purchase_wallet");
-                Cookies.remove("role");
-                Cookies.remove("username");
-                Cookies.remove("token");
-                setUser({});
-              }}
-              className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 font-bold rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest cursor-pointer"
-            >
-              Log Out
+          {pathname !== "/login" && (
+            <div>
+              {user ? (
+                <div
+                  onClick={() => {
+                    Cookies.remove("user");
+                    Cookies.remove("id");
+                    Cookies.remove("have_purchase_wallet");
+                    Cookies.remove("role");
+                    Cookies.remove("username");
+                    Cookies.remove("token");
+                    setUser({});
+                  }}
+                  className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 font-bold rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest cursor-pointer"
+                >
+                  Log Out
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
+                >
+                  Log in
+                </Link>
+              )}
             </div>
-          ) : (
-            <Link
-              href="/login"
-              className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
-            >
-              Log in
-            </Link>
           )}
           <BsMenuButtonWideFill
             onClick={() => setIsSidebarOpen(true)}
