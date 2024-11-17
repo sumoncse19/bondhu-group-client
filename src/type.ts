@@ -2,9 +2,10 @@ export interface WalletData {
   income_wallet?: number;
   matching_bonus?: number;
   reference_bonus?: number;
+  club_bonus?: number;
   purchase_wallet?: number;
-  share_profit_wallet?: number;
-  fix_deposit_wallet?: number;
+  project_share_wallet?: number;
+  fixed_deposit_wallet?: number;
   directorship_wallet?: number;
   share_holder_wallet?: number;
 }

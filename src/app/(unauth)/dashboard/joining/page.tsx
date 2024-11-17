@@ -182,6 +182,16 @@ const page = () => {
       toast.error("Password doesnt match");
       return;
     }
+
+    if (maritualStatus === "") {
+      toast.error("Maritual status cannot be empty");
+      return;
+    }
+
+    if (role === "") {
+      toast.error("Role cannot be empty");
+      return;
+    }
     setIsLoading(true);
 
     // Get the current date
@@ -714,6 +724,7 @@ const page = () => {
             <div className=" w-full flex items-center">
               <label className=" px-2 text-sm" htmlFor="maritual_status">
                 Maritual Status
+                <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <select
                 onChange={(e) => setMaritualStatus(e.target.value)}

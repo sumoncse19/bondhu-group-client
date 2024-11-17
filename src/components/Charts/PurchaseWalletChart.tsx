@@ -7,11 +7,22 @@ import toast from "react-hot-toast";
 interface DonutChartProps {
   percentage: number; // The percentage of the chart to fill
   purchase_wallet: number;
+  wallet: {
+    income_wallet: number;
+    purchase_wallet: number;
+    reference_wallet: number;
+    matching_bonus: number;
+    project_share_wallet: number;
+    fixed_deposit_wallet: number;
+    share_holder_wallet: number;
+    directorship_wallet: number;
+  };
 }
 
 const DonutChart: React.FC<DonutChartProps> = ({
   percentage,
   purchase_wallet,
+  wallet,
 }) => {
   const [newPurchaseMoney, setNewPurchaseMoney] = useState(0);
 
@@ -22,28 +33,27 @@ const DonutChart: React.FC<DonutChartProps> = ({
     )`,
   };
 
-  const wallet = Cookies.get("wallet");
   const id: string = Cookies.get("id") || "";
   const token: string = Cookies.get("token") || "";
 
+  console.log(wallet, "wallet");
+
   const handleGeneratePurchaseWallet = async () => {
     try {
-      // axios.put(
-      //   `${baseUrl}/user/auth/${id}`,
-      //   {
-      //     wallet: {
-      //       purchase_wallet: 100000,
-      //       income_wallet: 23800,
-      //       reference_bonus: 9800,
-      //       matching_bonus: 14000,
-      //     },
-      //   },
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   }
-      // );
+      axios.put(
+        `${baseUrl}/user/auth/${id}`,
+        {
+          wallet: {
+            ...wallet,
+            purchase_wallet: wallet.purchase_wallet + 50000,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(error?.response?.data?.message);

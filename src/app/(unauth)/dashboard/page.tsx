@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import useStore from "../../../Zustand/Store/userStore";
 import baseUrl from "../../../../config";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const BonusChart = dynamic(
   () => import("./../../../components/Charts/BonusChart"),
@@ -25,11 +27,37 @@ const PurchaseMoneyCostingTable = dynamic(
   { ssr: false }
 );
 
+interface ExpensessInterface {
+  _id: string;
+  new_partner_id: string;
+  partner_name: string;
+  partner_user_name: string;
+  date: string;
+}
+
+interface partnerDetails {
+  _id: string;
+  name: string;
+  user_name: string;
+  phone: string;
+  email: string;
+  nid_passport_no: string;
+  registration_date: string;
+  createdAt: string;
+}
+
 const Dashboard = () => {
   const [user, setUser] = useState<any>({});
   const [isClient, setIsClient] = useState(false);
   const { singleUser, setSingleUser } = useStore();
+  const [expensesHistories, setExpensessHistories] =
+    useState<ExpensessInterface[]>();
+  const [partnersDetails, setPartnersDetails] = useState<partnerDetails[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const router = useRouter();
+
+  const id = Cookies.get("id");
   const have_purchase_wallet = Cookies.get("have_purchase_wallet");
   const userCookie = Cookies.get("user");
   const token = Cookies.get("token");
@@ -66,6 +94,43 @@ const Dashboard = () => {
     }
   }, [userCookie]);
 
+  useEffect(() => {
+    getExpensessHistory();
+  }, [id]);
+
+  const getExpensessHistory = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${baseUrl}/history/get-purchase-history/${id}?page=1&limit=10`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        setExpensessHistories(
+          data?.data?.userPurchaseHistory[0]?.joining_cost_history
+        );
+      } else {
+        throw new Error(data.message || "Failed to fetch purchase history");
+      }
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="w-full h-full">
       <div className="flex flex-col gap-y-10">
@@ -164,6 +229,7 @@ const Dashboard = () => {
                   : 0
               }
               purchase_wallet={user?.wallet?.purchase_wallet ?? "--"}
+              wallet={user?.wallet}
             />
             {/* Purchase Money Costing Table */}
             <div className="flex-grow">

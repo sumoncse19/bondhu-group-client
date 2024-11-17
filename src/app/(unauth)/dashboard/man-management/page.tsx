@@ -301,42 +301,44 @@ const Page = () => {
                     ) : (
                       <div
                         onClick={async () => {
-                          setIsLoadingForApprove({
-                            state: true,
-                            id: user?._id,
-                          });
-                          try {
-                            const response = await fetch(
-                              `${baseUrl}/user/auth/${user?._id}`,
-                              {
-                                method: "PUT",
-                                body: JSON.stringify({ is_approved: true }),
-                                headers: {
-                                  "Content-Type": "application/json",
-                                  Authorization: `Bearer ${token}`,
-                                },
-                              }
-                            );
-
-                            if (!response.ok) {
-                              toast.error(
-                                "This user approvation is not possible"
+                          if (!isLoadingForApprove.state) {
+                            setIsLoadingForApprove({
+                              state: true,
+                              id: user?._id,
+                            });
+                            try {
+                              const response = await fetch(
+                                `${baseUrl}/user/auth/${user?._id}`,
+                                {
+                                  method: "PUT",
+                                  body: JSON.stringify({ is_approved: true }),
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${token}`,
+                                  },
+                                }
                               );
-                            }
 
-                            const data = await response.json();
+                              if (!response.ok) {
+                                toast.error(
+                                  "This user approvation is not possible"
+                                );
+                              }
 
-                            if (data.success) {
-                              toast.success("User Approved");
-                              fetchAllUsers();
+                              const data = await response.json();
+
+                              if (data.success) {
+                                toast.success("User Approved");
+                                fetchAllUsers();
+                              }
+                            } catch (error: any) {
+                              toast.error(error.message);
+                            } finally {
+                              setIsLoadingForApprove({ state: false, id: "" });
                             }
-                          } catch (error: any) {
-                            toast.error(error.message);
-                          } finally {
-                            setIsLoadingForApprove({ state: false, id: "" });
                           }
                         }}
-                        className="  cursor-pointer  rounded-md  transition-all duration-300 ease-in"
+                        className={`${isLoadingForApprove.state ? "cursor-not-allowed" : "cursor-pointer"} rounded-md transition-all duration-300 ease-in`}
                       >
                         {isLoadingForApprove &&
                         isLoadingForApprove.id === user?._id ? (
