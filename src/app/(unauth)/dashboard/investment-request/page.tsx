@@ -15,6 +15,7 @@ import { isAxiosError } from "axios";
 interface InvestmentHistoriesData {
   _id?: string;
   userId: string;
+  user_name: string;
   project_share: number;
   fixed_deposit: number;
   share_holder: number;
@@ -43,6 +44,13 @@ const page = () => {
   const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingAccept, setIsLoadingAccept] = useState<{
+    status: boolean;
+    idx: string;
+  }>({
+    status: false,
+    idx: "",
+  });
+  const [isLoadingReject, setIsLoadingReject] = useState<{
     status: boolean;
     idx: string;
   }>({
@@ -82,26 +90,7 @@ const page = () => {
     fetchAllInvestmentRequests();
   }, [token]);
 
-  // Fetch username for each bonus_from (userId) in referral bonus history
-  const fetchUsernames = async (
-    investmentHistories: InvestmentHistoriesData[]
-  ) => {
-    const newUsernames: { [key: string]: string } = {};
-    for (const history of investmentHistories) {
-      if (history.userId && !usernames[history.userId]) {
-        const username = await getUserNameById(history.userId, token);
-        newUsernames[history.userId] = username || "Unknown User";
-      }
-    }
-    setUsernames((prevUsernames) => ({ ...prevUsernames, ...newUsernames }));
-  };
-
-  useEffect(() => {
-    if (investmentHistories) {
-      fetchUsernames(investmentHistories);
-    }
-  }, [investmentHistories]);
-
+  // Accept Add Money Request
   const handleAcceptInvestmentRequest = async (id: string) => {
     setIsLoadingAccept({
       status: true,
@@ -127,6 +116,35 @@ const page = () => {
       }
     } finally {
       setIsLoadingAccept({ status: false, idx: "" });
+    }
+  };
+
+  // reject money request
+  const handleRejectInvestmentRequest = async (id: string) => {
+    setIsLoadingReject({
+      status: true,
+      idx: id,
+    });
+    try {
+      const response = await fetch(`${baseUrl}/add-money/reject/${id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (data?.success) {
+        toast.success("Rejected the Request");
+        fetchAllInvestmentRequests();
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error?.response?.data?.message);
+      }
+    } finally {
+      setIsLoadingReject({ status: false, idx: "" });
     }
   };
   return (
@@ -215,7 +233,7 @@ const page = () => {
                 Request Date <br /> (yyyy-mm-dd)
               </th>
               <th rowSpan={2} scope="col" className="px-3 py-3 text-center ">
-                State
+                Action
               </th>
             </tr>
             <tr>
@@ -274,7 +292,7 @@ const page = () => {
                       {history?.money_receipt_number}
                     </td>
                     <td className="px-3 py-4 text-center">
-                      {usernames[history?.userId] || "Loading..."}
+                      {history?.user_name}
                     </td>
                     <td className="px-3 py-4 text-center"> {history?.phone}</td>
                     <td className="px-3 py-4 text-center">
@@ -344,21 +362,48 @@ const page = () => {
                     </td>
                     <td className="px-3 py-4 text-center">{history?.date}</td>
                     <td className="px-3 py-4 text-center ">
-                      {isLoadingAccept.status &&
-                      isLoadingAccept.idx === history?._id ? (
-                        <p>Loading...</p>
-                      ) : (
-                        <p
-                          onClick={() => {
-                            if (!isLoadingAccept.status) {
-                              handleAcceptInvestmentRequest(history?._id || "");
-                            }
-                          }}
-                          className={`py-2 px-2 rounded-md shadow-2xl  ${isLoadingAccept.status ? "cursor-not-allowed" : "cursor-pointer"} shadow-black transition-all duration-300 ease-in ${history.is_approved ? "bg-teal-500" : "bg-rose-200 text-rose-700 hover:bg-rose-300 "}`}
-                        >
-                          {history?.is_approved ? "Approved" : "Accept"}
-                        </p>
-                      )}
+                      <div className="flex items-center gap-3">
+                        {/* accept button */}
+                        <div>
+                          {isLoadingAccept.status &&
+                          isLoadingAccept.idx === history?._id ? (
+                            <p>Loading...</p>
+                          ) : (
+                            <p
+                              onClick={() => {
+                                if (!isLoadingAccept.status) {
+                                  handleAcceptInvestmentRequest(
+                                    history?._id || ""
+                                  );
+                                }
+                              }}
+                              className={`py-2 px-2 rounded-md shadow-2xl  ${isLoadingAccept.status ? "cursor-not-allowed" : "cursor-pointer"} shadow-black transition-all duration-300 ease-in bg-teal-200 hover:bg-teal-300 text-black`}
+                            >
+                              Accept
+                            </p>
+                          )}
+                        </div>
+                        {/* reject button */}
+                        <div>
+                          {isLoadingReject.status &&
+                          isLoadingReject.idx === history?._id ? (
+                            <p>Loading...</p>
+                          ) : (
+                            <p
+                              onClick={() => {
+                                if (!isLoadingReject.status) {
+                                  handleRejectInvestmentRequest(
+                                    history?._id || ""
+                                  );
+                                }
+                              }}
+                              className={`py-2 px-2 rounded-md shadow-2xl  ${isLoadingReject.status ? "cursor-not-allowed" : "cursor-pointer"} shadow-black transition-all duration-300 ease-in bg-red-200 hover:bg-red-300 text-black`}
+                            >
+                              Reject
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 ))

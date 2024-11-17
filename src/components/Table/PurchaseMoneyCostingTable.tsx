@@ -11,12 +11,6 @@ import { useRouter } from "next/navigation";
 import PurchaseHistoryDownload from "@/components/DownloadContents/PurchaseHistoryDownload";
 import baseUrl from "../../../config";
 
-interface ExpensessHistoryItem {
-  _id: string;
-  new_partner_id: number;
-  date: string;
-}
-
 interface ExpensessInterface {
   _id: string;
   new_partner_id: string;
@@ -68,48 +62,6 @@ const PurchaseMoneyCostingTable = () => {
         setExpensessHistories(
           data?.data?.userPurchaseHistory[0]?.joining_cost_history
         );
-
-        // const joiningCostHistory =
-        //   data?.data?.userPurchaseHistory[0]?.joining_cost_history;
-
-        // if (joiningCostHistory?.length) {
-        //   const partnersDetailsPromises = joiningCostHistory.map(
-        //     async (join: ExpensessHistoryItem) => {
-        //       const userResponse = await fetch(
-        //         `${baseUrl}/user/get-user/${join?.new_partner_id}`,
-        //         {
-        //           method: "GET",
-        //           headers: {
-        //             Authorization: `Bearer ${token}`,
-        //             "Content-Type": "application/json",
-        //           },
-        //         }
-        //       );
-
-        //     const userData = await userResponse.json();
-        //     if (userData.success) {
-        //       return userData?.data; // Return the partner data
-        //     } else {
-        //       throw new Error(
-        //         userData.message || "Failed to fetch user details"
-        //       );
-        //     }
-        //   }
-        // );
-
-        // const partnersDetails = await Promise.all(partnersDetailsPromises);
-
-        // // Ensure no duplicates before updating the state
-        // setPartnersDetails((prev) => {
-        //   const newPartners = partnersDetails.filter(
-        //     (newPartner) =>
-        //       !prev.some(
-        //         (existingPartner) => existingPartner._id === newPartner._id
-        //       )
-        //   );
-        //   return [...prev, ...newPartners];
-        // });
-        // }
       } else {
         throw new Error(data.message || "Failed to fetch purchase history");
       }
