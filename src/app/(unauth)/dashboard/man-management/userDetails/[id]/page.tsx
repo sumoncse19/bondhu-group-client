@@ -349,8 +349,8 @@ const page = () => {
                   <div>
                     Project Share Wallet:{" "}
                     <p className="inline text-rose-500 text-base">
-                      {user?.wallet?.share_profit_wallet
-                        ? user?.wallet?.share_profit_wallet.toFixed(2)
+                      {user?.wallet?.project_share_wallet
+                        ? user?.wallet?.project_share_wallet.toFixed(2)
                         : 0}
                     </p>
                   </div>
@@ -361,8 +361,8 @@ const page = () => {
                   <div className="inline text-rose-500 text-base">
                     Fixed Deposite Wallet:{" "}
                     <p>
-                      {user?.wallet?.fix_deposit_wallet
-                        ? user?.wallet?.fix_deposit_wallet.toFixed(2)
+                      {user?.wallet?.fixed_deposit_wallet
+                        ? user?.wallet?.fixed_deposit_wallet.toFixed(2)
                         : 0}
                     </p>
                   </div>
