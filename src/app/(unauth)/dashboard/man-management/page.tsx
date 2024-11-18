@@ -5,7 +5,7 @@ import baseUrl from "../../../../../config";
 import Cookies from "js-cookie";
 import { Circles } from "react-loader-spinner";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { GiTakeMyMoney } from "react-icons/gi";
@@ -51,6 +51,8 @@ const Page = () => {
   const [user, setUser] = useState<any>({});
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchedUsers, setSearchedUsers] = useState<any>({});
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [pageNo, setPageNo] = useState<number>(1);
 
   const userCookie = Cookies.get("user");
 
@@ -70,22 +72,35 @@ const Page = () => {
 
   // fetch all users
   const fetchAllUsers = async () => {
-    const response = await fetch(`${baseUrl}/user/get-all-users`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-
-    if (data.success) {
-      setUsers(data?.data);
-      setSearchedUsers(data?.data);
-      const adminUsers = data?.data?.filter(
-        (user: { role: string }) => user?.role === "admin"
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `${baseUrl}/user/get-all-users?page=${pageNo}&limit=10&search=${searchValue}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+      const data = await response.json();
 
-      setChildUsers(adminUsers);
+      if (data.success) {
+        setUsers(data?.data?.usersWithPartners);
+        setSearchedUsers(data?.data?.usersWithPartners);
+        const adminUsers = data?.data?.usersWithPartners?.filter(
+          (user: { role: string }) => user?.role === "admin"
+        );
+        setTotalPages(Math.ceil(data?.data?.total / data?.data?.limit));
+        setChildUsers(adminUsers);
+      } else {
+        toast.error(data.message || "something went wrong");
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error?.response?.data?.message);
+      }
+    } finally {
       setIsLoading(false);
     }
   };
@@ -139,12 +154,13 @@ const Page = () => {
 
   useEffect(() => {
     fetchAllInvestmentRequests();
-    fetchAllUsers();
   }, [user]);
 
   useEffect(() => {
-    console.log("search value", searchValue);
+    fetchAllUsers();
+  }, [user, pageNo, searchValue]);
 
+  useEffect(() => {
     const matchedUser = users.filter((user) =>
       user?.user_name.includes(searchValue)
     );
@@ -193,169 +209,237 @@ const Page = () => {
           className=" w-52 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
         />
       </div>
-      {/* users table */}
-      <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
-        <table className="w-full text-sm text-left rtl:text-right text-white  ">
-          <thead className="sticky top-0 text-xs text-black uppercase bg-teal-200  border-2  border-black rounded-md">
-            <tr>
-              <th scope="col" className="px-6 py-3 text-center">
-                Name
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Username
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Role
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Phone No
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Refer
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Placement
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Left
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Right
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <tr className="text-center">
-                <td colSpan={12} align="center">
-                  <div className="my-5 flex flex-col justify-center items-center">
-                    <Circles
-                      height="50"
-                      width="50"
-                      color="#4fa94d"
-                      ariaLabel="circles-loading"
-                      wrapperStyle={{}}
-                      wrapperClass=""
-                      visible={true}
-                    />
-                  </div>
-                </td>
+
+      <div>
+        {/* users table */}
+        <div
+          className={`relative overflow-x-auto ${isLoading ? "min-h-[600px]" : `h-[${searchedUsers.length * 61 + 41}px]`} max-h-[${searchedUsers.length * 61 + 41}px] overflow-y-auto mt-5`}
+        >
+          <table className="w-full text-sm text-left rtl:text-right text-white ">
+            <thead className="sticky top-0 text-xs text-black uppercase bg-teal-200  border-2  border-black rounded-md">
+              <tr>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Name
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Username
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Role
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Phone No
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Refer
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Placement
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Left
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Right
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Status
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Action
+                </th>
               </tr>
-            ) : (
-              searchedUsers.map((user: any, i: number) => (
-                <tr
-                  key={user._id}
-                  className={`${i % 2 == 0 ? "bg-teal-50" : "bg-teal-200"} cursor-pointer transition-all duration-500 ease-in text-black border-2 border-slate-700`}
-                >
-                  <td className="px-6 py-4 text-center">{user?.name}</td>
-                  <td
-                    onClick={() => {
-                      router.push(
-                        `/dashboard/man-management/userDetails/${user?._id}`
-                      );
-                    }}
-                    className="px-6 py-4 text-center cursor-pointer hover:text-red-700 hover:underline"
-                  >
-                    {user?.user_name}
-                  </td>
-                  <td className="px-6 py-4 text-center">{user?.role}</td>
-                  <td className="px-6 py-4 text-center">{user?.phone}</td>
-                  <td className="px-6 py-4 text-center">
-                    {user?.reference_id?.user_name}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {user?.parent_placement_id?.user_name}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {user?.left_side_partner?.user_name ? (
-                      user?.left_side_partner?.user_name
-                    ) : (
-                      <p className="text-red-500 font-bold">Empty</p>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {user?.right_side_partner?.user_name ? (
-                      user?.right_side_partner?.user_name
-                    ) : (
-                      <p className="text-red-500 font-bold">Empty</p>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {user?.is_approved ? (
-                      <p className="text-teal-700 font-bold">Active</p>
-                    ) : (
-                      <p className="text-rose-700 font-semibold">Inactive</p>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {user?.is_approved ? (
-                      <p className="italic px-3 py-1 rounded-md text-teal-700">
-                        Approved
-                      </p>
-                    ) : (
-                      <div
-                        onClick={async () => {
-                          if (!isLoadingForApprove.state) {
-                            setIsLoadingForApprove({
-                              state: true,
-                              id: user?._id,
-                            });
-                            try {
-                              const response = await fetch(
-                                `${baseUrl}/user/auth/${user?._id}`,
-                                {
-                                  method: "PUT",
-                                  body: JSON.stringify({ is_approved: true }),
-                                  headers: {
-                                    "Content-Type": "application/json",
-                                    Authorization: `Bearer ${token}`,
-                                  },
-                                }
-                              );
-
-                              if (!response.ok) {
-                                toast.error(
-                                  "This user approvation is not possible"
-                                );
-                              }
-
-                              const data = await response.json();
-
-                              if (data.success) {
-                                toast.success("User Approved");
-                                fetchAllUsers();
-                              }
-                            } catch (error: any) {
-                              toast.error(error.message);
-                            } finally {
-                              setIsLoadingForApprove({ state: false, id: "" });
-                            }
-                          }
-                        }}
-                        className={`${isLoadingForApprove.state ? "cursor-not-allowed" : "cursor-pointer"} rounded-md transition-all duration-300 ease-in`}
-                      >
-                        {isLoadingForApprove &&
-                        isLoadingForApprove.id === user?._id ? (
-                          "Loading.."
-                        ) : (
-                          <p className="bg-rose-300 text-rose-700 rounded-md px-3 py-1">
-                            Approve
-                          </p>
-                        )}
-                      </div>
-                    )}
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr className="text-center">
+                  <td colSpan={12} align="center">
+                    <div className="my-5 flex flex-col justify-center items-center">
+                      <Circles
+                        height="50"
+                        width="50"
+                        color="#4fa94d"
+                        ariaLabel="circles-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                      />
+                    </div>
                   </td>
                 </tr>
-              ))
+              ) : (
+                searchedUsers.map((user: any, i: number) => (
+                  <tr
+                    key={user._id}
+                    className={`${i % 2 == 0 ? "bg-teal-50" : "bg-teal-200"} cursor-pointer transition-all duration-500 ease-in text-black border-2 border-slate-700`}
+                  >
+                    <td className="px-6 py-4 text-left">{user?.name}</td>
+                    <td
+                      onClick={() => {
+                        router.push(
+                          `/dashboard/man-management/userDetails/${user?._id}`
+                        );
+                      }}
+                      className="px-6 py-4 text-left cursor-pointer hover:text-red-700 hover:underline"
+                    >
+                      {user?.user_name}
+                    </td>
+                    <td className="px-6 py-4 text-left">{user?.role}</td>
+                    <td className="px-6 py-4 text-left">{user?.phone}</td>
+                    <td className="px-6 py-4 text-left">
+                      {user?.reference_id?.user_name}
+                    </td>
+                    <td className="px-6 py-4 text-left">
+                      {user?.parent_placement_id?.user_name}
+                    </td>
+                    <td className="px-6 py-4 text-left">
+                      {user?.left_side_partner?.user_name ? (
+                        user?.left_side_partner?.user_name
+                      ) : (
+                        <p className="text-red-500 font-bold">Empty</p>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 text-left">
+                      {user?.right_side_partner?.user_name ? (
+                        user?.right_side_partner?.user_name
+                      ) : (
+                        <p className="text-red-500 font-bold">Empty</p>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 text-left">
+                      {user?.is_approved ? (
+                        <p className="text-teal-700 font-bold">Active</p>
+                      ) : (
+                        <p className="text-rose-700 font-semibold">Inactive</p>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 text-left">
+                      {user?.is_approved ? (
+                        <p className="italic py-1 rounded-md text-teal-700">
+                          Approved
+                        </p>
+                      ) : (
+                        <div
+                          onClick={async () => {
+                            if (!isLoadingForApprove.state) {
+                              setIsLoadingForApprove({
+                                state: true,
+                                id: user?._id,
+                              });
+                              try {
+                                const response = await fetch(
+                                  `${baseUrl}/user/auth/${user?._id}`,
+                                  {
+                                    method: "PUT",
+                                    body: JSON.stringify({ is_approved: true }),
+                                    headers: {
+                                      "Content-Type": "application/json",
+                                      Authorization: `Bearer ${token}`,
+                                    },
+                                  }
+                                );
+
+                                if (!response.ok) {
+                                  toast.error(
+                                    "This user approvation is not possible"
+                                  );
+                                }
+
+                                const data = await response.json();
+
+                                if (data.success) {
+                                  toast.success("User Approved");
+                                  fetchAllUsers();
+                                }
+                              } catch (error: any) {
+                                toast.error(error.message);
+                              } finally {
+                                setIsLoadingForApprove({
+                                  state: false,
+                                  id: "",
+                                });
+                              }
+                            }
+                          }}
+                          className={`${isLoadingForApprove.state ? "cursor-not-allowed" : "cursor-pointer"} rounded-md transition-all duration-300 ease-in`}
+                        >
+                          {isLoadingForApprove &&
+                          isLoadingForApprove.id === user?._id ? (
+                            "Loading.."
+                          ) : (
+                            <p className="bg-rose-300 text-rose-700 rounded-md px-3 py-1">
+                              Approve
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-5 flex flex-wrap items-center gap-3 justify-center self-center">
+            {/* Previous button */}
+            {pageNo > 1 && (
+              <p
+                onClick={() => setPageNo(pageNo - 1)}
+                className={`border-2 px-2 rounded-md cursor-point border-black text-black`}
+              >
+                Prev
+              </p>
             )}
-          </tbody>
-        </table>
+
+            {/* Page numbers */}
+            {(() => {
+              // Determine the range of page numbers to display
+              let startPage = Math.max(1, pageNo - 5);
+              let endPage = Math.min(totalPages, pageNo + 4);
+
+              // Adjust start and end pages to always show 10 pages when possible
+              if (endPage - startPage < 9) {
+                if (startPage === 1) {
+                  endPage = Math.min(totalPages, startPage + 9);
+                } else if (endPage === totalPages) {
+                  startPage = Math.max(1, endPage - 9);
+                }
+              }
+
+              return Array.from(
+                { length: endPage - startPage + 1 },
+                (_, index) => {
+                  const page = startPage + index;
+                  return (
+                    <p
+                      key={page}
+                      onClick={() => setPageNo(page)}
+                      className={`border-2 px-2 rounded-md cursor-pointer ${
+                        pageNo === page
+                          ? "bg-black text-white"
+                          : "text-black border-black"
+                      }`}
+                    >
+                      {page}
+                    </p>
+                  );
+                }
+              );
+            })()}
+
+            {/* Next button */}
+            {pageNo < totalPages && (
+              <p
+                onClick={() => setPageNo(pageNo + 1)}
+                className={`border-2 px-2 rounded-md cursor-pointer border-black text-black`}
+              >
+                Next
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* wallet modal */}

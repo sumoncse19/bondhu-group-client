@@ -102,7 +102,7 @@ const Dashboard = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${baseUrl}/history/get-purchase-history/${id}?page=1&limit=10`,
+        `${baseUrl}/history/get-user-joining-cost-history/${id}?page=1&limit=10`,
         {
           method: "GET",
           headers: {
@@ -111,15 +111,9 @@ const Dashboard = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
       const data = await response.json();
       if (data.success) {
-        setExpensessHistories(
-          data?.data?.userPurchaseHistory[0]?.joining_cost_history
-        );
+        setExpensessHistories(data?.data?.joiningCostHistory);
       } else {
         throw new Error(data.message || "Failed to fetch purchase history");
       }
@@ -131,6 +125,7 @@ const Dashboard = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="w-full h-full">
       <div className="flex flex-col gap-y-10">
@@ -139,52 +134,42 @@ const Dashboard = () => {
           <div className="w-full flex items-center justify-between gap-x-4">
             <div className="w-full h-40 rounded-md flex items-center gap-4">
               {/* Income Wallet */}
-              <div className="h-full w-full bg-purple-200 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-purple-600">
+              <div className="h-full w-full bg-purple-100 flex flex-col gap-y-2 justify-center px-6">
+                <p className="text-3xl text-purple-700 font-bold">
                   &#x9F3;{" "}
-                  {user?.wallet
-                    ? Math.ceil(user.wallet.income_wallet ?? 0)
-                    : "--"}
+                  {user?.wallet ? Math.ceil(user.wallet.income_wallet ?? 0) : 0}
                 </p>
                 <p>Income Wallet</p>
               </div>
               {/* Project Share Wallet */}
-              <div className="h-full w-full bg-blue-200 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-blue-600">
+              <div className="h-full w-full bg-blue-100 flex flex-col gap-y-2 justify-center px-6">
+                <p className="text-3xl text-blue-700 font-bold">
                   &#x9F3;{" "}
-                  {user?.wallet
-                    ? Math.ceil(user.wallet.project_share ?? 0)
-                    : "--"}
+                  {user?.wallet ? Math.ceil(user.wallet.project_share ?? 0) : 0}
                 </p>
                 <p>Project Share Wallet</p>
               </div>
               {/* Fixed Deposit Wallet */}
-              <div className="h-full w-full bg-green-200 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-green-600">
+              <div className="h-full w-full bg-green-100 flex flex-col gap-y-2 justify-center px-6">
+                <p className="text-3xl text-green-700 font-bold">
                   &#x9F3;{" "}
-                  {user?.wallet
-                    ? Math.ceil(user.wallet.fixed_deposit ?? 0)
-                    : "--"}
+                  {user?.wallet ? Math.ceil(user.wallet.fixed_deposit ?? 0) : 0}
                 </p>
                 <p>Fixed Deposit Wallet</p>
               </div>
               {/* Share Holder Wallet */}
-              <div className="h-full w-full bg-yellow-200 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-yellow-600">
+              <div className="h-full w-full bg-yellow-100 flex flex-col gap-y-2 justify-center px-6">
+                <p className="text-3xl text-yellow-700 font-bold">
                   &#x9F3;{" "}
-                  {user?.wallet
-                    ? Math.ceil(user.wallet.share_holder ?? 0)
-                    : "--"}
+                  {user?.wallet ? Math.ceil(user.wallet.share_holder ?? 0) : 0}
                 </p>
                 <p>Share Holder Wallet</p>
               </div>
               {/* Partnership Wallet */}
-              <div className="h-full w-full bg-red-200 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-red-600">
+              <div className="h-full w-full bg-red-100 flex flex-col gap-y-2 justify-center px-6">
+                <p className="text-3xl text-red-700 font-bold">
                   &#x9F3;{" "}
-                  {user?.wallet
-                    ? Math.ceil(user.wallet.directorship ?? 0)
-                    : "--"}
+                  {user?.wallet ? Math.ceil(user.wallet.directorship ?? 0) : 0}
                 </p>
                 <p>Partnership Wallet</p>
               </div>
@@ -193,22 +178,20 @@ const Dashboard = () => {
         </div>
 
         {/* Referral Bonus, Matching Bonus, and Club Bonus */}
-        <div className="bg-white w-full h-fit p-3">
+        <div className="bg-purple-100 w-full h-fit p-3">
           <p className="text-2xl mb-2">Bonus</p>
           <div className="flex gap-x-9 py-4">
             <p>
               Reference &#x9F3;{" "}
-              {user?.wallet
-                ? Math.ceil(user.wallet.reference_bonus ?? 0)
-                : "--"}
+              {user?.wallet ? Math.ceil(user.wallet.reference_bonus ?? 0) : 0}
             </p>
             <p>
               Team &#x9F3;{" "}
-              {user?.wallet ? Math.ceil(user.wallet.matching_bonus ?? 0) : "--"}
+              {user?.wallet ? Math.ceil(user.wallet.matching_bonus ?? 0) : 0}
             </p>
             <p>
               Club &#x9F3;{" "}
-              {user?.wallet ? Math.ceil(user.wallet.club_bonus ?? 0) : "--"}
+              {user?.wallet ? Math.ceil(user.wallet.club_bonus ?? 0) : 0}
             </p>
           </div>
           {/* Graph */}

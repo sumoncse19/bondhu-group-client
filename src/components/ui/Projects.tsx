@@ -106,18 +106,19 @@ const projects = [
   },
   {
     id: 3,
-    title: "Bondhu Agro & Agriculture",
+    title: "Bondhu Agriculture & Agro",
     path: "/projects/bondhu-builders",
     image: "/images/bondhuAgro.jpeg",
     details: "Sustainable agriculture solutions launching soon for farmers.",
   },
   {
-    id: 4,
-    title: "Bondhu Resort",
+    id: 6,
+    title: "Bondhu IT Institute",
     path: "/projects/bondhu-builders",
-    image: "/images/bondhuResort.jpeg",
-    details: "Empowering future tech leaders with quality education programs.",
+    image: "/images/bondhuIT.jpeg",
+    details: "Exciting retail experience coming soon for everyone.",
   },
+
   {
     id: 5,
     title: "Bondhu Brokerage ",
@@ -127,11 +128,11 @@ const projects = [
       "Leading construction company with investment opportunities available.",
   },
   {
-    id: 6,
-    title: "Bondhu IT Institute",
+    id: 4,
+    title: "Bondhu Resort",
     path: "/projects/bondhu-builders",
-    image: "/images/bondhuIT.jpeg",
-    details: "Exciting retail experience coming soon for everyone.",
+    image: "/images/bondhuResort.jpeg",
+    details: "Empowering future tech leaders with quality education programs.",
   },
   {
     id: 7,

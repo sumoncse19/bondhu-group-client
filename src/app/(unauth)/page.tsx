@@ -32,14 +32,13 @@ const HomePage = () => {
       <div className="pt-5  min-h-[40vh] lg:min-h-[80vh]  flex flex-col lg:flex-row lg:items-center  gap-y-4 px-3 lg:px-10 ">
         <div className="w-full">
           <div className="w-full lg:w-[80%] mx-auto relative">
-            <div className="hidden lg:block text-xl xl:text-6xl 2xl:text-7xl tracking-wide  font-serif uppercase font-bold ">
+            <div className="hidden lg:block text-xl xl:text-4xl 2xl:text-7xl tracking-wide  font-serif uppercase font-bold ">
               Better <p className="text-red-500 inline">Believe</p> Creates{" "}
               Better <p className="text-blue-600 inline">Business.</p>
             </div>
             <div className="block lg:hidden text-xl tracking-wide  font-serif uppercase font-bold ">
-              Turning <p className="text-red-500 inline mr-2">Ideas</p>
-              Into Lasting
-              <p className="text-blue-600 ">Success.</p>
+              Better <p className="text-red-500 inline">Believe</p> Creates{" "}
+              Better <p className="text-blue-600 inline">Business.</p>
             </div>
             <TextGenerateEffectDemo />
             <div className="flex my-3">
@@ -57,7 +56,7 @@ const HomePage = () => {
         >
           <div className="relative border-b-8 border-orange-400 p-2 rounded-full">
             <img
-              className="w-[300px] lg:w-[600px] h-[300px] lg:h-[600px]  rounded-full object-cover"
+              className="w-[300px] lg:w-[450px] xl:w-[600px] h-[300px] lg:h-[450px] xl:h-[600px]  rounded-full object-cover"
               src="/images/heroBanner1.jpeg"
               alt=""
             />
