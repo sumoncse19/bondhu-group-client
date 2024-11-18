@@ -264,18 +264,21 @@ const page = () => {
 
   // fetch all user
   const fetchChildUsersLevel1 = async () => {
-    const response = await fetch(`${baseUrl}/user/get-all-users`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${baseUrl}/user/get-all-users?page=1&limit=10000000000`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await response.json();
 
     if (data.success) {
-      setAllUser(data?.data);
+      setAllUser(data?.data?.usersWithPartners);
     }
   };
 

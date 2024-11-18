@@ -157,23 +157,26 @@ const page = () => {
 
   // get all user
   const getAllUser = async () => {
-    const response = await fetch(`${baseUrl}/user/get-all-users`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${baseUrl}/user/get-all-users?page=1&limit=100000000`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await response.json();
 
     if (data.success) {
-      setAlluser(data?.data);
+      setAlluser(data?.data?.usersWithPartners);
     }
   };
 
-  const handleSearchUser = (value: string) => {
+  const handleSearchUser = () => {
     const searchedUser: any = allUser.find(
-      (user: { user_name: string }) => user.user_name === value
+      (user: { user_name: string }) => user.user_name === searchValue
     );
     fetchTeamViews(searchedUser?._id);
   };
@@ -277,6 +280,7 @@ const page = () => {
         <div className="flex items-center gap-x-3">
           <input
             ref={searchInputRef}
+            onChange={(e) => setSearchValue(e.target.value)}
             defaultValue=""
             type="text"
             placeholder="search by username"
@@ -284,8 +288,8 @@ const page = () => {
           />
           <button
             onClick={() => {
-              // setSearchValue();
-              handleSearchUser(searchInputRef?.current?.value || "");
+              console.log("clicked");
+              handleSearchUser();
             }}
             className="bg-teal-500 px-4 py-1 rounded-md text-white"
           >
