@@ -246,7 +246,9 @@ const page = () => {
       const data = await response.json();
 
       if (data.success) {
-        router.push("/dashboard/team-view/refferal-team");
+        router.push(
+          "/dashboard/wallet/purchase-wallet/balance-expensses-history"
+        );
         toast.success("Successfully added new User");
       } else {
         if (data?.statusCode == 400) {

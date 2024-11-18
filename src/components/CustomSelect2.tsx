@@ -44,7 +44,7 @@ export const CustomSelect2 = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
-            className="w-full px-3 py-2 border-b border-gray-200 outline-none"
+            className="w-full px-3 py-2 border-b border-gray-200 outline-none bg-transparent"
           />
 
           {/* Filtered Options */}

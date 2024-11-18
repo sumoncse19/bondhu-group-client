@@ -19,17 +19,6 @@ interface ExpensessInterface {
   date: string;
 }
 
-interface partnerDetails {
-  _id: string;
-  name: string;
-  user_name: string;
-  phone: string;
-  email: string;
-  nid_passport_no: string;
-  registration_date: string;
-  createdAt: string;
-}
-
 const PurchaseMoneyCostingTable = () => {
   const [expensesHistories, setExpensessHistories] = useState<
     ExpensessInterface[]
@@ -114,9 +103,7 @@ const PurchaseMoneyCostingTable = () => {
   return (
     <div className="">
       <div className="flex">
-        <p className="text-teal-700">
-          Newly Joined User By You{expensesHistories.length}
-        </p>
+        <p className="text-teal-700">Newly Joined User By You</p>
       </div>
 
       <div>
