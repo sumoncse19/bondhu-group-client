@@ -37,7 +37,7 @@ const PurchaseHistoryDownload = ({}) => {
 
     try {
       const response = await fetch(
-        ` ${baseUrl}/purchase/get-purchase-history/${id}`,
+        ` ${baseUrl}/history/get-user-joining-cost-history/${id}?page=1&limit=100000000000000000`,
         {
           method: "GET",
           headers: {

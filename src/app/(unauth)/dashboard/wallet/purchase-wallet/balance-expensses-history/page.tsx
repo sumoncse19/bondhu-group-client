@@ -11,35 +11,21 @@ import { GiFastBackwardButton } from "react-icons/gi";
 import { useRouter } from "next/navigation";
 import PurchaseHistoryDownload from "@/components/DownloadContents/PurchaseHistoryDownload";
 
-interface ExpensessHistoryItem {
+interface ExpensessInterface {
   _id: string;
-  new_partner_id: number;
+  new_partner_id: string;
+  partner_name: string;
+  partner_user_name: string;
   date: string;
 }
 
-interface ExpensessInterface {
-  _id: string;
-  userId: string;
-  purchase_amount: string;
-  joining_cost_history: ExpensessHistoryItem[];
-}
-
-interface partnerDetails {
-  _id: string;
-  name: string;
-  user_name: string;
-  phone: string;
-  email: string;
-  nid_passport_no: string;
-  registration_date: string;
-  createdAt: string;
-}
-
 const page = () => {
-  const [expensesHistories, setExpensessHistories] =
-    useState<ExpensessInterface>();
-  const [partnersDetails, setPartnersDetails] = useState<partnerDetails[]>([]);
+  const [expensesHistories, setExpensessHistories] = useState<
+    ExpensessInterface[]
+  >([]);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [pageNo, setPageNo] = useState(1);
   const router = useRouter();
 
   const id = Cookies.get("id");
@@ -49,7 +35,7 @@ const page = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${baseUrl}/history/get-purchase-history/${id}?page=1&limit=10`,
+        `${baseUrl}/history/get-user-joining-cost-history/${id}?page=${pageNo}&limit=10`,
         {
           method: "GET",
           headers: {
@@ -58,57 +44,10 @@ const page = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
       const data = await response.json();
+
       if (data.success) {
-        setExpensessHistories(data?.data?.userPurchaseHistory[0]);
-
-        const joiningCostHistory =
-          data?.data?.userPurchaseHistory[0]?.joining_cost_history;
-
-        if (joiningCostHistory?.length) {
-          const partnersDetailsPromises = joiningCostHistory.map(
-            async (join: ExpensessHistoryItem) => {
-              const userResponse = await fetch(
-                `${baseUrl}/user/get-user/${join?.new_partner_id}`,
-                {
-                  method: "GET",
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
-
-              const userData = await userResponse.json();
-              if (userData.success) {
-                return userData?.data; // Return the partner data
-              } else {
-                throw new Error(
-                  userData.message || "Failed to fetch user details"
-                );
-              }
-            }
-          );
-
-          const partnersDetails = await Promise.all(partnersDetailsPromises);
-
-          // Ensure no duplicates before updating the state
-          setPartnersDetails((prev) => {
-            const newPartners = partnersDetails.filter(
-              (newPartner) =>
-                !prev.some(
-                  (existingPartner) => existingPartner._id === newPartner._id
-                )
-            );
-            return [...prev, ...newPartners];
-          });
-        }
-      } else {
-        throw new Error(data.message || "Failed to fetch purchase history");
+        setExpensessHistories(data?.data?.joiningCostHistory);
       }
     } catch (error) {
       const errorMessage =
@@ -118,6 +57,8 @@ const page = () => {
       setIsLoading(false);
     }
   };
+
+  console.log(expensesHistories);
 
   const formatDate = (backendDate: string): string => {
     // Parse the backend date string into a Date object
@@ -252,22 +193,16 @@ const page = () => {
         {/* users table */}
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
           <table className="w-full text-sm text-left rtl:text-right text-white ">
-            <thead className="sticky top-0 text-xs text-black uppercase bg-red-300 border-t-2 border-b-2 border-black">
+            <thead className="sticky top-0 text-xs text-black uppercase bg-teal-400 border-2 border-black">
               <tr>
+                <th scope="col" className="px-6 py-3 text-center">
+                  SL
+                </th>
                 <th scope="col" className="px-6 py-3 text-center">
                   New Joined User
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
-                  Email
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
                   Username
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  Nid No
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  Phone No
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
                   Joined Date
@@ -294,7 +229,7 @@ const page = () => {
                     </div>
                   </td>
                 </tr>
-              ) : partnersDetails && partnersDetails?.length <= 0 ? (
+              ) : expensesHistories && expensesHistories?.length <= 0 ? (
                 <tr className="text-center">
                   <td colSpan={7} align="center">
                     <div className="my-5 flex flex-col justify-center items-center">
@@ -303,22 +238,21 @@ const page = () => {
                   </td>
                 </tr>
               ) : (
-                partnersDetails?.map((detail: partnerDetails) => (
+                expensesHistories?.map((detail: ExpensessInterface, i) => (
                   <tr
                     key={detail._id}
-                    className="bg-red-100 text-black border-b-2 border-slate-700"
+                    className={`${i % 2 == 0 ? "bg-teal-200" : "bg-teal-100"} text-black border-2 border-slate-700`}
                   >
-                    <td className="px-6 py-4 text-center">{detail?.name}</td>
-                    <td className="px-6 py-4 text-center">{detail?.email}</td>
+                    <td className="px-6 py-4 text-center">{i + 1}</td>
                     <td className="px-6 py-4 text-center">
-                      {detail?.user_name}
+                      {detail?.partner_name}
+                    </td>
+
+                    <td className="px-6 py-4 text-center">
+                      {detail?.partner_user_name}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      {detail?.nid_passport_no}
-                    </td>
-                    <td className="px-6 py-4 text-center">{detail?.phone}</td>
-                    <td className="px-6 py-4 text-center">
-                      {formatDate(detail?.createdAt)}
+                      {formatDate(detail?.date)}
                     </td>
                     <td className="px-6 py-4 text-center text-red-500">1000</td>
                   </tr>

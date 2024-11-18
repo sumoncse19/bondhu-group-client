@@ -25,9 +25,11 @@ interface purchaseInterface {
 }
 
 const page = () => {
-  const [purchaseHistories, setPurchaseHistories] =
-    useState<purchaseInterface>();
+  const [purchaseHistories, setPurchaseHistories] = useState<
+    PurchaseHistoryItem[]
+  >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [pageNo, setPageNo] = useState<number>(1);
   const router = useRouter();
 
   const id = Cookies.get("id");
@@ -38,7 +40,7 @@ const page = () => {
 
     try {
       const response = await fetch(
-        `${baseUrl}/history/get-purchase-history/${id}?page=1&limit=10`,
+        `${baseUrl}/history/get-user-purchase-history/${id}?page=${pageNo}&limit=10`,
         {
           method: "GET",
           headers: {
@@ -54,7 +56,7 @@ const page = () => {
 
       const data = await response.json();
       if (data.success) {
-        setPurchaseHistories(data.data?.userPurchaseHistory[0]);
+        setPurchaseHistories(data.data?.purchaseAmountHistory);
       } else {
         // Handle case where the success flag is false
         throw new Error(data.message || "Failed to fetch purchase history");
@@ -198,7 +200,7 @@ const page = () => {
         {/* users table */}
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
           <table className="w-full text-sm text-left rtl:text-right text-white">
-            <thead className="sticky top-0 text-xs text-black uppercase bg-red-300 border-t-2 border-b-2 border-black">
+            <thead className="sticky top-0 text-xs text-black uppercase bg-teal-300 border-2 border-black">
               <tr>
                 <th scope="col" className="px-6 py-3 text-center">
                   Source
@@ -228,8 +230,7 @@ const page = () => {
                     </div>
                   </td>
                 </tr>
-              ) : purchaseHistories?.purchase_amount_history &&
-                purchaseHistories?.purchase_amount_history?.length <= 0 ? (
+              ) : purchaseHistories && purchaseHistories.length <= 0 ? (
                 <tr className="text-center">
                   <td colSpan={3} align="center">
                     <div className="my-5 flex flex-col justify-center items-center">
@@ -238,15 +239,18 @@ const page = () => {
                   </td>
                 </tr>
               ) : (
-                purchaseHistories?.purchase_amount_history?.map(
-                  (history: {
-                    _id: string;
-                    purchase_amount: number;
-                    date: string;
-                  }) => (
+                purchaseHistories?.map(
+                  (
+                    history: {
+                      _id: string;
+                      purchase_amount: number;
+                      date: string;
+                    },
+                    i
+                  ) => (
                     <tr
                       key={history?._id}
-                      className="bg-red-100 text-black border-b-2 border-slate-700"
+                      className={`${i % 2 == 0 ? "bg-teal-50" : "bg-teal-100"} text-black border-2 border-slate-700`}
                     >
                       <td className="px-6 py-4 text-center">Super Admin</td>
                       <td className="px-6 py-4 text-center">
@@ -265,7 +269,7 @@ const page = () => {
       </div>
 
       {/* download template content */}
-      <PurchaseHistoryDownload />
+      {/* <PurchaseHistoryDownload /> */}
     </div>
   );
 };

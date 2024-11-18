@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { FaAngleDown } from "react-icons/fa";
 import Cookies from "js-cookie";
+import { MdWorkHistory } from "react-icons/md";
 
 const Sidebar2 = () => {
   const [role, setRole] = useState<string>("");
@@ -186,8 +187,32 @@ const Sidebar2 = () => {
           },
         ]
       : []),
+
     ...(role === "superAdmin"
       ? [
+          {
+            title: "History",
+            icon: <MdWorkHistory />,
+            link: "/dashboard/history/given-purchase-wallet-history",
+            active: false,
+            subItems: [
+              {
+                title: "Given Purchase Wallet",
+                link: "/dashboard/history/given-purchase-wallet-history",
+                active: false,
+              },
+              {
+                title: "User's Investment",
+                link: "/dashboard/history/users-investments",
+                active: false,
+              },
+              {
+                title: "User's Withdraw",
+                link: "/dashboard/history/users-withdraw",
+                active: false,
+              },
+            ],
+          },
           {
             title: "Man Management",
             icon: <FaPeopleGroup />,
