@@ -1,6 +1,6 @@
 "use client";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { Circles } from "react-loader-spinner";
 import jsPDF from "jspdf";
@@ -31,10 +31,16 @@ interface partnerDetails {
 }
 
 const PurchaseMoneyCostingTable = () => {
-  const [expensesHistories, setExpensessHistories] =
-    useState<ExpensessInterface[]>();
-  const [partnersDetails, setPartnersDetails] = useState<partnerDetails[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [expensesHistories, setExpensessHistories] = useState<
+    ExpensessInterface[]
+  >([]);
+  const [pageNo, setPageNo] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Items per page
+  const ITEMS_PER_PAGE = 10;
+
   const router = useRouter();
 
   const id = Cookies.get("id");
@@ -44,7 +50,7 @@ const PurchaseMoneyCostingTable = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${baseUrl}/history/get-purchase-history/${id}?page=1&limit=10`,
+        `${baseUrl}/history/get-user-joining-cost-history/${id}?page=${pageNo}&limit=10`,
         {
           method: "GET",
           headers: {
@@ -53,15 +59,11 @@ const PurchaseMoneyCostingTable = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
       const data = await response.json();
+
       if (data.success) {
-        setExpensessHistories(
-          data?.data?.userPurchaseHistory[0]?.joining_cost_history
-        );
+        setExpensessHistories(data?.data?.joiningCostHistory);
+        setTotalPages(Math.ceil(data?.data?.total / data?.data?.limit));
       } else {
         throw new Error(data.message || "Failed to fetch purchase history");
       }
@@ -107,30 +109,37 @@ const PurchaseMoneyCostingTable = () => {
 
   useEffect(() => {
     getExpensessHistory();
-  }, [id]);
+  }, [id, pageNo]);
 
   return (
     <div className="">
       <div className="flex">
-        <p className="text-teal-700">Newly Joined User By You</p>
+        <p className="text-teal-700">
+          Newly Joined User By You{expensesHistories.length}
+        </p>
       </div>
 
       <div>
         {/* users table */}
-        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
+        <div
+          className={`relative overflow-x-auto ${isLoading ? "min-h-[600px]" : `h-[${expensesHistories.length * 53 + 41}px]`} max-h-[${expensesHistories.length * 53 + 41}px]  overflow-y-auto my-5`}
+        >
           <table className="w-full text-sm text-left rtl:text-right text-white ">
             <thead className="sticky top-0 text-xs text-black uppercase bg-white  border-2 rounded border-black italic">
               <tr>
-                <th scope="col" className="px-6 py-3 text-center">
+                <th scope="col" className="px-6 py-3 text-left">
+                  SL
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
                   New Joined User
                 </th>
-                <th scope="col" className="px-6 py-3 text-center">
+                <th scope="col" className="px-6 py-3 text-left">
                   Username
                 </th>
-                <th scope="col" className="px-6 py-3 text-center">
+                <th scope="col" className="px-6 py-3 text-left">
                   Joined Date
                 </th>
-                <th scope="col" className="px-6 py-3 text-center">
+                <th scope="col" className="px-6 py-3 text-left">
                   Cost
                 </th>
               </tr>
@@ -161,31 +170,93 @@ const PurchaseMoneyCostingTable = () => {
                   </td>
                 </tr>
               ) : (
-                expensesHistories?.map((detail: ExpensessInterface) => (
+                expensesHistories?.map((detail: ExpensessInterface, i) => (
                   <tr
                     key={detail._id}
-                    className="bg-gray-100 text-black border-2 border-slate-700"
+                    className={`bg-gray-100 ${i % 2 == 0 ? "bg-gray-100" : "bg-gray-300"} text-black border-2 border-slate-700`}
                   >
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-6 py-4 text-left">{i + 1}</td>
+                    <td className="px-6 py-4 text-left">
                       {detail?.partner_name ? detail?.partner_name : "--"}
                     </td>
 
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-6 py-4 text-left">
                       {detail?.partner_user_name
                         ? detail?.partner_user_name
                         : "--"}
                     </td>
 
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-6 py-4 text-left">
                       {formatDate(detail?.date)}
                     </td>
-                    <td className="px-6 py-4 text-center text-red-500">1000</td>
+                    <td className="px-6 py-4 text-left text-red-500">1000</td>
                   </tr>
                 ))
               )}
             </tbody>
           </table>
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-5 flex flex-wrap items-center gap-3 justify-center self-center">
+            {/* Previous button */}
+            {pageNo > 1 && (
+              <p
+                onClick={() => setPageNo(pageNo - 1)}
+                className={`border-2 px-2 rounded-md cursor-point border-black text-black`}
+              >
+                Prev
+              </p>
+            )}
+
+            {/* Page numbers */}
+            {(() => {
+              // Determine the range of page numbers to display
+              let startPage = Math.max(1, pageNo - 5);
+              let endPage = Math.min(totalPages, pageNo + 4);
+
+              // Adjust start and end pages to always show 10 pages when possible
+              if (endPage - startPage < 9) {
+                if (startPage === 1) {
+                  endPage = Math.min(totalPages, startPage + 9);
+                } else if (endPage === totalPages) {
+                  startPage = Math.max(1, endPage - 9);
+                }
+              }
+
+              return Array.from(
+                { length: endPage - startPage + 1 },
+                (_, index) => {
+                  const page = startPage + index;
+                  return (
+                    <p
+                      key={page}
+                      onClick={() => setPageNo(page)}
+                      className={`border-2 px-2 rounded-md cursor-pointer ${
+                        pageNo === page
+                          ? "bg-black text-white"
+                          : "text-black border-black"
+                      }`}
+                    >
+                      {page}
+                    </p>
+                  );
+                }
+              );
+            })()}
+
+            {/* Next button */}
+            {pageNo < totalPages && (
+              <p
+                onClick={() => setPageNo(pageNo + 1)}
+                className={`border-2 px-2 rounded-md cursor-pointer border-black text-black`}
+              >
+                Next
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

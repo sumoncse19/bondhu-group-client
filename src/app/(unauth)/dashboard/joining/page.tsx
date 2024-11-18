@@ -861,14 +861,20 @@ const page = () => {
       {/* registration Button */}
       <div className="my-10 flex">
         <div
-          onClick={handleRegistration}
           style={{
             boxShadow:
               "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
           }}
           className="w-1/2 mx-auto bg-teal-400 text-white shadow-lg cursor-pointer rounded-xl flex justify-center hover:scale-105  transition-all duration-300 ease-in"
         >
-          <button className="text-black font-bold px-12 py-3 flex justify-center items-center">
+          <button
+            onClick={() => {
+              if (!isLoading) {
+                handleRegistration();
+              }
+            }}
+            className="text-black font-bold px-12 py-3 flex justify-center items-center"
+          >
             {isLoading ? (
               <ThreeCircles
                 visible={true}

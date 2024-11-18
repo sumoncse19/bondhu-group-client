@@ -36,8 +36,6 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const id: string = Cookies.get("id") || "";
   const token: string = Cookies.get("token") || "";
 
-  console.log(wallet, "wallet");
-
   const handleGeneratePurchaseWallet = async () => {
     try {
       axios.put(
@@ -70,9 +68,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
       >
         {/* Inner white circle */}
         <div className="w-[130px] h-[130px] rounded-full bg-[#e3fdf7] flex items-center justify-center">
-          <div className="flex flex-col items-center">
-            <p> Cost</p>
-            <p className="text-red-500">{100 - percentage}%</p>
+          <div className="flex flex-col items-center justify-center">
+            <p className="text-xs"> Remaining Joining</p>
+            <p className="text-red-500">{purchase_wallet / 1000}</p>
           </div>
         </div>
       </div>
