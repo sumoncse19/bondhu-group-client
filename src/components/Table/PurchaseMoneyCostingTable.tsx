@@ -115,7 +115,7 @@ const PurchaseMoneyCostingTable = () => {
             <thead className="sticky top-0 text-xs text-black uppercase bg-white  border-2 rounded border-black italic">
               <tr>
                 <th scope="col" className="px-6 py-3 text-left">
-                  SL
+                  SL No
                 </th>
                 <th scope="col" className="px-6 py-3 text-left">
                   New Joined User
