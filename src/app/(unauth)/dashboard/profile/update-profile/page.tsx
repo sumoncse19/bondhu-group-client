@@ -715,7 +715,7 @@ const UpdateProfile = () => {
           {/*role, religion,maritual,team and blood gp */}
           <div className="flex items-center gap-3 mt-5">
             {/* role */}
-            <div className="w-full flex items-center">
+            {/* <div className="w-full flex items-center">
               <label className="px-2 text-sm" htmlFor="role">
                 Role
               </label>
@@ -730,7 +730,7 @@ const UpdateProfile = () => {
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
               </select>
-            </div>
+            </div> */}
             <div className=" w-full flex items-center">
               <label className="px-2 text-sm" htmlFor="religion">
                 Religion
