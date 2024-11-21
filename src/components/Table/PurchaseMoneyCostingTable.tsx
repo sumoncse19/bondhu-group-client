@@ -103,7 +103,7 @@ const PurchaseMoneyCostingTable = () => {
   return (
     <div className="">
       <div className="flex">
-        <p className="text-teal-700">Newly Joined User By You</p>
+        <p className="text-teal-700">Newly joined user by you</p>
       </div>
 
       <div>

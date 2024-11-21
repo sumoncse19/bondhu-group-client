@@ -35,6 +35,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
 
   const id: string = Cookies.get("id") || "";
   const token: string = Cookies.get("token") || "";
+  const role: string = Cookies.get("role") || "";
 
   const handleGeneratePurchaseWallet = async () => {
     try {
@@ -70,18 +71,22 @@ const DonutChart: React.FC<DonutChartProps> = ({
         <div className="w-[130px] h-[130px] rounded-full bg-[#e3fdf7] flex items-center justify-center">
           <div className="flex flex-col items-center justify-center">
             <p className="text-xs"> Remaining Joining</p>
-            <p className="text-red-500">{purchase_wallet / 1000}</p>
+            <p className="text-red-500">
+              {purchase_wallet ? purchase_wallet / 1000 : 0}
+            </p>
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <button
-          onClick={handleGeneratePurchaseWallet}
-          className="bg-green-200 text-green-800 px-5 py-1 rounded-md"
-        >
-          Generate Wallet
-        </button>
-      </div>
+      {role === "superAdmin" && (
+        <div className="flex justify-center">
+          <button
+            onClick={handleGeneratePurchaseWallet}
+            className="bg-green-200 text-green-800 px-5 py-1 rounded-md"
+          >
+            Generate Wallet
+          </button>
+        </div>
+      )}
     </div>
   );
 };
