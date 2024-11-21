@@ -937,18 +937,11 @@ const page = () => {
                 {/* thirdLeveLeftRightPartner */}
                 <div className="flex justify-center w-full ">
                   <div className="flex flex-col items-center justify-center relative w-full">
-                    <div className="group w-full flex items-center justify-end mr-5 gap-2">
+                    <div className="group w-full flex items-center justify-end mr-5  gap-2">
                       {/* Left side info */}
-                      {thirdLeveLeftRightPartner && (
-                        <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                          {/* <p>
-                          Points:{" "}
-                          {thirdLeveLeftRightPartner
-                            ? thirdLeveLeftRightPartner?.accountable
-                                ?.team_a_point
-                            : ""}
-                        </p> */}
-                          <div className="flex flex-col gap-2 items-center w-[60px]">
+                      <div className="z-[300000] text-black font-semibold w-[80px]  invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                        {thirdLeveLeftRightPartner && (
+                          <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
                             <p>Team A</p>
                             <p>
                               {thirdLeveLeftRightPartner
@@ -957,8 +950,8 @@ const page = () => {
                                 : ""}
                             </p>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                       <div className="flex flex-col items-center gap-2">
                         <img
                           onClick={() => {
@@ -1073,27 +1066,19 @@ const page = () => {
                       </div>
 
                       {/* Right side info */}
-                      {thirdLeveLeftRightPartner && (
-                        <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                          {/* <p>
-                          Points:{" "}
-                          {thirdLeveLeftRightPartner
-                            ? thirdLeveLeftRightPartner?.accountable
-                                ?.team_b_point
-                            : ""}
-                        </p> */}
-                          <div className="flex flex-col gap-2 items-center w-[60px]">
+                      <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                        {thirdLeveLeftRightPartner && (
+                          <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
                             <p>Team B</p>
                             <p>
-                              {" "}
                               {thirdLeveLeftRightPartner
                                 ? thirdLeveLeftRightPartner?.accountable
                                     ?.team_b_carry
                                 : ""}
                             </p>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

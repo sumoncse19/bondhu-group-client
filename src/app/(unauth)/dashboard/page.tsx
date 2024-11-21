@@ -211,7 +211,7 @@ const Dashboard = () => {
                   ? parseInt(user.wallet.purchase_wallet ?? 0) / 1000
                   : 0
               }
-              purchase_wallet={user?.wallet?.purchase_wallet ?? "--"}
+              purchase_wallet={parseInt(user?.wallet?.purchase_wallet) ?? "--"}
               wallet={user?.wallet}
             />
             {/* Purchase Money Costing Table */}
