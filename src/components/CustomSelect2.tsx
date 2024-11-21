@@ -16,6 +16,8 @@ export const CustomSelect2 = ({
     _id: "",
   });
 
+  console.log(allUser, "1w");
+
   const handleOptionSelect = (user: any) => {
     setReferenceId(user?._id);
     setIsDropdownOpen(false);
@@ -39,18 +41,20 @@ export const CustomSelect2 = ({
       {isDropdownOpen && (
         <div className="absolute top-full mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto z-10">
           {/* Search Field */}
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search..."
-            className="w-full px-3 py-2 border-b border-gray-200 outline-none bg-transparent"
-          />
+          <div className="relative">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search..."
+              className="w-full px-3 py-2 border-b border-gray-200 outline-none bg-transparent"
+            />
+          </div>
 
           {/* Filtered Options */}
           {allUser
-            .filter((user: { name: string; _id: string }) =>
-              user?.name.toLowerCase().includes(searchTerm.toLowerCase())
+            .filter((user: { name: string; user_name: string; _id: string }) =>
+              user?.user_name.toLowerCase().includes(searchTerm.toLowerCase())
             )
             .map((user: { user_name: string; _id: string }, index) => (
               <div
