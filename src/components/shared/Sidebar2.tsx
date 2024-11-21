@@ -19,6 +19,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { FaAngleDown } from "react-icons/fa";
 import Cookies from "js-cookie";
 import { MdWorkHistory } from "react-icons/md";
+import { GiProfit } from "react-icons/gi";
 
 const Sidebar2 = () => {
   const [role, setRole] = useState<string>("");
@@ -190,6 +191,12 @@ const Sidebar2 = () => {
 
     ...(role === "superAdmin"
       ? [
+          {
+            title: "Payable Profit",
+            icon: <GiProfit />,
+            link: "/dashboard/payable-profit",
+            active: false,
+          },
           {
             title: "History",
             icon: <MdWorkHistory />,
