@@ -26,10 +26,18 @@ import WarningMessage from "@/components/shared/Warning";
 
 const HomePage = () => {
   return (
-    <div className="w-full flex flex-col gap-y-6 lg:gap-y-28">
-      <WarningMessage />
+    <div className="w-full flex flex-col">
+      {/* <WarningMessage /> */}
       {/* welcome text */}
-      <div className="pt-5  min-h-[40vh] lg:min-h-[80vh]  flex flex-col lg:flex-row lg:items-center  gap-y-4 px-3 lg:px-10 ">
+      <div
+        style={{
+          backgroundImage: `url('/images/bg/bg2.jpg')`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="pt-5  min-h-[40vh] lg:min-h-[90vh]  flex flex-col lg:flex-row lg:items-center  gap-y-4 px-3 lg:px-10 "
+      >
         <div className="w-full">
           <div className="w-full lg:w-[80%] mx-auto relative">
             <div className="hidden lg:block text-xl xl:text-4xl 2xl:text-7xl tracking-wide  font-serif uppercase font-bold ">
@@ -97,7 +105,7 @@ const HomePage = () => {
           backgroundSize: "cover",
           // filter: "blur(1px)",
         }}
-        className="w-full h-[300px] lg:h-[500px] py-3 lg:py-6 bg-opacity-0 flex items-center justify-center relative"
+        className="w-full h-[300px] lg:h-[800px] py-3 lg:py-6 bg-opacity-0 flex items-center justify-center relative"
       >
         <div className="hidden lg:flex w-[80%] min-h-40 mx-auto  justify-center items-center  bg-black bg-opacity-70 p-3 rounded-md">
           <TypeAnimation
@@ -190,47 +198,62 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Bondhu builder intro */}
-      <motion.div
-        className="mt-10 "
-        initial={{ y: "80px", opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeIn" }}
-        viewport={{ once: true, amount: 0.5 }}
+      <div
+        style={{
+          backgroundImage: `url('/images/bg/bg1.jpg')`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          paddingTop: "50px",
+        }}
       >
-        <div className="w-[95%] lg:w-[80%] mx-auto flex flex-col lg:flex-row items-center justify-between mt-28">
-          <div className="w-full flex flex-col gap-5 left-div">
-            <h1 className="text-xl lg:text-4xl text-black font-bold tracking-widest leading-relaxed">
-              Bondhu Builder&#x27;s
-            </h1>
-            <p className="text-sm lg:text-base text-gray-600">
-              A diverse company focused on growth across multiple sectors,
-              including construction, IT, travel, and more. Join us in our
-              journey towards excellence and innovation.
-            </p>
-            <Button />
-          </div>
+        {/* Bondhu builder intro */}
+        <motion.div
+          className="mt-10 "
+          initial={{ y: "80px", opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: "easeIn" }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          <div className="w-[95%] lg:w-[80%] mx-auto flex flex-col lg:flex-row items-center justify-between mt-28">
+            <div className="w-full flex flex-col gap-5 left-div">
+              <h1 className="text-xl lg:text-4xl text-black font-bold tracking-widest leading-relaxed">
+                Bondhu Builder&#x27;s
+              </h1>
+              <p className="text-sm lg:text-base text-gray-600 text-justify">
+                A diverse company focused on growth across multiple sectors,
+                including construction, IT, travel, and more. Join us in our
+                journey towards excellence and innovation. A diverse company
+                focused on growth across multiple sectors, including
+                construction, IT, travel, and more. Join us in our journey
+                towards excellence and innovation.A diverse company focused on
+                growth across multiple sectors, including construction, IT,
+                travel, and more. Join us in our journey towards excellence and
+                innovation.
+              </p>
+            </div>
 
-          <div className="w-full flex justify-center lg:justify-end right-div ">
-            <img
-              className="rounded-full w-[300px] h-[250px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
-              src="/images/buildersImg1.png"
-              alt="Bondhu Builders"
-            />
+            <div className="w-full flex justify-center lg:justify-end right-div ">
+              <img
+                className="rounded-full w-[300px] h-[250px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
+                src="/images/buildersImg1.png"
+                alt="Bondhu Builders"
+              />
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      {/* all sister concerns slider */}
-      <motion.div
-        className="my-0 w-full lg:w-[80%] mx-auto"
-        initial={{ y: "50px", opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: "easeIn" }}
-        viewport={{ once: true, amount: 0.5 }}
-      >
-        <HomeBanner />
-      </motion.div>
+        {/* all sister concerns slider */}
+        <motion.div
+          className="my-0 w-full lg:w-[80%] mx-auto"
+          initial={{ y: "50px", opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeIn" }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          <HomeBanner />
+        </motion.div>
+      </div>
 
       {/* Our Service */}
       {/* <Services /> */}

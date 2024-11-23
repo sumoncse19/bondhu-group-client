@@ -93,7 +93,7 @@ const Header = () => {
                   href="/login"
                   className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
                 >
-                  Log in
+                  Let's Start
                 </Link>
               )}
             </div>

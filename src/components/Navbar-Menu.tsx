@@ -122,20 +122,20 @@ function Navbar({ className }: { className?: string }) {
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Events">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/hobby">Business Extension Program</HoveredLink>
-            <HoveredLink href="/individual">General Program</HoveredLink>
+            <HoveredLink href="">Business Extension Program</HoveredLink>
+            <HoveredLink href="">General Program</HoveredLink>
           </div>
         </MenuItem>
-        <MenuItem
-          setActive={setActive}
-          active={active}
-          item="Magazine"
-        ></MenuItem>
-        <MenuItem
-          setActive={setActive}
-          active={active}
-          item="Media Partner"
-        ></MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Magazine">
+          <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="">Bondhu Magazine</HoveredLink>
+          </div>
+        </MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Media Partner">
+          <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="">Daily BondhuPotro</HoveredLink>
+          </div>
+        </MenuItem>
       </Menu>
     </div>
   );
