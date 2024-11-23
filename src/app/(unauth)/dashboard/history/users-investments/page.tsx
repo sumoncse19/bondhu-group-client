@@ -340,12 +340,6 @@ const page = () => {
 
         {/* investmet table */}
         <div className="bg-white w-full py-5">
-          <div className="p-5 flex items-center gap-5">
-            <p>ALl</p>
-            <p>Approved</p>
-            <p>Rejected</p>
-            <p>Pending</p>
-          </div>
           <div
             className="relative overflow-x-auto max-h-screen max-w-full overflow-y-auto"
             // style={{ width: "calc(100% - 150px)" }}

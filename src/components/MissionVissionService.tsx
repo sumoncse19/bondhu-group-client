@@ -72,7 +72,7 @@ const content = [
 ];
 export function MissionVisionService() {
   return (
-    <div className="py-10">
+    <div className="">
       <StickyScroll content={content} />
     </div>
   );

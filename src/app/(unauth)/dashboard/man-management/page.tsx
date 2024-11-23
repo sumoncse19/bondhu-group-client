@@ -315,7 +315,7 @@ const Page = () => {
                     </td>
                     <td className="px-6 py-4 text-left">
                       {user?.is_approved ? (
-                        <p className="italic py-1 rounded-md text-teal-700">
+                        <p className="italic py-1 rounded-md text-teal-700 text-center">
                           Approved
                         </p>
                       ) : (
@@ -367,7 +367,7 @@ const Page = () => {
                           isLoadingForApprove.id === user?._id ? (
                             "Loading.."
                           ) : (
-                            <p className="bg-rose-300 text-rose-700 rounded-md px-3 py-1">
+                            <p className="bg-rose-300 text-rose-700 rounded-md px-3 py-1 text-center">
                               Approve
                             </p>
                           )}
