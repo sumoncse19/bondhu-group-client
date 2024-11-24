@@ -105,7 +105,7 @@ const HomePage = () => {
           backgroundSize: "cover",
           // filter: "blur(1px)",
         }}
-        className="w-full h-[300px] lg:h-[800px] py-3 lg:py-6 bg-opacity-0 flex items-center justify-center relative"
+        className="w-full h-[300px] lg:h-[8 00px] py-3 lg:py-6 bg-opacity-0 flex items-center justify-center relative"
       >
         <div className="hidden lg:flex w-[80%] min-h-40 mx-auto  justify-center items-center  bg-black bg-opacity-70 p-3 rounded-md">
           <TypeAnimation
