@@ -73,7 +73,6 @@ const Page = () => {
   // fetch all users
   const fetchAllUsers = async () => {
     try {
-      setIsLoading(true);
       const response = await fetch(
         `${baseUrl}/user/get-all-users?page=${pageNo}&limit=10&search=${searchValue}`,
         {
@@ -225,6 +224,9 @@ const Page = () => {
                   Username
                 </th>
                 <th scope="col" className="px-6 py-3 text-left">
+                  Serial No
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
                   Role
                 </th>
                 <th scope="col" className="px-6 py-3 text-left">
@@ -283,6 +285,9 @@ const Page = () => {
                       className="px-6 py-4 text-left cursor-pointer hover:text-red-700 hover:underline"
                     >
                       {user?.user_name}
+                    </td>
+                    <td className="px-6 py-4 text-left">
+                      {user?.serial_number}
                     </td>
                     <td className="px-6 py-4 text-left">{user?.role}</td>
                     <td className="px-6 py-4 text-left">{user?.phone}</td>

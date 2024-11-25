@@ -24,8 +24,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   purchase_wallet,
   wallet,
 }) => {
-  const [newPurchaseMoney, setNewPurchaseMoney] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false);
   const conicStyle: React.CSSProperties = {
     background: `conic-gradient(
       #78fade ${percentage}%,
@@ -37,28 +36,58 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const token: string = Cookies.get("token") || "";
   const role: string = Cookies.get("role") || "";
 
+  // handle send wallet
   const handleGeneratePurchaseWallet = async () => {
+    setIsLoading(true);
+    const walletData = {
+      userId: id,
+      purchase_amount: 100000,
+      purchase_from: id,
+    };
+
     try {
-      axios.put(
-        `${baseUrl}/user/auth/${id}`,
-        {
-          wallet: {
-            ...wallet,
-            purchase_wallet: wallet.purchase_wallet + 50000,
-          },
-        },
-        {
+      await axios
+        .post(`${baseUrl}/purchase`, walletData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
-      );
+        })
+        .then((res) => {
+          if (res?.data?.success) {
+            window.location.reload();
+          }
+        });
     } catch (error) {
       if (isAxiosError(error)) {
-        toast.error(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message || "An error occured");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  // const handleGeneratePurchaseWallet = async () => {
+  //   try {
+  //     axios.put(
+  //       `${baseUrl}/purchase`,
+  //       {
+  //         wallet: {
+  //           ...wallet,
+  //           purchase_wallet: wallet.purchase_wallet + 50000,
+  //         },
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //   } catch (error) {
+  //     if (isAxiosError(error)) {
+  //       toast.error(error?.response?.data?.message);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="h-fit bg-[#e3fdf7] p-5">
@@ -83,7 +112,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
             onClick={handleGeneratePurchaseWallet}
             className="bg-green-200 text-green-800 px-5 py-1 rounded-md"
           >
-            Generate Wallet
+            {isLoading ? "Sending....." : "Genrate Purchase Wallet"}
           </button>
         </div>
       )}
