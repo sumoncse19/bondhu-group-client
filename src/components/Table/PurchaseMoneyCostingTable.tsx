@@ -17,6 +17,7 @@ interface ExpensessInterface {
   partner_name: string;
   partner_user_name: string;
   date: string;
+  partner_serial_number: string;
 }
 
 const PurchaseMoneyCostingTable = () => {
@@ -162,7 +163,9 @@ const PurchaseMoneyCostingTable = () => {
                     key={detail._id}
                     className={`bg-gray-100 ${i % 2 == 0 ? "bg-gray-100" : "bg-gray-300"} text-black border-2 border-slate-700`}
                   >
-                    <td className="px-6 py-4 text-left">{i + 1}</td>
+                    <td className="px-6 py-4 text-left">
+                      {detail?.partner_serial_number || "--"}
+                    </td>
                     <td className="px-6 py-4 text-left">
                       {detail?.partner_name ? detail?.partner_name : "--"}
                     </td>
