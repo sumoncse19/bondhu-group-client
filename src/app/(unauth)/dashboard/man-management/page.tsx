@@ -157,16 +157,47 @@ const Page = () => {
 
   useEffect(() => {
     fetchAllUsers();
-  }, [user, pageNo, searchValue]);
+  }, [user, pageNo]);
 
-  useEffect(() => {
-    const matchedUser = users.filter((user) =>
-      user?.user_name.includes(searchValue)
-    );
-    console.log("match", matchedUser);
+  // useEffect(() => {
+  //   const matchedUser = users.filter((user) =>
+  //     user?.user_name.includes(searchValue)
+  //   );
+  //   console.log("match", matchedUser);
 
-    setSearchedUsers(matchedUser);
-  }, [searchValue]);
+  //   setSearchedUsers(matchedUser);
+  // }, [searchValue]);
+
+  const handleSearchUser = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `${baseUrl}/user/get-all-users?page=${pageNo}&limit=10&search=${searchValue}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      if (data.success) {
+        setUsers(data?.data?.usersWithPartners);
+        // setSearchedUsers(data?.data?.usersWithPartners);
+        const adminUsers = data?.data?.usersWithPartners?.filter(
+          (user: { role: string }) => user?.role === "admin"
+        );
+        setTotalPages(Math.ceil(data?.data?.total / data?.data?.limit));
+        setChildUsers(adminUsers);
+      } else {
+        toast.error(data.message || "something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="relative w-full h-full pt-6">
@@ -200,19 +231,34 @@ const Page = () => {
         </div>
       </div>
       {/* search box */}
-      <div className="mt-3">
+      <div className="mt-3 flex items-center gap-5">
         <input
           onChange={(e) => setSearchValue(e.target.value)}
+          value={searchValue}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearchUser();
+            }
+          }}
           type="text"
-          placeholder="Search user by username"
-          className=" w-52 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
+          placeholder="Search user by username or serial no."
+          className=" w-72 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
         />
-        <input
-          onChange={(e) => setSearchValue(e.target.value)}
-          type="text"
-          placeholder="Search user by serial numberrrr"
-          className=" w-52 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
-        />
+        <button
+          onClick={handleSearchUser}
+          className="px-5 py-2 bg-teal-400 rounded"
+        >
+          Search
+        </button>
+        <button
+          onClick={(e) => {
+            setSearchValue("");
+            fetchAllUsers();
+          }}
+          className="px-5 py-2 bg-teal-400 rounded"
+        >
+          Clear
+        </button>
       </div>
 
       <div>
@@ -275,8 +321,16 @@ const Page = () => {
                     </div>
                   </td>
                 </tr>
+              ) : users && users?.length <= 0 ? (
+                <tr className="text-center">
+                  <td colSpan={12} align="center">
+                    <div className="my-5 flex flex-col justify-center items-center">
+                      <p className="text-lg text-rose-500">No Data to Show</p>
+                    </div>
+                  </td>
+                </tr>
               ) : (
-                searchedUsers.map((user: any, i: number) => (
+                users.map((user: any, i: number) => (
                   <tr
                     key={user._id}
                     className={`${i % 2 == 0 ? "bg-teal-50" : "bg-teal-200"} cursor-pointer transition-all duration-500 ease-in text-black border-2 border-slate-700`}

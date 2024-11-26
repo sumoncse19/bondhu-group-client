@@ -164,14 +164,17 @@ const PartnershipProfit = () => {
     fetchPartnershipHistories();
   }, [value]);
 
+  console.log(payAmount, "kkk");
+
   const handleSendPartnershipProfit = async () => {
     setIsLoadingForSendProfit(true);
+
     try {
       const response = await axios.post(
         `${baseUrl}/wallet/send-directorship-profit`,
         {
           share_holder_payment_id: payAmount?.value?._id,
-          profit_amount: payAmount?.value?.directorship_amount,
+          profit_amount: parseInt(amount),
           profit_date: formatDate(payAmount?.value?.payment_date),
         },
         {
@@ -199,6 +202,9 @@ const PartnershipProfit = () => {
       });
     }
   };
+
+  console.log(amount, "tk");
+
   return (
     <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
       {/* Calendar */}

@@ -212,12 +212,16 @@ const UpdateProfile = () => {
       nagad: nagadAccount,
       bank_name: bankName,
       branch_name: bankBranch,
+      bank_account_name: bankAccName,
       account_no: bankAccNo,
       routing_no: routingNo,
       swift_code: swiftCode,
     };
 
-    if (userData.password && userData.password === "") {
+    console.log(userData);
+    console.log(userData?.password);
+
+    if (userData.password === "") {
       delete userData?.password;
     }
 
