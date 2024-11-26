@@ -210,7 +210,7 @@ const Page = () => {
         <input
           onChange={(e) => setSearchValue(e.target.value)}
           type="text"
-          placeholder="Search user by serial number"
+          placeholder="Search user by serial numberrrr"
           className=" w-52 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
         />
       </div>
