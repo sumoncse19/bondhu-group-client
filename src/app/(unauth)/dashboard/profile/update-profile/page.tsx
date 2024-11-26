@@ -29,36 +29,34 @@ const UpdateProfile = () => {
   const [presentAddress, setPresentAddress] = useState<string>("");
   const [permanentAddress, setPermanentAddress] = useState<string>("");
   const [profession, setProfession] = useState<string>("");
-  const [referenceId, setReferenceId] = useState<string>("");
-  const [parentPlacementId, setParentPlacementId] = useState<string>("");
   const [nationality, setNationality] = useState<string>("");
   const [religion, setReligion] = useState<string>("");
   const [maritualStatus, setMaritualStatus] = useState<string>("");
-  const [team, setTeams] = useState<string>("");
   const [bloodGroup, setBloodGroup] = useState<string>("");
   const [nomineeName, setNomineeName] = useState<string>("");
   const [nomineePhoneNo, setNomineePhoneNo] = useState<string>("");
   const [nomineeRelation, setNomineeRelation] = useState<string>("");
   const [nomineeAddress, setNomineeAddress] = useState<string>("");
+  const [bkashAccount, setBkashAccount] = useState<string>("");
+  const [rocketAccount, setRocketAccount] = useState<string>("");
+  const [nagadAccount, setNagadAccount] = useState<string>("");
+  const [bankAccNo, setBankAccNo] = useState<string>("");
+  const [bankAccName, setBankAccName] = useState<string>("");
+  const [bankName, setBankName] = useState<string>("");
+  const [bankBranch, setBankBranch] = useState<string>("");
+  const [routingNo, setRoutingNo] = useState<string>("");
+  const [swiftCode, setSwiftCode] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<UserData>();
-  const [childUsers, setChildUsers] = useState<[]>([]);
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  const [currentOptions, setCurrentOptions] = useState<any>([
-    {
-      label: "A",
-      value: "a",
-    },
-    {
-      label: "B",
-      value: "b",
-    },
-  ]);
+
+  // hooks
   const router = useRouter();
+
+  // get cookies value
   const id: string = Cookies.get("id") || "";
   const token: string = Cookies.get("token") || "";
 
+  // get single user for update
   const fetchSignleUser = async () => {
     const response = await fetch(`${baseUrl}/user/get-user/${id}`, {
       method: "GET",
@@ -69,7 +67,6 @@ const UpdateProfile = () => {
     });
     const data = await response.json();
     if (data?.success) {
-      setUser(data?.data);
       console.log(data?.data?.name);
       setImageUrl(data?.data?.picture);
       setName(data?.data?.name);
@@ -84,8 +81,7 @@ const UpdateProfile = () => {
       setMobileNo(data?.data?.phone);
       setPresentAddress(data?.data?.present_address);
       setPermanentAddress(data?.data?.permanent_address);
-      setReferenceId(data?.data?.reference_id);
-      setParentPlacementId(data?.data?.parent_placement_id);
+
       setRole(data?.data?.role);
       setReligion(data?.data?.religion);
       setMaritualStatus(data?.data?.marital_status);
@@ -95,10 +91,17 @@ const UpdateProfile = () => {
       setNomineePhoneNo(data?.data?.nominee_mobile_no);
       setNomineeAddress(data?.data?.nominee_address);
       setNomineeRelation(data?.data?.relation_with_nominee);
+      setBkashAccount(data?.data?.bKash);
+      setRocketAccount(data?.data?.rocket);
+      setNagadAccount(data?.data?.nagad);
+      // setBankAccName(data?.data?.);
+      setBankAccNo(data?.data?.account_no);
+      setBankName(data?.data?.bank_name);
+      setBankBranch(data?.data?.branch_name);
+      setRoutingNo(data?.data?.routing_no);
+      setSwiftCode(data?.data?.swift_code);
     }
   };
-
-  console.log("namerr", imageUrl2);
 
   const handleImageClick = () => {
     fileInputRef.current?.click(); // Trigger the hidden input
@@ -173,98 +176,12 @@ const UpdateProfile = () => {
     }
   };
 
-  // Function to handle registration
-  // const handleRegistration = async () => {
-  //   if (password != confirmPassword) {
-  //     toast.error("Password doesnt match");
-  //     return;
-  //   }
-  //   setIsLoading(true);
-  //   const userData: UserData = {
-  //     name,
-  //     user_name: userName,
-  //     father_or_husband_name: fatherOrHusbandName,
-  //     mother_name: motherName,
-  //     picture: imageUrl,
-  //     email: email,
-  //     password: password,
-  //     phone: mobileNo,
-  //     role,
-  //     present_address: presentAddress,
-  //     permanent_address: permanentAddress,
-  //     nationality,
-  //     religion,
-  //     blood_group: bloodGroup,
-  //     nid_passport_no: nidNo,
-  //     dob,
-  //     choice_side: team,
-  //     marital_status: maritualStatus,
-  //     profession,
-  //     reference_id: user?._id ?? "",
-  //     parent_placement_id: parentPlacementId,
-  //     nominee_name: nomineeName,
-  //     relation_with_nominee: nomineeRelation,
-  //     nominee_address: nomineeAddress,
-  //     nominee_mobile_no: nomineePhoneNo,
-  //     nominee_picture: imageUrl2,
-  //     registration_date: "30.09.2024",
-  //   };
-
-  //   try {
-  //     const response = await fetch(`${baseUrl}/user/auth/register`, {
-  //       method: "POST",
-  //       body: JSON.stringify(userData),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-
-  //     if (!response.ok) {
-  //       toast.error(
-  //         "Registration Failed. Fill all the necessary fields and Try again"
-  //       );
-  //     }
-
-  //     const data = await response.json();
-
-  //     if (data.success) {
-  //       router.push("/dashboard/wallet/purchase-wallet");
-  //       toast.success("Successfully added new User");
-  //     }
-  //   } catch (error: any) {
-  //     toast.error(error.message);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // fetch child user
-  const fetchChildUsers = async () => {
-    const response = await fetch(`${baseUrl}/team/get-child-users/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      setChildUsers(data?.data);
-    }
-  };
-
   useEffect(() => {
     fetchSignleUser();
-    fetchChildUsers();
   }, [id]);
-  // Function to handle registration
+
+  // Function to handle update
   const handleUpdateUser = async () => {
-    if (password != confirmPassword) {
-      toast.error("Password doesnt match");
-      return;
-    }
     setIsLoading(true);
     const userData: UserData = {
       name,
@@ -283,22 +200,27 @@ const UpdateProfile = () => {
       blood_group: bloodGroup,
       nid_passport_no: nidNo,
       dob,
-      // choice_side: team,
       marital_status: maritualStatus,
       profession,
-      // reference_id: user?._id ?? "",
-      // parent_placement_id: parentPlacementId,
       nominee_name: nomineeName,
       relation_with_nominee: nomineeRelation,
       nominee_address: nomineeAddress,
       nominee_mobile_no: nomineePhoneNo,
       nominee_picture: imageUrl2,
-      registration_date: "30.09.2024",
+      bKash: bkashAccount,
+      rocket: rocketAccount,
+      nagad: nagadAccount,
+      bank_name: bankName,
+      branch_name: bankBranch,
+      account_no: bankAccNo,
+      routing_no: routingNo,
+      swift_code: swiftCode,
     };
 
-    if (userData.password === "") {
-      delete userData.password;
+    if (userData.password && userData.password === "") {
+      delete userData?.password;
     }
+
     try {
       const response = await fetch(`${baseUrl}/user/auth/${id}`, {
         method: "PUT",
@@ -924,8 +846,8 @@ const UpdateProfile = () => {
                           Bkash Number
                         </label>
                         <input
-                          onChange={(e) => setNomineeName(e.target.value)}
-                          // value={nomineeName}
+                          onChange={(e) => setBkashAccount(e.target.value)}
+                          value={bkashAccount}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="text"
                           id="bkash_no"
@@ -939,8 +861,8 @@ const UpdateProfile = () => {
                           Rocket Number
                         </label>
                         <input
-                          onChange={(e) => setNomineePhoneNo(e.target.value)}
-                          // value={nomineePhoneNo}
+                          onChange={(e) => setRocketAccount(e.target.value)}
+                          value={rocketAccount}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="number"
                           id="rocket_no"
@@ -954,8 +876,8 @@ const UpdateProfile = () => {
                           Nagad Number
                         </label>
                         <input
-                          onChange={(e) => setNomineeRelation(e.target.value)}
-                          // value={nomineeRelation}
+                          onChange={(e) => setNagadAccount(e.target.value)}
+                          value={nagadAccount}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="text"
                           id="nagad_no"
@@ -977,8 +899,8 @@ const UpdateProfile = () => {
                           Acc Name
                         </label>
                         <input
-                          onChange={(e) => setNomineeName(e.target.value)}
-                          // value={nomineeName}
+                          onChange={(e) => setBankAccName(e.target.value)}
+                          value={bankAccName}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="text"
                           id="bank_acc_name"
@@ -993,8 +915,8 @@ const UpdateProfile = () => {
                           Acc No
                         </label>
                         <input
-                          onChange={(e) => setNomineeName(e.target.value)}
-                          // value={nomineeName}
+                          onChange={(e) => setBankAccNo(e.target.value)}
+                          value={bankAccNo}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="text"
                           id="bank_acc_no"
@@ -1009,8 +931,8 @@ const UpdateProfile = () => {
                           Bank Name
                         </label>
                         <input
-                          onChange={(e) => setNomineeRelation(e.target.value)}
-                          // value={nomineeRelation}
+                          onChange={(e) => setBankName(e.target.value)}
+                          value={bankName}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="text"
                           id="bank_name"
@@ -1024,8 +946,8 @@ const UpdateProfile = () => {
                           Branch Name
                         </label>
                         <input
-                          onChange={(e) => setNomineeRelation(e.target.value)}
-                          // value={nomineeRelation}
+                          onChange={(e) => setBankBranch(e.target.value)}
+                          value={bankBranch}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="text"
                           id="bank_branch"
@@ -1039,8 +961,8 @@ const UpdateProfile = () => {
                           Routing Number
                         </label>
                         <input
-                          onChange={(e) => setNomineeRelation(e.target.value)}
-                          // value={nomineeRelation}
+                          onChange={(e) => setRoutingNo(e.target.value)}
+                          value={routingNo}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="text"
                           id="bank_routing_no"
@@ -1054,8 +976,8 @@ const UpdateProfile = () => {
                           Swift Code
                         </label>
                         <input
-                          onChange={(e) => setNomineePhoneNo(e.target.value)}
-                          // value={nomineePhoneNo}
+                          onChange={(e) => setSwiftCode(e.target.value)}
+                          value={swiftCode}
                           className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                           type="number"
                           id="bank_swift_code"
