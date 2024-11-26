@@ -207,6 +207,12 @@ const Page = () => {
           placeholder="Search user by username"
           className=" w-52 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
         />
+        <input
+          onChange={(e) => setSearchValue(e.target.value)}
+          type="text"
+          placeholder="Search user by username"
+          className=" w-52 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
+        />
       </div>
 
       <div>
