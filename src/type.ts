@@ -90,7 +90,15 @@ export interface UserData {
   nominee_address: string;
   nominee_mobile_no: string;
   nominee_picture: string;
-  registration_date: string;
+  registration_date?: string;
   wallet?: WalletData;
   accountable?: AccountAbleData;
+  bKash: string;
+  rocket: string;
+  nagad: string;
+  bank_name: string;
+  branch_name: string;
+  account_no: string;
+  routing_no: string;
+  swift_code: string;
 }
