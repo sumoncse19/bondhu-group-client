@@ -24,6 +24,7 @@ const page = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>("");
   const [transactionId, setTransactionId] = useState<string>("");
   const [bankName, setBankName] = useState<string>("");
+  const [bankAccNo, setBankAccNo] = useState<string>("");
   const [bankAccName, setBankAccName] = useState<string>("");
   const [bankBranchName, setBankBranchName] = useState<string>("");
   const [paymentPicture, setPaymentPicture] = useState<string>("");
@@ -169,7 +170,7 @@ const page = () => {
     }
 
     if (paymentMethod === "bank") {
-      if (!bankName || !bankAccName || !bankBranchName) {
+      if (!bankName || !bankAccName || !bankBranchName || !bankAccNo) {
         toast.error("Fill all bank info first");
         return;
       }
@@ -189,6 +190,7 @@ const page = () => {
       phone: mobileNumber,
       payment_method: paymentMethod,
       bank_name: bankName,
+      account_no: bankAccNo,
       bank_account_name: bankAccName,
       branch_name: bankBranchName,
       transaction_id: transactionId ? transactionId : "",
@@ -246,8 +248,6 @@ const page = () => {
     shareHolderAmount,
     directorshipAmount,
   ]);
-
-  console.log("total cost", typeof totalPlanCost);
 
   return (
     <div className="w-full h-full  text-black mb-20">
@@ -678,7 +678,7 @@ const page = () => {
                     id="bank-name"
                     onChange={(e) => setBankName(e.target.value)}
                     className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                    placeholder="enter money reciept number"
+                    placeholder="enter bank name"
                   />
                 </div>
                 {/* bank acc name */}
@@ -690,7 +690,19 @@ const page = () => {
                     id="bank-acc-name"
                     onChange={(e) => setBankAccName(e.target.value)}
                     className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                    placeholder="enter money reciept number"
+                    placeholder="enter acc name"
+                  />
+                </div>
+                {/* bank acc no */}
+                <div className="flex items-center justify-between">
+                  <label htmlFor="bank-acc-no">Bank Account No</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="bank-acc-no"
+                    onChange={(e) => setBankAccNo(e.target.value)}
+                    className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
+                    placeholder="enter acc no"
                   />
                 </div>
                 {/* bank branch name */}
@@ -702,7 +714,7 @@ const page = () => {
                     id="bank-branch-name"
                     onChange={(e) => setBankBranchName(e.target.value)}
                     className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                    placeholder="enter money reciept number"
+                    placeholder="enter branch name"
                   />
                 </div>
               </div>

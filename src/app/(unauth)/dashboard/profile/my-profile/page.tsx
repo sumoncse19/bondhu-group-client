@@ -125,7 +125,52 @@ const MyProfile = () => {
     {
       id: 20,
       name: "Relation With Nominee",
-      value: user?.relation_with_nominee,
+      value: user?.relation_with_nominee || "",
+    },
+    {
+      id: 21,
+      name: "Bkash Account",
+      value: user?.bKash || "",
+    },
+    {
+      id: 22,
+      name: "Nagad Account",
+      value: user?.nagad || "",
+    },
+    {
+      id: 23,
+      name: "Rocket Account",
+      value: user?.rocket || "",
+    },
+    {
+      id: 24,
+      name: "Bank Account Name",
+      value: user?.bank_account_name || "",
+    },
+    {
+      id: 25,
+      name: "Bank Account No",
+      value: user?.account_no || "",
+    },
+    {
+      id: 26,
+      name: "Bank Name",
+      value: user?.bank_name || "",
+    },
+    {
+      id: 27,
+      name: "Bank Branch",
+      value: user?.branch_name || "",
+    },
+    {
+      id: 28,
+      name: "Routing No",
+      value: user?.routing_no || "",
+    },
+    {
+      id: 29,
+      name: "Swift Code",
+      value: user?.swift_code ? user?.swift_code : "--",
     },
   ];
 

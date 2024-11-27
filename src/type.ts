@@ -98,6 +98,7 @@ export interface UserData {
   nagad: string;
   bank_name: string;
   branch_name: string;
+  bank_account_name: string;
   account_no: string;
   routing_no: string;
   swift_code: string;

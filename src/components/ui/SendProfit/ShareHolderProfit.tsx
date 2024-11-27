@@ -171,7 +171,7 @@ const ShareHolderProfit = () => {
         `${baseUrl}/wallet/send-share-holder-profit`,
         {
           share_holder_payment_id: payAmount?.value?._id,
-          profit_amount: payAmount?.value?.share_holder_amount,
+          profit_amount: parseInt(amount),
           profit_date: formatDate(payAmount?.value?.payment_date),
         },
         {
