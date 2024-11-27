@@ -678,7 +678,7 @@ const page = () => {
                     id="bank-name"
                     onChange={(e) => setBankName(e.target.value)}
                     className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                    placeholder="enter money reciept number"
+                    placeholder="enter bank name"
                   />
                 </div>
                 {/* bank acc name */}
@@ -690,7 +690,7 @@ const page = () => {
                     id="bank-acc-name"
                     onChange={(e) => setBankAccName(e.target.value)}
                     className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                    placeholder="enter money reciept number"
+                    placeholder="enter acc name"
                   />
                 </div>
                 {/* bank acc no */}
@@ -702,7 +702,7 @@ const page = () => {
                     id="bank-acc-no"
                     onChange={(e) => setBankAccNo(e.target.value)}
                     className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                    placeholder="enter money reciept number"
+                    placeholder="enter acc no"
                   />
                 </div>
                 {/* bank branch name */}
@@ -714,7 +714,7 @@ const page = () => {
                     id="bank-branch-name"
                     onChange={(e) => setBankBranchName(e.target.value)}
                     className="bg-[#d9d7d5] px-4 py-2 rounded-md w-80 border-2 border-black text-black outline-none focus:border-red-600"
-                    placeholder="enter money reciept number"
+                    placeholder="enter branch name"
                   />
                 </div>
               </div>
