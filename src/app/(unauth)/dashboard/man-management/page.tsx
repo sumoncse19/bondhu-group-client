@@ -71,10 +71,10 @@ const Page = () => {
   }, [userCookie]);
 
   // fetch all users
-  const fetchAllUsers = async () => {
+  const fetchAllUsers = async (clear: boolean) => {
     try {
       const response = await fetch(
-        `${baseUrl}/user/get-all-users?page=${pageNo}&limit=10&search=${searchValue}`,
+        `${baseUrl}/user/get-all-users?page=${pageNo}&limit=10&search=${clear ? "" : searchValue}`,
         {
           method: "GET",
           headers: {
@@ -156,7 +156,7 @@ const Page = () => {
   }, [user]);
 
   useEffect(() => {
-    fetchAllUsers();
+    fetchAllUsers(false);
   }, [user, pageNo]);
 
   // useEffect(() => {
@@ -172,7 +172,7 @@ const Page = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${baseUrl}/user/get-all-users?page=${pageNo}&limit=10&search=${searchValue}`,
+        `${baseUrl}/user/get-all-users?page=${searchValue === "" ? pageNo : "1"}&limit=10&search=${searchValue}`,
         {
           method: "GET",
           headers: {
@@ -252,8 +252,9 @@ const Page = () => {
         </button>
         <button
           onClick={(e) => {
+            setIsLoading(true);
             setSearchValue("");
-            fetchAllUsers();
+            fetchAllUsers(true);
           }}
           className="px-5 py-2 bg-teal-400 rounded"
         >
@@ -414,7 +415,7 @@ const Page = () => {
 
                                 if (data.success) {
                                   toast.success("User Approved");
-                                  fetchAllUsers();
+                                  fetchAllUsers(false);
                                 }
                               } catch (error: any) {
                                 toast.error(error.message);
@@ -452,7 +453,7 @@ const Page = () => {
             {pageNo > 1 && (
               <p
                 onClick={() => setPageNo(pageNo - 1)}
-                className={`border-2 px-2 rounded-md cursor-point border-black text-black`}
+                className={`border-2 px-2 rounded-md cursor-pointer border-black text-black`}
               >
                 Prev
               </p>
