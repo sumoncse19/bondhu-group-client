@@ -4,11 +4,13 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import { Sidebar } from "@/components/shared/Sidebar";
 import Sidebar2 from "@/components/shared/Sidebar2";
+import Topbar from "@/components/shared/Topbar";
 import WariningMessage from "@/components/shared/Warning";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FaChevronCircleLeft } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
 
 export default function Layout(props: { children: React.ReactNode }) {
@@ -27,8 +29,10 @@ export default function Layout(props: { children: React.ReactNode }) {
       {pathname.includes("/dashboard") ? (
         <div className="flex">
           <Sidebar2 />
-          <div className="grow self-start flex flex-col  ml-[230px] ">
-            <div className="p-5  bg-gray-100 flex-grow min-h-[100vh]">
+          <div className="grow flex flex-col w-full lg:w-[calc(100vw-280px)] lg:ml-[280px]">
+            {/* header */}
+            <Topbar />
+            <div className="p-5 bg-gray-100 flex-grow min-h-[100vh] mt-20">
               {props.children}
             </div>
           </div>

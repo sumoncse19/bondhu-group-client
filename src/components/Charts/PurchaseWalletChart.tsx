@@ -90,8 +90,13 @@ const DonutChart: React.FC<DonutChartProps> = ({
   // };
 
   return (
-    <div className="h-fit bg-[#e3fdf7] p-5">
-      <p>Purchase Wallet : &#x9F3; {purchase_wallet}</p>
+    <div
+      style={{
+        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+      }}
+      className="h-fit bg-white p-5 rounded-md flex flex-col items-center"
+    >
+      <p className="self-start">Purchase Wallet : &#x9F3; {purchase_wallet}</p>
       <div
         className="w-[200px] h-[200px] rounded-full my-5 flex items-center justify-center "
         style={conicStyle}

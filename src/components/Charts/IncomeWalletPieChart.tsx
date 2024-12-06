@@ -9,23 +9,38 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "Reference Bonus", value: 900, color: "#8884d8" },
-  { name: "Team Bonus", value: 300, color: "#82ca9d" },
-  { name: "Club Bonus", value: 300, color: "#ffc658" },
+  { name: "Reference Bonus", value: 9000, color: "#FAB12F" },
+  { name: "Team Bonus", value: 3000, color: "#82ca9d" },
+  { name: "Club Bonus", value: 3000, color: "#003161" },
+  { name: "Project Share Profit", value: 11000, color: "#8174A0" },
+  { name: "Fixed Deposit Profit", value: 23000, color: "#9ABF80" },
+  { name: "Share Holder Profit", value: 14000, color: "#9694FF" },
+  { name: "Partnership Profit", value: 12000, color: "#ccd618" },
 ];
 
-export default class IncomeWalletPieChart extends PureComponent {
+interface ProfitData {
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface IncomeWalletPieChartProps {
+  data: ProfitData[];
+}
+
+export default class IncomeWalletPieChart extends PureComponent<IncomeWalletPieChartProps> {
   render() {
+    const { data } = this.props;
     return (
-      <div style={{ width: "100%", height: 300 }}>
+      <div style={{ width: "100%", height: 450 }}>
         <ResponsiveContainer>
           <PieChart>
             {/* Pie with dynamic colors */}
             <Pie
               dataKey="value"
               data={data}
-              label={({ name, value }) => `${name}: ${value}`}
-              outerRadius={100}
+              label={({ name, value }) => `${value > 0 && `${name}: ${value}`}`}
+              outerRadius={150}
               isAnimationActive={false}
             >
               {data.map((entry, index) => (
