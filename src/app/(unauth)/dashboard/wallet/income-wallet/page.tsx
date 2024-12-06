@@ -3,6 +3,7 @@ import RefferalBonus from "@/components/ui/RefferalBonus";
 import TeamBonus from "@/components/ui/TeamBonus";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import ClubBonus from "@/components/ui/ClubBonus";
 
 const Page = () => {
   const [currentTab, setCurrentTab] = useState<string>("refferal");
@@ -29,6 +30,14 @@ const Page = () => {
             Team Bonus
           </p>
         </div>
+        <div className="flex">
+          <p
+            onClick={() => setCurrentTab("club")}
+            className={`${currentTab == "club" && "bg-red-200 border-l-8 border-teal-900"} transition-all duration-300 ease-in px-8 py-2 rounded-md text-black font-bold cursor-pointer`}
+          >
+            Club Bonus
+          </p>
+        </div>
       </div>
 
       <motion.div
@@ -37,7 +46,13 @@ const Page = () => {
         transition={{ duration: 1.2, ease: "easeInOut" }} // Control animation duration and easing
         className="mt-5 w-[70%] mx-auto"
       >
-        {currentTab == "refferal" ? <RefferalBonus /> : <TeamBonus />}
+        {currentTab == "refferal" ? (
+          <RefferalBonus />
+        ) : currentTab === "team" ? (
+          <TeamBonus />
+        ) : (
+          <ClubBonus />
+        )}
       </motion.div>
     </div>
   );

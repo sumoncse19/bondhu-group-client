@@ -174,10 +174,7 @@ const page = () => {
         toast.error("Fill all bank info first");
         return;
       }
-      console.log("hi");
     }
-
-    const payment_date = new Date(paymentDate);
 
     const paymentData = {
       userId: user?._id,
@@ -196,12 +193,13 @@ const page = () => {
       transaction_id: transactionId ? transactionId : "",
       picture: paymentPicture ? paymentPicture : "",
       payment_picture: paymentPicture2,
-      date: payment_date.toISOString(),
+      date: paymentDate,
       is_approved: false,
+      name: user?.name,
+      user_name: user?.user_name,
     };
 
     setIsLoading(true);
-
     try {
       await axios
         .post(`${baseUrl}/add-money/new-request`, paymentData, {
@@ -217,11 +215,6 @@ const page = () => {
             toast.success("Investment Request to Admin Successfully");
           }
         });
-
-      // const data = await response.json();
-      // if (data.succes) {
-      //   console.log(data?.data, "addmoney");
-      // }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // This ensures that error.response exists

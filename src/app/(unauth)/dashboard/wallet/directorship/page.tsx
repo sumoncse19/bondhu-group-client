@@ -1,41 +1,135 @@
 "use client";
 import { formatDate } from "@/utils/dateUtils";
-import React, { useState } from "react";
+import axios, { isAxiosError } from "axios";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Circles } from "react-loader-spinner";
+import baseUrl from "../../../../../../config";
+import Cookies from "js-cookie";
+import { log } from "console";
 
 const page = () => {
-  const [projectShareProfitHistories, setProjectShareProfitHistories] =
-    useState([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [partnershipProfitHistories, setPartnershipProfitHistories] = useState(
+    []
+  );
+  const [
+    filteredPartnershipProfitHistories,
+    setFilteredPartnershipProfitHistories,
+  ] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [totalProfit, setTotalProfit] = useState<number>(0);
+  const [moneyRecieptsNo, setMoneyRecipetsNo] = useState<string[]>([]);
+
+  // get cookies value
+  const id: string = Cookies.get("id") || "";
+  const token: string = Cookies.get("token") || "";
+
+  const fetchPartnershipHistories = async () => {
+    try {
+      await axios
+        .get(`${baseUrl}/wallet/directorship?date=&is_paid=true&userId=${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res?.data?.success) {
+            setPartnershipProfitHistories(
+              res?.data?.data?.allDirectorshipPaymentByDate || []
+            );
+            setFilteredPartnershipProfitHistories(
+              res?.data?.data?.allDirectorshipPaymentByDate || []
+            );
+
+            // sum the total profit
+            const totalProfit =
+              res?.data?.data?.allDirectorshipPaymentByDate.reduce(
+                (
+                  accumulator: number,
+                  currentValue: { profit_amount: number }
+                ) => {
+                  return accumulator + currentValue.profit_amount;
+                },
+                0
+              );
+            setTotalProfit(totalProfit);
+
+            // store all money recipets no in an array
+            const allMoneyReciepts: string[] = [];
+            res?.data?.data?.allDirectorshipPaymentByDate.map(
+              (share: { money_receipt_number: string }) => {
+                allMoneyReciepts.push(share?.money_receipt_number);
+              }
+            );
+            setMoneyRecipetsNo(Array.from(new Set(allMoneyReciepts)));
+          }
+        });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error?.response?.data?.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePartnershipHistoriesByMoneyReciept = (
+    selectedMoneyReciept: string
+  ) => {
+    if (selectedMoneyReciept === "all") {
+      setFilteredPartnershipProfitHistories(partnershipProfitHistories);
+      return;
+    }
+    const filteredShareHolderHistories = partnershipProfitHistories.filter(
+      (history: { money_receipt_number: string }) =>
+        history?.money_receipt_number === selectedMoneyReciept
+    );
+
+    setFilteredPartnershipProfitHistories(filteredShareHolderHistories);
+  };
+
+  useEffect(() => {
+    fetchPartnershipHistories();
+  }, []);
+
   return (
     <div className="">
-      <h1 className="text-rose-600 text-2xl font-bold">Directorship Wallet</h1>
-
       <div className="mt-10 w-[90%] mx-auto">
-        <div
-          style={{
-            boxShadow:
-              "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-          }}
-          className="rounded-md p-4"
-        >
-          <div className="flex items-center gap-x-5">
-            <p className="text-rose-500 font-bold">
-              Total profit from Directorship Invest
-            </p>
-            <p className="text-lg">&#2547; 0</p>
+        <div className="rounded-md py-4 bg-white">
+          <div className="flex items-center justify-between px-4">
+            <div className="flex items-center gap-x-5">
+              <p className="text-rose-500 font-bold">
+                Total profit from Partnership Invest
+              </p>
+              <p className="text-lg">&#2547; {Math.ceil(totalProfit)}</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <label htmlFor="money_reciept_no">Choose Money Reciept</label>
+              <select
+                name=""
+                id=""
+                className="px-5 py-1 rounded-md outline-none border border-black"
+                onChange={(e) =>
+                  handlePartnershipHistoriesByMoneyReciept(e.target.value)
+                }
+              >
+                <option value="all">All</option>
+                {moneyRecieptsNo.map((money_reciept) => (
+                  <option value={money_reciept} key={money_reciept}>
+                    {money_reciept}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* table */}
-          <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 ">
-            <table className="w-full text-sm text-left rtl:text-right text-white ">
-              <thead className="sticky top-0 text-xs text-black uppercase bg-[#d9d1ca] ">
+          <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-8">
+            <table className="w-full text-sm text-left rtl:text-right text-white">
+              <thead className="sticky top-0 text-xs text-black uppercase bg-gray-200">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-center">
                     Invest Amount
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-center">
-                    Investment Date
                   </th>
                   <th scope="col" className="px-6 py-3 text-center">
                     Money Reciept Number
@@ -51,7 +145,7 @@ const page = () => {
               <tbody>
                 {isLoading ? (
                   <tr className="text-center">
-                    <td colSpan={7} align="center">
+                    <td colSpan={6} align="center">
                       <div className="my-5 flex flex-col justify-center items-center">
                         <Circles
                           height="50"
@@ -65,41 +159,45 @@ const page = () => {
                       </div>
                     </td>
                   </tr>
-                ) : projectShareProfitHistories?.length <= 0 ? (
+                ) : filteredPartnershipProfitHistories?.length <= 0 ? (
                   <tr className="text-center">
-                    <td colSpan={12} align="center">
+                    <td colSpan={6} align="center">
                       <div className="my-5 flex flex-col justify-center items-center">
                         <p className="text-lg text-rose-500">No Data to Show</p>
                       </div>
                     </td>
                   </tr>
                 ) : (
-                  projectShareProfitHistories
-                    ?.slice()
-                    .reverse()
-                    .map(
-                      (history: {
-                        _id: string;
-                        amount: number;
-                        reference_bonus_amount: number;
-                        date: string;
-                      }) => (
-                        <tr
-                          key={history?._id}
-                          className="bg-[#EAE9E8] text-black border-b-2 border-slate-700 "
-                        >
-                          <td className="px-6 py-4 text-center flex justify-center">
-                            {history?.amount}
-                          </td>
-                          <td className="px-6 py-4 text-center">
-                            {history?.reference_bonus_amount.toFixed(2)}
-                          </td>
-                          <td className="px-6 py-4 text-center">
-                            {formatDate(history?.date)}
-                          </td>
-                        </tr>
-                      )
+                  filteredPartnershipProfitHistories?.map(
+                    (history: {
+                      _id: string;
+                      directorship_amount: number;
+                      money_receipt_number: string;
+                      profit_amount: number;
+                      payment_send_date: string;
+                    }) => (
+                      <tr
+                        key={history?._id}
+                        className="bg-white text-black border-b-2 border-gray-100"
+                      >
+                        <td className="px-6 py-4 text-center flex justify-center">
+                          {history?.directorship_amount}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          {history?.money_receipt_number}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          {formatDate(
+                            history?.payment_send_date || "2024-12-27"
+                          )}
+                        </td>
+
+                        <td className="px-6 py-4 text-center">
+                          {history?.profit_amount}
+                        </td>
+                      </tr>
                     )
+                  )
                 )}
               </tbody>
             </table>

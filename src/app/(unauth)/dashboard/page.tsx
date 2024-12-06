@@ -7,6 +7,7 @@ import baseUrl from "../../../../config";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import Test from "@/components/Test";
 
 const BonusChart = dynamic(
   () => import("./../../../components/Charts/BonusChart"),
@@ -128,98 +129,10 @@ const Dashboard = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="flex flex-col gap-y-10">
-        {/* All Wallet */}
-        <div className="flex flex-wrap items-center gap-5">
-          <div className="w-full flex items-center justify-between gap-x-4">
-            <div className="w-full h-40 rounded-md flex items-center gap-4">
-              {/* Income Wallet */}
-              <div className="h-full w-full bg-purple-100 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-purple-700 font-bold">
-                  &#x9F3;{" "}
-                  {user?.wallet ? Math.ceil(user.wallet.income_wallet ?? 0) : 0}
-                </p>
-                <p>Income Wallet</p>
-              </div>
-              {/* Project Share Wallet */}
-              <div className="h-full w-full bg-blue-100 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-blue-700 font-bold">
-                  &#x9F3;{" "}
-                  {user?.wallet ? Math.ceil(user.wallet.project_share ?? 0) : 0}
-                </p>
-                <p>Project Share Wallet</p>
-              </div>
-              {/* Fixed Deposit Wallet */}
-              <div className="h-full w-full bg-green-100 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-green-700 font-bold">
-                  &#x9F3;{" "}
-                  {user?.wallet ? Math.ceil(user.wallet.fixed_deposit ?? 0) : 0}
-                </p>
-                <p>Fixed Deposit Wallet</p>
-              </div>
-              {/* Share Holder Wallet */}
-              <div className="h-full w-full bg-yellow-100 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-yellow-700 font-bold">
-                  &#x9F3;{" "}
-                  {user?.wallet ? Math.ceil(user.wallet.share_holder ?? 0) : 0}
-                </p>
-                <p>Share Holder Wallet</p>
-              </div>
-              {/* Partnership Wallet */}
-              <div className="h-full w-full bg-red-100 flex flex-col gap-y-2 justify-center px-6">
-                <p className="text-3xl text-red-700 font-bold">
-                  &#x9F3;{" "}
-                  {user?.wallet ? Math.ceil(user.wallet.directorship ?? 0) : 0}
-                </p>
-                <p>Partnership Wallet</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Referral Bonus, Matching Bonus, and Club Bonus */}
-        <div className="bg-purple-100 w-full h-fit p-3">
-          <p className="text-2xl mb-2">Bonus</p>
-          <div className="flex gap-x-9 py-4">
-            <p>
-              Reference &#x9F3;{" "}
-              {user?.wallet ? Math.ceil(user.wallet.reference_bonus ?? 0) : 0}
-            </p>
-            <p>
-              Team &#x9F3;{" "}
-              {user?.wallet ? Math.ceil(user.wallet.matching_bonus ?? 0) : 0}
-            </p>
-            <p>
-              Club &#x9F3;{" "}
-              {user?.wallet ? Math.ceil(user.wallet.club_bonus ?? 0) : 0}
-            </p>
-          </div>
-          {/* Graph */}
-          <div className="p-3 py-8 flex items-center justify-between">
-            {isClient && <BonusChart />}
-            {isClient && <IncomeWalletPieChart />}
-          </div>
-        </div>
-
-        {/* Purchase Wallet */}
-        {isClient && have_purchase_wallet === "yes" && (
-          <div className="w-full flex gap-8 p-3">
-            {/* Purchase Wallet Chart */}
-            <DonutChart
-              percentage={
-                user?.wallet
-                  ? parseInt(user.wallet.purchase_wallet ?? 0) / 1000
-                  : 0
-              }
-              purchase_wallet={parseInt(user?.wallet?.purchase_wallet) ?? "--"}
-              wallet={user?.wallet}
-            />
-            {/* Purchase Money Costing Table */}
-            <div className="flex-grow">
-              <PurchaseMoneyCostingTable />
-            </div>
-          </div>
-        )}
+      <Test user={user} />
+      {/* Purchase Money Costing Table */}
+      <div className="my-5 w-full">
+        <PurchaseMoneyCostingTable />
       </div>
     </div>
   );

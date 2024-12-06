@@ -53,7 +53,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div>{children}</div>
-          <Toaster position="top-right" />
+          <Toaster position="bottom-right" />
           {/* <SocketTest /> */}
         </ThemeProvider>
       </body>

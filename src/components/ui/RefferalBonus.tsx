@@ -45,7 +45,7 @@ const RefferalBonus = () => {
       );
       const data = await response.json();
       if (data.success) {
-        setRefferalBonusHistories(data?.data?.referralBonusHistories[0]);
+        setRefferalBonusHistories(data?.data?.referralBonusHistories[0] || []);
       }
     } catch (error) {
       console.log(error);
@@ -69,7 +69,8 @@ const RefferalBonus = () => {
       <div className="flex items-center gap-x-5">
         <p className="text-rose-500 font-bold">Total Refferal Bonus</p>
         <p className="text-lg">
-          &#2547; {refferalBonusHistories?.total_referral_history}
+          &#2547;{" "}
+          {Math.ceil(refferalBonusHistories?.total_referral_history || 0)}
         </p>
       </div>
 
