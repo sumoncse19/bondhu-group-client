@@ -369,7 +369,7 @@ const Sidebar2 = () => {
               alt="logo"
               className="object-cover"
             />
-            <p className="text-sm">BONDHU BUILDERS</p>
+            <p className="text-sm">BONDHU GROUP</p>
           </Link>
         </div>
 
