@@ -8,6 +8,7 @@ import { UserData } from "@/type";
 import toast from "react-hot-toast";
 import baseUrl from "../../../config";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 interface ProfileHeaderProps {
   name?: string;
@@ -34,22 +35,24 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   const token: string = Cookies.get("token") || "";
 
   const uploadCoverImage = async (image: string) => {
-    console.log(image);
-
-    const response = await fetch(`${baseUrl}/user/auth/${id}`, {
-      method: "PUT",
-      body: JSON.stringify({ cover_photo: image }),
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      toast.success("Updated Cover Photo");
-    } else {
-      toast.error(data?.errors[0]);
-    }
+    await axios
+      .put(
+        `${baseUrl}/user/auth/${id}`,
+        { cover_photo: image },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res?.data.success) {
+          toast.success("Updated Cover Photo");
+          window.location.reload();
+        } else {
+          toast.error(res?.data?.errors[0]);
+        }
+      });
   };
 
   const handleImageClick = () => {
@@ -92,7 +95,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   };
 
   return (
-    <div className="w-full h-fit  flex flex-col rounded-md border overflow-hidden bg-[#dfd5cf] shadow">
+    <div className="w-full h-fit flex flex-col rounded-md border overflow-hidden bg-[#dfd5cf] shadow">
       {/* cover image */}
       <div
         style={{
@@ -124,8 +127,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         </div>
       </div>
       {/* profile image and intro */}
-      <div className="w-full h-[40%]  px-16 pt-2 pb-10">
-        <div className="flex gap-6">
+      <div className="w-full h-[40%] px-6 lg:px-10 xl:px-16 pt-2 pb-10">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* profile pic */}
           <div className="-mt-12 z-[2000] p-2 relative">
             <img
@@ -135,8 +138,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             />
             {/* <FaCameraRetro className="text-white text-2xl absolute bottom-5 right-3 bg-black p-1 rounded-full" /> */}
           </div>
-          <div className="pt-3">
-            <div className=" flex items-center gap-10">
+          <div className="lg:pt-3">
+            <div className=" flex items-center gap-3 lg:gap-10">
               <p className="text-xl font-bold text-black">{name}</p>
               <span className="flex items-center gap-2">
                 <AiOutlineSafetyCertificate className="text-green-500 text-xl font-bold" />

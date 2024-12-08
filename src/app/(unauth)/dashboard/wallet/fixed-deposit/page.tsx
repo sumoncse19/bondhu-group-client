@@ -104,14 +104,14 @@ const page = () => {
           // }}
           className="rounded-md bg-white py-4"
         >
-          <div className="flex items-center justify-between px-4">
+          <div className="flex flex-col sm:flex-row lg:items-center justify-between gap-3 px-4">
             <div className="flex items-center gap-x-5">
-              <p className="text-rose-500 font-bold">
+              <p className="text-rose-500 font-bold text-xs lg:text-sm xl:text-base">
                 Total profit from Fixed Deposit Invest
               </p>
               <p className="text-lg">&#2547; {Math.ceil(totalProfit)}</p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-4">
               <label htmlFor="money_reciept_no">Choose Money Reciept</label>
               <select
                 name=""
@@ -136,22 +136,40 @@ const page = () => {
             <table className="w-full text-sm text-left rtl:text-right text-white">
               <thead className="sticky top-0 text-xs text-black uppercase bg-gray-200">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-center">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-center whitespace-nowrap"
+                  >
                     Invest Amount
                   </th>
-                  <th scope="col" className="px-6 py-3 text-center">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-center whitespace-nowrap"
+                  >
                     Money Reciept Number
                   </th>
-                  <th scope="col" className="px-6 py-3 text-center">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-center whitespace-nowrap"
+                  >
                     Profit Recieved Date
                   </th>
-                  <th scope="col" className="px-6 py-3 text-center">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-center whitespace-nowrap"
+                  >
                     Profit Recieved Number
                   </th>
-                  <th scope="col" className="px-6 py-3 text-center">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-center whitespace-nowrap"
+                  >
                     Recieved Amount
                   </th>
-                  <th scope="col" className="px-6 py-3 text-center">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-center whitespace-nowrap"
+                  >
                     Due Months
                   </th>
                 </tr>

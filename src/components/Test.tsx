@@ -95,9 +95,9 @@ const Test: React.FC<any> = ({ user }) => {
     },
   ];
   return (
-    <div className="grid grid-cols-3 w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 w-full">
       {/* 1st col */}
-      <div className="col-span-1 flex flex-col gap-4 p-2">
+      <div className="col-span-1 flex flex-col gap-4 p-0 lg:p-2">
         {/* card */}
         <div
           style={{
@@ -200,9 +200,9 @@ const Test: React.FC<any> = ({ user }) => {
         />
       </div>
       {/* 2nd col */}
-      <div className="col-span-2 flex flex-col gap-4 p-2">
+      <div className="xl:col-span-2 flex flex-col gap-4 p-2">
         {/* individual investment stat */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
           {/* project share */}
           <div className="bg-white rounded-md p-4">
             <p className="text-xl font-medium">Investment</p>
@@ -264,7 +264,7 @@ const Test: React.FC<any> = ({ user }) => {
           className="bg-white p-3 rounded-md"
         >
           <p>Income Source</p>
-          <div className="grid grid-cols-3 gap-2 my-6">
+          <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 my-6">
             <div className="p-3 border border-gray-400 rounded-md bg-green-100 text-green-700 flex items-center justify-between">
               <div>
                 <p className="text-xs">Reference bonus</p>
@@ -355,7 +355,7 @@ const Test: React.FC<any> = ({ user }) => {
           {/* Referral Bonus, Matching Bonus, Club Bonus  and all profit*/}
           <div className="bg-white w-full h-fit p-3 rounded-md">
             {/* Graph */}
-            <div className="">
+            <div className="h-[450px]">
               <IncomeWalletPieChart data={profitData} />
             </div>
           </div>

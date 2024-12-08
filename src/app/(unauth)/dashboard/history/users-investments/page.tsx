@@ -180,7 +180,7 @@ const page = () => {
     <div>
       <h1 className="text-2xl font-bold text-slate-700">User's Investments</h1>
       {/* all types of investments summary */}
-      <div className="my-10 grid grid-cols-4 gap-8">
+      <div className="my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {/* project share */}
         <div className="w-full h-fit rounded-md shadow-2xl bg-white p-5">
           <div className="flex items-center justify-between">
@@ -339,7 +339,13 @@ const page = () => {
         </div>
 
         {/* investmet table */}
-        <div className="bg-white w-full py-5">
+        <div
+          style={{
+            boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+          }}
+          className="bg-white w-full py-5 rounded-md"
+        >
+          <p className="p-3 font-bold">All Approved Investment</p>
           <div
             className="relative overflow-x-auto max-h-screen max-w-full overflow-y-auto"
             // style={{ width: "calc(100% - 150px)" }}
@@ -402,7 +408,7 @@ const page = () => {
                     scope="col"
                     className="px-3 py-3 text-center whitespace-nowrap"
                   >
-                    Action
+                    Status
                   </th>
                 </tr>
                 <tr>
@@ -416,7 +422,7 @@ const page = () => {
                     Share Holder
                   </th>
                   <th className="px-3 py-3 text-center  whitespace-nowrap">
-                    Directorship
+                    Partnership
                   </th>
                   <th className="px-3 py-3 text-center whitespace-nowrap">
                     Total
@@ -426,7 +432,7 @@ const page = () => {
               <tbody className="text-[12px]">
                 {isLoading ? (
                   <tr className="text-center">
-                    <td colSpan={12} align="center">
+                    <td colSpan={14} align="center">
                       <div className="my-5 flex flex-col justify-center items-center">
                         <Circles
                           height="50"
@@ -442,7 +448,7 @@ const page = () => {
                   </tr>
                 ) : investmentHistories && investmentHistories?.length <= 0 ? (
                   <tr className="text-center">
-                    <td colSpan={12} align="center">
+                    <td colSpan={14} align="center">
                       <div className="my-5 flex flex-col justify-center items-center">
                         <p className="text-lg text-rose-500">No Data to Show</p>
                       </div>
@@ -496,7 +502,7 @@ const page = () => {
                         </td>
                         <td className="px-3 py-4 text-center ">
                           {history?.is_approved ? (
-                            <p className="bg-teal-300 text-black px-3 py-1 rounded-md">
+                            <p className="text-teal-500 px-3 py-1 rounded-md">
                               Approved
                             </p>
                           ) : history?.is_reject ? (

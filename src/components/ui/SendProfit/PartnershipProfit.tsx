@@ -268,7 +268,7 @@ const PartnershipProfit = () => {
         </div>
         <div className="relative overflow-x-auto min-h-[600px] mt-5">
           <table className="w-full text-sm text-left text-white">
-            <thead className="sticky top-0 text-xs text-black uppercase bg-gray-100">
+            <thead className="sticky top-0 text-xs text-black uppercase bg-blue-100">
               <tr>
                 {[
                   "Money Receipt",
@@ -279,7 +279,11 @@ const PartnershipProfit = () => {
                   "Payment Date",
                   "Status",
                 ].map((heading) => (
-                  <th key={heading} scope="col" className="px-6 py-3 text-left">
+                  <th
+                    key={heading}
+                    scope="col"
+                    className="px-6 py-3 text-left whitespace-nowrap"
+                  >
                     {heading}
                   </th>
                 ))}

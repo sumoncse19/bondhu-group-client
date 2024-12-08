@@ -32,7 +32,7 @@ export default function Layout(props: { children: React.ReactNode }) {
           <div className="grow flex flex-col w-full lg:w-[calc(100vw-280px)] lg:ml-[280px]">
             {/* header */}
             <Topbar />
-            <div className="p-5 bg-gray-100 flex-grow min-h-[100vh] mt-20">
+            <div className="p-2 lg:p-5 bg-gray-100 flex-grow min-h-[100vh] mt-20">
               {props.children}
             </div>
           </div>

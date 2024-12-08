@@ -20,7 +20,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { FaAngleDown, FaPowerOff } from "react-icons/fa";
 import Cookies from "js-cookie";
 import { MdWorkHistory } from "react-icons/md";
-import { GiProfit } from "react-icons/gi";
+import { GiProfit, GiTakeMyMoney } from "react-icons/gi";
 
 const Sidebar2 = () => {
   const [role, setRole] = useState<string>("");
@@ -207,17 +207,17 @@ const Sidebar2 = () => {
           {
             title: "History",
             icon: <MdWorkHistory />,
-            link: "/dashboard/history/given-purchase-wallet-history",
+            link: "/dashboard/history/users-investments",
             active: false,
             subItems: [
               {
-                title: "Given Purchase Wallet",
-                link: "/dashboard/history/given-purchase-wallet-history",
+                title: "User's Investment",
+                link: "/dashboard/history/users-investments",
                 active: false,
               },
               {
-                title: "User's Investment",
-                link: "/dashboard/history/users-investments",
+                title: "Given Purchase Wallet",
+                link: "/dashboard/history/given-purchase-wallet-history",
                 active: false,
               },
               {
@@ -239,14 +239,14 @@ const Sidebar2 = () => {
             link: "/dashboard/users-withdraw-request",
             active: false,
           },
+          {
+            title: "Investment Request",
+            icon: <GiTakeMyMoney />,
+            link: "/dashboard/investment-request",
+            active: false,
+          },
         ]
       : []),
-    {
-      title: "Supprt",
-      icon: <CloudUploadOutlined />,
-      link: "/dashboard/support",
-      active: false,
-    },
   ];
 
   const router = useRouter();

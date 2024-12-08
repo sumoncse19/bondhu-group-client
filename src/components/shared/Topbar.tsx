@@ -224,7 +224,7 @@ const Topbar = () => {
   ];
 
   return (
-    <div className="w-full lg:w-[calc(100vw-300px)] h-20 bg-[#f4f7fa] fixed z-[100000] backdrop-blur-xl flex justify-between items-center px-5">
+    <div className="w-full lg:w-[calc(100vw-300px)] h-20 bg-[#f4f7fa] fixed z-[100] backdrop-blur-xl flex justify-between items-center px-5">
       <div>
         <FaChevronCircleLeft className="text-2xl text-gray-600 hidden lg:block" />
         <button

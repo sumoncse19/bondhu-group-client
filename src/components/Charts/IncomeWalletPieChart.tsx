@@ -32,28 +32,26 @@ export default class IncomeWalletPieChart extends PureComponent<IncomeWalletPieC
   render() {
     const { data } = this.props;
     return (
-      <div style={{ width: "100%", height: 450 }}>
-        <ResponsiveContainer>
-          <PieChart>
-            {/* Pie with dynamic colors */}
-            <Pie
-              dataKey="value"
-              data={data}
-              label={({ name, value }) => `${value > 0 && `${name}: ${value}`}`}
-              outerRadius={150}
-              isAnimationActive={false}
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-            {/* Legend */}
-            {/* <Legend /> */}
-            {/* Tooltip */}
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+      <ResponsiveContainer>
+        <PieChart>
+          {/* Pie with dynamic colors */}
+          <Pie
+            dataKey="value"
+            data={data}
+            label={({ name, value }) => `${value > 0 && `${name}: ${value}`}`}
+            outerRadius={150}
+            isAnimationActive={false}
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Pie>
+          {/* Legend */}
+          {/* <Legend /> */}
+          {/* Tooltip */}
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
     );
   }
 }
