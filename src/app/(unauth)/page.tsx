@@ -107,7 +107,7 @@ const HomePage = () => {
         }}
         className="w-full h-[300px] lg:h-[700px] py-3 lg:py-6 bg-opacity-0 flex items-center justify-center relative"
       >
-        <div className="hidden lg:flex w-[80%] min-h-40 mx-auto  justify-center items-center  bg-black bg-opacity-70 p-3 rounded-md">
+        <div className="hidden lg:flex w-[90%] min-h-40 mx-auto  justify-center items-center  bg-black bg-opacity-70 p-3 rounded-md">
           <TypeAnimation
             sequence={[
               // Same substring at the start will only be typed once, initially
@@ -155,7 +155,7 @@ const HomePage = () => {
 
         {/* client,service and projects */}
 
-        <div className="w-[90%] lg:w-[80%] mx-auto h-40 absolute -bottom-24">
+        <div className="w-[90%] lg:w-[90%] mx-auto h-40 absolute -bottom-24">
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-2">
             <div
               style={{
@@ -199,17 +199,17 @@ const HomePage = () => {
       </div>
 
       <div
-        style={{
-          backgroundImage: `url('/images/bg/bg4.jpg')`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          paddingTop: "50px",
-        }}
+      // style={{
+      //   backgroundImage: `url('/images/bg/bg4.jpg')`,
+      //   backgroundPosition: "center",
+      //   backgroundSize: "cover",
+      //   backgroundRepeat: "no-repeat",
+      //   paddingTop: "50px",
+      // }}
       >
         {/* Bondhu builder intro */}
         <motion.div
-          className="mt-10 "
+          className="h-[80vh] flex items-center"
           initial={{ y: "80px", opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeIn" }}
@@ -233,7 +233,7 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="w-full flex justify-center lg:justify-end right-div ">
+            <div className="w-full flex justify-center lg:justify-end right-div">
               <img
                 className="rounded-full w-[300px] h-[250px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
                 src="/images/buildersImg1.png"
@@ -257,7 +257,7 @@ const HomePage = () => {
 
       {/* Our Service */}
       {/* <Services /> */}
-      <MissionVisionService />
+      {/* <MissionVisionService /> */}
 
       {/* Our Projects */}
       <Projects />

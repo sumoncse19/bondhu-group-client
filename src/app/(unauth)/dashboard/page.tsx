@@ -95,10 +95,6 @@ const Dashboard = () => {
     }
   }, [userCookie]);
 
-  useEffect(() => {
-    getExpensessHistory();
-  }, [id]);
-
   const getExpensessHistory = async () => {
     setIsLoading(true);
     try {
@@ -126,6 +122,10 @@ const Dashboard = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    getExpensessHistory();
+  }, [id]);
 
   return (
     <div className="w-full h-full">

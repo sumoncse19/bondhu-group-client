@@ -94,8 +94,6 @@ const page = () => {
     fetchProjectShareHistories();
   }, []);
 
-  console.log(projectShareProfitHistories, "d");
-
   return (
     <div className="">
       <div className="mt-10 w-[90%] mx-auto">

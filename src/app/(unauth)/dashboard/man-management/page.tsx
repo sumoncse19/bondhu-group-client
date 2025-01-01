@@ -72,6 +72,7 @@ const Page = () => {
 
   // fetch all users
   const fetchAllUsers = async (clear: boolean) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${baseUrl}/user/get-all-users?page=${pageNo}&limit=10&search=${clear ? "" : searchValue}`,

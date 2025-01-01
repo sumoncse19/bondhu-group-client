@@ -103,3 +103,25 @@ export interface UserData {
   routing_no: string;
   swift_code: string;
 }
+
+export interface AddMoneyHistoriesInterface {
+  // userId: string | "";
+  _id: string;
+  project_share: number;
+  fixed_deposit: number;
+  share_holder: number;
+  directorship: number;
+  total_amount: number;
+  money_receipt_number: string;
+  phone: string;
+  payment_method: string;
+  bank_name: string;
+  bank_account_name: string;
+  branch_name: string;
+  transaction_id: string;
+  picture: string;
+  payment_picture: string;
+  createdAt: string;
+  date: string;
+  is_approved: boolean;
+}

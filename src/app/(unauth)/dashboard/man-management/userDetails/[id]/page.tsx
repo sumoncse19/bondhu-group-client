@@ -37,7 +37,7 @@ const page = () => {
 
       const data = await response.json();
       if (data?.success) {
-        console.log("userN", data?.data);
+        // console.log("userN", data?.data);
         setUser(data?.data);
       }
     } catch (error) {

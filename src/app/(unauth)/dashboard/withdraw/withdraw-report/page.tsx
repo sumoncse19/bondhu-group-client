@@ -29,7 +29,6 @@ const page = () => {
       const data = await response.json();
 
       if (data?.success) {
-        console.log(data?.data);
         setWithdrawHistories(data?.data?.addMoneyHistories);
       }
     } catch (error) {

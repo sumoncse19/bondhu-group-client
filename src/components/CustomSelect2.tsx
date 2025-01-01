@@ -16,8 +16,6 @@ export const CustomSelect2 = ({
     _id: "",
   });
 
-  console.log(allUser, "1w");
-
   const handleOptionSelect = (user: any) => {
     setReferenceId(user?._id);
     setIsDropdownOpen(false);

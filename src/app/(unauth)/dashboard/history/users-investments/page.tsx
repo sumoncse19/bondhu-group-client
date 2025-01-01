@@ -101,9 +101,6 @@ const page = () => {
     }
   };
 
-  console.log("investment", investmentHistories);
-  console.log("sepa", separatedValue);
-
   useEffect(() => {
     fetchAllInvestmentHistories();
   }, []);
@@ -145,32 +142,58 @@ const page = () => {
       "Eighty",
       "Ninety",
     ];
-    const scales = ["", "Thousand", "Lac", "Crore"];
+    const scales = ["", "Thousand", "Lacs", "Crore"];
 
-    let result = "";
-    const parts: number[] = [];
-
-    // Break the number into parts like: Crores, Lacs, Thousands, Hundreds
-    while (num > 0) {
-      parts.push(num % 100); // Take the last two digits
-      num = Math.floor(num / 100);
-    }
-
-    // Reverse the parts to process from left to right
-    parts.reverse();
-
-    // Function to convert a two-digit number to words
+    // Helper function to convert numbers less than 100
     function convertTwoDigit(n: number): string {
       if (n < 20) return units[n];
       return tens[Math.floor(n / 10)] + (n % 10 ? " " + units[n % 10] : "");
     }
 
-    // Build the final result
+    // Helper function to convert three-digit numbers
+    function convertThreeDigit(n: number): string {
+      if (n < 100) return convertTwoDigit(n);
+      const hundredPart = Math.floor(n / 100);
+      const remainder = n % 100;
+      return (
+        units[hundredPart] +
+        " Hundred" +
+        (remainder > 0 ? " " + convertTwoDigit(remainder) : "")
+      );
+    }
+
+    let result = "";
+    let scaleIndex = 0;
+
+    // Process the number in parts based on the Indian numbering system
+    const parts: number[] = [];
+
+    while (num > 0) {
+      if (scaleIndex === 1) {
+        // For thousands, take two digits
+        parts.push(num % 100);
+        num = Math.floor(num / 100);
+      } else {
+        // For lacs and above, take three digits
+        parts.push(num % 1000);
+        num = Math.floor(num / 1000);
+      }
+      scaleIndex++;
+    }
+
+    parts.reverse();
+    scaleIndex = parts.length - 1;
+
     for (let i = 0; i < parts.length; i++) {
       if (parts[i] > 0) {
-        const scale = scales[parts.length - i - 1];
-        result += convertTwoDigit(parts[i]) + (scale ? " " + scale + " " : " ");
+        const scale = scales[scaleIndex];
+        if (scale === "Thousand") {
+          result += convertTwoDigit(parts[i]) + " " + scale + " ";
+        } else if (scale === "Lacs" || scale === "Crore") {
+          result += convertThreeDigit(parts[i]) + " " + scale + " ";
+        }
       }
+      scaleIndex--;
     }
 
     return result.trim() + " Taka";

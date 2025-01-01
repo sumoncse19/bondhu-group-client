@@ -68,7 +68,7 @@ const UpdateProfile = () => {
     });
     const data = await response.json();
     if (data?.success) {
-      console.log(data?.data?.name);
+      // console.log(data?.data?.name);
       setImageUrl(data?.data?.picture);
       setName(data?.data?.name);
       setUserName(data?.data?.user_name);
@@ -219,9 +219,6 @@ const UpdateProfile = () => {
       routing_no: routingNo,
       swift_code: swiftCode,
     };
-
-    console.log(userData);
-    console.log(userData?.password);
 
     if (userData.password === "") {
       delete userData?.password;

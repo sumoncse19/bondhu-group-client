@@ -74,11 +74,10 @@ const UpdateProfile = () => {
     });
     const data = await response.json();
 
-    console.log(data?.data);
+    // console.log(data?.data);
 
     if (data?.success) {
       setUser(data?.data);
-      console.log(data?.data?.name);
       setImageUrl(data?.data?.picture);
       setName(data?.data?.name);
       setUserName(data?.data?.user_name);
