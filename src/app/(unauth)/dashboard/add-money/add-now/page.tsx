@@ -208,7 +208,7 @@ const page = () => {
           },
         })
         .then((res) => {
-          console.log(res, "ress");
+          // console.log(res, "ress");
 
           if (res?.data?.success) {
             router.push("/dashboard/add-money/add-money-history");

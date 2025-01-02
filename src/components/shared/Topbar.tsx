@@ -4,6 +4,7 @@ import { GiClown } from "react-icons/gi";
 import { MdAssignmentAdd, MdDashboard } from "react-icons/md";
 import MobileSidebar from "./MobileSidebar";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const Topbar = () => {
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
@@ -14,6 +15,9 @@ const Topbar = () => {
   });
   const role: string = Cookies.get("role") || "";
   const havePurchaseWallet: string = Cookies.get("havePurchaseWallet") || "";
+
+  const router = useRouter();
+
   const navs = [
     {
       id: 1,
@@ -224,7 +228,7 @@ const Topbar = () => {
   ];
 
   return (
-    <div className="w-full lg:w-[calc(100vw-300px)] h-20 bg-[#f4f7fa] fixed z-[100000] backdrop-blur-xl flex justify-between items-center px-5">
+    <div className="w-full lg:w-[calc(100vw-300px)] h-20 bg-[#f4f7fa] fixed z-[100] backdrop-blur-xl flex justify-between items-center px-5">
       <div>
         <FaChevronCircleLeft className="text-2xl text-gray-600 hidden lg:block" />
         <button
@@ -248,7 +252,7 @@ const Topbar = () => {
             style={{
               boxShadow: " rgb(38, 57, 77) 0px 20px 30px -10px",
             }}
-            className="w-[400px] h-fit bg-white absolute top-12 right-0 rounded-md"
+            className="w-[350px] md:w-[400px] h-fit bg-white absolute top-12 right-0 rounded-md"
           >
             {/* 1st section */}
             <div className="border-b-2 border-gray-300 p-3">
@@ -256,7 +260,7 @@ const Topbar = () => {
             </div>
             {/* 2nd section */}
             <div className="border-b-2 border-gray-300 p-3">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                 <div className="flex items-center gap-4">
                   <img
                     className="w-10 h-10 rounded-full object-cover cursor-pointer"
@@ -270,24 +274,45 @@ const Topbar = () => {
                     </p>
                   </div>
                 </div>
-                <div className="bg-orange-100 text-orange-600 px-1 py-1 rounded-md text-sm flex items-center gap-x-1">
+                <div className="bg-orange-100 text-orange-600 px-1 py-1 rounded-md text-sm justify-center items-center gap-x-1 inline-flex">
                   <GiClown />
-                  <p>Club Member</p>
+                  <p className="text-xs">Club Member</p>
                 </div>
               </div>
             </div>
             {/* 3rd section */}
             <div className="border-b-2 border-gray-300 px-8 py-5 text-gray-700">
               <div className="flex flex-col gap-y-5 text-lg">
-                <div className="flex items-center gap-4">
+                <div
+                  onClick={() =>
+                    router.push("/dashboard/profile/update-profile")
+                  }
+                  className="flex items-center gap-4"
+                >
                   <FaRegUser />
                   <p>Edit Profile</p>
                 </div>
-                <div className="flex items-center gap-4">
+                <div
+                  onClick={() => {
+                    router.push("/dashboard/joining");
+                  }}
+                  className="flex items-center gap-4"
+                >
                   <MdAssignmentAdd />
                   <p>Add Account</p>
                 </div>
-                <div className="flex items-center gap-4">
+                <div
+                  onClick={() => {
+                    router.push("/login");
+                    Cookies.remove("user");
+                    Cookies.remove("token");
+                    Cookies.remove("id");
+                    Cookies.remove("username");
+                    Cookies.remove("role");
+                    Cookies.remove("have_purchase_wallet");
+                  }}
+                  className="flex items-center gap-4"
+                >
                   <FaPowerOff />
                   <p>Log out</p>
                 </div>

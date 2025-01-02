@@ -39,63 +39,64 @@ const Header = () => {
         //   boxShadow:
         //     " rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
         // }}
-        className={`" bg-white fixed
-          top-0 flex justify-between items-center px-3 md:px-6 lg:px-12 py-3  w-full z-[10] " }`}
+        className="bg-white fixed top-0 py-3  w-full z-[10000000000000000] overflow-hidden"
       >
-        {/* left side */}
-        <div className="flex items-center ">
-          <div
-            onClick={() => {
-              router.push("/");
-            }}
-            className="flex items-center gap-1 lg:gap-3 cursor-pointer"
-          >
-            <img
-              className="w-14 lg:w-20 h-14 lg:h-20 p-2 rounded-full"
-              src="/images/logo1.png"
-              alt=""
-            />
-            <p className="text-base lg:text-lg text-black uppercase">
-              Bondhu Group
-            </p>
-          </div>
-        </div>
-
-        {/* middle side */}
-        <NavbarDemo />
-        {/* right side */}
-        <div className="flex items-center gap-4">
-          {pathname !== "/login" && (
-            <div>
-              {user ? (
-                <div
-                  onClick={() => {
-                    Cookies.remove("user");
-                    Cookies.remove("id");
-                    Cookies.remove("have_purchase_wallet");
-                    Cookies.remove("role");
-                    Cookies.remove("username");
-                    Cookies.remove("token");
-                    setUser({});
-                  }}
-                  className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 font-bold rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest cursor-pointer"
-                >
-                  Log Out
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
-                >
-                  Let's Start
-                </Link>
-              )}
+        <div className="w-[90%] mx-auto flex justify-between items-center bg-white">
+          {/* left side */}
+          <div className="flex items-center ">
+            <div
+              onClick={() => {
+                router.push("/");
+              }}
+              className="flex items-center gap-1 lg:gap-3 cursor-pointer"
+            >
+              <img
+                className="w-14 lg:w-20 h-14 lg:h-20 p-2 rounded-full"
+                src="/images/logo1.png"
+                alt=""
+              />
+              <p className="text-base lg:text-lg text-black uppercase">
+                Bondhu Group
+              </p>
             </div>
-          )}
-          <BsMenuButtonWideFill
-            onClick={() => setIsSidebarOpen(true)}
-            className="text-xl text-teal-500 lg:hidden"
-          />
+          </div>
+
+          {/* middle side */}
+          <NavbarDemo />
+          {/* right side */}
+          <div className="flex items-center gap-4">
+            {pathname !== "/login" && (
+              <div>
+                {user ? (
+                  <div
+                    onClick={() => {
+                      Cookies.remove("user");
+                      Cookies.remove("id");
+                      Cookies.remove("have_purchase_wallet");
+                      Cookies.remove("role");
+                      Cookies.remove("username");
+                      Cookies.remove("token");
+                      setUser({});
+                    }}
+                    className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 font-bold rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest cursor-pointer"
+                  >
+                    Log Out
+                  </div>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="text-white tracking-wider bg-teal-500 px-3 lg:px-5 py-0.5 lg:py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out hover:tracking-widest "
+                  >
+                    Let's Start
+                  </Link>
+                )}
+              </div>
+            )}
+            <BsMenuButtonWideFill
+              onClick={() => setIsSidebarOpen(true)}
+              className="text-xl text-teal-500 lg:hidden"
+            />
+          </div>
         </div>
       </div>
 

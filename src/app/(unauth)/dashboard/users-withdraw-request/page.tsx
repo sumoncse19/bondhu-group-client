@@ -207,7 +207,7 @@ const page = () => {
                 Requested Date
               </th>
               <th scope="col" className="px-3 py-3 text-center ">
-                State
+                Action
               </th>
             </tr>
           </thead>
@@ -283,9 +283,9 @@ const page = () => {
                         onClick={() => {
                           handleAcceptWithdrawRequest(history?._id || "");
                         }}
-                        className={`py-2 px-2 rounded-md shadow-2xl cursor-pointer shadow-black transition-all duration-300 ease-in ${history.withdraw_status ? "bg-teal-500" : "bg-rose-200 text-rose-700 hover:bg-rose-300 "}`}
+                        className={`py-2 px-2 rounded-md shadow-2xl cursor-pointer shadow-black transition-all duration-300 ease-in ${history.withdraw_status ? "bg-teal-300" : "bg-rose-200 text-rose-700 hover:bg-rose-300 "}`}
                       >
-                        {history?.withdraw_status ? "Approved" : "Accept"}
+                        {history?.withdraw_status ? "Approve" : "Accept"}
                       </p>
                     )}
                   </td>

@@ -201,14 +201,14 @@ const ShareHolderProfit = () => {
     }
   };
   return (
-    <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div className="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-10">
       {/* Calendar */}
       <div
         style={{
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset",
         }}
-        className="bg-white p-5 rounded-md"
+        className="bg-white p-3 lg:p-5 rounded-md w-full"
       >
         <div className="flex flex-col items-center justify-center my-10">
           <p className="text-2xl">
@@ -263,7 +263,7 @@ const ShareHolderProfit = () => {
         </div>
         <div className="relative overflow-x-auto min-h-[600px] mt-5">
           <table className="w-full text-sm text-left text-white">
-            <thead className="sticky top-0 text-xs text-black uppercase bg-gray-100">
+            <thead className="sticky top-0 text-xs text-black uppercase bg-blue-100">
               <tr>
                 {[
                   "Money Receipt",
@@ -274,7 +274,11 @@ const ShareHolderProfit = () => {
                   "Payment Date",
                   "Status",
                 ].map((heading) => (
-                  <th key={heading} scope="col" className="px-6 py-3 text-left">
+                  <th
+                    key={heading}
+                    scope="col"
+                    className="px-6 py-3 text-left whitespace-nowrap"
+                  >
                     {heading}
                   </th>
                 ))}

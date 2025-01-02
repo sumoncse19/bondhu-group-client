@@ -314,12 +314,12 @@ const page = () => {
   }, [userCookie]);
 
   return (
-    <div className="p-5">
+    <div className="">
       <h1 className="text-xl pb-4 text-rose-600 font-bold">
         New User Joining Form
       </h1>
       <div className="mt-10 text-black">
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-6 xl:gap-10">
           {/* profile pic */}
           <div className="w-full flex flex-col items-center gap-y-2">
             <div className="flex flex-col items-center gap-y-2 cursor-pointer">
@@ -349,8 +349,8 @@ const page = () => {
               />
             </div>
           </div>
-          {/* serial no, ref id, placement id and role */}
-          <div className="flex items-center gap-10">
+          {/* serial no, ref id, placement id and team */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-6 xl:gap-10">
             {/* serial id */}
             <div className="relative w-full">
               <label
@@ -379,8 +379,12 @@ const page = () => {
               setParentPlacementId={setParentPlacementId}
               setCurrentOptions={setCurrentOptions}
             />
-            <div className=" w-full flex items-center">
-              <label className=" px-2" htmlFor="team_side">
+            {/* team choice */}
+            <div className="relative w-full flex flex-col gap-2">
+              <label
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+                htmlFor="team_side"
+              >
                 Choice of Team{" "}
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
@@ -399,7 +403,7 @@ const page = () => {
             </div>
           </div>
           {/* username, name*/}
-          <div className="flex items-center gap-10">
+          <div className="flex flex-col sm:flex-row items-center gap-10">
             {/* name */}
             <div className="relative w-full">
               <label
@@ -435,7 +439,7 @@ const page = () => {
             </div>
           </div>
           {/* father and mother name */}
-          <div className="flex items-center gap-10">
+          <div className="flex flex-col sm:flex-row items-center gap-10">
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 text-sm bg-[#F3F4F6] px-2"
@@ -467,8 +471,9 @@ const page = () => {
               />
             </div>
           </div>
-          {/* nid and dob */}
-          <div className="flex items-center gap-10">
+          {/* nid, dob, profession and nationality */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-6 xl:gap-10">
+            {/* nid */}
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
@@ -497,7 +502,8 @@ const page = () => {
               {isNidLessThan11 && nidNo.length < 11 && (
                 <FaExclamation className="absolute top-[50%] -translate-y-1/2 right-3 text-red-500 font-bold animate-pulse " />
               )}
-            </div>{" "}
+            </div>
+            {/* dob */}
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
@@ -514,6 +520,7 @@ const page = () => {
                 id="dob"
               />
             </div>
+            {/* profession */}
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
@@ -529,8 +536,12 @@ const page = () => {
                 id="profession"
               />
             </div>
-            <div className="relative w-full flex items-center gap-x-2">
-              <label className="px-2 text-sm" htmlFor="nationality">
+            {/* nationality */}
+            <div className="relative w-full flex flex-col xl:flex-row xl:items-center gap-2">
+              <label
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+                htmlFor="nationality"
+              >
                 Nationality
               </label>
               <select
@@ -554,7 +565,8 @@ const page = () => {
             </div>
           </div>
           {/* email and password,con pass mobile no*/}
-          <div className="flex items-center gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-6 xl:gap-10">
+            {/* email */}
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
@@ -570,6 +582,7 @@ const page = () => {
                 id="email"
               />
             </div>
+            {/* pass */}
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
@@ -597,6 +610,7 @@ const page = () => {
                 />
               )}
             </div>
+            {/* con pass */}
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
@@ -624,6 +638,7 @@ const page = () => {
                 />
               )}
             </div>
+            {/* phone no */}
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
@@ -686,17 +701,20 @@ const page = () => {
           </div>
 
           {/* religion,maritual,team and blood gp */}
-          <div className="flex items-center gap-3 mt-10">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-10">
             {/* role */}
-            <div className="w-full flex items-center">
-              <label className="px-2 text-sm" htmlFor="role">
+            <div className="relative w-full flex flex-col gap-2 xl:flex-row xl:items-center">
+              <label
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+                htmlFor="role"
+              >
                 Role
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <select
                 onChange={(e) => setRole(e.target.value)}
                 value={role}
-                className="bg-[#F3F4F6] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="w-full bg-[#F3F4F6] border border-black px-8 py-3 rounded-md cursor-pointer"
                 name=""
                 id="role"
               >
@@ -705,14 +723,18 @@ const page = () => {
                 <option value="admin">Admin</option>
               </select>
             </div>
-            <div className=" w-full flex items-center">
-              <label className="px-2 text-sm" htmlFor="religion">
+            {/* religion */}
+            <div className="relative w-full flex flex-col gap-2 xl:flex-row xl:items-center">
+              <label
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+                htmlFor="religion"
+              >
                 Religion
               </label>
               <select
                 onChange={(e) => setReligion(e.target.value)}
                 value={religion}
-                className="bg-[#F3F4F6] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="w-full bg-[#F3F4F6] border border-black px-8 py-3 rounded-md cursor-pointer"
                 name=""
                 id="religion"
               >
@@ -723,15 +745,19 @@ const page = () => {
                 <option value="Cristian">Christian</option>
               </select>
             </div>
-            <div className=" w-full flex items-center">
-              <label className=" px-2 text-sm" htmlFor="maritual_status">
+            {/* marital status */}
+            <div className="relative w-full flex flex-col gap-2 xl:flex-row xl:items-center">
+              <label
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+                htmlFor="maritual_status"
+              >
                 Maritual Status
                 <p className="inline text-red-500 text-lg font-bold">*</p>
               </label>
               <select
                 onChange={(e) => setMaritualStatus(e.target.value)}
                 value={maritualStatus}
-                className="bg-[#F3F4F6] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="w-full bg-[#F3F4F6] border border-black px-8 py-3 rounded-md cursor-pointer"
                 name=""
                 id="maritual_status"
               >
@@ -740,15 +766,18 @@ const page = () => {
                 <option value="single">Single</option>
               </select>
             </div>
-
-            <div className=" w-full flex items-center">
-              <label className=" px-2 text-sm" htmlFor="blood_gp">
+            {/* blood grp */}
+            <div className="relative w-full flex flex-col gap-2 xl:flex-row xl:items-center">
+              <label
+                className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+                htmlFor="blood_gp"
+              >
                 Blood Group
               </label>
               <select
                 onChange={(e) => setBloodGroup(e.target.value)}
                 value={bloodGroup}
-                className="bg-[#F3F4F6] border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="w-full bg-[#F3F4F6] border border-black px-8 py-3 rounded-md cursor-pointer"
                 name=""
                 id="blood_gp"
               >
@@ -792,7 +821,7 @@ const page = () => {
               />
             </div>
             {/* nominne's name, mobile no and relation */}
-            <div className="flex items-center gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 items-center gap-6 xl:gap-10">
               <div className="relative w-full">
                 <label
                   className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
@@ -867,7 +896,7 @@ const page = () => {
             boxShadow:
               "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
           }}
-          className="w-1/2 mx-auto bg-teal-400 text-white shadow-lg cursor-pointer rounded-xl flex justify-center hover:scale-105  transition-all duration-300 ease-in"
+          className="-[90%] xl:w-1/2 mx-auto bg-teal-400 text-white shadow-lg cursor-pointer rounded-xl flex justify-center hover:scale-105  transition-all duration-300 ease-in"
         >
           <button
             onClick={() => {

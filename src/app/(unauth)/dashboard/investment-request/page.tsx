@@ -153,13 +153,6 @@ const page = () => {
         <h1 className="text-xl text-rose-600 font-bold tracking-widest">
           User's Investment Requests
         </h1>
-        <div
-          onClick={() => router.back()}
-          className="border-2 border-black hover:bg-black hover:text-white transition-all duration-300 ease-in cursor-pointer text-black px-5 py-1 rounded-full flex items-center gap-3"
-        >
-          <GiFastBackwardButton />
-          <p>Back</p>
-        </div>
       </div>
 
       <div
@@ -257,7 +250,7 @@ const page = () => {
           <tbody className="text-[12px]">
             {isLoading ? (
               <tr className="text-center">
-                <td colSpan={12} align="center">
+                <td colSpan={15} align="center">
                   <div className="my-5 flex flex-col justify-center items-center">
                     <Circles
                       height="50"
@@ -273,7 +266,7 @@ const page = () => {
               </tr>
             ) : investmentHistories && investmentHistories?.length <= 0 ? (
               <tr className="text-center">
-                <td colSpan={12} align="center">
+                <td colSpan={15} align="center">
                   <div className="my-5 flex flex-col justify-center items-center">
                     <p className="text-lg text-rose-500">No Data to Show</p>
                   </div>

@@ -72,6 +72,7 @@ const Page = () => {
 
   // fetch all users
   const fetchAllUsers = async (clear: boolean) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${baseUrl}/user/get-all-users?page=${pageNo}&limit=10&search=${clear ? "" : searchValue}`,
@@ -201,11 +202,11 @@ const Page = () => {
 
   return (
     <div className="relative w-full h-full pt-6">
-      <div className=" flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <h1 className="text-xl text-rose-600 font-bold tracking-widest">
           Users List
         </h1>
-        <div className="flex items-center gap-x-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-x-4 gap-y-6 px-4">
           {/* send wallet */}
           <div
             onClick={() => {
@@ -216,22 +217,10 @@ const Page = () => {
             <FaMoneyBillTransfer className="text-2xl" />
             <p> Send Purchase Wallet</p>
           </div>
-          <div
-            onClick={() => {
-              router.push("/dashboard/investment-request");
-            }}
-            className="relative flex items-center gap-x-3 bg-rose-200 px-4 py-2 rounded-full text-rose-700  cursor-pointer tracking-wider hover:scale-105 transition-all duration-500 ease-in-out hover:tracking-widest"
-          >
-            <GiTakeMyMoney className="text-2xl" />
-            <p> Investment Requests</p>
-            <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-black text-white text-center">
-              {totalInvesmentRequest}
-            </span>
-          </div>
         </div>
       </div>
       {/* search box */}
-      <div className="mt-3 flex items-center gap-5">
+      <div className="mt-8 lg:mt-3 flex flex-col md:flex-row md:items-center gap-5">
         <input
           onChange={(e) => setSearchValue(e.target.value)}
           value={searchValue}
@@ -244,22 +233,24 @@ const Page = () => {
           placeholder="Search user by username or serial no."
           className=" w-72 px-2 py-2 text-sm rounded italic bg-white outline-none border-b-2 border-black focus:border-teal-500 "
         />
-        <button
-          onClick={handleSearchUser}
-          className="px-5 py-2 bg-teal-400 rounded"
-        >
-          Search
-        </button>
-        <button
-          onClick={(e) => {
-            setIsLoading(true);
-            setSearchValue("");
-            fetchAllUsers(true);
-          }}
-          className="px-5 py-2 bg-teal-400 rounded"
-        >
-          Clear
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleSearchUser}
+            className="px-5 py-2 bg-teal-400 rounded"
+          >
+            Search
+          </button>
+          <button
+            onClick={(e) => {
+              setIsLoading(true);
+              setSearchValue("");
+              fetchAllUsers(true);
+            }}
+            className="px-5 py-2 bg-teal-400 rounded"
+          >
+            Clear
+          </button>
+        </div>
       </div>
 
       <div>
@@ -516,7 +507,7 @@ const Page = () => {
               setIsWalletOpen(false);
             }
           }}
-          className="w-full min-h-[100vh] bg-black bg-opacity-80 fixed top-0 right-0 flex justify-center items-center cursor-pointer"
+          className="w-full min-h-[100vh] bg-black bg-opacity-80 fixed top-0 right-0 flex justify-center items-center cursor-pointer z-[1000]"
         >
           <div
             onClick={(e) => {

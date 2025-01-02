@@ -1,31 +1,30 @@
+"use client";
+import React, { useEffect, useState } from "react";
 import axios, { isAxiosError } from "axios";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import baseUrl from "../../../config";
 
 const LeadersClubMemberTable = () => {
   const [clubMember, setClubMember] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isClient, setIsClient] = useState(false);
 
   const token: string = Cookies.get("token") || "";
 
   const fetchAllUser = async () => {
     try {
-      await axios
-        .get(
-          `${baseUrl}/user/get-all-users?page=1&limit=20&is_club_member=true`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          if (res?.data?.success) {
-            setClubMember(res?.data?.data?.usersWithPartners);
-          }
-        });
+      const res = await axios.get(
+        `${baseUrl}/user/get-all-users?page=1&limit=20&is_club_member=true`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res?.data?.success) {
+        setClubMember(res?.data?.data?.usersWithPartners);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(error?.response?.data?.message);
@@ -36,6 +35,7 @@ const LeadersClubMemberTable = () => {
   };
 
   useEffect(() => {
+    setIsClient(true); // Ensures the component is client-side
     fetchAllUser();
   }, []);
 
@@ -49,6 +49,11 @@ const LeadersClubMemberTable = () => {
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
+
+  if (!isClient) {
+    return null; // Prevent server-side rendering of the component
+  }
+
   return (
     <div className="col-span-1">
       <div

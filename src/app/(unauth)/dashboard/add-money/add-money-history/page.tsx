@@ -8,28 +8,7 @@ import baseUrl from "../../../../../../config";
 import { formatDate } from "../../../../../utils/dateUtils";
 import { BsBuildingFillAdd } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-
-interface AddMoneyHistoriesInterface {
-  // userId: string | "";
-  _id: string;
-  project_share: number;
-  fixed_deposit: number;
-  share_holder: number;
-  directorship: number;
-  total_amount: number;
-  money_receipt_number: string;
-  phone: string;
-  payment_method: string;
-  bank_name: string;
-  bank_account_name: string;
-  branch_name: string;
-  transaction_id: string;
-  picture: string;
-  payment_picture: string;
-  createdAt: string;
-  date: string;
-  is_approved: boolean;
-}
+import { AddMoneyHistoriesInterface } from "@/type";
 
 const page = () => {
   const [isOpenImageModal, setIsOpenImageModal] = useState<boolean>(false);
@@ -57,7 +36,6 @@ const page = () => {
       );
       const data = await response.json();
       if (data?.success) {
-        console.log(data?.data);
         setAddMoneyHistories(data?.data?.addMoneyHistories);
       }
     } catch (error) {
@@ -70,8 +48,6 @@ const page = () => {
   useEffect(() => {
     fetchAddMoneyHistories();
   }, [id]);
-
-  console.log(addMoneyHistories);
 
   // const addMoneyHistories = [
   //   {

@@ -101,9 +101,6 @@ const page = () => {
     }
   };
 
-  console.log("investment", investmentHistories);
-  console.log("sepa", separatedValue);
-
   useEffect(() => {
     fetchAllInvestmentHistories();
   }, []);
@@ -145,32 +142,58 @@ const page = () => {
       "Eighty",
       "Ninety",
     ];
-    const scales = ["", "Thousand", "Lac", "Crore"];
+    const scales = ["", "Thousand", "Lacs", "Crore"];
 
-    let result = "";
-    const parts: number[] = [];
-
-    // Break the number into parts like: Crores, Lacs, Thousands, Hundreds
-    while (num > 0) {
-      parts.push(num % 100); // Take the last two digits
-      num = Math.floor(num / 100);
-    }
-
-    // Reverse the parts to process from left to right
-    parts.reverse();
-
-    // Function to convert a two-digit number to words
+    // Helper function to convert numbers less than 100
     function convertTwoDigit(n: number): string {
       if (n < 20) return units[n];
       return tens[Math.floor(n / 10)] + (n % 10 ? " " + units[n % 10] : "");
     }
 
-    // Build the final result
+    // Helper function to convert three-digit numbers
+    function convertThreeDigit(n: number): string {
+      if (n < 100) return convertTwoDigit(n);
+      const hundredPart = Math.floor(n / 100);
+      const remainder = n % 100;
+      return (
+        units[hundredPart] +
+        " Hundred" +
+        (remainder > 0 ? " " + convertTwoDigit(remainder) : "")
+      );
+    }
+
+    let result = "";
+    let scaleIndex = 0;
+
+    // Process the number in parts based on the Indian numbering system
+    const parts: number[] = [];
+
+    while (num > 0) {
+      if (scaleIndex === 1) {
+        // For thousands, take two digits
+        parts.push(num % 100);
+        num = Math.floor(num / 100);
+      } else {
+        // For lacs and above, take three digits
+        parts.push(num % 1000);
+        num = Math.floor(num / 1000);
+      }
+      scaleIndex++;
+    }
+
+    parts.reverse();
+    scaleIndex = parts.length - 1;
+
     for (let i = 0; i < parts.length; i++) {
       if (parts[i] > 0) {
-        const scale = scales[parts.length - i - 1];
-        result += convertTwoDigit(parts[i]) + (scale ? " " + scale + " " : " ");
+        const scale = scales[scaleIndex];
+        if (scale === "Thousand") {
+          result += convertTwoDigit(parts[i]) + " " + scale + " ";
+        } else if (scale === "Lacs" || scale === "Crore") {
+          result += convertThreeDigit(parts[i]) + " " + scale + " ";
+        }
       }
+      scaleIndex--;
     }
 
     return result.trim() + " Taka";
@@ -180,7 +203,7 @@ const page = () => {
     <div>
       <h1 className="text-2xl font-bold text-slate-700">User's Investments</h1>
       {/* all types of investments summary */}
-      <div className="my-10 grid grid-cols-4 gap-8">
+      <div className="my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {/* project share */}
         <div className="w-full h-fit rounded-md shadow-2xl bg-white p-5">
           <div className="flex items-center justify-between">
@@ -339,7 +362,13 @@ const page = () => {
         </div>
 
         {/* investmet table */}
-        <div className="bg-white w-full py-5">
+        <div
+          style={{
+            boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+          }}
+          className="bg-white w-full py-5 rounded-md"
+        >
+          <p className="p-3 font-bold">All Approved Investment</p>
           <div
             className="relative overflow-x-auto max-h-screen max-w-full overflow-y-auto"
             // style={{ width: "calc(100% - 150px)" }}
@@ -402,7 +431,7 @@ const page = () => {
                     scope="col"
                     className="px-3 py-3 text-center whitespace-nowrap"
                   >
-                    Action
+                    Status
                   </th>
                 </tr>
                 <tr>
@@ -416,7 +445,7 @@ const page = () => {
                     Share Holder
                   </th>
                   <th className="px-3 py-3 text-center  whitespace-nowrap">
-                    Directorship
+                    Partnership
                   </th>
                   <th className="px-3 py-3 text-center whitespace-nowrap">
                     Total
@@ -426,7 +455,7 @@ const page = () => {
               <tbody className="text-[12px]">
                 {isLoading ? (
                   <tr className="text-center">
-                    <td colSpan={12} align="center">
+                    <td colSpan={14} align="center">
                       <div className="my-5 flex flex-col justify-center items-center">
                         <Circles
                           height="50"
@@ -442,7 +471,7 @@ const page = () => {
                   </tr>
                 ) : investmentHistories && investmentHistories?.length <= 0 ? (
                   <tr className="text-center">
-                    <td colSpan={12} align="center">
+                    <td colSpan={14} align="center">
                       <div className="my-5 flex flex-col justify-center items-center">
                         <p className="text-lg text-rose-500">No Data to Show</p>
                       </div>
@@ -496,7 +525,7 @@ const page = () => {
                         </td>
                         <td className="px-3 py-4 text-center ">
                           {history?.is_approved ? (
-                            <p className="bg-teal-300 text-black px-3 py-1 rounded-md">
+                            <p className="text-teal-500 px-3 py-1 rounded-md">
                               Approved
                             </p>
                           ) : history?.is_reject ? (

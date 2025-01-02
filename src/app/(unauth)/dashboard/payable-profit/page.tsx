@@ -33,9 +33,9 @@ const Page: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<string>("share-holder");
 
   return (
-    <div className="p-10">
+    <div className="">
       {/* Tabs */}
-      <div className="flex items-center gap-5">
+      <div className="flex flex-wrap items-center gap-5">
         {["project-share", "fixed-deposit", "share-holder", "partnership"].map(
           (tab) => (
             <div
@@ -49,12 +49,12 @@ const Page: React.FC = () => {
               }}
               className={`${
                 currentTab === tab ? "bg-teal-400" : "border-2 border-slate-500"
-              } px-6 py-2 rounded-3xl text-center cursor-pointer`}
+              } px-3 lg:px-6 py-2 rounded-3xl text-center cursor-pointer`}
             >
               {tab
                 .split("-")
                 .map((word) => word[0].toUpperCase() + word.slice(1))
-                .join(" ")}{" "}
+                .join(" ")}
               Profit
             </div>
           )

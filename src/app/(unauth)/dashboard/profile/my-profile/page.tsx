@@ -181,7 +181,7 @@ const MyProfile = () => {
   ];
 
   return (
-    <div className="h-[100vh] bg-gray-100">
+    <div className="bg-gray-100">
       <div className="">
         {/* cover and profile pic */}
         <ProfileHeader
@@ -194,31 +194,36 @@ const MyProfile = () => {
         />
 
         {/* profile details */}
-        <div className="mt-16 bg-white">
-          <div className="flex gap-6">
+        <div
+          style={{
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+          }}
+          className="mt-16 bg-white px-2"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* information */}
             <div
               // style={{
               //   boxShadow:
               //     "rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px",
               // }}
-              className="w-[50%] h-fit bg-white  py-4 px-12 rounded"
+              className="w-full h-fit bg-white py-5 px-2 rounded"
             >
               <h1 className="text-black font-bold text-xl text-center">
                 Personal Information
               </h1>
 
-              <div className="py-10 flex flex-col gap-y-3">
+              <div className="py-10 flex flex-col gap-y-3 w-full">
                 {personalInfo?.map((info) => (
                   <div
-                    className="flex items-center bg-red-50 text-slate-700 py-2 border border-black rounded-xl"
+                    className="w-full flex items-center bg-red-50 text-slate-700 py-2 border border-black rounded-xl"
                     key={info?.id}
                   >
-                    <div className="w-[50%] flex justify-center items-center">
+                    <div className="w-full flex justify-center items-center">
                       <p>{info?.name}</p>
                     </div>
                     <FaHandPointRight className="text-green-600 text-xl" />
-                    <div className="w-[50%] flex justify-center items-center text-sm">
+                    <div className="w-full flex justify-center items-center text-sm">
                       <p className="font-bold">{info?.value}</p>
                     </div>
                   </div>
@@ -226,7 +231,7 @@ const MyProfile = () => {
               </div>
             </div>
             {/* wallet */}
-            <div className="w-[50%] flex flex-col gap-y-5 h-[500px]">
+            <div className="w-full flex flex-col gap-y-5 h-[500px]">
               {/* referrel bonus */}
               <div
                 // style={{

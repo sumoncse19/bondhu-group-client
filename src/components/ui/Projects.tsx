@@ -15,15 +15,15 @@ const Projects = () => {
   const router = useRouter();
   return (
     <div
-      style={{
-        backgroundImage: `url('/images/bg/bg3.jpg')`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      }}
+      // style={{
+      //   backgroundImage: `url('/images/bg/bg3.jpg')`,
+      //   backgroundPosition: "center",
+      //   backgroundSize: "cover",
+      //   backgroundRepeat: "no-repeat",
+      // }}
       className="py-20"
     >
-      <div id="projects" className="pt-28 w-[80%] mx-auto">
+      <div id="projects" className="pt-28 w-[90%] mx-auto">
         {/* heading */}
         <div className="w-[80%] mx-auto ">
           <div className="w-full flex flex-col justify-center items-center ">

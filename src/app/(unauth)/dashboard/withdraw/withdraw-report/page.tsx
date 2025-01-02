@@ -29,7 +29,6 @@ const page = () => {
       const data = await response.json();
 
       if (data?.success) {
-        console.log(data?.data);
         setWithdrawHistories(data?.data?.addMoneyHistories);
       }
     } catch (error) {
@@ -41,6 +40,37 @@ const page = () => {
   useEffect(() => {
     fetchWithdrawHistories();
   }, []);
+
+  const formatDate = (backendDate: string): string => {
+    // Parse the backend date string into a Date object
+    const date = new Date(backendDate);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid date format");
+    }
+
+    // Extract and format the time in 12-hour format with AM/PM
+    const timeOptions: Intl.DateTimeFormatOptions = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true, // 12-hour format
+    };
+    const time = new Intl.DateTimeFormat("en-US", timeOptions).format(date);
+
+    // Extract and format the day and date
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      weekday: "long", // Full day name (e.g., Wednesday)
+      day: "2-digit", // Day of the month (e.g., 02)
+      month: "2-digit", // Month (e.g., 10)
+      year: "numeric", // Full year (e.g., 2024)
+    };
+    const formattedDate = new Intl.DateTimeFormat("en-GB", dateOptions).format(
+      date
+    );
+
+    return `${time}, ${formattedDate}`;
+  };
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -69,6 +99,9 @@ const page = () => {
               </th>
               <th scope="col" className="px-6 py-3 text-center">
                 Withdraw Amount
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Withdraw Date
               </th>
               <th scope="col" className="px-6 py-3 text-center">
                 Status
@@ -110,6 +143,7 @@ const page = () => {
                     withdraw_wallet: string;
                     withdraw_amount: number;
                     withdraw_status: string;
+                    updatedAt: string;
                   },
                   i
                 ) => (
@@ -129,6 +163,9 @@ const page = () => {
                     </td>
                     <td className="px-6 py-4 text-center">
                       {history?.withdraw_amount}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      {formatDate(history?.updatedAt)}
                     </td>
 
                     <td className="px-6 py-4 text-center ">

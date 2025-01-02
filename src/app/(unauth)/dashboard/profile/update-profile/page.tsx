@@ -17,6 +17,7 @@ const UpdateProfile = () => {
   const [imageUrl2, setImageUrl2] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
+  const [serialNo, setSerialNo] = useState<string>("");
   const [fatherOrHusbandName, setFatherOrHusbandName] = useState<string>("");
   const [motherName, setMotherName] = useState<string>("");
   const [role, setRole] = useState<string>("");
@@ -67,10 +68,11 @@ const UpdateProfile = () => {
     });
     const data = await response.json();
     if (data?.success) {
-      console.log(data?.data?.name);
+      // console.log(data?.data?.name);
       setImageUrl(data?.data?.picture);
       setName(data?.data?.name);
       setUserName(data?.data?.user_name);
+      setSerialNo(data?.data?.serial_number);
       setFatherOrHusbandName(data?.data?.father_or_husband_name);
       setMotherName(data?.data?.mother_name);
       setNidNo(data?.data?.nid_passport_no);
@@ -218,9 +220,6 @@ const UpdateProfile = () => {
       swift_code: swiftCode,
     };
 
-    console.log(userData);
-    console.log(userData?.password);
-
     if (userData.password === "") {
       delete userData?.password;
     }
@@ -297,8 +296,8 @@ const UpdateProfile = () => {
               />
             </div>
           </div>
-          {/* name and userName */}
-          <div className="flex items-center gap-10">
+          {/* name and userName,sl no */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* name */}
             <div className="relative w-full">
               <label
@@ -334,9 +333,27 @@ const UpdateProfile = () => {
                 id="username"
               />
             </div>
+            {/* serial no */}
+            <div className="relative w-full">
+              <label
+                className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
+                htmlFor="serial_no"
+              >
+                Serial No
+                <p className="inline text-red-500 text-lg font-bold">*</p>
+              </label>
+              <input
+                onChange={(e) => setSerialNo(e.target.value)}
+                readOnly
+                value={serialNo}
+                className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                type="text"
+                id="username"
+              />
+            </div>
           </div>
           {/* father and mother name */}
-          <div className="flex items-center gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 text-sm bg-gray-100 px-2"
@@ -368,8 +385,8 @@ const UpdateProfile = () => {
               />
             </div>
           </div>
-          {/* nid and dob */}
-          <div className="flex items-center gap-10">
+          {/* nid,dob,profession and nationality */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
@@ -419,7 +436,10 @@ const UpdateProfile = () => {
               />
             </div>
             <div className="relative w-full flex items-center gap-x-2">
-              <label className="px-2 text-sm" htmlFor="nationality">
+              <label
+                className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
+                htmlFor="nationality"
+              >
                 Nationality
               </label>
               <select
@@ -430,12 +450,22 @@ const UpdateProfile = () => {
                 id="nationality"
               >
                 {nationality == "" && <option value="">Select</option>}
+
+                <option value="Alberia">Alberia</option>
                 <option value="Bangladesh">Bangladesh</option>
+                <option value="Bhutan">Bhutan</option>
+                <option value="Canada">Canada</option>
+                <option value="Finland">Finland</option>
+                <option value="India">India</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Srilanka">Srilanka</option>
               </select>
             </div>
           </div>
           {/* email and password,con pass mobile no*/}
-          <div className="flex items-center gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div className="relative w-full">
               <label
                 className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
@@ -535,8 +565,8 @@ const UpdateProfile = () => {
             />
           </div>
           {/* Profession,refference id  and placement id nationality */}
-          <div className="flex items-center gap-6">
-            {/* <div className="relative w-full flex items-center gap-x-2">
+          {/* <div className="flex items-center gap-6">
+            <div className="relative w-full flex items-center gap-x-2">
               <label className="px-2 text-sm" htmlFor="reference_id">
                 Reference ID
                 <p className="inline text-red-500 text-lg font-bold">*</p>
@@ -617,9 +647,9 @@ const UpdateProfile = () => {
                     </option>
                   ))}
               </select>
-            </div> */}
+            </div>
 
-            {/* <div className=" w-full flex items-center">
+            <div className=" w-full flex items-center">
               <label className=" px-2" htmlFor="team_side">
                 Choice of Team{" "}
                 <p className="inline text-red-500 text-lg font-bold">*</p>
@@ -636,10 +666,10 @@ const UpdateProfile = () => {
                   <option value={opt?.value}>{opt?.label}</option>
                 ))}
               </select>
-            </div> */}
-          </div>
+            </div>
+          </div> */}
           {/*role, religion,maritual,team and blood gp */}
-          <div className="flex items-center gap-3 mt-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
             {/* role */}
             {/* <div className="w-full flex items-center">
               <label className="px-2 text-sm" htmlFor="role">
@@ -657,14 +687,17 @@ const UpdateProfile = () => {
                 <option value="admin">Admin</option>
               </select>
             </div> */}
-            <div className=" w-full flex items-center">
-              <label className="px-2 text-sm" htmlFor="religion">
+            <div className="relative w-full flex items-center">
+              <label
+                className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
+                htmlFor="religion"
+              >
                 Religion
               </label>
               <select
                 onChange={(e) => setReligion(e.target.value)}
                 value={religion}
-                className="bg-gray-100 border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="w-full bg-gray-100 border border-black px-8 py-3 rounded-md cursor-pointer"
                 name=""
                 id="religion"
               >
@@ -675,14 +708,17 @@ const UpdateProfile = () => {
                 <option value="Cristian">Christian</option>
               </select>
             </div>
-            <div className=" w-full flex items-center">
-              <label className=" px-2 text-sm" htmlFor="maritual_status">
+            <div className="relative w-full flex items-center">
+              <label
+                className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
+                htmlFor="maritual_status"
+              >
                 Maritual Status
               </label>
               <select
                 onChange={(e) => setMaritualStatus(e.target.value)}
                 value={maritualStatus}
-                className="bg-gray-100 border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="w-full bg-gray-100 border border-black px-8 py-3 rounded-md cursor-pointer"
                 name=""
                 id="maritual_status"
               >
@@ -691,15 +727,17 @@ const UpdateProfile = () => {
                 <option value="single">Single</option>
               </select>
             </div>
-
-            <div className=" w-full flex items-center">
-              <label className=" px-2 text-sm" htmlFor="blood_gp">
+            <div className="relative w-full flex items-center">
+              <label
+                className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
+                htmlFor="blood_gp"
+              >
                 Blood Group
               </label>
               <select
                 onChange={(e) => setBloodGroup(e.target.value)}
                 value={bloodGroup}
-                className="bg-gray-100 border border-black px-8 py-1 rounded-md cursor-pointer"
+                className="w-full bg-gray-100 border border-black px-8 py-3 rounded-md cursor-pointer"
                 name=""
                 id="blood_gp"
               >
@@ -743,7 +781,7 @@ const UpdateProfile = () => {
               />
             </div>
             {/* nominne's name, mobile no and relation */}
-            <div className="flex items-center gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
               <div className="relative w-full">
                 <label
                   className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
@@ -841,7 +879,7 @@ const UpdateProfile = () => {
                     <p className="mb-5 font-bold text-teal-500 tracking-wider">
                       Mobile Banking Information
                     </p>
-                    <div className="flex items-center gap-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10">
                       <div className="relative w-full">
                         <label
                           className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
@@ -894,7 +932,7 @@ const UpdateProfile = () => {
                     <p className="mb-5 font-bold text-teal-500 tracking-wider">
                       Bank Information
                     </p>
-                    <div className="flex items-center gap-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                       <div className="relative w-full">
                         <label
                           className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
