@@ -9,7 +9,6 @@ import Button from "../../components/shared/Button";
 import Services from "@/components/ui/Services";
 import Projects from "@/components/ui/Projects";
 import HomeBanner from "@/components/ui/HomeBanner";
-import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { io, Socket } from "socket.io-client";
 import baseUrl from "../../../config";
@@ -23,8 +22,12 @@ import { FaMapPin } from "react-icons/fa";
 
 import { MissionVisionService } from "@/components/MissionVissionService";
 import WarningMessage from "@/components/shared/Warning";
+import { useRouter } from "next/navigation";
 
 const HomePage = () => {
+  const token: string = Cookies.get("token") || "";
+
+  const router = useRouter();
   return (
     <div className="w-full flex flex-col">
       {/* <WarningMessage /> */}
@@ -50,9 +53,18 @@ const HomePage = () => {
             </div>
             <TextGenerateEffectDemo />
             <div className="flex my-3">
-              <p className="bg-teal-400 px-4 lg:px-16 py-1 lg:py-3 rounded border-2 border-teal-100 text-center text-white">
+              <button
+                onClick={() => {
+                  if (token) {
+                    router.push("/dashboard");
+                  } else {
+                    router.push("/login");
+                  }
+                }}
+                className="bg-teal-400 px-4 lg:px-16 py-1 lg:py-3 rounded border-2 border-teal-100 text-center text-white"
+              >
                 Get Started
-              </p>
+              </button>
             </div>
           </div>
         </div>

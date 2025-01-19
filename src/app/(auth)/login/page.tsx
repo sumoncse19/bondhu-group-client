@@ -64,7 +64,8 @@ const page = () => {
         alert(data.errors[0]);
       }
     } catch (error: any) {
-      toast.error(error.message);
+      // toast.error(error.message);
+      toast.error("Access Denied. Please, Contact with Developers.");
     } finally {
       setIsLoading(false);
     }
