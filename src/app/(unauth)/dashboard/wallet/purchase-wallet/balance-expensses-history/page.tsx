@@ -59,8 +59,6 @@ const page = () => {
     }
   };
 
-  console.log(expensesHistories);
-
   const formatDate = (backendDate: string): string => {
     // Parse the backend date string into a Date object
     const date = new Date(backendDate);

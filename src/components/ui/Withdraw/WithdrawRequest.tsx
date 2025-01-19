@@ -60,8 +60,6 @@ const WithdrawRequest = ({
   }, [userCookie]);
 
   const handleWithdrawAmount = async () => {
-    console.log(withdrawAmount, code, selectedWallet);
-
     if (withdrawAmount === "" && code === "" && selectedWallet === "") {
       toast.error("Fill all field first");
       return;

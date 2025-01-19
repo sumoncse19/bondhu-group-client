@@ -43,8 +43,11 @@ export const CustomSelect = ({
   };
 
   return (
-    <div className="relative w-full flex gap-y-2">
-      <label className="px-2 text-sm" htmlFor="placement_id">
+    <div className="relative w-full flex flex-col gap-2">
+      <label
+        className="absolute -top-3 left-3 bg-[#F3F4F6] px-2 text-sm"
+        htmlFor="placement_id"
+      >
         Placement ID
         <p className="inline text-red-500 text-lg font-bold">*</p>
       </label>

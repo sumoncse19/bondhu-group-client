@@ -15,7 +15,6 @@ export const getUserNameById = async (id: string, token: string) => {
   let username;
   if (data.success) {
     username = data?.data?.user_name;
-    console.log(username);
   }
 
   return username;

@@ -131,8 +131,6 @@ const page = () => {
       });
       const data = await response.json();
       if (data.success) {
-        console.log(data?.data, "tree");
-
         setFullTeams(data.data);
         setSecondLevelLeftPartner(data?.data?.left_side_partner);
         setSecondLevelRightPartner(data?.data?.right_side_partner);
@@ -170,8 +168,6 @@ const page = () => {
       );
       const data = await response.json();
       if (data.success) {
-        console.log(data?.data, "tree");
-
         setFullTeams(data.data);
         setSecondLevelLeftPartner(data?.data?.left_side_partner);
         setSecondLevelRightPartner(data?.data?.right_side_partner);
@@ -307,7 +303,6 @@ const page = () => {
           />
           <button
             onClick={() => {
-              console.log("clicked");
               handleSearchUser();
             }}
             className="bg-teal-500 px-4 py-1 rounded-md text-white"

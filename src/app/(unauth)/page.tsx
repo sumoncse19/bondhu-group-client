@@ -9,7 +9,6 @@ import Button from "../../components/shared/Button";
 import Services from "@/components/ui/Services";
 import Projects from "@/components/ui/Projects";
 import HomeBanner from "@/components/ui/HomeBanner";
-import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { io, Socket } from "socket.io-client";
 import baseUrl from "../../../config";
@@ -23,8 +22,12 @@ import { FaMapPin } from "react-icons/fa";
 
 import { MissionVisionService } from "@/components/MissionVissionService";
 import WarningMessage from "@/components/shared/Warning";
+import { useRouter } from "next/navigation";
 
 const HomePage = () => {
+  const token: string = Cookies.get("token") || "";
+
+  const router = useRouter();
   return (
     <div className="w-full flex flex-col">
       {/* <WarningMessage /> */}
@@ -50,9 +53,18 @@ const HomePage = () => {
             </div>
             <TextGenerateEffectDemo />
             <div className="flex my-3">
-              <p className="bg-teal-400 px-4 lg:px-16 py-1 lg:py-3 rounded border-2 border-teal-100 text-center text-white">
+              <button
+                onClick={() => {
+                  if (token) {
+                    router.push("/dashboard");
+                  } else {
+                    router.push("/login");
+                  }
+                }}
+                className="bg-teal-400 px-4 lg:px-16 py-1 lg:py-3 rounded border-2 border-teal-100 text-center text-white"
+              >
                 Get Started
-              </p>
+              </button>
             </div>
           </div>
         </div>
@@ -107,7 +119,7 @@ const HomePage = () => {
         }}
         className="w-full h-[300px] lg:h-[700px] py-3 lg:py-6 bg-opacity-0 flex items-center justify-center relative"
       >
-        <div className="hidden lg:flex w-[80%] min-h-40 mx-auto  justify-center items-center  bg-black bg-opacity-70 p-3 rounded-md">
+        <div className="hidden lg:flex w-[90%] min-h-40 mx-auto  justify-center items-center  bg-black bg-opacity-70 p-3 rounded-md">
           <TypeAnimation
             sequence={[
               // Same substring at the start will only be typed once, initially
@@ -155,7 +167,7 @@ const HomePage = () => {
 
         {/* client,service and projects */}
 
-        <div className="w-[90%] lg:w-[80%] mx-auto h-40 absolute -bottom-24">
+        <div className="w-[90%] lg:w-[90%] mx-auto h-40 absolute -bottom-24">
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-2">
             <div
               style={{
@@ -199,17 +211,17 @@ const HomePage = () => {
       </div>
 
       <div
-        style={{
-          backgroundImage: `url('/images/bg/bg4.jpg')`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          paddingTop: "50px",
-        }}
+      // style={{
+      //   backgroundImage: `url('/images/bg/bg4.jpg')`,
+      //   backgroundPosition: "center",
+      //   backgroundSize: "cover",
+      //   backgroundRepeat: "no-repeat",
+      //   paddingTop: "50px",
+      // }}
       >
         {/* Bondhu builder intro */}
         <motion.div
-          className="mt-10 "
+          className="h-[80vh] flex items-center"
           initial={{ y: "80px", opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeIn" }}
@@ -233,7 +245,7 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="w-full flex justify-center lg:justify-end right-div ">
+            <div className="w-full flex justify-center lg:justify-end right-div">
               <img
                 className="rounded-full w-[300px] h-[250px] lg:w-[500px] lg:h-[500px] transition-all duration-1000 ease-out"
                 src="/images/buildersImg1.png"
@@ -257,7 +269,7 @@ const HomePage = () => {
 
       {/* Our Service */}
       {/* <Services /> */}
-      <MissionVisionService />
+      {/* <MissionVisionService /> */}
 
       {/* Our Projects */}
       <Projects />

@@ -102,7 +102,7 @@ const page = () => {
   }, [selectedDate2]);
 
   return (
-    <div className="px-10">
+    <div className="">
       {/* pathname */}
       <div>
         <div className="flex items-center gap-1 text-xl">
@@ -150,7 +150,7 @@ const page = () => {
       </div>
 
       {/* club member and histories */}
-      <div className="grid grid-cols-2 gap-4 my-10">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 my-10">
         {/* club member */}
         <LeadersClubMemberTable />
         {/* histories */}
@@ -184,7 +184,7 @@ const page = () => {
                     dateFormat="dd/MM/yyyy"
                     placeholderText="Choose a date"
                     isClearable
-                    className="p-1 cursor-pointer"
+                    className="p-1 cursor-pointer bg-gray-200"
                   />
                 </div>
               </div>

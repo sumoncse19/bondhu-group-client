@@ -37,7 +37,7 @@ const page = () => {
 
       const data = await response.json();
       if (data?.success) {
-        console.log("userN", data?.data);
+        // console.log("userN", data?.data);
         setUser(data?.data);
       }
     } catch (error) {
@@ -454,24 +454,6 @@ const page = () => {
             </div>
           </div>
         </div>
-        <p
-          style={{
-            boxShadow:
-              "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-          }}
-          className="bg-teal-600 px-3 py-1 rounded-full text-white border-2 border-rose-400 shadow-black hover:scale-105 transition-all duration-300 ease-out cursor-pointer"
-        >
-          Send Share Holder Profit
-        </p>{" "}
-        <p
-          style={{
-            boxShadow:
-              "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-          }}
-          className="bg-teal-600 px-3 py-1 rounded-full text-white border-2 border-rose-400 shadow-black hover:scale-105 transition-all duration-300 ease-out cursor-pointer"
-        >
-          Send Directorship Profit
-        </p>
       </div>
     </div>
   );

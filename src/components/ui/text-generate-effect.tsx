@@ -34,8 +34,6 @@ export const TextGenerateEffect = ({
     return (
       <motion.div ref={scope}>
         {wordsArray.map((word, idx) => {
-          console.log(word, idx);
-
           return (
             <motion.span
               key={word + idx}

@@ -21,6 +21,7 @@ const UpdateProfile = () => {
   const [imageUrl2, setImageUrl2] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
+  const [serialNo, setSerialNo] = useState<string>("");
   const [fatherOrHusbandName, setFatherOrHusbandName] = useState<string>("");
   const [motherName, setMotherName] = useState<string>("");
   const [role, setRole] = useState<string>("");
@@ -73,14 +74,14 @@ const UpdateProfile = () => {
     });
     const data = await response.json();
 
-    console.log(data?.data);
+    // console.log(data?.data);
 
     if (data?.success) {
       setUser(data?.data);
-      console.log(data?.data?.name);
       setImageUrl(data?.data?.picture);
       setName(data?.data?.name);
       setUserName(data?.data?.user_name);
+      setSerialNo(data?.data?.serial_number);
       setFatherOrHusbandName(data?.data?.father_or_husband_name);
       setMotherName(data?.data?.mother_name);
       setNidNo(data?.data?.nid_passport_no);
@@ -104,8 +105,6 @@ const UpdateProfile = () => {
       setNomineeRelation(data?.data?.relation_with_nominee);
     }
   };
-
-  console.log("namerr", imageUrl2);
 
   const handleImageClick = () => {
     fileInputRef.current?.click(); // Trigger the hidden input
@@ -261,25 +260,25 @@ const UpdateProfile = () => {
     fetchSignleUser();
     fetchChildUsers();
   }, [id]);
-  // Function to handle registration
+
+  // Function to handle update user
   const handleUpdateUser = async () => {
-    setIsLoading(true);
-    const userData = {
+    const usersData = {
       name,
       user_name: userName,
       father_or_husband_name: fatherOrHusbandName,
       mother_name: motherName,
       picture: imageUrl,
-      // email: email,
-      // password: password,
-      // phone: mobileNo,
+      email: email,
+      password: password || undefined,
+      phone: mobileNo,
       role,
       present_address: presentAddress,
       permanent_address: permanentAddress,
       nationality,
       religion,
       blood_group: bloodGroup,
-      // nid_passport_no: nidNo,
+      nid_passport_no: nidNo,
       dob,
       // choice_side: team,
       marital_status: maritualStatus,
@@ -293,13 +292,25 @@ const UpdateProfile = () => {
       nominee_picture: imageUrl2,
     };
 
-    // if (userData.password === "") {
-    //   delete userData.password;
-    // }
+    Object.keys(usersData).forEach((key) => {
+      const typedKey = key as keyof typeof usersData;
+      if (usersData[typedKey] == null || usersData[typedKey] === "") {
+        delete usersData[typedKey];
+      }
+    });
+
+    if (password) {
+      if (password !== confirmPassword) {
+        toast.error("Doesnt match password");
+        return;
+      }
+    }
     try {
+      setIsLoading(true);
+
       const response = await fetch(`${baseUrl}/user/auth/${user?._id}`, {
         method: "PUT",
-        body: JSON.stringify(userData),
+        body: JSON.stringify(usersData),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -404,6 +415,23 @@ const UpdateProfile = () => {
                 className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
                 type="text"
                 id="username"
+              />
+            </div>
+            {/* serial_no */}
+            <div className="relative w-full">
+              <label
+                className="absolute -top-3 left-3 bg-gray-100 px-2 text-sm"
+                htmlFor="serial_no"
+              >
+                Serial No
+                <p className="inline text-red-500 text-lg font-bold">*</p>
+              </label>
+              <input
+                onChange={(e) => setSerialNo(e.target.value)}
+                value={serialNo}
+                className="w-full bg-gray-100 text-gray-600 px-5 py-3  rounded-md border-2 border-black outline-none group"
+                type="text"
+                id="serial_no"
               />
             </div>
           </div>

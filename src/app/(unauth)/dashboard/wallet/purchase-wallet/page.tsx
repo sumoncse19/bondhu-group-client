@@ -69,7 +69,7 @@ const page = () => {
       <h1 className=" text-3xl text-rose-600 font-bold">Purchase Wallet</h1>
 
       {/* balance inflow and cost */}
-      <div className="mt-16 w-full  flex  justify-between gap-x-10">
+      <div className="mt-16 w-full grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* inflow */}
         <div
           // style={{
