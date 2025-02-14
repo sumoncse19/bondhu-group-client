@@ -60,12 +60,12 @@ const directors = [
     rank: "Cheif Executive Officer",
     img: "/images/directors/ceo.jpeg",
   },
-  {
-    id: 4,
-    name: "Shakir Ahmad",
-    rank: "IT Director",
-    img: "/images/directors/itd.jpeg",
-  },
+  // {
+  //   id: 4,
+  //   name: "Shakir Ahmad",
+  //   rank: "IT Director",
+  //   img: "/images/directors/itd.jpeg",
+  // },
   {
     id: 5,
     name: "H.M Shahadat Hossen",
