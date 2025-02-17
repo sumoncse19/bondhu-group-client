@@ -42,12 +42,12 @@ const page = () => {
 export default page;
 
 const directors = [
-  {
-    id: 1,
-    name: "MD Babul Islam",
-    rank: "Chairman",
-    img: "/images/directors/chairman.jpeg",
-  },
+  // {
+  //   id: 1,
+  //   name: "MD Babul Islam",
+  //   rank: "Chairman",
+  //   img: "/images/directors/chairman.jpeg",
+  // },
   {
     id: 2,
     name: "Obaidur Rahman Titu",
@@ -66,16 +66,16 @@ const directors = [
   //   rank: "IT Director",
   //   img: "/images/directors/itd.jpeg",
   // },
-  {
-    id: 5,
-    name: "H.M Shahadat Hossen",
-    rank: "Director (Marketing)",
-    // img: "/images/directors/dm.jpeg",
-  },
-  {
-    id: 6,
-    name: "MD Palash Chowdhury",
-    rank: "Director (Operation)",
-    // img: "/images/directors/dm.jpeg",
-  },
+  // {
+  //   id: 5,
+  //   name: "H.M Shahadat Hossen",
+  //   rank: "Director (Marketing)",
+  //   // img: "/images/directors/dm.jpeg",
+  // },
+  // {
+  //   id: 6,
+  //   name: "MD Palash Chowdhury",
+  //   rank: "Director (Operation)",
+  //   // img: "/images/directors/dm.jpeg",
+  // },
 ];

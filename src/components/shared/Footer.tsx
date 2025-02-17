@@ -8,7 +8,7 @@ import FacebookPageEmbed from "../FacebookPageEmbed";
 import { MdDeveloperBoard } from "react-icons/md";
 
 const Footer = () => {
-  const phoneNumber = "+8801897614483"; // Replace with the recipient's phone number
+  const phoneNumber = "+8801821696074"; // Replace with the recipient's phone number
   const message = "Hello! How can I help you?";
 
   const handleClick = () => {
@@ -46,7 +46,7 @@ const Footer = () => {
               <FaWhatsapp onClick={handleClick} className="cursor-pointer" />
             </span>
             <span className="">
-              <p>+8801897614483</p>
+              <p>+8801821696074</p>
               <p>bondhugroup24@gmail.com</p>
             </span>
           </div>
