@@ -286,31 +286,31 @@ const page = () => {
       </div> */}
 
       {/* search box */}
-      {(role === "superAdmin" || role === "admin") && (
-        <div className="flex items-center gap-x-3">
-          <input
-            ref={searchInputRef}
-            onChange={(e) => setSearchValue(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key == "Enter") {
-                handleSearchUser();
-              }
-            }}
-            defaultValue=""
-            type="text"
-            placeholder="search by username"
-            className="px-4 py-1 rounded-md outline-none border-2 border-black bg-white focus:border-green-600"
-          />
-          <button
-            onClick={() => {
+      {/* {(role === "superAdmin" || role === "admin") && ( */}
+      <div className="flex items-center gap-x-3">
+        <input
+          ref={searchInputRef}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key == "Enter") {
               handleSearchUser();
-            }}
-            className="bg-teal-500 px-4 py-1 rounded-md text-white"
-          >
-            Search
-          </button>
-        </div>
-      )}
+            }
+          }}
+          defaultValue=""
+          type="text"
+          placeholder="search by username"
+          className="px-4 py-1 rounded-md outline-none border-2 border-black bg-white focus:border-green-600"
+        />
+        <button
+          onClick={() => {
+            handleSearchUser();
+          }}
+          className="bg-teal-500 px-4 py-1 rounded-md text-white"
+        >
+          Search
+        </button>
+      </div>
+      {/* )} */}
 
       <table className="w-full  text-sm text-left rtl:text-right text-white ">
         <tbody className="">
@@ -435,279 +435,446 @@ const page = () => {
             </td>
           </tr>
           {/* tree */}
-          {(role === "superAdmin" || role === "admin") && (
-            <tr className="">
-              <td className=" flex justify-center items-center ">
-                <img src="/images/tree.png" alt="" className="w-[48%] ml-10" />
-              </td>
-            </tr>
-          )}
+          {/* {(role === "superAdmin" || role === "admin") && ( */}
+          <tr className="">
+            <td className=" flex justify-center items-center ">
+              <img src="/images/tree.png" alt="" className="w-[48%] ml-10" />
+            </td>
+          </tr>
+          {/* )} */}
           {/* 2nd level */}
-          {(role === "superAdmin" || role === "admin") && (
-            <tr className=" flex gap-5 ">
-              {/* secondLevelLeftPartner */}
-              <td className=" flex justify-center items-center w-full  pl-32">
-                <div className="flex flex-col items-center relative">
-                  <div className="group flex items-center gap-6">
-                    {secondLevelLeftPartner && (
-                      <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {/* <p>
+          {/* {(role === "superAdmin" || role === "admin") && ( */}
+          <tr className=" flex gap-5 ">
+            {/* secondLevelLeftPartner */}
+            <td className=" flex justify-center items-center w-full  pl-32">
+              <div className="flex flex-col items-center relative">
+                <div className="group flex items-center gap-6">
+                  {secondLevelLeftPartner && (
+                    <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {/* <p>
                         Points:{" "}
                         {secondLevelLeftPartner
                           ? secondLevelLeftPartner?.accountable?.team_a_point
                           : ""}
                       </p> */}
-                        <div className="flex flex-col gap-2 items-center w-[100px]">
-                          <p> Team A</p>
-                          <p>
-                            {" "}
-                            {secondLevelLeftPartner
-                              ? secondLevelLeftPartner?.accountable
-                                  ?.team_a_carry
-                              : ""}
-                          </p>
-                        </div>
+                      <div className="flex flex-col gap-2 items-center w-[100px]">
+                        <p> Team A</p>
+                        <p>
+                          {" "}
+                          {secondLevelLeftPartner
+                            ? secondLevelLeftPartner?.accountable?.team_a_carry
+                            : ""}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex flex-col items-center gap-2">
+                    <img
+                      onClick={() => {
+                        if (secondLevelLeftPartner) {
+                          setTreeModal({
+                            open: true,
+                            value: {
+                              _id: secondLevelLeftPartner?._id || "",
+                              reference_id:
+                                secondLevelLeftPartner?.reference_id || "",
+                              picture: secondLevelLeftPartner?.picture || "",
+                              parent_placement_id:
+                                secondLevelLeftPartner?.parent_placement_id ||
+                                "",
+                              name: secondLevelLeftPartner?.name || "",
+                              user_name:
+                                secondLevelLeftPartner?.user_name || "",
+                              registration_date:
+                                secondLevelLeftPartner?.registration_date || "",
+                              phone: secondLevelLeftPartner?.phone || "",
+                              email: secondLevelLeftPartner?.email || "",
+                              left_side_partner:
+                                secondLevelLeftPartner?.left_side_partner ||
+                                null,
+                              right_side_partner:
+                                secondLevelLeftPartner?.right_side_partner ||
+                                null,
+                              wallet: {
+                                purchase_wallet:
+                                  secondLevelLeftPartner?.wallet
+                                    ?.purchase_wallet || 0,
+                                income_wallet:
+                                  secondLevelLeftPartner?.wallet
+                                    ?.income_wallet || 0,
+                                reference_bonus:
+                                  secondLevelLeftPartner?.wallet
+                                    ?.reference_bonus || 0,
+                                matching_bonus:
+                                  secondLevelLeftPartner?.wallet
+                                    ?.matching_bonus || 0,
+                              },
+                              accountable: {
+                                directorship:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.directorship || 0,
+                                fixed_deposit:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.fixed_deposit || 0,
+                                project_share:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.project_share || 0,
+                                share_holder:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.share_holder || 0,
+                                team_a_carry:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.team_a_carry || 0,
+                                team_a_member:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.team_a_member || 0,
+                                team_a_point:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.team_a_point || 0,
+                                team_b_carry:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.team_b_carry || 0,
+                                team_b_member:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.team_b_member || 0,
+                                team_b_point:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.team_b_point || 0,
+                                total_amount:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.total_amount || 0,
+                                total_carry:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.total_carry || 0,
+                                total_point:
+                                  secondLevelLeftPartner?.accountable
+                                    ?.total_point || 0,
+                              },
+                            },
+                          });
+                        }
+                      }}
+                      src={
+                        secondLevelLeftPartner
+                          ? "/images/profilePicIcon.png"
+                          : "/images/profilePicIcon2.png"
+                      }
+                      className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
+                      alt=""
+                    />
+                    {secondLevelLeftPartner?.designation && (
+                      <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
+                        <FaShieldAlt className="inline-block mr-1 font-bold" />
+                        {secondLevelLeftPartner?.designation
+                          ? secondLevelLeftPartner?.designation
+                          : ""}
                       </div>
                     )}
-                    <div className="flex flex-col items-center gap-2">
-                      <img
-                        onClick={() => {
-                          if (secondLevelLeftPartner) {
-                            setTreeModal({
-                              open: true,
-                              value: {
-                                _id: secondLevelLeftPartner?._id || "",
-                                reference_id:
-                                  secondLevelLeftPartner?.reference_id || "",
-                                picture: secondLevelLeftPartner?.picture || "",
-                                parent_placement_id:
-                                  secondLevelLeftPartner?.parent_placement_id ||
-                                  "",
-                                name: secondLevelLeftPartner?.name || "",
-                                user_name:
-                                  secondLevelLeftPartner?.user_name || "",
-                                registration_date:
-                                  secondLevelLeftPartner?.registration_date ||
-                                  "",
-                                phone: secondLevelLeftPartner?.phone || "",
-                                email: secondLevelLeftPartner?.email || "",
-                                left_side_partner:
-                                  secondLevelLeftPartner?.left_side_partner ||
-                                  null,
-                                right_side_partner:
-                                  secondLevelLeftPartner?.right_side_partner ||
-                                  null,
-                                wallet: {
-                                  purchase_wallet:
-                                    secondLevelLeftPartner?.wallet
-                                      ?.purchase_wallet || 0,
-                                  income_wallet:
-                                    secondLevelLeftPartner?.wallet
-                                      ?.income_wallet || 0,
-                                  reference_bonus:
-                                    secondLevelLeftPartner?.wallet
-                                      ?.reference_bonus || 0,
-                                  matching_bonus:
-                                    secondLevelLeftPartner?.wallet
-                                      ?.matching_bonus || 0,
-                                },
-                                accountable: {
-                                  directorship:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.directorship || 0,
-                                  fixed_deposit:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.fixed_deposit || 0,
-                                  project_share:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.project_share || 0,
-                                  share_holder:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.share_holder || 0,
-                                  team_a_carry:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.team_a_carry || 0,
-                                  team_a_member:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.team_a_member || 0,
-                                  team_a_point:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.team_a_point || 0,
-                                  team_b_carry:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.team_b_carry || 0,
-                                  team_b_member:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.team_b_member || 0,
-                                  team_b_point:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.team_b_point || 0,
-                                  total_amount:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.total_amount || 0,
-                                  total_carry:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.total_carry || 0,
-                                  total_point:
-                                    secondLevelLeftPartner?.accountable
-                                      ?.total_point || 0,
-                                },
-                              },
-                            });
-                          }
-                        }}
-                        src={
-                          secondLevelLeftPartner
-                            ? "/images/profilePicIcon.png"
-                            : "/images/profilePicIcon2.png"
-                        }
-                        className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
-                        alt=""
-                      />
-                      {secondLevelLeftPartner?.designation && (
-                        <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
-                          <FaShieldAlt className="inline-block mr-1 font-bold" />
-                          {secondLevelLeftPartner?.designation
-                            ? secondLevelLeftPartner?.designation
-                            : ""}
-                        </div>
-                      )}
-                      {/* user name */}
-                      <p className="font-bold text-lg  text-black ">
-                        {secondLevelLeftPartner?.user_name
-                          ? secondLevelLeftPartner?.user_name
-                          : ""}
-                      </p>
-                    </div>
-                    {/* Right side info */}
-                    {secondLevelLeftPartner && (
-                      <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {/* <p>
+                    {/* user name */}
+                    <p className="font-bold text-lg  text-black ">
+                      {secondLevelLeftPartner?.user_name
+                        ? secondLevelLeftPartner?.user_name
+                        : ""}
+                    </p>
+                  </div>
+                  {/* Right side info */}
+                  {secondLevelLeftPartner && (
+                    <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {/* <p>
                         Points:{" "}
                         {secondLevelLeftPartner
                           ? secondLevelLeftPartner?.accountable?.team_b_point
                           : ""}
                       </p> */}
-                        <div className="flex flex-col gap-2 items-center w-[100px]">
-                          <p>Team B</p>
-                          <p>
-                            {" "}
-                            {secondLevelLeftPartner
-                              ? secondLevelLeftPartner?.accountable
-                                  ?.team_b_carry
-                              : ""}
-                          </p>
-                        </div>
+                      <div className="flex flex-col gap-2 items-center w-[100px]">
+                        <p>Team B</p>
+                        <p>
+                          {" "}
+                          {secondLevelLeftPartner
+                            ? secondLevelLeftPartner?.accountable?.team_b_carry
+                            : ""}
+                        </p>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
-              </td>
-              {/* secondLevelRightPartner */}
-              <td className=" flex justify-center items-center w-full  pr-32">
-                <div className="flex flex-col items-center relative ">
-                  <div className="group flex items-center gap-6">
-                    {secondLevelRightPartner && (
-                      <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {/* <p>
+              </div>
+            </td>
+            {/* secondLevelRightPartner */}
+            <td className=" flex justify-center items-center w-full  pr-32">
+              <div className="flex flex-col items-center relative ">
+                <div className="group flex items-center gap-6">
+                  {secondLevelRightPartner && (
+                    <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {/* <p>
                         Points:{" "}
                         {secondLevelRightPartner
                           ? secondLevelRightPartner?.accountable?.team_a_point
                           : ""}
                       </p> */}
-                        <div className="flex flex-col gap-2 items-center w-[100px]">
-                          <p>Team A</p>
+                      <div className="flex flex-col gap-2 items-center w-[100px]">
+                        <p>Team A</p>
+                        <p>
+                          {" "}
+                          {secondLevelRightPartner
+                            ? secondLevelRightPartner?.accountable?.team_a_carry
+                            : ""}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex flex-col items-center gap-2">
+                    <img
+                      onClick={() => {
+                        if (secondLevelRightPartner) {
+                          setTreeModal({
+                            open: true,
+                            value: {
+                              _id: secondLevelRightPartner?._id || "",
+                              reference_id:
+                                secondLevelRightPartner?.reference_id || "",
+                              picture: secondLevelRightPartner?.picture || "",
+                              parent_placement_id:
+                                secondLevelRightPartner?.parent_placement_id ||
+                                "",
+                              name: secondLevelRightPartner?.name || "",
+                              user_name:
+                                secondLevelRightPartner?.user_name || "",
+                              registration_date:
+                                secondLevelRightPartner?.registration_date ||
+                                "",
+                              phone: secondLevelRightPartner?.phone || "",
+                              email: secondLevelRightPartner?.email || "",
+                              left_side_partner:
+                                secondLevelRightPartner?.left_side_partner ||
+                                null,
+                              right_side_partner:
+                                secondLevelRightPartner?.right_side_partner ||
+                                null,
+                              wallet: {
+                                purchase_wallet:
+                                  secondLevelRightPartner?.wallet
+                                    ?.purchase_wallet || 0,
+                                income_wallet:
+                                  secondLevelRightPartner?.wallet
+                                    ?.income_wallet || 0,
+                                reference_bonus:
+                                  secondLevelRightPartner?.wallet
+                                    ?.reference_bonus || 0,
+                                matching_bonus:
+                                  secondLevelRightPartner?.wallet
+                                    ?.matching_bonus || 0,
+                              },
+                              accountable: {
+                                directorship:
+                                  secondLevelRightPartner?.accountable
+                                    ?.directorship || 0,
+                                fixed_deposit:
+                                  secondLevelRightPartner?.accountable
+                                    ?.fixed_deposit || 0,
+                                project_share:
+                                  secondLevelRightPartner?.accountable
+                                    ?.project_share || 0,
+                                share_holder:
+                                  secondLevelRightPartner?.accountable
+                                    ?.share_holder || 0,
+                                team_a_carry:
+                                  secondLevelRightPartner?.accountable
+                                    ?.team_a_carry || 0,
+                                team_a_member:
+                                  secondLevelRightPartner?.accountable
+                                    ?.team_a_member || 0,
+                                team_a_point:
+                                  secondLevelRightPartner?.accountable
+                                    ?.team_a_point || 0,
+                                team_b_carry:
+                                  secondLevelRightPartner?.accountable
+                                    ?.team_b_carry || 0,
+                                team_b_member:
+                                  secondLevelRightPartner?.accountable
+                                    ?.team_b_member || 0,
+                                team_b_point:
+                                  secondLevelRightPartner?.accountable
+                                    ?.team_b_point || 0,
+                                total_amount:
+                                  secondLevelRightPartner?.accountable
+                                    ?.total_amount || 0,
+                                total_carry:
+                                  secondLevelRightPartner?.accountable
+                                    ?.total_carry || 0,
+                                total_point:
+                                  secondLevelRightPartner?.accountable
+                                    ?.total_point || 0,
+                              },
+                            },
+                          });
+                        }
+                      }}
+                      src={
+                        secondLevelRightPartner
+                          ? "/images/profilePicIcon.png"
+                          : "/images/profilePicIcon2.png"
+                      }
+                      className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
+                      alt=""
+                    />
+                    {secondLevelRightPartner?.designation && (
+                      <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
+                        <FaShieldAlt className="inline-block mr-1 font-bold" />
+                        {secondLevelRightPartner?.designation
+                          ? secondLevelRightPartner?.designation
+                          : ""}
+                      </div>
+                    )}
+                    {/* user name */}
+                    <p className="font-bold text-lg  text-black ">
+                      {secondLevelRightPartner?.user_name
+                        ? secondLevelRightPartner?.user_name
+                        : ""}
+                    </p>
+                  </div>
+
+                  {/* Right side info */}
+                  {secondLevelRightPartner && (
+                    <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {/* <p>
+                        Points:{" "}
+                        {secondLevelRightPartner
+                          ? secondLevelRightPartner?.accountable?.team_b_point
+                          : ""}
+                      </p> */}
+                      <div className="flex flex-col gap-2 items-center w-[100px]">
+                        <p>Team B</p>
+                        <p>
+                          {secondLevelRightPartner
+                            ? secondLevelRightPartner?.accountable?.team_b_carry
+                            : ""}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </td>
+          </tr>
+          {/* )} */}
+          {/* tree */}
+          {/* {(role === "superAdmin" || role === "admin") && ( */}
+          <tr className="flex ">
+            <td className=" flex justify-center items-center w-full  pl-32">
+              <img src="/images/tree.png" className="w-[400px]" alt="" />
+            </td>
+            <td className=" flex justify-center items-center w-full  pr-24">
+              <img src="/images/tree.png" className="w-[400px]" alt="" />
+            </td>
+          </tr>
+          {/* )} */}
+          {/* 3rd level */}
+          {/* {(role === "superAdmin" || role === "admin") && ( */}
+          <tr className="flex ">
+            {/* thirdLeveLeftLeftPartner and thirdLeveLeftRightPartner */}
+            <td className="flex items-center w-full ">
+              {/* thirdLeveLeftLeftPartner */}
+              <div className="flex justify-center w-full">
+                <div className="flex flex-col items-center justify-center relative w-full">
+                  <div className="group w-full flex items-center justify-end -mr-5 gap-2">
+                    {/* Left side info */}
+                    <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {thirdLeveLeftLeftPartner && (
+                        <div className="flex flex-col gap-2 items-center w-full bg-red-400 p-3 rounded-md">
+                          <p> Team A</p>
                           <p>
                             {" "}
-                            {secondLevelRightPartner
-                              ? secondLevelRightPartner?.accountable
+                            {thirdLeveLeftLeftPartner
+                              ? thirdLeveLeftLeftPartner?.accountable
                                   ?.team_a_carry
                               : ""}
                           </p>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                     <div className="flex flex-col items-center gap-2">
                       <img
                         onClick={() => {
-                          if (secondLevelRightPartner) {
+                          if (thirdLeveLeftLeftPartner) {
                             setTreeModal({
                               open: true,
                               value: {
-                                _id: secondLevelRightPartner?._id || "",
+                                _id: thirdLeveLeftLeftPartner?._id || "",
                                 reference_id:
-                                  secondLevelRightPartner?.reference_id || "",
-                                picture: secondLevelRightPartner?.picture || "",
+                                  thirdLeveLeftLeftPartner?.reference_id || "",
+                                picture:
+                                  thirdLeveLeftLeftPartner?.picture || "",
                                 parent_placement_id:
-                                  secondLevelRightPartner?.parent_placement_id ||
+                                  thirdLeveLeftLeftPartner?.parent_placement_id ||
                                   "",
-                                name: secondLevelRightPartner?.name || "",
+                                name: thirdLeveLeftLeftPartner?.name || "",
                                 user_name:
-                                  secondLevelRightPartner?.user_name || "",
+                                  thirdLeveLeftLeftPartner?.user_name || "",
                                 registration_date:
-                                  secondLevelRightPartner?.registration_date ||
+                                  thirdLeveLeftLeftPartner?.registration_date ||
                                   "",
-                                phone: secondLevelRightPartner?.phone || "",
-                                email: secondLevelRightPartner?.email || "",
+                                phone: thirdLeveLeftLeftPartner?.phone || "",
+                                email: thirdLeveLeftLeftPartner?.email || "",
                                 left_side_partner:
-                                  secondLevelRightPartner?.left_side_partner ||
+                                  thirdLeveLeftLeftPartner?.left_side_partner ||
                                   null,
                                 right_side_partner:
-                                  secondLevelRightPartner?.right_side_partner ||
+                                  thirdLeveLeftLeftPartner?.right_side_partner ||
                                   null,
                                 wallet: {
                                   purchase_wallet:
-                                    secondLevelRightPartner?.wallet
+                                    thirdLeveLeftLeftPartner?.wallet
                                       ?.purchase_wallet || 0,
                                   income_wallet:
-                                    secondLevelRightPartner?.wallet
+                                    thirdLeveLeftLeftPartner?.wallet
                                       ?.income_wallet || 0,
                                   reference_bonus:
-                                    secondLevelRightPartner?.wallet
+                                    thirdLeveLeftLeftPartner?.wallet
                                       ?.reference_bonus || 0,
                                   matching_bonus:
-                                    secondLevelRightPartner?.wallet
+                                    thirdLeveLeftLeftPartner?.wallet
                                       ?.matching_bonus || 0,
                                 },
                                 accountable: {
                                   directorship:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.directorship || 0,
                                   fixed_deposit:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.fixed_deposit || 0,
                                   project_share:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.project_share || 0,
                                   share_holder:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.share_holder || 0,
                                   team_a_carry:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.team_a_carry || 0,
                                   team_a_member:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.team_a_member || 0,
                                   team_a_point:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.team_a_point || 0,
                                   team_b_carry:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.team_b_carry || 0,
                                   team_b_member:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.team_b_member || 0,
                                   team_b_point:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.team_b_point || 0,
                                   total_amount:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.total_amount || 0,
                                   total_carry:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.total_carry || 0,
                                   total_point:
-                                    secondLevelRightPartner?.accountable
+                                    thirdLeveLeftLeftPartner?.accountable
                                       ?.total_point || 0,
                                 },
                               },
@@ -715,677 +882,500 @@ const page = () => {
                           }
                         }}
                         src={
-                          secondLevelRightPartner
+                          thirdLeveLeftLeftPartner
                             ? "/images/profilePicIcon.png"
                             : "/images/profilePicIcon2.png"
                         }
                         className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
                         alt=""
                       />
-                      {secondLevelRightPartner?.designation && (
+                      {thirdLeveLeftLeftPartner?.designation && (
                         <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
                           <FaShieldAlt className="inline-block mr-1 font-bold" />
-                          {secondLevelRightPartner?.designation
-                            ? secondLevelRightPartner?.designation
+                          {thirdLeveLeftLeftPartner?.designation
+                            ? thirdLeveLeftLeftPartner?.designation
                             : ""}
                         </div>
                       )}
                       {/* user name */}
                       <p className="font-bold text-lg  text-black ">
-                        {secondLevelRightPartner?.user_name
-                          ? secondLevelRightPartner?.user_name
+                        {thirdLeveLeftLeftPartner?.user_name
+                          ? thirdLeveLeftLeftPartner?.user_name
                           : ""}
                       </p>
                     </div>
 
                     {/* Right side info */}
-                    {secondLevelRightPartner && (
-                      <div className="z-[300000] text-black font-semibold bg-red-400 p-3 rounded-md invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {/* <p>
-                        Points:{" "}
-                        {secondLevelRightPartner
-                          ? secondLevelRightPartner?.accountable?.team_b_point
-                          : ""}
-                      </p> */}
-                        <div className="flex flex-col gap-2 items-center w-[100px]">
+                    <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {thirdLeveLeftLeftPartner && (
+                        <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
                           <p>Team B</p>
                           <p>
-                            {secondLevelRightPartner
-                              ? secondLevelRightPartner?.accountable
+                            {thirdLeveLeftLeftPartner
+                              ? thirdLeveLeftLeftPartner?.accountable
                                   ?.team_b_carry
                               : ""}
                           </p>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </td>
-            </tr>
-          )}
-          {/* tree */}
-          {(role === "superAdmin" || role === "admin") && (
-            <tr className="flex ">
-              <td className=" flex justify-center items-center w-full  pl-32">
-                <img src="/images/tree.png" className="w-[400px]" alt="" />
-              </td>
-              <td className=" flex justify-center items-center w-full  pr-24">
-                <img src="/images/tree.png" className="w-[400px]" alt="" />
-              </td>
-            </tr>
-          )}
-          {/* 3rd level */}
-          {(role === "superAdmin" || role === "admin") && (
-            <tr className="flex ">
-              {/* thirdLeveLeftLeftPartner and thirdLeveLeftRightPartner */}
-              <td className="flex items-center w-full ">
-                {/* thirdLeveLeftLeftPartner */}
-                <div className="flex justify-center w-full">
-                  <div className="flex flex-col items-center justify-center relative w-full">
-                    <div className="group w-full flex items-center justify-end -mr-5 gap-2">
-                      {/* Left side info */}
-                      <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {thirdLeveLeftLeftPartner && (
-                          <div className="flex flex-col gap-2 items-center w-full bg-red-400 p-3 rounded-md">
-                            <p> Team A</p>
-                            <p>
-                              {" "}
-                              {thirdLeveLeftLeftPartner
-                                ? thirdLeveLeftLeftPartner?.accountable
-                                    ?.team_a_carry
-                                : ""}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex flex-col items-center gap-2">
-                        <img
-                          onClick={() => {
-                            if (thirdLeveLeftLeftPartner) {
-                              setTreeModal({
-                                open: true,
-                                value: {
-                                  _id: thirdLeveLeftLeftPartner?._id || "",
-                                  reference_id:
-                                    thirdLeveLeftLeftPartner?.reference_id ||
-                                    "",
-                                  picture:
-                                    thirdLeveLeftLeftPartner?.picture || "",
-                                  parent_placement_id:
-                                    thirdLeveLeftLeftPartner?.parent_placement_id ||
-                                    "",
-                                  name: thirdLeveLeftLeftPartner?.name || "",
-                                  user_name:
-                                    thirdLeveLeftLeftPartner?.user_name || "",
-                                  registration_date:
-                                    thirdLeveLeftLeftPartner?.registration_date ||
-                                    "",
-                                  phone: thirdLeveLeftLeftPartner?.phone || "",
-                                  email: thirdLeveLeftLeftPartner?.email || "",
-                                  left_side_partner:
-                                    thirdLeveLeftLeftPartner?.left_side_partner ||
-                                    null,
-                                  right_side_partner:
-                                    thirdLeveLeftLeftPartner?.right_side_partner ||
-                                    null,
-                                  wallet: {
-                                    purchase_wallet:
-                                      thirdLeveLeftLeftPartner?.wallet
-                                        ?.purchase_wallet || 0,
-                                    income_wallet:
-                                      thirdLeveLeftLeftPartner?.wallet
-                                        ?.income_wallet || 0,
-                                    reference_bonus:
-                                      thirdLeveLeftLeftPartner?.wallet
-                                        ?.reference_bonus || 0,
-                                    matching_bonus:
-                                      thirdLeveLeftLeftPartner?.wallet
-                                        ?.matching_bonus || 0,
-                                  },
-                                  accountable: {
-                                    directorship:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.directorship || 0,
-                                    fixed_deposit:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.fixed_deposit || 0,
-                                    project_share:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.project_share || 0,
-                                    share_holder:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.share_holder || 0,
-                                    team_a_carry:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.team_a_carry || 0,
-                                    team_a_member:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.team_a_member || 0,
-                                    team_a_point:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.team_a_point || 0,
-                                    team_b_carry:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.team_b_carry || 0,
-                                    team_b_member:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.team_b_member || 0,
-                                    team_b_point:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.team_b_point || 0,
-                                    total_amount:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.total_amount || 0,
-                                    total_carry:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.total_carry || 0,
-                                    total_point:
-                                      thirdLeveLeftLeftPartner?.accountable
-                                        ?.total_point || 0,
-                                  },
-                                },
-                              });
-                            }
-                          }}
-                          src={
-                            thirdLeveLeftLeftPartner
-                              ? "/images/profilePicIcon.png"
-                              : "/images/profilePicIcon2.png"
-                          }
-                          className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
-                          alt=""
-                        />
-                        {thirdLeveLeftLeftPartner?.designation && (
-                          <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
-                            <FaShieldAlt className="inline-block mr-1 font-bold" />
-                            {thirdLeveLeftLeftPartner?.designation
-                              ? thirdLeveLeftLeftPartner?.designation
-                              : ""}
-                          </div>
-                        )}
-                        {/* user name */}
-                        <p className="font-bold text-lg  text-black ">
-                          {thirdLeveLeftLeftPartner?.user_name
-                            ? thirdLeveLeftLeftPartner?.user_name
-                            : ""}
-                        </p>
-                      </div>
-
-                      {/* Right side info */}
-                      <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {thirdLeveLeftLeftPartner && (
-                          <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
-                            <p>Team B</p>
-                            <p>
-                              {thirdLeveLeftLeftPartner
-                                ? thirdLeveLeftLeftPartner?.accountable
-                                    ?.team_b_carry
-                                : ""}
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* thirdLeveLeftRightPartner */}
-                <div className="flex justify-center w-full ">
-                  <div className="flex flex-col items-center justify-center relative w-full">
-                    <div className="group w-full flex items-center justify-end mr-5  gap-2">
-                      {/* Left side info */}
-                      <div className="z-[300000] text-black font-semibold w-[80px]  invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {thirdLeveLeftRightPartner && (
-                          <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
-                            <p>Team A</p>
-                            <p>
-                              {thirdLeveLeftRightPartner
-                                ? thirdLeveLeftRightPartner?.accountable
-                                    ?.team_a_carry
-                                : ""}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex flex-col items-center gap-2">
-                        <img
-                          onClick={() => {
-                            if (thirdLeveLeftRightPartner) {
-                              setTreeModal({
-                                open: true,
-                                value: {
-                                  _id: thirdLeveLeftRightPartner?._id || "",
-                                  reference_id:
-                                    thirdLeveLeftRightPartner?.reference_id ||
-                                    "",
-                                  picture:
-                                    thirdLeveLeftRightPartner?.picture || "",
-                                  parent_placement_id:
-                                    thirdLeveLeftRightPartner?.parent_placement_id ||
-                                    "",
-                                  name: thirdLeveLeftRightPartner?.name || "",
-                                  user_name:
-                                    thirdLeveLeftRightPartner?.user_name || "",
-                                  registration_date:
-                                    thirdLeveLeftRightPartner?.registration_date ||
-                                    "",
-                                  phone: thirdLeveLeftRightPartner?.phone || "",
-                                  email: thirdLeveLeftRightPartner?.email || "",
-                                  left_side_partner:
-                                    thirdLeveLeftRightPartner?.left_side_partner ||
-                                    null,
-                                  right_side_partner:
-                                    thirdLeveLeftRightPartner?.right_side_partner ||
-                                    null,
-                                  wallet: {
-                                    purchase_wallet:
-                                      thirdLeveLeftRightPartner?.wallet
-                                        ?.purchase_wallet || 0,
-                                    income_wallet:
-                                      thirdLeveLeftRightPartner?.wallet
-                                        ?.income_wallet || 0,
-                                    reference_bonus:
-                                      thirdLeveLeftRightPartner?.wallet
-                                        ?.reference_bonus || 0,
-                                    matching_bonus:
-                                      thirdLeveLeftRightPartner?.wallet
-                                        ?.matching_bonus || 0,
-                                  },
-                                  accountable: {
-                                    directorship:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.directorship || 0,
-                                    fixed_deposit:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.fixed_deposit || 0,
-                                    project_share:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.project_share || 0,
-                                    share_holder:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.share_holder || 0,
-                                    team_a_carry:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.team_a_carry || 0,
-                                    team_a_member:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.team_a_member || 0,
-                                    team_a_point:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.team_a_point || 0,
-                                    team_b_carry:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.team_b_carry || 0,
-                                    team_b_member:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.team_b_member || 0,
-                                    team_b_point:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.team_b_point || 0,
-                                    total_amount:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.total_amount || 0,
-                                    total_carry:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.total_carry || 0,
-                                    total_point:
-                                      thirdLeveLeftRightPartner?.accountable
-                                        ?.total_point || 0,
-                                  },
-                                },
-                              });
-                            }
-                          }}
-                          src={
-                            thirdLeveLeftRightPartner
-                              ? "/images/profilePicIcon.png"
-                              : "/images/profilePicIcon2.png"
-                          }
-                          className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
-                          alt=""
-                        />
-                        {thirdLeveLeftRightPartner?.designation && (
-                          <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
-                            <FaShieldAlt className="inline-block mr-1 font-bold" />
-                            {thirdLeveLeftRightPartner?.designation
-                              ? thirdLeveLeftRightPartner?.designation
+              {/* thirdLeveLeftRightPartner */}
+              <div className="flex justify-center w-full ">
+                <div className="flex flex-col items-center justify-center relative w-full">
+                  <div className="group w-full flex items-center justify-end mr-5  gap-2">
+                    {/* Left side info */}
+                    <div className="z-[300000] text-black font-semibold w-[80px]  invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {thirdLeveLeftRightPartner && (
+                        <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
+                          <p>Team A</p>
+                          <p>
+                            {thirdLeveLeftRightPartner
+                              ? thirdLeveLeftRightPartner?.accountable
+                                  ?.team_a_carry
                               : ""}
-                          </div>
-                        )}
-                        {/* user name */}
-                        <p className="font-bold text-lg  text-black ">
-                          {thirdLeveLeftRightPartner?.user_name
-                            ? thirdLeveLeftRightPartner?.user_name
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <img
+                        onClick={() => {
+                          if (thirdLeveLeftRightPartner) {
+                            setTreeModal({
+                              open: true,
+                              value: {
+                                _id: thirdLeveLeftRightPartner?._id || "",
+                                reference_id:
+                                  thirdLeveLeftRightPartner?.reference_id || "",
+                                picture:
+                                  thirdLeveLeftRightPartner?.picture || "",
+                                parent_placement_id:
+                                  thirdLeveLeftRightPartner?.parent_placement_id ||
+                                  "",
+                                name: thirdLeveLeftRightPartner?.name || "",
+                                user_name:
+                                  thirdLeveLeftRightPartner?.user_name || "",
+                                registration_date:
+                                  thirdLeveLeftRightPartner?.registration_date ||
+                                  "",
+                                phone: thirdLeveLeftRightPartner?.phone || "",
+                                email: thirdLeveLeftRightPartner?.email || "",
+                                left_side_partner:
+                                  thirdLeveLeftRightPartner?.left_side_partner ||
+                                  null,
+                                right_side_partner:
+                                  thirdLeveLeftRightPartner?.right_side_partner ||
+                                  null,
+                                wallet: {
+                                  purchase_wallet:
+                                    thirdLeveLeftRightPartner?.wallet
+                                      ?.purchase_wallet || 0,
+                                  income_wallet:
+                                    thirdLeveLeftRightPartner?.wallet
+                                      ?.income_wallet || 0,
+                                  reference_bonus:
+                                    thirdLeveLeftRightPartner?.wallet
+                                      ?.reference_bonus || 0,
+                                  matching_bonus:
+                                    thirdLeveLeftRightPartner?.wallet
+                                      ?.matching_bonus || 0,
+                                },
+                                accountable: {
+                                  directorship:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.directorship || 0,
+                                  fixed_deposit:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.fixed_deposit || 0,
+                                  project_share:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.project_share || 0,
+                                  share_holder:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.share_holder || 0,
+                                  team_a_carry:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.team_a_carry || 0,
+                                  team_a_member:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.team_a_member || 0,
+                                  team_a_point:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.team_a_point || 0,
+                                  team_b_carry:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.team_b_carry || 0,
+                                  team_b_member:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.team_b_member || 0,
+                                  team_b_point:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.team_b_point || 0,
+                                  total_amount:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.total_amount || 0,
+                                  total_carry:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.total_carry || 0,
+                                  total_point:
+                                    thirdLeveLeftRightPartner?.accountable
+                                      ?.total_point || 0,
+                                },
+                              },
+                            });
+                          }
+                        }}
+                        src={
+                          thirdLeveLeftRightPartner
+                            ? "/images/profilePicIcon.png"
+                            : "/images/profilePicIcon2.png"
+                        }
+                        className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
+                        alt=""
+                      />
+                      {thirdLeveLeftRightPartner?.designation && (
+                        <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
+                          <FaShieldAlt className="inline-block mr-1 font-bold" />
+                          {thirdLeveLeftRightPartner?.designation
+                            ? thirdLeveLeftRightPartner?.designation
                             : ""}
-                        </p>
-                      </div>
+                        </div>
+                      )}
+                      {/* user name */}
+                      <p className="font-bold text-lg  text-black ">
+                        {thirdLeveLeftRightPartner?.user_name
+                          ? thirdLeveLeftRightPartner?.user_name
+                          : ""}
+                      </p>
+                    </div>
 
-                      {/* Right side info */}
-                      <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {thirdLeveLeftRightPartner && (
-                          <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
-                            <p>Team B</p>
-                            <p>
-                              {thirdLeveLeftRightPartner
-                                ? thirdLeveLeftRightPartner?.accountable
-                                    ?.team_b_carry
-                                : ""}
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                    {/* Right side info */}
+                    <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {thirdLeveLeftRightPartner && (
+                        <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
+                          <p>Team B</p>
+                          <p>
+                            {thirdLeveLeftRightPartner
+                              ? thirdLeveLeftRightPartner?.accountable
+                                  ?.team_b_carry
+                              : ""}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              </td>
-              {/* thirdLeveRightLeftPartner thirdLeveRightRightPartner */}
-              <td className=" flex  items-center w-full">
-                {/* thirdLeveRightLeftPartner */}
-                <div className="flex justify-center w-full">
-                  <div className="flex flex-col items-center justify-center relative w-full">
-                    <div className="group w-full flex items-center justify-center mr-10 gap-2">
-                      {/* Left side info */}
-                      <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {thirdLeveRightLeftPartner && (
-                          <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
-                            <p>Team A</p>
-                            <p>
-                              {thirdLeveRightLeftPartner
-                                ? thirdLeveRightLeftPartner?.accountable
-                                    ?.team_a_carry
-                                : ""}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex flex-col items-center gap-2">
-                        <img
-                          onClick={() => {
-                            if (thirdLeveRightLeftPartner) {
-                              setTreeModal({
-                                open: true,
-                                value: {
-                                  _id: thirdLeveRightLeftPartner?._id || "",
-                                  reference_id:
-                                    thirdLeveRightLeftPartner?.reference_id ||
-                                    "",
-                                  picture:
-                                    thirdLeveRightLeftPartner?.picture || "",
-                                  parent_placement_id:
-                                    thirdLeveRightLeftPartner?.parent_placement_id ||
-                                    "",
-                                  name: thirdLeveRightLeftPartner?.name || "",
-                                  user_name:
-                                    thirdLeveRightLeftPartner?.user_name || "",
-                                  registration_date:
-                                    thirdLeveRightLeftPartner?.registration_date ||
-                                    "",
-                                  phone: thirdLeveRightLeftPartner?.phone || "",
-                                  email: thirdLeveRightLeftPartner?.email || "",
-                                  left_side_partner:
-                                    thirdLeveRightLeftPartner?.left_side_partner ||
-                                    null,
-                                  right_side_partner:
-                                    thirdLeveRightLeftPartner?.right_side_partner ||
-                                    null,
-                                  wallet: {
-                                    purchase_wallet:
-                                      thirdLeveRightLeftPartner?.wallet
-                                        ?.purchase_wallet || 0,
-                                    income_wallet:
-                                      thirdLeveRightLeftPartner?.wallet
-                                        ?.income_wallet || 0,
-                                    reference_bonus:
-                                      thirdLeveRightLeftPartner?.wallet
-                                        ?.reference_bonus || 0,
-                                    matching_bonus:
-                                      thirdLeveRightLeftPartner?.wallet
-                                        ?.matching_bonus || 0,
-                                  },
-                                  accountable: {
-                                    directorship:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.directorship || 0,
-                                    fixed_deposit:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.fixed_deposit || 0,
-                                    project_share:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.project_share || 0,
-                                    share_holder:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.share_holder || 0,
-                                    team_a_carry:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.team_a_carry || 0,
-                                    team_a_member:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.team_a_member || 0,
-                                    team_a_point:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.team_a_point || 0,
-                                    team_b_carry:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.team_b_carry || 0,
-                                    team_b_member:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.team_b_member || 0,
-                                    team_b_point:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.team_b_point || 0,
-                                    total_amount:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.total_amount || 0,
-                                    total_carry:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.total_carry || 0,
-                                    total_point:
-                                      thirdLeveRightLeftPartner?.accountable
-                                        ?.total_point || 0,
-                                  },
-                                },
-                              });
-                            }
-                          }}
-                          src={
-                            thirdLeveRightLeftPartner
-                              ? "/images/profilePicIcon.png"
-                              : "/images/profilePicIcon2.png"
-                          }
-                          className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
-                          alt=""
-                        />
-                        {thirdLeveRightLeftPartner?.designation && (
-                          <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
-                            <FaShieldAlt className="inline-block mr-1 font-bold" />
-                            {thirdLeveRightLeftPartner?.designation
-                              ? thirdLeveRightLeftPartner?.designation
+              </div>
+            </td>
+            {/* thirdLeveRightLeftPartner thirdLeveRightRightPartner */}
+            <td className=" flex  items-center w-full">
+              {/* thirdLeveRightLeftPartner */}
+              <div className="flex justify-center w-full">
+                <div className="flex flex-col items-center justify-center relative w-full">
+                  <div className="group w-full flex items-center justify-center mr-10 gap-2">
+                    {/* Left side info */}
+                    <div className="z-[300000] text-black font-semibold w-[80px] invisible group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {thirdLeveRightLeftPartner && (
+                        <div className="flex flex-col gap-2 items-center bg-red-400 p-3 rounded-md">
+                          <p>Team A</p>
+                          <p>
+                            {thirdLeveRightLeftPartner
+                              ? thirdLeveRightLeftPartner?.accountable
+                                  ?.team_a_carry
                               : ""}
-                          </div>
-                        )}
-                        {/* user name */}
-                        <p className="font-bold text-lg  text-black ">
-                          {thirdLeveRightLeftPartner?.user_name
-                            ? thirdLeveRightLeftPartner?.user_name
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <img
+                        onClick={() => {
+                          if (thirdLeveRightLeftPartner) {
+                            setTreeModal({
+                              open: true,
+                              value: {
+                                _id: thirdLeveRightLeftPartner?._id || "",
+                                reference_id:
+                                  thirdLeveRightLeftPartner?.reference_id || "",
+                                picture:
+                                  thirdLeveRightLeftPartner?.picture || "",
+                                parent_placement_id:
+                                  thirdLeveRightLeftPartner?.parent_placement_id ||
+                                  "",
+                                name: thirdLeveRightLeftPartner?.name || "",
+                                user_name:
+                                  thirdLeveRightLeftPartner?.user_name || "",
+                                registration_date:
+                                  thirdLeveRightLeftPartner?.registration_date ||
+                                  "",
+                                phone: thirdLeveRightLeftPartner?.phone || "",
+                                email: thirdLeveRightLeftPartner?.email || "",
+                                left_side_partner:
+                                  thirdLeveRightLeftPartner?.left_side_partner ||
+                                  null,
+                                right_side_partner:
+                                  thirdLeveRightLeftPartner?.right_side_partner ||
+                                  null,
+                                wallet: {
+                                  purchase_wallet:
+                                    thirdLeveRightLeftPartner?.wallet
+                                      ?.purchase_wallet || 0,
+                                  income_wallet:
+                                    thirdLeveRightLeftPartner?.wallet
+                                      ?.income_wallet || 0,
+                                  reference_bonus:
+                                    thirdLeveRightLeftPartner?.wallet
+                                      ?.reference_bonus || 0,
+                                  matching_bonus:
+                                    thirdLeveRightLeftPartner?.wallet
+                                      ?.matching_bonus || 0,
+                                },
+                                accountable: {
+                                  directorship:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.directorship || 0,
+                                  fixed_deposit:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.fixed_deposit || 0,
+                                  project_share:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.project_share || 0,
+                                  share_holder:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.share_holder || 0,
+                                  team_a_carry:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.team_a_carry || 0,
+                                  team_a_member:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.team_a_member || 0,
+                                  team_a_point:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.team_a_point || 0,
+                                  team_b_carry:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.team_b_carry || 0,
+                                  team_b_member:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.team_b_member || 0,
+                                  team_b_point:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.team_b_point || 0,
+                                  total_amount:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.total_amount || 0,
+                                  total_carry:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.total_carry || 0,
+                                  total_point:
+                                    thirdLeveRightLeftPartner?.accountable
+                                      ?.total_point || 0,
+                                },
+                              },
+                            });
+                          }
+                        }}
+                        src={
+                          thirdLeveRightLeftPartner
+                            ? "/images/profilePicIcon.png"
+                            : "/images/profilePicIcon2.png"
+                        }
+                        className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
+                        alt=""
+                      />
+                      {thirdLeveRightLeftPartner?.designation && (
+                        <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
+                          <FaShieldAlt className="inline-block mr-1 font-bold" />
+                          {thirdLeveRightLeftPartner?.designation
+                            ? thirdLeveRightLeftPartner?.designation
                             : ""}
-                        </p>
-                      </div>
+                        </div>
+                      )}
+                      {/* user name */}
+                      <p className="font-bold text-lg  text-black ">
+                        {thirdLeveRightLeftPartner?.user_name
+                          ? thirdLeveRightLeftPartner?.user_name
+                          : ""}
+                      </p>
+                    </div>
 
-                      {/* Right side info */}
-                      <div className="z-[300000] text-black font-semibold invisible w-[80px] group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {thirdLeveRightLeftPartner && (
-                          <div className="flex flex-col gap-2 items-center w-full bg-red-400 p-3 rounded-md">
-                            <p> Team B</p>
-                            <p>
-                              {thirdLeveRightLeftPartner
-                                ? thirdLeveRightLeftPartner?.accountable
-                                    ?.team_b_carry
-                                : ""}
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                    {/* Right side info */}
+                    <div className="z-[300000] text-black font-semibold invisible w-[80px] group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {thirdLeveRightLeftPartner && (
+                        <div className="flex flex-col gap-2 items-center w-full bg-red-400 p-3 rounded-md">
+                          <p> Team B</p>
+                          <p>
+                            {thirdLeveRightLeftPartner
+                              ? thirdLeveRightLeftPartner?.accountable
+                                  ?.team_b_carry
+                              : ""}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* thirdLeveRightRightPartner */}
-                <div className="flex justify-center w-full ">
-                  <div className="flex flex-col items-center justify-center relative w-full">
-                    <div className="group w-full flex items-center justify-start  gap-2">
-                      {/* Left side info */}
+              {/* thirdLeveRightRightPartner */}
+              <div className="flex justify-center w-full ">
+                <div className="flex flex-col items-center justify-center relative w-full">
+                  <div className="group w-full flex items-center justify-start  gap-2">
+                    {/* Left side info */}
 
-                      <div className="z-[300000] text-black font-semibold invisible w-[80px] group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {thirdLeveRightRightPartner && (
-                          <div className="flex flex-col gap-2 items-center w-full  p-3 rounded-md bg-red-400">
-                            <p> Team A</p>
-                            <p>
-                              {" "}
-                              {thirdLeveRightRightPartner
-                                ? thirdLeveRightRightPartner?.accountable
-                                    ?.team_a_carry
-                                : ""}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex flex-col items-center gap-2">
-                        <img
-                          onClick={() => {
-                            if (thirdLeveRightRightPartner) {
-                              setTreeModal({
-                                open: true,
-                                value: {
-                                  _id: thirdLeveRightRightPartner?._id || "",
-                                  reference_id:
-                                    thirdLeveRightRightPartner?.reference_id ||
-                                    "",
-                                  picture:
-                                    thirdLeveRightRightPartner?.picture || "",
-                                  parent_placement_id:
-                                    thirdLeveRightRightPartner?.parent_placement_id ||
-                                    "",
-                                  name: thirdLeveRightRightPartner?.name || "",
-                                  user_name:
-                                    thirdLeveRightRightPartner?.user_name || "",
-                                  registration_date:
-                                    thirdLeveRightRightPartner?.registration_date ||
-                                    "",
-                                  phone:
-                                    thirdLeveRightRightPartner?.phone || "",
-                                  email:
-                                    thirdLeveRightRightPartner?.email || "",
-                                  left_side_partner:
-                                    thirdLeveRightRightPartner?.left_side_partner ||
-                                    null,
-                                  right_side_partner:
-                                    thirdLeveRightRightPartner?.right_side_partner ||
-                                    null,
-                                  wallet: {
-                                    purchase_wallet:
-                                      thirdLeveRightRightPartner?.wallet
-                                        ?.purchase_wallet || 0,
-                                    income_wallet:
-                                      thirdLeveRightRightPartner?.wallet
-                                        ?.income_wallet || 0,
-                                    reference_bonus:
-                                      thirdLeveRightRightPartner?.wallet
-                                        ?.reference_bonus || 0,
-                                    matching_bonus:
-                                      thirdLeveRightRightPartner?.wallet
-                                        ?.matching_bonus || 0,
-                                  },
-                                  accountable: {
-                                    directorship:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.directorship || 0,
-                                    fixed_deposit:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.fixed_deposit || 0,
-                                    project_share:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.project_share || 0,
-                                    share_holder:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.share_holder || 0,
-                                    team_a_carry:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.team_a_carry || 0,
-                                    team_a_member:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.team_a_member || 0,
-                                    team_a_point:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.team_a_point || 0,
-                                    team_b_carry:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.team_b_carry || 0,
-                                    team_b_member:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.team_b_member || 0,
-                                    team_b_point:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.team_b_point || 0,
-                                    total_amount:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.total_amount || 0,
-                                    total_carry:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.total_carry || 0,
-                                    total_point:
-                                      thirdLeveRightRightPartner?.accountable
-                                        ?.total_point || 0,
-                                  },
-                                },
-                              });
-                            }
-                          }}
-                          src={
-                            thirdLeveRightRightPartner
-                              ? "/images/profilePicIcon.png"
-                              : "/images/profilePicIcon2.png"
-                          }
-                          className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
-                          alt=""
-                        />
-                        {thirdLeveRightRightPartner?.designation && (
-                          <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
-                            <FaShieldAlt className="inline-block mr-1 font-bold" />
-                            {thirdLeveRightRightPartner?.designation
-                              ? thirdLeveRightRightPartner?.designation
+                    <div className="z-[300000] text-black font-semibold invisible w-[80px] group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {thirdLeveRightRightPartner && (
+                        <div className="flex flex-col gap-2 items-center w-full  p-3 rounded-md bg-red-400">
+                          <p> Team A</p>
+                          <p>
+                            {" "}
+                            {thirdLeveRightRightPartner
+                              ? thirdLeveRightRightPartner?.accountable
+                                  ?.team_a_carry
                               : ""}
-                          </div>
-                        )}
-                        {/* user name */}
-                        <p className="font-bold text-lg  text-black ">
-                          {thirdLeveRightRightPartner?.user_name
-                            ? thirdLeveRightRightPartner?.user_name
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col items-center gap-2">
+                      <img
+                        onClick={() => {
+                          if (thirdLeveRightRightPartner) {
+                            setTreeModal({
+                              open: true,
+                              value: {
+                                _id: thirdLeveRightRightPartner?._id || "",
+                                reference_id:
+                                  thirdLeveRightRightPartner?.reference_id ||
+                                  "",
+                                picture:
+                                  thirdLeveRightRightPartner?.picture || "",
+                                parent_placement_id:
+                                  thirdLeveRightRightPartner?.parent_placement_id ||
+                                  "",
+                                name: thirdLeveRightRightPartner?.name || "",
+                                user_name:
+                                  thirdLeveRightRightPartner?.user_name || "",
+                                registration_date:
+                                  thirdLeveRightRightPartner?.registration_date ||
+                                  "",
+                                phone: thirdLeveRightRightPartner?.phone || "",
+                                email: thirdLeveRightRightPartner?.email || "",
+                                left_side_partner:
+                                  thirdLeveRightRightPartner?.left_side_partner ||
+                                  null,
+                                right_side_partner:
+                                  thirdLeveRightRightPartner?.right_side_partner ||
+                                  null,
+                                wallet: {
+                                  purchase_wallet:
+                                    thirdLeveRightRightPartner?.wallet
+                                      ?.purchase_wallet || 0,
+                                  income_wallet:
+                                    thirdLeveRightRightPartner?.wallet
+                                      ?.income_wallet || 0,
+                                  reference_bonus:
+                                    thirdLeveRightRightPartner?.wallet
+                                      ?.reference_bonus || 0,
+                                  matching_bonus:
+                                    thirdLeveRightRightPartner?.wallet
+                                      ?.matching_bonus || 0,
+                                },
+                                accountable: {
+                                  directorship:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.directorship || 0,
+                                  fixed_deposit:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.fixed_deposit || 0,
+                                  project_share:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.project_share || 0,
+                                  share_holder:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.share_holder || 0,
+                                  team_a_carry:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.team_a_carry || 0,
+                                  team_a_member:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.team_a_member || 0,
+                                  team_a_point:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.team_a_point || 0,
+                                  team_b_carry:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.team_b_carry || 0,
+                                  team_b_member:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.team_b_member || 0,
+                                  team_b_point:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.team_b_point || 0,
+                                  total_amount:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.total_amount || 0,
+                                  total_carry:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.total_carry || 0,
+                                  total_point:
+                                    thirdLeveRightRightPartner?.accountable
+                                      ?.total_point || 0,
+                                },
+                              },
+                            });
+                          }
+                        }}
+                        src={
+                          thirdLeveRightRightPartner
+                            ? "/images/profilePicIcon.png"
+                            : "/images/profilePicIcon2.png"
+                        }
+                        className="w-20 h-20 cursor-pointer object-cover rounded-full border-4 border-red-500"
+                        alt=""
+                      />
+                      {thirdLeveRightRightPartner?.designation && (
+                        <div className="bg-green-600 px-3 py-0.5 rounded-full text-white mt-1">
+                          <FaShieldAlt className="inline-block mr-1 font-bold" />
+                          {thirdLeveRightRightPartner?.designation
+                            ? thirdLeveRightRightPartner?.designation
                             : ""}
-                        </p>
-                      </div>
+                        </div>
+                      )}
+                      {/* user name */}
+                      <p className="font-bold text-lg  text-black ">
+                        {thirdLeveRightRightPartner?.user_name
+                          ? thirdLeveRightRightPartner?.user_name
+                          : ""}
+                      </p>
+                    </div>
 
-                      {/* Right side info */}
+                    {/* Right side info */}
 
-                      <div className="z-[300000] text-black font-semibold invisible w-[80px] group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
-                        {thirdLeveRightRightPartner && (
-                          <div className="flex flex-col gap-2 items-center w-full p-3 rounded-md bg-red-400">
-                            <p> Team B</p>
-                            <p>
-                              {thirdLeveRightRightPartner
-                                ? thirdLeveRightRightPartner?.accountable
-                                    ?.team_b_carry
-                                : ""}
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                    <div className="z-[300000] text-black font-semibold invisible w-[80px] group-hover:visible transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 ease-in">
+                      {thirdLeveRightRightPartner && (
+                        <div className="flex flex-col gap-2 items-center w-full p-3 rounded-md bg-red-400">
+                          <p> Team B</p>
+                          <p>
+                            {thirdLeveRightRightPartner
+                              ? thirdLeveRightRightPartner?.accountable
+                                  ?.team_b_carry
+                              : ""}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              </td>
-            </tr>
-          )}
+              </div>
+            </td>
+          </tr>
+          {/* )} */}
         </tbody>
       </table>
 

@@ -192,12 +192,12 @@ const Sidebar2 = () => {
 
     ...(role === "superAdmin"
       ? [
-          {
-            title: "Leaders Club",
-            icon: <SiClubforce />,
-            link: "/dashboard/leaders-club",
-            active: false,
-          },
+          // {
+          //   title: "Leaders Club",
+          //   icon: <SiClubforce />,
+          //   link: "/dashboard/leaders-club",
+          //   active: false,
+          // },
           {
             title: "Payable Profit",
             icon: <GiProfit />,
