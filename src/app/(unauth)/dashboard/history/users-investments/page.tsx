@@ -411,13 +411,13 @@ const page = () => {
                   >
                     Payment Method
                   </th>
-                  <th
+                  {/* <th
                     rowSpan={2}
                     scope="col"
                     className="px-3 py-3 text-center whitespace-nowrap"
                   >
                     Transaction ID
-                  </th>
+                  </th> */}
 
                   <th
                     rowSpan={2}
@@ -516,9 +516,9 @@ const page = () => {
                         )} */}
                         </td>
 
-                        <td className="px-3 py-4 text-center">
+                        {/* <td className="px-3 py-4 text-center">
                           {history?.transaction_id}
-                        </td>
+                        </td> */}
 
                         <td className="px-3 py-4 text-center">
                           {history?.date}

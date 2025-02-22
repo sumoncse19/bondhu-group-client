@@ -149,32 +149,28 @@ const page = () => {
       if (
         (totalPlanCost > 0 && !moneyRecieptNumber) ||
         !mobileNumber ||
-        !paymentMethod ||
-        !transactionId ||
-        !paymentPicture ||
-        !paymentPicture2
+        !paymentMethod
       ) {
-        toast.error("Fill all field first");
+        toast.error("Fill all field first 1");
         return;
       }
     } else {
       if (
         (totalPlanCost > 0 && !moneyRecieptNumber) ||
         !mobileNumber ||
-        !paymentMethod ||
-        !paymentPicture2
+        !paymentMethod
       ) {
-        toast.error("Fill all field first");
+        toast.error("Fill all field first 2");
         return;
       }
     }
 
-    if (paymentMethod === "bank") {
-      if (!bankName || !bankAccName || !bankBranchName || !bankAccNo) {
-        toast.error("Fill all bank info first");
-        return;
-      }
-    }
+    // if (paymentMethod === "bank") {
+    //   if (!bankName || !bankAccName || !bankBranchName || !bankAccNo) {
+    //     toast.error("Fill all bank info first");
+    //     return;
+    //   }
+    // }
 
     const paymentData = {
       userId: user?._id,
@@ -660,9 +656,9 @@ const page = () => {
                 <option value="bank">Online Bank</option>
               </select>
             </div>
-            {paymentMethod === "bank" && (
+            {/* {paymentMethod === "bank" && (
               <div className="flex flex-col gap-y-5">
-                {/* bank name */}
+              
                 <div className="flex items-center justify-between">
                   <label htmlFor="bank-name">Bank Name</label>
                   <input
@@ -674,7 +670,7 @@ const page = () => {
                     placeholder="enter bank name"
                   />
                 </div>
-                {/* bank acc name */}
+                
                 <div className="flex items-center justify-between">
                   <label htmlFor="bank-acc-name">Bank Account Name</label>
                   <input
@@ -686,7 +682,7 @@ const page = () => {
                     placeholder="enter acc name"
                   />
                 </div>
-                {/* bank acc no */}
+      
                 <div className="flex items-center justify-between">
                   <label htmlFor="bank-acc-no">Bank Account No</label>
                   <input
@@ -698,7 +694,7 @@ const page = () => {
                     placeholder="enter acc no"
                   />
                 </div>
-                {/* bank branch name */}
+                
                 <div className="flex items-center justify-between">
                   <label htmlFor="bank-branch-name">Bank Branch Name</label>
                   <input
@@ -711,9 +707,9 @@ const page = () => {
                   />
                 </div>
               </div>
-            )}
+            )} */}
             {/* payment picture upload */}
-            {paymentMethod !== "cash" && (
+            {/* {paymentMethod !== "cash" && (
               <div className="flex items-center justify-between">
                 <label htmlFor="transaction-id">Transaction Picture</label>
                 <div className="w-80 flex flex-col items-center gap-y-2 cursor-pointer">
@@ -751,9 +747,9 @@ const page = () => {
                   </p>
                 </div>
               </div>
-            )}
+            )} */}
             {/* Money Receipt picture upload */}
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <label htmlFor="transaction-id">Money Reciept Picture</label>
               <div className="w-80 flex flex-col items-center gap-y-2 cursor-pointer">
                 <img
@@ -789,9 +785,9 @@ const page = () => {
                   )}
                 </p>
               </div>
-            </div>
+            </div> */}
             {/* tranxId */}
-            {paymentMethod !== "cash" && (
+            {/* {paymentMethod !== "cash" && (
               <div className="flex items-center justify-between">
                 <label htmlFor="transaction-id">Transaction Number</label>
                 <input
@@ -803,7 +799,7 @@ const page = () => {
                   placeholder="enter transaction number"
                 />
               </div>
-            )}
+            )} */}
             {/* // Inside your component, add the payment date section */}
             <div className="flex items-center justify-between mt-5">
               <label htmlFor="payment-date">Payment Date</label>

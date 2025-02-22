@@ -104,7 +104,7 @@ const page = () => {
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
                 Payment Method
               </th>
-              <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
+              {/* <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
                 Transaction ID
               </th>
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
@@ -112,7 +112,7 @@ const page = () => {
               </th>
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
                 Money Reciept Picture
-              </th>
+              </th> */}
               <th rowSpan={2} scope="col" className="px-6 py-3 text-center ">
                 Request Date <br /> (yyyy-mm-dd)
               </th>
@@ -177,12 +177,12 @@ const page = () => {
                     </td>
                     <td className="px-6 py-4 text-center">
                       {history?.payment_method}
-                      {history?.payment_method == "bank" && (
+                      {/* {history?.payment_method == "bank" && (
                         <p className="pt-2">Bank Name:FCIC Bank-Branch:ctg</p>
-                      )}
+                      )} */}
                     </td>
 
-                    <td className="px-6 py-4 text-center">
+                    {/* <td className="px-6 py-4 text-center">
                       {history?.transaction_id ? history?.transaction_id : "--"}
                     </td>
                     <td className="px-6 py-4 text-center">
@@ -224,7 +224,7 @@ const page = () => {
                           View
                         </p>
                       </div>
-                    </td>
+                    </td> */}
                     <td className="px-6 py-4 text-center">{history?.date}</td>
                     <td className="px-6 py-4 text-center ">
                       <p

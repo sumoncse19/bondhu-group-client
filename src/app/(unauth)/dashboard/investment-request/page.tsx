@@ -197,27 +197,27 @@ const page = () => {
               >
                 Payment Method
               </th>
-              <th
+              {/* <th
                 rowSpan={2}
                 scope="col"
                 className="px-3 py-3 text-center border-r-2 border-black"
               >
                 Transaction ID
-              </th>
-              <th
+              </th> */}
+              {/* <th
                 rowSpan={2}
                 scope="col"
                 className="px-3 py-3 text-center border-r-2 border-black"
               >
                 Transaction Picture
-              </th>
-              <th
+              </th> */}
+              {/* <th
                 rowSpan={2}
                 scope="col"
                 className="px-3 py-3 text-center border-r-2 border-black"
               >
                 Money Receipt
-              </th>
+              </th> */}
               <th
                 rowSpan={2}
                 scope="col"
@@ -305,15 +305,15 @@ const page = () => {
                     </td>
                     <td className="px-3 py-4 text-center">
                       {history?.payment_method}
-                      {history?.payment_method == "bank" && (
+                      {/* {history?.payment_method == "bank" && (
                         <p className="pt-2">Bank Name:FCIC Bank-Branch:ctg</p>
-                      )}
+                      )} */}
                     </td>
 
-                    <td className="px-3 py-4 text-center">
+                    {/* <td className="px-3 py-4 text-center">
                       {history?.transaction_id}
-                    </td>
-                    <td className="px-3 py-4 text-center  ">
+                    </td> */}
+                    {/* <td className="px-3 py-4 text-center  ">
                       {history?.picture ? (
                         <div className="flex justify-center items-center gap-x-2">
                           <img
@@ -334,8 +334,8 @@ const page = () => {
                       ) : (
                         "--"
                       )}
-                    </td>
-                    <td className="px-3 py-4 text-center ">
+                    </td> */}
+                    {/* <td className="px-3 py-4 text-center ">
                       <div className=" flex justify-center items-center gap-x-2">
                         <img
                           className="w-10 h-10"
@@ -352,7 +352,7 @@ const page = () => {
                           View
                         </p>
                       </div>
-                    </td>
+                    </td> */}
                     <td className="px-3 py-4 text-center">{history?.date}</td>
                     <td className="px-3 py-4 text-center ">
                       <div className="flex items-center gap-3">
